@@ -1,13 +1,13 @@
 
 Get:1 http://security-cdn.debian.org/debian-security stretch/updates InRelease [94.3 kB]
-Get:3 http://security-cdn.debian.org/debian-security stretch/updates/main amd64 Packages [454 kB]
 Ign:2 http://cdn-fastly.deb.debian.org/debian stretch InRelease
-Get:4 http://cdn-fastly.deb.debian.org/debian stretch-updates InRelease [91.0 kB]
-Get:6 http://cdn-fastly.deb.debian.org/debian stretch-updates/main amd64 Packages [5152 B]
+Get:3 http://cdn-fastly.deb.debian.org/debian stretch-updates InRelease [91.0 kB]
+Get:4 http://security-cdn.debian.org/debian-security stretch/updates/main amd64 Packages [454 kB]
 Get:5 http://cdn-fastly.deb.debian.org/debian stretch Release [118 kB]
-Get:7 http://cdn-fastly.deb.debian.org/debian stretch Release.gpg [2434 B]
+Get:6 http://cdn-fastly.deb.debian.org/debian stretch Release.gpg [2434 B]
+Get:7 http://cdn-fastly.deb.debian.org/debian stretch-updates/main amd64 Packages [5152 B]
 Get:8 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 Packages [7089 kB]
-Fetched 7855 kB in 2s (3506 kB/s)
+Fetched 7855 kB in 1s (3993 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -89,7 +89,7 @@ Get:47 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 vim amd64 2:8.
 Get:48 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 gnupg-l10n all 2.1.18-8~deb9u3 [893 kB]
 Get:49 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 publicsuffix all 20181003.1334-0+deb9u1 [104 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 18.3 MB in 1s (17.3 MB/s)
+Fetched 18.3 MB in 2s (8069 kB/s)
 Selecting previously unselected package libassuan0:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 7027 files and directories currently installed.)
 Preparing to unpack .../00-libassuan0_2.4.3-2_amd64.deb ...
@@ -374,13 +374,13 @@ OK
 ## Running `apt-get update` for you...
 
 + apt-get update
-Get:2 https://deb.nodesource.com/node_11.x stretch InRelease [4612 B]
 Hit:1 http://security-cdn.debian.org/debian-security stretch/updates InRelease
-Get:3 https://deb.nodesource.com/node_11.x stretch/main amd64 Packages [762 B]
-Ign:4 http://cdn-fastly.deb.debian.org/debian stretch InRelease
+Get:2 https://deb.nodesource.com/node_11.x stretch InRelease [4612 B]
+Get:4 https://deb.nodesource.com/node_11.x stretch/main amd64 Packages [762 B]
+Ign:3 http://cdn-fastly.deb.debian.org/debian stretch InRelease
 Hit:5 http://cdn-fastly.deb.debian.org/debian stretch-updates InRelease
 Hit:6 http://cdn-fastly.deb.debian.org/debian stretch Release
-Fetched 5374 B in 0s (5823 B/s)
+Fetched 5374 B in 0s (5803 B/s)
 Reading package lists...
 
 ## Run `sudo apt-get install -y nodejs` to install Node.js 11.x and npm
@@ -406,16 +406,16 @@ The following NEW packages will be installed:
 0 upgraded, 8 newly installed, 0 to remove and 8 not upgraded.
 Need to get 19.5 MB of archives.
 After this operation, 89.6 MB of additional disk space will be used.
-Get:1 https://deb.nodesource.com/node_11.x stretch/main amd64 nodejs amd64 11.1.0-1nodesource1 [15.3 MB]
-Get:2 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython2.7-minimal amd64 2.7.13-2+deb9u3 [389 kB]
-Get:3 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python2.7-minimal amd64 2.7.13-2+deb9u3 [1382 kB]
-Get:4 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python-minimal amd64 2.7.13-2 [40.5 kB]
-Get:5 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython2.7-stdlib amd64 2.7.13-2+deb9u3 [1897 kB]
-Get:6 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python2.7 amd64 2.7.13-2+deb9u3 [285 kB]
-Get:7 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython-stdlib amd64 2.7.13-2 [20.0 kB]
-Get:8 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python amd64 2.7.13-2 [154 kB]
+Get:1 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython2.7-minimal amd64 2.7.13-2+deb9u3 [389 kB]
+Get:2 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python2.7-minimal amd64 2.7.13-2+deb9u3 [1382 kB]
+Get:8 https://deb.nodesource.com/node_11.x stretch/main amd64 nodejs amd64 11.1.0-1nodesource1 [15.3 MB]
+Get:3 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python-minimal amd64 2.7.13-2 [40.5 kB]
+Get:4 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython2.7-stdlib amd64 2.7.13-2+deb9u3 [1897 kB]
+Get:5 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python2.7 amd64 2.7.13-2+deb9u3 [285 kB]
+Get:6 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 libpython-stdlib amd64 2.7.13-2 [20.0 kB]
+Get:7 http://cdn-fastly.deb.debian.org/debian stretch/main amd64 python amd64 2.7.13-2 [154 kB]
 debconf: delaying package configuration, since apt-utils is not installed
-Fetched 19.5 MB in 0s (20.0 MB/s)
+Fetched 19.5 MB in 1s (16.6 MB/s)
 Selecting previously unselected package libpython2.7-minimal:amd64.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 10835 files and directories currently installed.)
 Preparing to unpack .../0-libpython2.7-minimal_2.7.13-2+deb9u3_amd64.deb ...
@@ -457,7 +457,7 @@ npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/@an
 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
 
 + @angular/cli@7.0.5
-added 268 packages from 205 contributors in 13.117s
+added 268 packages from 205 contributors in 13.526s
 
 > node-sass@4.9.3 install /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
 > node scripts/install.js
@@ -899,7 +899,7 @@ npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 (node_modules/@a
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 postinstall: `node scripts/build.js`
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
 
-added 1089 packages from 1162 contributors and audited 39657 packages in 25.836s
+added 1089 packages from 1162 contributors and audited 39657 packages in 24.728s
 found 0 vulnerabilities
 
 
@@ -1022,238 +1022,6 @@ npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 postinstall: `no
 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
 
 + node-sass@4.10.0
-updated 1 package and audited 39657 packages in 9.798s
-found 0 vulnerabilities
-
-/usr/bin/ng -> /usr/lib/node_modules/@angular/cli/bin/ng
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/@angular/cli/node_modules/fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
-
-+ @angular/cli@7.0.5
-updated 1 package in 3.066s
-
-> node-sass@4.9.3 install /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-> node scripts/install.js
-
-Downloading binary from https://github.com/sass/node-sass/releases/download/v4.9.3/linux-x64-67_binding.node
-Cannot download "https://github.com/sass/node-sass/releases/download/v4.9.3/linux-x64-67_binding.node": 
-
-HTTP error 404 Not Found
-
-Hint: If github.com is not accessible in your location
-      try setting a proxy via HTTP_PROXY, e.g. 
-
-      export HTTP_PROXY=http://example.com:1234
-
-or configure npm proxy via
-
-      npm config set proxy http://example.com:8080
-
-> node-sass@4.9.3 postinstall /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-> node scripts/build.js
-
-Building: /usr/bin/node /code/node_modules/node-gyp/bin/node-gyp.js rebuild --verbose --libsass_ext= --libsass_cflags= --libsass_ldflags= --libsass_library=
-gyp info it worked if it ends with ok
-gyp verb cli [ '/usr/bin/node',
-gyp verb cli   '/code/node_modules/node-gyp/bin/node-gyp.js',
-gyp verb cli   'rebuild',
-gyp verb cli   '--verbose',
-gyp verb cli   '--libsass_ext=',
-gyp verb cli   '--libsass_cflags=',
-gyp verb cli   '--libsass_ldflags=',
-gyp verb cli   '--libsass_library=' ]
-gyp info using node-gyp@3.8.0
-gyp info using node@11.1.0 | linux | x64
-gyp verb command rebuild []
-gyp verb command clean []
-gyp verb clean removing "build" directory
-gyp verb command configure []
-gyp verb check python checking for Python executable "python2" in the PATH
-gyp verb `which` succeeded python2 /usr/bin/python2
-gyp verb check python version `/usr/bin/python2 -c "import sys; print "2.7.13
-gyp verb check python version .%s.%s" % sys.version_info[:3];"` returned: %j
-gyp verb get node dir no --target version specified, falling back to host node version: 11.1.0
-gyp verb command install [ '11.1.0' ]
-gyp verb install input version string "11.1.0"
-gyp verb install installing version: 11.1.0
-gyp verb install --ensure was passed, so won't reinstall if already installed
-gyp verb install version is already installed, need to check "installVersion"
-gyp verb got "installVersion" 9
-gyp verb needs "installVersion" 9
-gyp verb install version is good
-gyp verb get node dir target node version installed: 11.1.0
-gyp verb build dir attempting to create "build" dir: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build
-gyp verb build dir "build" dir needed to be created? /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build
-gyp verb build/config.gypi creating config file
-gyp verb build/config.gypi writing out config file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build/config.gypi
-gyp verb config.gypi checking for gypi file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/config.gypi
-gyp verb common.gypi checking for gypi file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/common.gypi
-gyp verb gyp gyp format was not specified; forcing "make"
-gyp info spawn /usr/bin/python2
-gyp info spawn args [ '/code/node_modules/node-gyp/gyp/gyp_main.py',
-gyp info spawn args   'binding.gyp',
-gyp info spawn args   '-f',
-gyp info spawn args   'make',
-gyp info spawn args   '-I',
-gyp info spawn args   '/code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build/config.gypi',
-gyp info spawn args   '-I',
-gyp info spawn args   '/code/node_modules/node-gyp/addon.gypi',
-gyp info spawn args   '-I',
-gyp info spawn args   '/root/.node-gyp/11.1.0/include/node/common.gypi',
-gyp info spawn args   '-Dlibrary=shared_library',
-gyp info spawn args   '-Dvisibility=default',
-gyp info spawn args   '-Dnode_root_dir=/root/.node-gyp/11.1.0',
-gyp info spawn args   '-Dnode_gyp_dir=/code/node_modules/node-gyp',
-gyp info spawn args   '-Dnode_lib_file=/root/.node-gyp/11.1.0/<(target_arch)/node.lib',
-gyp info spawn args   '-Dmodule_root_dir=/code/node_modules/@angular-devkit/build-angular/node_modules/node-sass',
-gyp info spawn args   '-Dnode_engine=v8',
-gyp info spawn args   '--depth=.',
-gyp info spawn args   '--no-parallel',
-gyp info spawn args   '--generator-output',
-gyp info spawn args   'build',
-gyp info spawn args   '-Goutput_dir=.' ]
-gyp verb command build []
-gyp verb build type Release
-gyp verb architecture x64
-gyp verb node dev dir /root/.node-gyp/11.1.0
-gyp ERR! build error 
-gyp ERR! stack Error: not found: make
-gyp ERR! stack     at getNotFoundError (/code/node_modules/which/which.js:13:12)
-gyp ERR! stack     at F (/code/node_modules/which/which.js:68:19)
-gyp ERR! stack     at E (/code/node_modules/which/which.js:80:29)
-gyp ERR! stack     at /code/node_modules/which/which.js:89:16
-gyp ERR! stack     at /code/node_modules/isexe/index.js:42:5
-gyp ERR! stack     at /code/node_modules/isexe/mode.js:8:5
-gyp ERR! stack     at FSReqCallback.oncomplete (fs.js:161:21)
-gyp ERR! System Linux 4.15.0-29-generic
-gyp ERR! command "/usr/bin/node" "/code/node_modules/node-gyp/bin/node-gyp.js" "rebuild" "--verbose" "--libsass_ext=" "--libsass_cflags=" "--libsass_ldflags=" "--libsass_library="
-gyp ERR! cwd /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-gyp ERR! node -v v11.1.0
-gyp ERR! node-gyp -v v3.8.0
-gyp ERR! not ok 
-Build failed with error code: 1
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 (node_modules/@angular-devkit/build-angular/node_modules/node-sass):
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 postinstall: `node scripts/build.js`
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
-
-audited 39657 packages in 8.602s
-found 0 vulnerabilities
-
-/usr/bin/ng -> /usr/lib/node_modules/@angular/cli/bin/ng
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/@angular/cli/node_modules/fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
-
-+ @angular/cli@7.0.5
-updated 1 package in 3.804s
-
-> node-sass@4.9.3 install /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-> node scripts/install.js
-
-Downloading binary from https://github.com/sass/node-sass/releases/download/v4.9.3/linux-x64-67_binding.node
-Cannot download "https://github.com/sass/node-sass/releases/download/v4.9.3/linux-x64-67_binding.node": 
-
-HTTP error 404 Not Found
-
-Hint: If github.com is not accessible in your location
-      try setting a proxy via HTTP_PROXY, e.g. 
-
-      export HTTP_PROXY=http://example.com:1234
-
-or configure npm proxy via
-
-      npm config set proxy http://example.com:8080
-
-> node-sass@4.9.3 postinstall /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-> node scripts/build.js
-
-Building: /usr/bin/node /code/node_modules/node-gyp/bin/node-gyp.js rebuild --verbose --libsass_ext= --libsass_cflags= --libsass_ldflags= --libsass_library=
-gyp info it worked if it ends with ok
-gyp verb cli [ '/usr/bin/node',
-gyp verb cli   '/code/node_modules/node-gyp/bin/node-gyp.js',
-gyp verb cli   'rebuild',
-gyp verb cli   '--verbose',
-gyp verb cli   '--libsass_ext=',
-gyp verb cli   '--libsass_cflags=',
-gyp verb cli   '--libsass_ldflags=',
-gyp verb cli   '--libsass_library=' ]
-gyp info using node-gyp@3.8.0
-gyp info using node@11.1.0 | linux | x64
-gyp verb command rebuild []
-gyp verb command clean []
-gyp verb clean removing "build" directory
-gyp verb command configure []
-gyp verb check python checking for Python executable "python2" in the PATH
-gyp verb `which` succeeded python2 /usr/bin/python2
-gyp verb check python version `/usr/bin/python2 -c "import sys; print "2.7.13
-gyp verb check python version .%s.%s" % sys.version_info[:3];"` returned: %j
-gyp verb get node dir no --target version specified, falling back to host node version: 11.1.0
-gyp verb command install [ '11.1.0' ]
-gyp verb install input version string "11.1.0"
-gyp verb install installing version: 11.1.0
-gyp verb install --ensure was passed, so won't reinstall if already installed
-gyp verb install version is already installed, need to check "installVersion"
-gyp verb got "installVersion" 9
-gyp verb needs "installVersion" 9
-gyp verb install version is good
-gyp verb get node dir target node version installed: 11.1.0
-gyp verb build dir attempting to create "build" dir: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build
-gyp verb build dir "build" dir needed to be created? /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build
-gyp verb build/config.gypi creating config file
-gyp verb build/config.gypi writing out config file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build/config.gypi
-gyp verb config.gypi checking for gypi file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/config.gypi
-gyp verb common.gypi checking for gypi file: /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/common.gypi
-gyp verb gyp gyp format was not specified; forcing "make"
-gyp info spawn /usr/bin/python2
-gyp info spawn args [ '/code/node_modules/node-gyp/gyp/gyp_main.py',
-gyp info spawn args   'binding.gyp',
-gyp info spawn args   '-f',
-gyp info spawn args   'make',
-gyp info spawn args   '-I',
-gyp info spawn args   '/code/node_modules/@angular-devkit/build-angular/node_modules/node-sass/build/config.gypi',
-gyp info spawn args   '-I',
-gyp info spawn args   '/code/node_modules/node-gyp/addon.gypi',
-gyp info spawn args   '-I',
-gyp info spawn args   '/root/.node-gyp/11.1.0/include/node/common.gypi',
-gyp info spawn args   '-Dlibrary=shared_library',
-gyp info spawn args   '-Dvisibility=default',
-gyp info spawn args   '-Dnode_root_dir=/root/.node-gyp/11.1.0',
-gyp info spawn args   '-Dnode_gyp_dir=/code/node_modules/node-gyp',
-gyp info spawn args   '-Dnode_lib_file=/root/.node-gyp/11.1.0/<(target_arch)/node.lib',
-gyp info spawn args   '-Dmodule_root_dir=/code/node_modules/@angular-devkit/build-angular/node_modules/node-sass',
-gyp info spawn args   '-Dnode_engine=v8',
-gyp info spawn args   '--depth=.',
-gyp info spawn args   '--no-parallel',
-gyp info spawn args   '--generator-output',
-gyp info spawn args   'build',
-gyp info spawn args   '-Goutput_dir=.' ]
-gyp verb command build []
-gyp verb build type Release
-gyp verb architecture x64
-gyp verb node dev dir /root/.node-gyp/11.1.0
-gyp ERR! build error 
-gyp ERR! stack Error: not found: make
-gyp ERR! stack     at getNotFoundError (/code/node_modules/which/which.js:13:12)
-gyp ERR! stack     at F (/code/node_modules/which/which.js:68:19)
-gyp ERR! stack     at E (/code/node_modules/which/which.js:80:29)
-gyp ERR! stack     at /code/node_modules/which/which.js:89:16
-gyp ERR! stack     at /code/node_modules/isexe/index.js:42:5
-gyp ERR! stack     at /code/node_modules/isexe/mode.js:8:5
-gyp ERR! stack     at FSReqCallback.oncomplete (fs.js:161:21)
-gyp ERR! System Linux 4.15.0-29-generic
-gyp ERR! command "/usr/bin/node" "/code/node_modules/node-gyp/bin/node-gyp.js" "rebuild" "--verbose" "--libsass_ext=" "--libsass_cflags=" "--libsass_ldflags=" "--libsass_library="
-gyp ERR! cwd /code/node_modules/@angular-devkit/build-angular/node_modules/node-sass
-gyp ERR! node -v v11.1.0
-gyp ERR! node-gyp -v v3.8.0
-gyp ERR! not ok 
-Build failed with error code: 1
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.4 (node_modules/fsevents):
-npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.2.4: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 (node_modules/@angular-devkit/build-angular/node_modules/node-sass):
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: node-sass@4.9.3 postinstall: `node scripts/build.js`
-npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
-
-audited 39657 packages in 11.439s
+updated 1 package and audited 39657 packages in 9.329s
 found 0 vulnerabilities
 
