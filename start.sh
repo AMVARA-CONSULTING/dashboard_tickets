@@ -7,7 +7,7 @@ echo -e "\e[37mUpdating packages...\e[0m"
 apt-get update >> output.log 2>&1
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[37mInstalling some useful packages...\e[0m"
-apt-get install -y vim nano curl gnupg2 >> output.log 2>&1
+apt-get install -y vim nano git curl gnupg2 >> output.log 2>&1
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[37mInstalling NodeJS & NPM...\e[0m"
 curl -sL https://deb.nodesource.com/setup_11.x | bash - >> output.log 2>&1
