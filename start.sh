@@ -23,11 +23,11 @@ echo -e "\e[32mOK\e[0m"
 if ! [ -f /code/dist/index.html ]; then
   echo -e "\e[95mBuild files not found :(\e[0m"
   echo -e "\e[37mCompiling...\e[0m"
-  ng build --prod --aot --build-optimizer
+  ng build --prod --aot --build-optimizer >> output.log 2>&1
   echo -e "\e[32mDone\e[0m"
 fi
 echo -e "\e[37mCopying files to public folder...\e[0m"
-cp -a /code/dist/. /usr/share/nginx/html/
+cp -a /code/dist/. /usr/share/nginx/html/ >> output.log 2>&1
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[32mSuccessful\e[0m"
 nginx -g 'daemon off;'
