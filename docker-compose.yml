@@ -1,13 +1,12 @@
 version: "3"
 services:
   nginx:
-    image: "ubuntu:latest"
+    image: "nginx:latest"
     container_name: cism_front
     volumes:
-      - ./dist:/usr/share/nginx/html
       - ./:/code
       - ./default.conf:/etc/nginx/conf.d/default.conf
     working_dir: /code
     ports:
       - "9000:80"
-    command: sh /code/start.sh
+    command: bash /code/start.sh
