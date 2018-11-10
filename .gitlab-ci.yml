@@ -4,4 +4,4 @@ pages:
   stage: deploy
   script:
   - echo $USER
-  - docker exec -it cism_front /code/update.sh
+  - sudo docker exec -it cism_front /code/update.sh
