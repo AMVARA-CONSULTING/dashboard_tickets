@@ -1,0 +1,36 @@
+
+@import '../../../common/colors';
+
+:host {
+    padding: 40px;
+    display: block;
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: calc(100% - 80px);
+        height: 1px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        background-color: rgba(white, .05);
+    }
+}
+
+span {
+    display: inline-block;
+    font-size: 1.2rem;
+    &:last-of-type{
+        margin-left: 5px;
+        color: $blue;
+    }
+}
+
+cism-menu-icon {
+    position: absolute;
+    right: 40px;
+    top: 0;
+    margin: auto;
+    bottom: 0;
+}

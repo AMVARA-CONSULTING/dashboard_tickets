@@ -1,0 +1,43 @@
+
+// Main colors
+$bg-color: #111111;
+$semi-white: rgba(white, .85);
+$semi-black-1: lighten($bg-color, 5);
+$semi-black-2: lighten($bg-color, 8);
+$header-box: $semi-black-1;
+$content-box: $semi-black-2;
+
+// Colors
+$blue: #177B93;
+
+
+// Mixins
+
+$trigger: 700px;
+
+@mixin ie {
+	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		@content;
+	}
+}
+
+@mixin edge {
+    @supports (-ms-accelerator:true) {
+        @content;
+    }
+    @supports (-ms-ime-align:auto) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $trigger) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (max-width: $trigger) {
+        @content;
+    }
+}

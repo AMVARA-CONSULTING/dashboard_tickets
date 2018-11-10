@@ -1,1 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './app/common/colors';
+
+@font-face {
+    font-family: CorpoS;
+    src: url(/assets/fonts/c063003t.ttf) format('truetype');
+}
+  
+@font-face {
+    font-family: CorpoSDem;
+    src: url(/assets/fonts/c063004t.ttf) format('truetype');
+}
+  
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: 'CorpoS';
+        src: url(/assets/fonts/c063003t.svg) format('svg');
+    }
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    @include mobile {
+        height: auto;
+        width: auto;
+        overflow: initial;
+    }
+    background-color: $bg-color;
+    color: $semi-white;
+    font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+    font-size: 13px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+app-root {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
