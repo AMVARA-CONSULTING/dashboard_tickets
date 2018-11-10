@@ -11,8 +11,7 @@ echo -e "\e[32mOK\e[0m"
 echo -e "\e[37mCompiling...\e[0m"
 ng build --prod --aot --build-optimizer
 echo -e "\e[32mOK\e[0m"
-echo -e "\e[37mLinking files to public folder...\e[0m"
-rm -rf /usr/share/nginx/html
-ln -s /code/dist /usr/share/nginx/html
+echo -e "\e[37mCopying files to public folder...\e[0m"
+cp -a /code/dist/. /usr/share/nginx/html/
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[32mSuccessful\e[0m"
