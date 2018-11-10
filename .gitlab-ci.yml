@@ -4,4 +4,4 @@ pages:
   stage: deploy
   script:
   - echo $USER
-  - ssh root@cometa.amvara.de docker exec -it cism_front /code/update.sh
+  - ssh root@cometa.amvara.de docker exec cism_front /code/update.sh
