@@ -1,4 +1,10 @@
 #!/bin/bash
+# #########################################
+# AMVARA CONSULTING S.L. - 2018
+# #########################################
+# Changelog:
+# 2018-11-12 ABA First version
+# #########################################
 echo -e "\e[37mStartup cleanup...\e[0m"
 echo "" > output.log 2>&1
 rm -rf /code/node_modules/ >> output.log 2>&1
