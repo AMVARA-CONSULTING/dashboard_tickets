@@ -1,4 +1,10 @@
 #!/bin/bash
+# #########################################
+# AMVARA CONSULTING S.L. - 2018
+# #########################################
+# Changelog:
+# 2018-11-12 ABA First version
+# #########################################
 echo -e "\e[37mRetrieving last pull...\e[0m"
 git reset --hard origin/master
 echo -e "\e[32mDone\e[0m"
