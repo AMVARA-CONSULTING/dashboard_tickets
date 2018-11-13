@@ -1,4 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import '~@angular/material/theming';
+@include mat-core();
+$cism-primary: mat-palette($mat-grey, 400);
+$cism-accent: mat-palette($mat-blue, 300);
+$cism-warn: mat-palette($mat-red);
+$cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
+@include angular-material-theme($cism-theme);
 
 @import './app/common/colors';
 
@@ -45,3 +52,4 @@ app-root {
     height: 100%;
     width: 100%;
 }
+html, body { height: 100%; }
