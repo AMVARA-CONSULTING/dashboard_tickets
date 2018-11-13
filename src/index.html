@@ -13,6 +13,25 @@
 <body>
   <cism-root  >
     <style>
+      @font-face {
+          font-family: CorpoS;
+          src: url(/assets/fonts/c063003t.ttf) format('truetype');
+      }
+        
+      @font-face {
+          font-family: CorpoSDem;
+          src: url(/assets/fonts/c063004t.ttf) format('truetype');
+      }
+        
+      @media screen and (-webkit-min-device-pixel-ratio:0) {
+          @font-face {
+              font-family: 'CorpoS';
+              src: url(/assets/fonts/c063003t.svg) format('svg');
+          }
+      }
+      body{
+        font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+      }
       .img{
         width: 100px;
         height: 100px;
@@ -42,6 +61,7 @@
         top: 65px;
         bottom: 0px;
         margin: auto;
+        
       }
       .footer{
         background-color: black;
