@@ -29,7 +29,6 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 body, html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
     @include mobile {
         height: auto;
         width: auto;
