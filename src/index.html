@@ -9,6 +9,119 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-  <cism-root></cism-root>
+  <cism-root  >
+    <style>
+      .img{
+        width: 100px;
+        height: 100px;
+        background-image: url("./assets/img/Datec24_logo1.svg");
+        background-repeat: no-repeat;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 160px;
+        margin: auto;
+      }
+      .blue{
+        color: #177b93
+      }
+      
+      .name{
+        width: 100%;
+        text-align: center;
+        height: 60px;
+        padding-top: 20px;
+        color: white;
+        font-size: 1.7em;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 65px;
+        bottom: 0px;
+        margin: auto;
+      }
+      .footer{
+        background-color: black;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 55px;
+        color: rgba(255,255,255,.7);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 20px;
+        font-size: 1.1em
+      }
+      .left{
+        width: 100px;
+        flex: 1;
+        text-align: right;
+        display: none
+      }
+      .center{
+        text-align: center;
+        width: 300px;
+        left: 0;
+        right: 0;
+        flex: 1;
+
+      }
+      .right{
+        flex: 1;
+        display: none
+      }
+     
+      @media (min-width: 1300px){
+        .left{
+          display: block
+        }
+        .right{
+          display: block
+        }
+        .name{
+          font-size: 2.5em;;
+        }
+        .img{
+          width: 150px;
+          height: 150px;
+          bottom: 230px;
+        }
+        .footer{
+        background-color: black;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 55px;
+        color: rgba(255,255,255,.7);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 20px;
+        font-size: 1.1em
+
+      }
+      }
+    </style>
+    <div class="main">
+      <div class="img"></div>
+      <div class="name">Daimler <b class="blue">Reporting@IWM</b></div>
+    </div>
+    <div class="footer">
+      <div class="right">Daimler. IWM</div>
+      <div class="center">
+        CISM Reporting contains confidential information!
+      </div >
+        <div class="left">
+        loremipsum@daimler.com
+        </div>
+      
+        
+    
+    </div>
+  </cism-root>
 </body>
 </html>
