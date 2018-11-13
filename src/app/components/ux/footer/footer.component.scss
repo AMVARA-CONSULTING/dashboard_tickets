@@ -6,8 +6,13 @@
   left: 0;
   height: 55px;
   background-color: rgba(black, .9);
+  padding: 5px 20px;
 }
 
 .flexed {
   flex: 1;
+}
+
+.version {
+  text-align: right;
 }
