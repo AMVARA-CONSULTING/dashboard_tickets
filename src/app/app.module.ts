@@ -6,6 +6,7 @@ import { AppComponent } from './components/app/app.component';
 import { HeaderComponent } from './components/ux/header/header.component';
 import { FooterComponent } from './components/ux/footer/footer.component';
 import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.co
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
