@@ -19,13 +19,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { ConfigService } from './services/config.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HelpComponent } from './components/pages/help/help.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     MenuIconComponent,
-    AboutComponent
+    AboutComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
