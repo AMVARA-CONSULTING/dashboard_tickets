@@ -14,10 +14,10 @@
         <button matTooltip="Useful when the language files are cached and a refresh is needed." matTooltipPosition="after"
           matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{ 'reloadLanguageFiles' }}</button>
       </p>
-      <mat-slide-toggle (ngModelChange)="save($event)" [(ngModel)]="config.config.negativeBad">Negative Delta should be
+      <mat-slide-toggle  [(ngModel)]="config.config.negativeBad">Negative Delta should be
         bad ?</mat-slide-toggle>
       <div class="separator"></div>
-      <mat-slide-toggle (ngModelChange)="saveScrollItems($event)" [(ngModel)]="config.config.infiniteScroll">Infinite
+      <mat-slide-toggle  [(ngModel)]="config.config.infiniteScroll">Infinite
         Scroll on item lists</mat-slide-toggle>
       <p style="cursor: pointer;" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
       <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>
