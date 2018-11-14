@@ -13,3 +13,8 @@ export interface Config {
   negativeBad: boolean | number;
   [propName: string]: any;
 }
+export interface ContactInfo {
+  name: string,
+  description: string,
+  telephone: string
+}

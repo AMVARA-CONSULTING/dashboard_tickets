@@ -11,28 +11,30 @@
 </head>
 
 <body>
-  <cism-root  >
+  <cism-root>
     <style>
       @font-face {
-          font-family: CorpoS;
-          src: url(/assets/fonts/c063003t.ttf) format('truetype');
+        font-family: CorpoS;
+        src: url(/assets/fonts/c063003t.ttf) format('truetype');
       }
-        
+
       @font-face {
-          font-family: CorpoSDem;
-          src: url(/assets/fonts/c063004t.ttf) format('truetype');
+        font-family: CorpoSDem;
+        src: url(/assets/fonts/c063004t.ttf) format('truetype');
       }
-        
+
       @media screen and (-webkit-min-device-pixel-ratio:0) {
-          @font-face {
-              font-family: 'CorpoS';
-              src: url(/assets/fonts/c063003t.svg) format('svg');
-          }
+        @font-face {
+          font-family: 'CorpoS';
+          src: url(/assets/fonts/c063003t.svg) format('svg');
+        }
       }
-      body{
+
+      body {
         font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
       }
-      .img{
+
+      .img {
         width: 100px;
         height: 100px;
         background-image: url("./assets/img/Datec24_logo1.svg");
@@ -44,11 +46,12 @@
         bottom: 160px;
         margin: auto;
       }
-      .blue{
+
+      .blue {
         color: #177b93
       }
-      
-      .name{
+
+      .name {
         width: 100%;
         text-align: center;
         height: 60px;
@@ -61,15 +64,16 @@
         top: 65px;
         bottom: 0px;
         margin: auto;
-        
+
       }
-      .footer{
+
+      .footer {
         background-color: black;
         position: fixed;
         bottom: 0;
         width: 100%;
         height: 55px;
-        color: rgba(255,255,255,.7);
+        color: rgba(255, 255, 255, .7);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -77,13 +81,15 @@
         padding: 0px 20px;
         font-size: 1.1em
       }
-      .left{
+
+      .left {
         width: 100px;
         flex: 1;
         text-align: right;
         display: none
       }
-      .center{
+
+      .center {
         text-align: center;
         width: 300px;
         left: 0;
@@ -91,41 +97,46 @@
         flex: 1;
 
       }
-      .right{
+
+      .right {
         flex: 1;
         display: none
       }
-     
-      @media (min-width: 1300px){
-        .left{
+
+      @media (min-width: 1300px) {
+        .left {
           display: block
         }
-        .right{
+
+        .right {
           display: block
         }
-        .name{
-          font-size: 2.5em;;
+
+        .name {
+          font-size: 2.5em;
+          ;
         }
-        .img{
+
+        .img {
           width: 150px;
           height: 150px;
           bottom: 230px;
         }
-        .footer{
-        background-color: black;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 55px;
-        color: rgba(255,255,255,.7);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0px 20px;
-        font-size: 1.1em
 
-      }
+        .footer {
+          background-color: black;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 55px;
+          color: rgba(255, 255, 255, .7);
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 20px;
+          font-size: 1.1em
+        }
       }
     </style>
     <div class="main">
@@ -136,13 +147,13 @@
       <div class="right">Daimler. IWM</div>
       <div class="center">
         CISM Reporting contains confidential information!
-      </div >
-        <div class="left">
+      </div>
+      <div class="left">
         loremipsum@daimler.com
-        </div>
-      
-        
-    
+      </div>
+
+
+
     </div>
   </cism-root>
 </body>

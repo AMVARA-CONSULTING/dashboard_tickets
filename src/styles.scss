@@ -8,6 +8,7 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 @include angular-material-theme($cism-theme);
 
 @import './app/common/colors';
+@import './app/common/breakpoints';
 
 @font-face {
     font-family: CorpoS;
@@ -29,7 +30,6 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 body, html {
     height: 100%;
     width: 100%;
-    overflow: hidden;
     @include mobile {
         height: auto;
         width: auto;
@@ -66,8 +66,42 @@ html, body { height: 100%; }
     color: white
 }
 .mat-expansion-indicator::after{
-    color: white;
+    color: $blue;
 }
 .mat-expansion-panel:not([class*='mat-elevation-z']){
-box-shadow: 0px 3px 1px -2px rgba(255, 255, 255, .2);
+box-shadow: 0px 3px 1px -2px $blue;
+}
+.mat-raised-button{
+    background-color: $blue;
+    border: $semi-white;
+    color: $semi-white;
+}
+.mat-expansion-panel-body  a{
+    color: $blue;
+    text-decoration: none;
+}
+.mat-tooltip {
+    font-size: 1em;
+    background-color: $semi-black-2;
+}
+.enabled::before{
+    content: '';
+    margin: 0px 9px;
+    background-color: #43a047;
+    width: 8px;
+    height: 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+.disabled::before{
+    content: '';
+    margin-right: 4px;
+    background-color: red;
+    width: 8px;
+    height: 8px;
+    border-radius: 20px;
+    display: inline-block;
+}
+.software ul {
+    list-style: none;
 }

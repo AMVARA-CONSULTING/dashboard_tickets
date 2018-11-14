@@ -1,0 +1,10 @@
+
+@import '../../common/colors';
+
+:host {
+  display: block;
+  width: 100%;
+  height: 45px;
+  background-color: $semi-black-1;
+  border-radius: 7px;
+}
