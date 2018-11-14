@@ -1,0 +1,27 @@
+
+@import '../../../common/colors';
+
+:host {
+  display: block;
+  height: calc(100% - 170px);
+  width: 100%;
+  margin-top: 50px;
+  @include tablet {
+    height: 300px;
+  }
+  @include mobile {
+    display: none;
+  }
+}
+
+::ng-deep text {
+  fill: rgba($semi-white,.4);
+}
+
+::ng-deep .ngx-charts .gridline-path {
+  stroke: rgba($semi-white,.2) !important;
+}
+
+::ng-deep [ngx-charts-y-axis-ticks] g:nth-child(2) {
+  stroke: rgba($semi-white,.1) !important;
+}

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '@services/data.service';
+import { MatRipple } from '@angular/material/core';
 
 @Component({
   selector: 'cism-main',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public data: DataService
+  ) { }
 
   ngOnInit() {
   }
+
+  rippleColor: string = 'rgba(255,255,255,.08)'
 
 }

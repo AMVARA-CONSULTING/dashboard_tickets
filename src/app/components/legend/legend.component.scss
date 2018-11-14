@@ -1,0 +1,17 @@
+
+@import '../../common/colors';
+
+.legend-title {
+  text-transform: uppercase;
+  display: inline-block;
+  align-self: flex-end;
+}
+
+:host {
+  height: 70px;
+  font-size: 1.1rem;
+  display: flex;
+  @include mobile {
+    display: none;
+  }
+}

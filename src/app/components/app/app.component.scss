@@ -3,4 +3,10 @@
 
 .wrapper {
     padding: 40px;
+    @include mobile {
+        margin-bottom: 50px;
+    }
+    @include tablet {
+        margin-bottom: 50px;
+    }
 }

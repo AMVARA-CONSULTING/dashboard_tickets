@@ -14,6 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -37,13 +38,16 @@ import { MomentModule } from 'ngx-moment';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StackedComponent } from './components/graphics/stacked/stacked.component';
+import { ReportsService } from '@services/reports.service';
+import { StadisticBoxComponent } from './components/stadistic-box/stadistic-box.component';
+import { LegendComponent } from './components/legend/legend.component';
+import { ColorComponent } from './components/legend/color/color.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
-
 
 @NgModule({
   declarations: [
@@ -54,7 +58,11 @@ export function createTranslateLoader(http: HttpClient) {
     AboutComponent,
     MainComponent,
     MonthSelectorComponent,
-    OverallBoxComponent
+    OverallBoxComponent,
+    StackedComponent,
+    StadisticBoxComponent,
+    LegendComponent,
+    ColorComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatRippleModule,
     FormsModule,
     HttpClientModule,
     MomentModule,
@@ -84,6 +93,13 @@ export function createTranslateLoader(http: HttpClient) {
     ConfigService,
     DataService,
     TranslateService,
+    ReportsService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (reportsService: ReportsService) => () => reportsService.loadInitialReport(),
+      deps: [ReportsService, DataService],
+      multi: true,
+    },
     {
       // This loads the config.json file before the App is initialized
       provide: APP_INITIALIZER,
