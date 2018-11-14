@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // Angular Material
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -26,12 +26,23 @@ import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.co
 import { AboutComponent } from './components/pages/about/about.component';
 import { MainComponent } from './components/pages/main/main.component';
 import { MonthSelectorComponent } from './components/month-selector/month-selector.component';
+import { OverallBoxComponent } from './components/overall-box/overall-box.component'
 
 // Services
 import { ConfigService } from './services/config.service';
 import { DataService } from './services/data.service';
 
 // Plugins
+import { MomentModule } from 'ngx-moment';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+// AoT requires an exported function for factories
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 
 @NgModule({
@@ -42,7 +53,8 @@ import { DataService } from './services/data.service';
     MenuIconComponent,
     AboutComponent,
     MainComponent,
-    MonthSelectorComponent
+    MonthSelectorComponent,
+    OverallBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +62,7 @@ import { DataService } from './services/data.service';
     BrowserAnimationsModule,
     MatExpansionModule,
     NgxJsonViewerModule,
+    NgxChartsModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatTooltipModule,
@@ -57,7 +70,15 @@ import { DataService } from './services/data.service';
     MatSelectModule,
     MatButtonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     ConfigService,

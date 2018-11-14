@@ -39,6 +39,7 @@ body, html {
     color: $semi-white;
     font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
     font-size: 13px;
+    color: $semi-white;
 }
 
 * {
@@ -70,4 +71,31 @@ html, body { height: 100%; }
 }
 .mat-expansion-panel:not([class*='mat-elevation-z']){
 box-shadow: 0px 3px 1px -2px rgba(255, 255, 255, .2);
+}
+
+.mat-select-panel {
+    background: $semi-black-2;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $blue;
+}
+
+::-webkit-scrollbar-track {
+    background-color: $bg-color;
+}
+
+.mat-select-panel::-webkit-scrollbar-track {
+    background-color: $semi-black-2;
+}
+
+.mat-option {
+    color: $semi-white;
+    font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+    font-size: 1.3rem !important;
 }

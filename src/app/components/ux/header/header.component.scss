@@ -2,7 +2,7 @@
 @import '../../../common/colors';
 
 :host {
-    padding: 40px;
+    padding: 30px 40px;
     display: block;
     position: relative;
     &:after {
@@ -20,7 +20,7 @@
 
 span {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 2rem;
     &:last-of-type{
         margin-left: 5px;
         color: $blue;
