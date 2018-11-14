@@ -10,3 +10,23 @@
 ::ng-deep .mat-select-value-text {
     color: $blue;
 }
+::ng-deep .mat-select-arrow{
+    color: $blue;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    background-color: $blue;
+}
+::ng-deep .mat-form-field.mat-focused .mat-select-value-text {
+    color: white;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-left: 1em;
+}
+
+::ng-deep .mat-expansion-panel-header {
+    border-bottom: 1px solid $blue;
+    margin-bottom: 1px;
+}
+::ng-deep .mat-expansion-panel:not([class*='mat-elevation-z']){
+    box-shadow: none;
+}
