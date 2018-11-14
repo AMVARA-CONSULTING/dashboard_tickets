@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'cism-overall-box',
@@ -7,11 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class OverallBoxComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private data: DataService
+  ) {
+    this.total = this.data.initialRows.filter(row => row[0] == 'BYPRIORITY').reduce((r, a) => r + parseInt(a[3].toString().replace('.', ''), 10), 0).toLocaleString()
+  }
 
   ngOnInit() {
   }
 
-  @Input() total: number = 0
+  total: number | string = 0
 
 }

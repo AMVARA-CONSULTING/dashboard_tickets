@@ -26,7 +26,7 @@ export class ReportsService {
           })
           rows.shift()
           rows.pop()
-          this.data.initialRows = rows.filter(row => row[0] != 'x')
+          this.data.initialRows = rows.filter(row => row[0] != 'Report Target')
           console.log(this.data.initialRows)
           resolve()
           obs.unsubscribe()
@@ -37,7 +37,7 @@ export class ReportsService {
   }
 
   getInitialReport(): Observable<any> {
-    return this.http.get('assets/reports/Mobile_Ticket_L1.csv', {
+    return this.http.get('assets/reports/Mobile_Overview.csv', {
       responseType: 'text'
     })
   }

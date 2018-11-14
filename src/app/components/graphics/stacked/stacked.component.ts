@@ -28,16 +28,16 @@ export class StackedComponent implements OnInit, OnChanges {
   @Input() prefix: string[] = []
 
   ngOnChanges(changes: SimpleChanges) {
-    const newData = changes.data.currentValue.filter(row => row[0] == 'graphic')
+    const newData = changes.data.currentValue.filter(row => row[0] == 'BARCHART')
     const length = newData.length
     const series = []
     for (let i = 0; i < length; i++) {
       series.push({
-        'name': moment(newData[i][1], 'DD.MM.YYYY').format('D'),
+        'name': moment(newData[i][1], 'YYYY-MM-DD').format('D'),
         'series': [
           {
             'name': 'Change',
-            'value': newData[i][2]
+            'value': newData[i][5]
           },
           {
             'name': 'Incident',
@@ -45,11 +45,11 @@ export class StackedComponent implements OnInit, OnChanges {
           },
           {
             'name': 'Problem',
-            'value': newData[i][4]
+            'value': newData[i][6]
           },
           {
             'name': 'Request',
-            'value': newData[i][5]
+            'value': newData[i][4]
           }
         ]
       })

@@ -1,14 +1,14 @@
-<cism-month-selector matRipple [matRippleTrigger]="trigger" [matRippleColor]="rippleColor"></cism-month-selector>
+<cism-month-selector></cism-month-selector>
 <div class="flex">
   <div class="overview">
-    <cism-overall-box #trigger [total]="928"></cism-overall-box>
+    <cism-overall-box></cism-overall-box>
     <cism-stacked *ngIf="!data.isMobile" [data]="data.initialRows"></cism-stacked>
     <cism-legend></cism-legend>
   </div>
   <div class="boxes">
-    <cism-stadistic-box title="by Priority"></cism-stadistic-box>
-    <cism-stadistic-box title="by Ticket Type"></cism-stadistic-box>
-    <cism-stadistic-box title="by Application / Service"></cism-stadistic-box>
-    <cism-stadistic-box title="by Ticket Status"></cism-stadistic-box>
+    <cism-stadistic-box title="by Priority" [data]="byPriority"></cism-stadistic-box>
+    <cism-stadistic-box title="by Ticket Type" [data]="byType"></cism-stadistic-box>
+    <cism-stadistic-box title="by Application / Service" [data]="byApplication"></cism-stadistic-box>
+    <cism-stadistic-box title="by Ticket Status" [data]="byStatus"></cism-stadistic-box>
   </div>
 </div>

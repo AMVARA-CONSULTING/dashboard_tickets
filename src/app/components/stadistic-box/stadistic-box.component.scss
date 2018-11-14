@@ -21,7 +21,7 @@
   }
   border-radius: $border-radius;
   box-shadow: $box-shadow;
-  background-color: $semi-black-2;
+  background-color: $semi-black-1;
   padding: 20px;
 }
 
@@ -41,7 +41,7 @@
     cursor: pointer;
     font-size: 1.2rem;
     &:hover {
-      background-color: lighten($semi-black-2, 3);
+      background-color: lighten($semi-black-2, 1);
     }
     .stat-name {
       flex: 1 40%;
