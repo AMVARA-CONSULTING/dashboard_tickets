@@ -78,7 +78,7 @@ box-shadow: 0px 3px 1px -2px $blue;
     color: $semi-white;
 }
 .mat-expansion-panel-body  a{
-    color: $blue;
+    color: lighten($blue,20);
     text-decoration: none;
 }
 .mat-tooltip {
@@ -105,7 +105,7 @@ box-shadow: 0px 3px 1px -2px $blue;
 }
 .software ul {
     list-style: none;
-box-shadow: 0px 3px 1px -2px rgba(255, 255, 255, .2);
+    
 }
 
 .mat-select-panel {
@@ -133,4 +133,21 @@ box-shadow: 0px 3px 1px -2px rgba(255, 255, 255, .2);
     color: $semi-white;
     font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
     font-size: 1.3rem !important;
+}
+.segment-key,
+.actual-config{
+    color: lighten($blue,20) !important;
+}
+.actual-config,
+.mat-slide-toggle-label{
+    padding-top: 20px
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: lighten($blue,20);
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgba(lighten($blue,20),.54);
+}
+.segment-main{
+    padding-top: 8px
 }

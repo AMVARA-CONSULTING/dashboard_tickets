@@ -1,0 +1,12 @@
+@import '../../../common/colors';
+
+.reload-translations{
+    padding: 0 10px!important;
+    line-height: 27px!important;
+    margin: 10px 0 15px!important;
+    display: block;
+}
+
+::ng-deep .mat-select-value-text {
+    color: $blue;
+}
