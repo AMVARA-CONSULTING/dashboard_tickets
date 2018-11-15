@@ -46,7 +46,7 @@ $tablet: 1100px;
 }
 
 @mixin desktop {
-    @media (min-width: $trigger) {
+    @media (min-width: $tablet) {
         @content;
     }
 }
@@ -59,6 +59,15 @@ $tablet: 1100px;
 
 @mixin tablet {
     @media (max-width: $tablet) and (min-width: $trigger) {
+        @content;
+    }
+}
+
+@mixin mobile-tablet {
+    @include mobile {
+        @content;
+    }
+    @include tablet {
         @content;
     }
 }

@@ -13,23 +13,27 @@ export class ReportsService {
 
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
+      (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
       const obs = this.getInitialReport().subscribe(
         res => {
-          const rows = []
-          const lines = res.split('\n')
+          const rows = [];
+          const lines = res.split('\n');
+          (document.querySelector('.progress-value') as HTMLElement).style.width = '15%';
           lines.forEach(line => {
             const newRow = []
             line.split(';').forEach(element => {
               newRow.push(isNaN(element) ? element : +element)
             })
             rows.push(newRow)
-          })
-          rows.shift()
-          rows.pop()
-          this.data.initialRows = rows.filter(row => row[0] != 'Report Target')
-          console.log(this.data.initialRows)
+          });
+          (document.querySelector('.progress-value') as HTMLElement).style.width = '20%';
+          rows.shift();
+          rows.pop();
+          (document.querySelector('.progress-value') as HTMLElement).style.width = '25%';
+          this.data.initialRows = rows.filter(row => row[0] != 'Report Target');
+          (document.querySelector('.progress-value') as HTMLElement).style.width = '30%';
           resolve()
-          obs.unsubscribe()
+          obs.unsubscribe();
         },
         err => obs.unsubscribe()
       )
@@ -37,6 +41,7 @@ export class ReportsService {
   }
 
   getInitialReport(): Observable<any> {
+    (document.querySelector('.progress-value') as HTMLElement).style.width = '10%';
     return this.http.get('assets/reports/Mobile_Overview.csv', {
       responseType: 'text'
     })

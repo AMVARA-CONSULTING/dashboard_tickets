@@ -17,3 +17,11 @@ $tablet-width:1300px;
         @content;
     }
 }
+@mixin mobile-tablet {
+    @include mobile {
+        @content;
+    }
+    @include tablet {
+        @content;
+    }
+}

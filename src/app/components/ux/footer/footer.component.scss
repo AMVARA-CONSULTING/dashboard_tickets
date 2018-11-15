@@ -1,3 +1,6 @@
+
+@import '../../../common/colors';
+
 :host {
   display: flex;
   position: fixed;
@@ -7,6 +10,12 @@
   height: 55px;
   background-color: rgba(black, .9);
   padding: 5px 20px;
+  @include mobile {
+    height: 30px;
+  }
+  @include tablet {
+    height: 40px;
+  }
 }
 
 .flexed {
@@ -17,5 +26,31 @@
   text-align: right;
 }
 .info {
-  text-align: center
+  text-align: center;
+  line-height: 20px;
+}
+
+.daimler {
+  line-height: 45px; 
+  @include mobile-tablet {
+    font-size: 1.2rem;
+  }
+  @include mobile {
+    line-height: 20px;
+  }
+  @include tablet {
+    line-height: 30px;
+  }
+}
+
+.mobile {
+  line-height: 20px;
+  font-size: 1.2rem;
+  @include tablet {
+    line-height: 30px;
+  }
+}
+
+.execution_date {
+  line-height: 45px;
 }

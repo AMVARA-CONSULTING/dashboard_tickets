@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges, ChangeDetectionStrategy } from '@angular/core';
 import * as moment from 'moment';
 
 @Component({
   selector: 'cism-stacked',
   templateUrl: './stacked.component.html',
-  styleUrls: ['./stacked.component.scss']
+  styleUrls: ['./stacked.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StackedComponent implements OnInit, OnChanges {
 

@@ -3,14 +3,14 @@
 	"language": "en",
 	"appTitle": "CISM",
 	"scenario": "dev",
-	"delay": 2000,
+	"delay": 1000,
 	"copyright": "AMVARA",
 	"license": "SFASR",
 	"languageCodes": {
 		"en": "English",
 		"de": "Deutsch"
-  },
-  "contacts": [
+	},
+	"contacts": [
 		{
 			"name": "Ralf Roeber",
 			"description": "Coordinator",
@@ -26,6 +26,5 @@
 			"description": "Designer",
 			"telephone": "+34 670 61 74 71"
 		}
-  ]
+	]
 }
-

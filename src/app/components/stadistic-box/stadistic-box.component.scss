@@ -3,9 +3,9 @@
 
 :host {
   flex: 0 calc(50% - 20px);
-  height: calc(50% - 20px);
-  &:nth-child(3),
-  &:nth-child(4) {
+  height: calc(50% - 50px);
+  &:nth-child(4),
+  &:nth-child(5) {
     margin-top: 40px;
   }
   @include mobile {

@@ -8,7 +8,6 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 @include angular-material-theme($cism-theme);
 
 @import './app/common/colors';
-@import './app/common/breakpoints';
 
 @font-face {
     font-family: CorpoS;
@@ -162,4 +161,21 @@ html, body { height: 100%; }
 }
 .mat-expansion-panel-body{
     padding-top:  3em !important
+}
+
+.desktop {
+    display: block;
+    @include mobile {
+        display: none !important;
+    }
+    @include tablet {
+        display: none !important;
+    }
+}
+
+.mobile {
+    display: block;
+    @include desktop {
+        display: none !important;
+    }
 }

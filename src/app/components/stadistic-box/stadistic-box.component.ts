@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cism-stadistic-box',
   templateUrl: './stadistic-box.component.html',
-  styleUrls: ['./stadistic-box.component.scss']
+  styleUrls: ['./stadistic-box.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StadisticBoxComponent implements OnInit, OnChanges {
 
@@ -23,7 +24,7 @@ export class StadisticBoxComponent implements OnInit, OnChanges {
     for (let i = 0; i < length; i++) {
       newRows.push({
         name: newData[i][2],
-        count: newData[i][3],
+        count: newData[i][3].toLocaleString(),
         percent: (newData[i][3] * 100 / total).toFixed(0)
       })
     }

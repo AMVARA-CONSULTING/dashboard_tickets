@@ -7,7 +7,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // Angular Material
 import { MatExpansionModule } from '@angular/material/expansion';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -43,6 +42,10 @@ import { ReportsService } from '@services/reports.service';
 import { StadisticBoxComponent } from './components/stadistic-box/stadistic-box.component';
 import { LegendComponent } from './components/legend/legend.component';
 import { ColorComponent } from './components/legend/color/color.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { SiltComponent } from './components/silt/silt.component';
+import { TicketsComponent } from './components/pages/tickets/tickets.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -62,14 +65,15 @@ export function createTranslateLoader(http: HttpClient) {
     StackedComponent,
     StadisticBoxComponent,
     LegendComponent,
-    ColorComponent
+    ColorComponent,
+    SiltComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatExpansionModule,
-    NgxJsonViewerModule,
     NgxChartsModule,
     MatSnackBarModule,
     MatSlideToggleModule,
@@ -87,7 +91,8 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
   ],
   providers: [
     ConfigService,
