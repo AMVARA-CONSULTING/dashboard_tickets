@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   selector: 'help',
   templateUrl: './help.component.html',
   styleUrls: ['./help.component.scss'],
-  host: {
+  /*host: {
     '(swiperight)': 'data.go("about")',
     '(swipeleft)': 'data.go("order-intake")'
-  },
+  },*/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HelpComponent implements OnInit {
