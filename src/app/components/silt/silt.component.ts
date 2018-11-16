@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import * as moment from 'moment';
-import { ConfigService } from '@services/config.service';
+
+declare var humanizeDuration: any
 
 @Component({
   selector: 'cism-silt',
@@ -12,12 +13,11 @@ import { ConfigService } from '@services/config.service';
 export class SiltComponent implements OnInit {
 
   constructor(
-    private data: DataService,
-    private config: ConfigService
+    private data: DataService
   ) {
     const currenDate = moment().format('YYYY[M]MM')
-    const total = this.data.initialRows.filter(row => row[0] == 'SILT' && row[1] == currenDate)[0][2]
-    this.total = parseFloat(total.replace('.', '').replace(',', '.')).toFixed(2).toLocaleString()
+    const total = parseInt(this.data.initialRows.filter(row => row[0] == 'SILT' && row[1] == currenDate)[0][2].replace(/[.]/g, '').replace(/[,]/g, '.'))
+    this.total = humanizeDuration(total * 60000)
   }
 
   ngOnInit() {

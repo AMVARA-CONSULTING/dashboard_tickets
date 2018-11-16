@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
 import { RouterOutlet } from '@angular/router';
-import { trigger, transition, query, style, group, animate, keyframes } from '@angular/animations';
+import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 
 @Component({
   selector: 'cism-root',
@@ -11,7 +11,10 @@ import { trigger, transition, query, style, group, animate, keyframes } from '@a
   animations: [
     trigger('routerTransitions', [
       transition('main => tickets', [
-        query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+        group([
+          query('@*', animateChild(), { optional: true }),
+          query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+        ]),
         query(':leave', style({ transform: 'rotateY(0deg)' }), { optional: true }),
         query(':enter', style({ transform: 'rotateY(-90deg)' }), { optional: true }),
         query(':leave', animate('.3s ease-in', keyframes([
@@ -24,7 +27,10 @@ import { trigger, transition, query, style, group, animate, keyframes } from '@a
         ])), { optional: true })
       ]),
       transition('tickets => main', [
-        query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+        group([
+          query('@*', animateChild(), { optional: true }),
+          query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+        ]),
         query(':leave', style({ transform: 'rotateY(0deg)' }), { optional: true }),
         query(':enter', style({ transform: 'rotateY(90deg)' }), { optional: true }),
         query(':leave', animate('.3s ease-in', keyframes([

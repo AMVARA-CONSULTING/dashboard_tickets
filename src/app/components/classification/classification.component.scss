@@ -1,0 +1,57 @@
+
+@import '../../common/colors';
+
+:host {
+  display: flex;
+  width: 100%;
+  height: 45px;
+  background-color: $semi-black-1;
+  border-radius: $border-radius;
+  padding: 0 20px;
+  font-size: 1.2rem;
+  box-shadow: $box-shadow;
+  line-height: 45px;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.classification {
+  flex: 1;
+  font-size: 1.5rem;
+  &:before {
+    content: "";
+    background-image: url(/assets/img/arrow.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 12px;
+    width: 12px;
+    margin-right: 15px;
+    display: inline-block;
+    position: relative;
+    transform: rotate(180deg);
+    top: 1px;
+  }
+}
+
+.group {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  .selected, .count, .percent {
+    flex: 1;
+    white-space: nowrap;
+  }
+  .selected {
+    opacity: .6;
+  }
+  .count, .percent {
+    text-align: right;
+    font-size: 1.7rem;
+  }
+  .count {
+    color: $blue;
+  }
+  .percent {
+    color: $orange;
+  }
+}

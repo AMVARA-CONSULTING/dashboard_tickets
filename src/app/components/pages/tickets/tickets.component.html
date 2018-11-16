@@ -1,16 +1,90 @@
-<cism-month-selector></cism-month-selector>
-<div class="flex">
-  <div class="overview">
-    <cism-overall-box></cism-overall-box>
-    <cism-silt class="mobile"></cism-silt>
-    <cism-stacked [data]="data.initialRows"></cism-stacked>
-    <cism-legend></cism-legend>
-  </div>
-  <div class="boxes">
-    <cism-silt class="desktop"></cism-silt>
-    <cism-stadistic-box title="by Priority" [data]="byPriority"></cism-stadistic-box>
-    <cism-stadistic-box title="by Ticket Type" [data]="byType"></cism-stadistic-box>
-    <cism-stadistic-box title="by Application / Service" [data]="byApplication"></cism-stadistic-box>
-    <cism-stadistic-box title="by Ticket Status" [data]="byStatus"></cism-stadistic-box>
-  </div>
+<cism-month-selector class="desktop"></cism-month-selector>
+<div class="overview">
+  <cism-month-selector class="mobile"></cism-month-selector>
+  <cism-overall-box></cism-overall-box>
+  <cism-classification matRipple [matRippleColor]="rippleColor" routerLink="/"></cism-classification>
+</div>
+<div class="table">
+  <div matRipple [matRippleColor]="rippleColor" class="change-view"></div>
+  <mat-table [dataSource]="tickets" [trackBy]="getID">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.category }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div class="priority-circle" [ngClass]="element.priority"></div>{{ element.priority }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="subject">
+      <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.subject }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="asignee">
+      <mat-header-cell *matHeaderCellDef>Asignee</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.assignee }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="updated">
+      <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
+      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'MM/DD/YYYY HH:mma' | amLocale:config.config.language |
+      amTimeAgo"
+        *matCellDef="let element">{{ element.updated }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="target">
+      <mat-header-cell *matHeaderCellDef>Target version</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.target }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="time">
+      <mat-header-cell *matHeaderCellDef>Estimated time</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.time }}H</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="done">
+      <mat-header-cell *matHeaderCellDef>% done</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.done }}%
+        <div class="progress">
+          <div class="bar" [style.width.%]="element.done"></div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div [matMenuTriggerFor]="menuOptions" class="options"></div>
+        <mat-menu #menuOptions="matMenu">
+          <button (click)="goSolve(element)" mat-menu-item matRipple [matRippleColor]="rippleColor">
+            <mat-icon>done</mat-icon>Resolve
+          </button>
+          <button mat-menu-item matRipple [matRippleColor]="rippleColor">
+            <mat-icon>mode_edit</mat-icon>Edit
+          </button>
+          <button mat-menu-item matRipple [matRippleColor]="rippleColor">
+            <mat-icon>delete</mat-icon>Remove
+          </button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
 </div>

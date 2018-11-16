@@ -6,6 +6,7 @@
   margin-top: 20px;
   flex-wrap: wrap;
   height: calc(100vh - 400px);
+  will-change: transform;
   @include mobile {
     height: auto;
   }

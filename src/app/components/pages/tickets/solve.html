@@ -1,0 +1,8 @@
+<h3>Solve ticket: {{ ticket?.subject }}</h3>
+<mat-form-field>
+  <input matInput autocomplete="off" placeholder="Comments">
+</mat-form-field>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button cdkFocusInitial>OK</button>
+</div>

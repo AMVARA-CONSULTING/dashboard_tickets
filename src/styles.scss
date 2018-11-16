@@ -135,8 +135,11 @@ html, body { height: 100%; }
 
 .mat-option {
     color: $semi-white;
-    font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+    font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif" !important;
     font-size: 1.3rem !important;
+}
+.mat-bottom-sheet-container {
+    font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif" !important;
 }
 .segment-key,
 .actual-config{
@@ -177,5 +180,88 @@ html, body { height: 100%; }
     display: block;
     @include desktop {
         display: none !important;
+    }
+}
+
+.mat-tooltip {
+    background: darken($blue, 10);
+    overflow: initial !important;
+}
+
+[routerlink] {
+    outline: 0 !important;
+}
+
+cism-month-selector .mat-form-field-infix {
+    @include tablet {
+        border-top: 15px solid transparent;
+    }
+    @include mobile {
+        border-top-width: 17px;
+    }
+}
+
+.mat-tooltip.after {
+    position: relative;
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-right: 7px solid darken($blue, 10);
+        left: -7px;
+    }
+}
+
+.mat-menu-content {
+    padding: 0 !important;
+}
+
+.mat-menu-panel {
+    background-color: $semi-black-2;
+}
+
+.mat-menu-item {
+    height: 40px !important;
+    color: $semi-white !important;
+    line-height: 40px !important;
+    mat-icon {
+        transform: scale(.9);
+        will-change: transform;
+        backface-visibility: hidden;
+        position: relative;
+        bottom: 1px;
+        transition: transform .2s ease-in-out;
+    }
+    &:hover {
+        background-color: lighten($semi-black-2, 5) !important;
+        color: $blue !important;
+        mat-icon {
+            color: $blue !important;
+            transform: scale(1.1);
+        }
+    }
+}
+
+.solve-ticket-panel {
+    display: block;
+    padding: 16px 32px !important;
+    background-color: $semi-black-1;
+    color: $semi-white;
+    solve-ticket {
+        display: block;
+    }
+    h3 {
+        color: darken($blue, 5);
+    }
+    .mat-form-field {
+        margin-top: 20px;
+        width: 100%;
     }
 }

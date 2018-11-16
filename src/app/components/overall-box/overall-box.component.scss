@@ -18,7 +18,10 @@
   font-size: 1.7rem;
   line-height: 45px;
   flex: 1;
-  color: $blue
+  color: $blue;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .count {

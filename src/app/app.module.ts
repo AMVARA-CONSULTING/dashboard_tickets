@@ -14,6 +14,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatInputModule } from '@angular/material/input';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -45,7 +50,8 @@ import { ColorComponent } from './components/legend/color/color.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { SiltComponent } from './components/silt/silt.component';
-import { TicketsComponent } from './components/pages/tickets/tickets.component';
+import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
+import { ClassificationComponent } from './components/classification/classification.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -67,7 +73,9 @@ export function createTranslateLoader(http: HttpClient) {
     LegendComponent,
     ColorComponent,
     SiltComponent,
-    TicketsComponent
+    TicketsComponent,
+    ClassificationComponent,
+    SolveTicket
   ],
   imports: [
     BrowserModule,
@@ -81,7 +89,12 @@ export function createTranslateLoader(http: HttpClient) {
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatMenuModule,
+    MatBottomSheetModule,
+    MatIconModule,
+    MatInputModule,
     MatRippleModule,
+    MatTableModule,
     FormsModule,
     HttpClientModule,
     MomentModule,
@@ -93,6 +106,9 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
+  ],
+  entryComponents: [
+    SolveTicket
   ],
   providers: [
     ConfigService,
