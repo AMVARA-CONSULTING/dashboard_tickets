@@ -3,6 +3,7 @@
 
 .wrapper {
     padding: 40px;
+    perspective: 2000px;
     @include mobile {
         margin-bottom: 50px;
     }

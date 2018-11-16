@@ -6,6 +6,8 @@
 # 2018-11-12 ABA First version
 # #########################################
 echo -e "\e[37mRetrieving last pull...\e[0m"
+git remote set-url origin http://AlexBarba:gryUeXp_9HxoxH8E6Byo@git.amvara.consulting/daimler/cism.git
+git fetch origin
 git reset --hard origin/master
 echo -e "\e[32mDone\e[0m"
 echo -e "\e[37mReinstalling latest @angular/cli...\e[0m"

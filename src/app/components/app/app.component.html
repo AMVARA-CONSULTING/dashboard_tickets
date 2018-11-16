@@ -1,5 +1,5 @@
 <cism-header></cism-header>
-<div class="wrapper">
-  <router-outlet></router-outlet>
+<div class="wrapper" (@routerTransitions.done)="trigger()" [@routerTransitions]="getPage(o)">
+  <router-outlet #o="outlet"></router-outlet>
 </div>
 <cism-footer></cism-footer>
