@@ -3,8 +3,9 @@
 
 :host {
     padding: 30px 40px;
-    display: block;
+    display: inline-block;
     position: relative;
+    width: 100%;
     &:after {
         content: "";
         position: absolute;
@@ -17,8 +18,17 @@
         background-color: rgba(white, .05);
     }
 }
-
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+.logo{
+    flex: 1;
+    cursor: pointer;
+    max-width: 254px;
+}
 span {
+    flex: 1;
     display: inline-block;
     font-size: 2rem;
     &:last-of-type{
@@ -33,4 +43,52 @@ cism-menu-icon {
     top: 0;
     margin: auto;
     bottom: 0;
+}
+.nav{
+    flex: 1;
+    display: none;
+    @include desktop{
+        flex: 1;
+        display: flex;
+        list-style: none;
+        height: inherit;
+        max-width: 200px;
+        justify-content: space-evenly;
+    }
+
+}
+.nav li {
+    content: "";
+    flex: 1;
+    text-align: center;
+    height: inherit;
+    line-height: 70px;
+    outline: 0;
+    padding: 0 15px;
+    cursor: pointer;
+    position: relative;
+    max-width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+}
+
+
+.navbutton{
+    content: "";
+    flex: 1;
+    
+}
+.help{
+    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_Help.svg");
+}
+.about{
+    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_About.svg")
+}
+.help:hover{
+    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_Help_active.svg");
+
+}
+.about:hover{
+    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_About_active.svg");
+
 }

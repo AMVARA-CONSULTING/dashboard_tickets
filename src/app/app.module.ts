@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -95,6 +96,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatInputModule,
     MatRippleModule,
     MatTableModule,
+    MatSidenavModule,
     FormsModule,
     HttpClientModule,
     MomentModule,

@@ -53,7 +53,9 @@ body, html {
     padding: 0;
     box-sizing: border-box;
 }
-
+.mat-drawer-backdrop.mat-drawer-shown{
+    background-color: transparent !important;
+}
 app-root {
     display: block;
     height: 100%;

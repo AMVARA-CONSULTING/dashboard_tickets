@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'cism-header',
@@ -8,9 +9,15 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private data: DataService
+  ) { }
 
   ngOnInit() {
+  }
+
+  open() {
+    this.data.opened.next(!this.data.openedSidenav)
   }
 
 }
