@@ -9,6 +9,14 @@ export class DataService {
     const actualMonth = moment().format('YYYY[M]MM')
     this.month = new BehaviorSubject<string>(actualMonth)
     this.isMobile = window.screen.width <= 800
+    this.opened= new BehaviorSubject<boolean>(false)
+
+    this.opened.subscribe(open => {
+      this.openedSidenav = open
+      setTimeout(_ => {
+        window.scrollTo(0, 0);
+      },200)
+    })
   }
 
   currentLevel: number
@@ -24,4 +32,7 @@ export class DataService {
   initialRows = []
 
   isMobile: boolean = false
+  opened: BehaviorSubject<boolean>
+
+  openedSidenav: boolean = false
 }

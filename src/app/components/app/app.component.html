@@ -1,5 +1,16 @@
 <cism-header></cism-header>
-<div class="wrapper" (@routerTransitions.done)="trigger()" [@routerTransitions]="getPage(o)">
-  <router-outlet #o="outlet"></router-outlet>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="push" [(opened)]="data.openedSidenav" position="end" class="sidenav" [autoFocus]="false">
+      <ul class="nav">
+          <li>Home</li>
+          <li>About</li>
+          <li>Help</li>
+        </ul>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="wrapper" (@routerTransitions.done)="trigger()" [@routerTransitions]="getPage(o)">
+        <router-outlet #o="outlet"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 <cism-footer></cism-footer>
