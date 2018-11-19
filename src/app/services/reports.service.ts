@@ -40,6 +40,35 @@ export class ReportsService {
     })
   }
 
+  loadTickets(): Promise<void> {
+    return new Promise(resolve => {
+      const obs = this.getTickets().subscribe(
+        res => {
+          const rows = []
+          const lines = res.split('\n')
+          lines.forEach(line => {
+            const newRow = []
+            line.split(';').forEach(element => {
+              newRow.push(isNaN(element) ? element : +element)
+            })
+            rows.push(newRow)
+          })
+          rows.shift()
+          this.data.tickets = rows
+          resolve()
+          obs.unsubscribe()
+        },
+        err => obs.unsubscribe()
+      )
+    })
+  }
+
+  getTickets(): Observable<any> {
+    return this.http.get('assets/reports/Mobile_Ticket_List.csv', {
+      responseType: 'text'
+    })
+  }
+
   getInitialReport(): Observable<any> {
     (document.querySelector('.progress-value') as HTMLElement).style.width = '10%';
     return this.http.get('assets/reports/Mobile_Overview.csv', {

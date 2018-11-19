@@ -132,7 +132,6 @@ mat-cell, mat-footer-cell, mat-header-cell {
   display: inline-block;
   height: 10px;
   width: 10px;
-  margin-right: 10px;
   border-radius: 50%;
   &.High {
     background-color: $priority-high;
@@ -146,9 +145,10 @@ mat-cell, mat-footer-cell, mat-header-cell {
   &.Normal {
     background-color: $priority-normal;
   }
-  &.Low {
-    background-color: $blue;
-  }
+}
+
+.mat-column-priority span {
+  margin-left: 10px;
 }
 
 .progress {
@@ -203,4 +203,9 @@ mat-cell:last-of-type {
 
 mat-icon {
   color: rgba($semi-white, .5) !important;
+}
+
+.mat-column-subject {
+  flex: 0 0 250px;
+  padding: 0 10px;
 }

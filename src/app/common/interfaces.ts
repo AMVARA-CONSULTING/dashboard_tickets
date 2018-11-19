@@ -24,7 +24,7 @@ export interface Ticket {
   id: number,
   category: string,
   status: string,
-  priority: string,
+  priority: string | number,
   subject: string,
   assignee: string,
   updated: string,

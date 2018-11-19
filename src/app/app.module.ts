@@ -52,6 +52,7 @@ import { environment } from '../environments/environment';
 import { SiltComponent } from './components/silt/silt.component';
 import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
 import { ClassificationComponent } from './components/classification/classification.component';
+import { LimitTextPipe } from './pipes/limit-text.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -75,7 +76,8 @@ export function createTranslateLoader(http: HttpClient) {
     SiltComponent,
     TicketsComponent,
     ClassificationComponent,
-    SolveTicket
+    SolveTicket,
+    LimitTextPipe
   ],
   imports: [
     BrowserModule,

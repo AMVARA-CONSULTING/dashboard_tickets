@@ -3,6 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
 import { RouterOutlet } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
+import { DataService } from '@services/data.service';
+import { ReportsService } from '@services/reports.service';
 
 @Component({
   selector: 'cism-root',
@@ -47,10 +49,15 @@ import { trigger, transition, query, style, group, animate, keyframes, animateCh
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  constructor(private translate: TranslateService, public config: ConfigService) {
+  constructor(
+    private translate: TranslateService,
+    public config: ConfigService,
+    public data: DataService,
+    private reports: ReportsService
+  ) {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
-
+    this.reports.loadTickets().then(_ => this.data.loadingTickets = false)
   }
 
   trigger() {

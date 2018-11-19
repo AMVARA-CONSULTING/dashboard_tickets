@@ -1,20 +1,25 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs/internal/observable/interval';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'cism-tickets',
   templateUrl: './tickets.component.html',
-  styleUrls: ['./tickets.component.scss']
+  styleUrls: ['./tickets.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketsComponent implements OnInit {
 
   constructor(
     public data: DataService,
     public config: ConfigService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private ac: ActivatedRoute
   ) {
     const types = data.initialRows.reduce((r, a) => {
       r[a[0]] = r[a[0]] || []
@@ -25,7 +30,64 @@ export class TicketsComponent implements OnInit {
     this.byType = types['BYTYPE']
     this.byApplication = types['BYSERVICE']
     this.byStatus = types['BYSTATUS']
+    this.ac.paramMap.subscribe(params => {
+      this.type = params.get('type')
+      this.filter = params.get('filter')
+      if (this.data.loadingTickets) {
+        this.interval = interval(100).subscribe(_ => {
+          if (!this.data.loadingTickets) {
+            this.interval.unsubscribe()
+            this.rollup()
+          }
+        })
+      } else {
+        this.rollup()
+      }
+    })
   }
+
+  interval: Subscription
+
+  rollup(): void {
+    const ticketRows = this.data.tickets.slice(0, 30)
+    console.log(ticketRows)
+    const length = ticketRows.length
+    const tickets: Ticket[] = []
+    for (let i = 0; i < length; i++) {
+      let priority = ''
+      switch (+ticketRows[i][this.config.config.columns.priority]) {
+        case 1:
+          priority = 'Normal'
+          break
+        case 2:
+          priority = 'High'
+          break
+        case 3:
+          priority = 'Urgent'
+          break
+        case 4:
+          priority = 'Immediate'
+          break
+        default:
+      }
+      tickets.push({
+        id: ticketRows[i][this.config.config.columns.id],
+        assignee: ticketRows[i][this.config.config.columns.external],
+        category: '-',
+        done: 30,
+        priority: priority,
+        status: ticketRows[i][this.config.config.columns.status],
+        subject: ticketRows[i][this.config.config.columns.description],
+        target: '-',
+        time: 5,
+        updated: ticketRows[i][this.config.config.columns.modify_date]
+      })
+    }
+    this.tickets = tickets
+  }
+
+  type: string
+  filter: string
 
   ngOnInit() {
   }
@@ -37,38 +99,7 @@ export class TicketsComponent implements OnInit {
   byApplication = []
   byStatus = []
 
-  tickets: Ticket[] = [
-    { id: 1, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 2, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 3, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 4, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 5, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-    { id: 6, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 7, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 8, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 9, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 10, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-    { id: 11, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 12, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 13, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 14, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 15, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-    { id: 16, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 17, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 18, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 19, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 20, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-    { id: 21, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 22, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 23, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 24, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 25, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-    { id: 26, category: '', status: 'New', priority: 'Normal', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 5, done: 70 },
-    { id: 27, category: '', status: 'Solved', priority: 'Urgent', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 20, done: 10 },
-    { id: 28, category: '', status: 'In progress', priority: 'Immediate', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 37, done: 20 },
-    { id: 29, category: '', status: 'New', priority: 'Low', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 2, done: 90 },
-    { id: 30, category: '', status: 'Solved', priority: 'High', subject: 'Name Ticket', assignee: 'AlexBarba', updated: '10/23/2018 12:00PM', target: '', time: 34, done: 40 },
-  ]
+  tickets: Ticket[] = []
 
   displayedColumns = ['id', 'category', 'status', 'priority', 'subject', 'asignee', 'updated', 'target', 'time', 'done', 'options']
 

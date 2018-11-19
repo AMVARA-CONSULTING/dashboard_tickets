@@ -18,6 +18,11 @@ const routes: Routes = [
     data: { state: 'tickets' }
   },
   {
+    path: 'tickets/:type/:filter',
+    component: TicketsComponent,
+    data: { state: 'tickets' }
+  },
+  {
     path: "about", component: AboutComponent
   },
   {

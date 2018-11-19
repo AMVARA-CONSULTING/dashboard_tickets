@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'cism-stadistic-box',
@@ -8,13 +10,17 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStra
 })
 export class StadisticBoxComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private _data: DataService
+  ) { }
 
   ngOnInit() {
   }
 
   @Input() title: string = ''
   @Input() data: any[] = []
+  @Input() go: string = ''
 
   ngOnChanges(changes: SimpleChanges) {
     const newData: any[] = changes.data.currentValue
@@ -34,5 +40,11 @@ export class StadisticBoxComponent implements OnInit, OnChanges {
   rows = []
 
   rippleColor: string = 'rgba(255,255,255,.06)'
+
+  goA(row): void {
+    this._data.count = row.count
+    this._data.percent = row.percent
+    this.router.navigate(['tickets', this.go, row.name])
+  }
 
 }

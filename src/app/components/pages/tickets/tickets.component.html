@@ -6,7 +6,7 @@
 </div>
 <div class="table">
   <div matRipple [matRippleColor]="rippleColor" class="change-view"></div>
-  <mat-table [dataSource]="tickets" [trackBy]="getID">
+  <mat-table [dataSource]="tickets">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -26,13 +26,14 @@
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="priority-circle" [ngClass]="element.priority"></div>{{ element.priority }}
+        <div class="priority-circle" [ngClass]="element.priority"></div><span>{{ element.priority }}</span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.subject }}</mat-cell>
+      <mat-cell [matTooltip]="element.subject" matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
+        element.subject | limitText:30 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="asignee">
@@ -42,7 +43,7 @@
 
     <ng-container matColumnDef="updated">
       <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
-      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'MM/DD/YYYY HH:mma' | amLocale:config.config.language |
+      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
       amTimeAgo"
         *matCellDef="let element">{{ element.updated }}</mat-cell>
     </ng-container>
