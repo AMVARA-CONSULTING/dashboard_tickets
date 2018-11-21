@@ -4,10 +4,7 @@ import { ConfigService } from '@services/config.service';
 import { RouterOutlet } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
-<<<<<<< HEAD
 import { ReportsService } from '@services/reports.service';
-=======
->>>>>>> ba35e676976298cf0b088839aca1f17a9399903c
 
 @Component({
   selector: 'cism-root',
@@ -51,7 +48,6 @@ import { ReportsService } from '@services/reports.service';
   ]
 })
 export class AppComponent {
-<<<<<<< HEAD
   constructor(
     private translate: TranslateService,
     public config: ConfigService,
@@ -61,11 +57,6 @@ export class AppComponent {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
     this.reports.loadTickets().then(_ => this.data.loadingTickets = false)
-=======
-  constructor(private translate: TranslateService, public config: ConfigService, public data: DataService) {
-    translate.setDefaultLang('en')
-    translate.use(localStorage.getItem('lang') || config.config.language)
->>>>>>> ba35e676976298cf0b088839aca1f17a9399903c
   }
 
   trigger() {
