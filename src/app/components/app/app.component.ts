@@ -5,11 +5,13 @@ import { RouterOutlet } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ReportsService } from '@services/reports.service';
+import memo from 'memo-decorator';
 
 @Component({
   selector: 'cism-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('routerTransitions', [
       transition('main => tickets', [

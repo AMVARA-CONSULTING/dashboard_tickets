@@ -9,6 +9,7 @@ export interface Config {
   readonly changelog: any[];
   readonly copyright: string;
   readonly columns: any,
+  displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;
   [propName: string]: any;

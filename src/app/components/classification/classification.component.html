@@ -1,6 +1,6 @@
-<div class="classification">By Priority</div>
+<div class="classification">By {{ paramType | titlecase }}</div>
 <div class="group">
-  <div class="selected"># of Prio 2:</div>
-  <div class="count">37</div>
-  <div class="percent">7%</div>
+  <div class="selected">{{ paramValue }}:</div>
+  <div class="count">{{ total }}</div>
+  <div class="percent">{{ percent }}%</div>
 </div>

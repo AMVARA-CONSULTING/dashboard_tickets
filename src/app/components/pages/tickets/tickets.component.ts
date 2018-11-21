@@ -3,9 +3,12 @@ import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/internal/observable/interval';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { ToolsService } from 'app/tools.service';
+import { PageEvent } from '@angular/material/paginator';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'cism-tickets',
@@ -19,8 +22,14 @@ export class TicketsComponent implements OnInit {
     public data: DataService,
     public config: ConfigService,
     private bottomSheet: MatBottomSheet,
-    private ac: ActivatedRoute
+    private ac: ActivatedRoute,
+    private router: Router,
+    private tools: ToolsService
   ) {
+    this.tickets = new BehaviorSubject<any[]>([])
+    this.tickets.subscribe(tickets => {
+      this.percent = parseInt((tickets.length * 100 / this.data.tickets.length).toString(), 10)
+    })
     const types = data.initialRows.reduce((r, a) => {
       r[a[0]] = r[a[0]] || []
       r[a[0]].push(a)
@@ -34,9 +43,9 @@ export class TicketsComponent implements OnInit {
       this.type = params.get('type')
       this.filter = params.get('filter')
       if (this.data.loadingTickets) {
-        this.interval = interval(100).subscribe(_ => {
+        const intervalB = interval(100).subscribe(_ => {
           if (!this.data.loadingTickets) {
-            this.interval.unsubscribe()
+            intervalB.unsubscribe()
             this.rollup()
           }
         })
@@ -46,11 +55,60 @@ export class TicketsComponent implements OnInit {
     })
   }
 
-  interval: Subscription
+  displayedColumns_copy: string[] = []
+
+  changeViewClick() {
+    this.displayedColumns_copy = this.config.config.displayedColumns
+    this.changeView = true
+  }
+
+  isChecked(column: string): boolean {
+    return this.displayedColumns_copy.indexOf(column) > -1
+  }
+
+  checkHandler(column: string, e: MatCheckboxChange) {
+    if (e.checked) {
+      this.displayedColumns_copy.push(column)
+    } else {
+      this.displayedColumns_copy = this.displayedColumns_copy.filter(columnB => columnB != column)
+    }
+  }
+
+  fixedWidth: boolean = true
+  percent: number = 0
+
+  saveColumns() {
+    let allColumns = this.config.displayedColumnsDefault
+    allColumns = allColumns.filter(column => this.displayedColumns_copy.indexOf(column) > -1)
+    localStorage.setItem('displayedColumns', JSON.stringify(allColumns))
+    this.config.config.displayedColumns = allColumns
+    this.fixedWidth = allColumns.length > 5
+    this.changeView = false
+  }
+
+  pageSizeOptions: number[] = [10, 25, 50, 100]
+
+  page_size: number = 20
+  page_number: number = 1
+
+  pageChange(event: PageEvent) {
+    this.page_size = event.pageSize
+    this.page_number = event.pageIndex + 1
+  }
+
+  getID(el: Ticket, i: number): number {
+    return el.id
+  }
 
   rollup(): void {
-    const ticketRows = this.data.tickets.slice(0, 30)
-    console.log(ticketRows)
+    let ticketRows = this.data.tickets
+    if (this.type !== null && this.filter !== null) {
+      if (!this.config.config.columns.hasOwnProperty(this.type)) {
+        this.router.navigate(['/'])
+        return
+      }
+      ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
+    }
     const length = ticketRows.length
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
@@ -83,13 +141,14 @@ export class TicketsComponent implements OnInit {
         updated: ticketRows[i][this.config.config.columns.modify_date]
       })
     }
-    this.tickets = tickets
+    this.tickets.next(tickets)
   }
 
   type: string
   filter: string
 
   ngOnInit() {
+    this.fixedWidth = this.config.config.displayedColumns.length > 5
   }
 
   rippleColor: string = 'rgba(255,255,255,.08)'
@@ -99,13 +158,9 @@ export class TicketsComponent implements OnInit {
   byApplication = []
   byStatus = []
 
-  tickets: Ticket[] = []
+  changeView: boolean = false
 
-  displayedColumns = ['id', 'category', 'status', 'priority', 'subject', 'asignee', 'updated', 'target', 'time', 'done', 'options']
-
-  getID(el: Ticket, i: number) {
-    return el.id
-  }
+  tickets: BehaviorSubject<any[]>
 
   goSolve(ticket: Ticket): void {
     this.bottomSheet.open(SolveTicket, {

@@ -6,9 +6,11 @@
     perspective: 2000px;
     @include mobile {
         margin-bottom: 50px;
+        padding: 15px;
     }
     @include tablet {
         margin-bottom: 50px;
+        padding: 25px;
     }
 }
 .mat-drawer-container{
@@ -62,4 +64,8 @@
 }
 .mat-drawer:not(.mat-drawer-side){
     box-shadow: none;
+}
+
+cism-tickets, cism-main {
+    will-change: transform;
 }

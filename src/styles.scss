@@ -52,6 +52,10 @@ body, html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 .mat-drawer-backdrop.mat-drawer-shown{
     background-color: transparent !important;
@@ -138,8 +142,12 @@ html, body { height: 100%; }
 .mat-option {
     color: $semi-white;
     font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif" !important;
+}
+
+.month-selector .mat-option {
     font-size: 1.3rem !important;
 }
+
 .mat-bottom-sheet-container {
     font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif" !important;
 }
@@ -266,4 +274,36 @@ cism-month-selector .mat-form-field-infix {
         margin-top: 20px;
         width: 100%;
     }
+}
+
+.mat-paginator {
+    margin-top: 30px;
+    background-color: transparent !important;
+    color: rgba($semi-white, .6);
+    .mat-select-value, .mat-select-arrow {
+        color: rgba($semi-white, .6);
+    }
+    .mat-form-field-underline {
+        background-color: rgba($semi-white, .6)
+    }
+    .mat-icon-button[disabled] {
+        color: rgba($semi-white, .15)
+    }
+}
+
+.mat-cell {
+    touch-action: auto !important;
+    -ms-touch-action: auto !important;
+}
+
+.mat-checkbox-checked .mat-checkbox-background {
+    background-color: $blue !important;
+}
+
+.mat-checkbox .mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    background-color: $blue !important;
+}
+
+.mat-checkbox-checkmark-path {
+    stroke: black !important;
 }

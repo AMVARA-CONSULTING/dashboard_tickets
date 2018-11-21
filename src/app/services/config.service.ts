@@ -11,6 +11,8 @@ export class ConfigService {
 
   config: Config;
 
+  displayedColumnsDefault: string[] = ['id', 'category', 'status', 'priority', 'subject', 'assignee', 'updated', 'target', 'time', 'done', 'options']
+
   load(): Promise<void> {
     return new Promise(resolve => {
       (document.querySelector('.progress-value') as HTMLElement).style.width = '35%';
@@ -20,9 +22,10 @@ export class ConfigService {
         (document.querySelector('.progress-value') as HTMLElement).style.width = '45%';
         this.config.language = localStorage.getItem('lang') || this.config.language;
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
-        console.log(config);
+        this.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.displayedColumnsDefault;
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';
+        console.log(this.config)
         setTimeout(_ => resolve(), this.config.delay);
       });
     });

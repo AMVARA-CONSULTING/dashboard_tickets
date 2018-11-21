@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   }
 
   open() {
-    this.data.opened.next(!this.data.openedSidenav)
+    this.data.opened.next(!this.data.opened.value)
   }
 
 }

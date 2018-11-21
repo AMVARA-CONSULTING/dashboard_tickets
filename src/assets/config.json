@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"language": "en",
 	"appTitle": "CISM",
 	"scenario": "dev",
@@ -10,6 +10,19 @@
 		"en": "English",
 		"de": "Deutsch"
 	},
+	"displayedColumns": [
+		"id",
+		"category",
+		"status",
+		"priority",
+		"subject",
+		"assignee",
+		"updated",
+		"target",
+		"time",
+		"done",
+		"options"
+	],
 	"columns": {
 		"id": 1,
 		"create_date": 2,
@@ -39,6 +52,26 @@
 			"name": "Luís Torroja",
 			"description": "Designer",
 			"telephone": "+34 670 61 74 71"
+		}
+	],
+	"changelog": [
+		{
+			"version": "1.0.0",
+			"text": [
+				"Initial commit"
+			]
+		},
+		{
+			"version": "1.2.0",
+			"text": [
+				"Select which columns to see",
+				"Real data and filters on L2",
+				"Fixed dot number on L1 classification boxes",
+				"Merged About & Help pages",
+				"Added sidenav menu",
+				"Added L2 pagination",
+				"Minor bugs fixed"
+			]
 		}
 	]
 }

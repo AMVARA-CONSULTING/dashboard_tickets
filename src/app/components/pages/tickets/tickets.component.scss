@@ -55,20 +55,23 @@ cism-classification {
 }
 
 .change-view {
-  margin-left: auto;
-  margin-right: 0;
+  margin: 20px 0 -45px auto;
   height: 35px;
-  width: 30px;
+  width: 50px;
   z-index: 9999;
   border-radius: 3px;
   position: relative;
   background-color: $bg-color;
-  background-image: url(/assets/img/menu_dots.svg);
-  background-repeat: no-repeat;
-  background-size: 20px;
   cursor: pointer;
   background-position: 5px 7px;
-  margin-bottom: -45px;
+  .mat-icon {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 :host {
@@ -103,8 +106,11 @@ mat-cell, mat-footer-cell, mat-header-cell {
 .mat-table {
   background: transparent !important;
   font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif" !important;
-  @include mobile-tablet {
-    width: 1000px;
+}
+
+@include mobile-tablet {
+  .fixedWidth .mat-table {
+    width: 1200px;
   }
 }
 
@@ -114,7 +120,7 @@ mat-cell, mat-footer-cell, mat-header-cell {
 }
 
 .table {
-  margin: 30px 0 50px;
+  position: relative;
   @include mobile-tablet {
     overflow-x: auto;
   }
@@ -153,7 +159,7 @@ mat-cell, mat-footer-cell, mat-header-cell {
 
 .progress {
   display: block;
-  width: 100px;
+  width: calc(100px - 50px);
   height: 15px;
   border-radius: 2px;
   overflow: hidden;
@@ -208,4 +214,69 @@ mat-icon {
 .mat-column-subject {
   flex: 0 0 250px;
   padding: 0 10px;
+}
+
+.end-paginator {
+  margin-bottom: 40px;
+}
+
+.change-view-container {
+  background-color: $semi-black-1;
+  border-radius: 5px;
+  margin-top: 25px;
+  padding: 20px 40px;
+  .box-title {
+    line-height: 50px;
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba($semi-white, .4)
+  }
+  .checkboxes {
+    padding: 50px 100px;
+    display: flex;
+    @include mobile {
+      padding: 30px 10px;
+      display: block;
+    }
+    @include tablet {
+      padding: 30px 20px;
+    }
+    .column {
+      flex: 0 0 25%;
+      @include mobile {
+        flex: 1 100%;
+      }
+      @include tablet {
+        flex: 1 20%;
+      }
+      .mat-checkbox {
+        display: block;
+        height: 40px;
+        ::ng-deep .mat-checkbox-label {
+          text-transform: uppercase;
+          margin-left: 10px;
+          font-size: 1rem;
+          @include mobile {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.save-changes {
+  background-color: lighten($semi-black-2, 5);
+  line-height: 30px;
+  width: 100px;
+  border-radius: 2px;
+  display: block;
+  margin: 0 0 10px auto;
+  transition: background-color .1s ease-in-out;
+  &:hover {
+    background-color: darken($blue, 15);
+  }
+}
+
+::ng-deep .save-changes .mat-ripple-element {
+  background-color: rgba(255,255,255,.08) !important;
 }

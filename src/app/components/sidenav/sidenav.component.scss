@@ -1,0 +1,15 @@
+
+@import '../../common/colors';
+
+:host {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 140px);
+  position: fixed;
+  top: 110px;
+  transform: translateX(100%);
+  will-change: transform;
+  background-color: $bg-color;
+  right: 0;
+  z-index: 99;
+}

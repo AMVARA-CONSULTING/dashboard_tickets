@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Angular Material
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -19,7 +20,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -32,28 +34,31 @@ import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.co
 import { AboutComponent } from './components/pages/about/about.component';
 import { MainComponent } from './components/pages/main/main.component';
 import { MonthSelectorComponent } from './components/month-selector/month-selector.component';
-import { OverallBoxComponent } from './components/overall-box/overall-box.component'
+import { OverallBoxComponent } from './components/overall-box/overall-box.component';
+import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
+import { ClassificationComponent } from './components/classification/classification.component';
+import { StadisticBoxComponent } from './components/stadistic-box/stadistic-box.component';
+import { StackedComponent } from './components/graphics/stacked/stacked.component';
+import { LegendComponent } from './components/legend/legend.component';
+import { ColorComponent } from './components/legend/color/color.component';
+import { SiltComponent } from './components/silt/silt.component';
+import { LimitTextPipe } from './pipes/limit-text.pipe';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 // Services
 import { ConfigService } from './services/config.service';
 import { DataService } from './services/data.service';
+import { ToolsService } from './tools.service';
+import { ReportsService } from '@services/reports.service';
 
 // Plugins
 import { MomentModule } from 'ngx-moment';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { StackedComponent } from './components/graphics/stacked/stacked.component';
-import { ReportsService } from '@services/reports.service';
-import { StadisticBoxComponent } from './components/stadistic-box/stadistic-box.component';
-import { LegendComponent } from './components/legend/legend.component';
-import { ColorComponent } from './components/legend/color/color.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { SiltComponent } from './components/silt/silt.component';
-import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
-import { ClassificationComponent } from './components/classification/classification.component';
-import { LimitTextPipe } from './pipes/limit-text.pipe';
+import { PaginatePipe } from './pipes/paginate.pipe';
+import { CismPaginatorIntl } from './paginator-intl';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -78,7 +83,9 @@ export function createTranslateLoader(http: HttpClient) {
     TicketsComponent,
     ClassificationComponent,
     SolveTicket,
-    LimitTextPipe
+    LimitTextPipe,
+    SidenavComponent,
+    PaginatePipe
   ],
   imports: [
     BrowserModule,
@@ -92,13 +99,14 @@ export function createTranslateLoader(http: HttpClient) {
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
+    MatPaginatorModule,
     MatMenuModule,
     MatBottomSheetModule,
     MatIconModule,
     MatInputModule,
+    MatCheckboxModule,
     MatRippleModule,
     MatTableModule,
-    MatSidenavModule,
     FormsModule,
     HttpClientModule,
     MomentModule,
@@ -117,8 +125,13 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     ConfigService,
     DataService,
+    ToolsService,
     TranslateService,
     ReportsService,
+    {
+      provide: MatPaginatorIntl,
+      useClass: CismPaginatorIntl
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: (reportsService: ReportsService) => () => reportsService.loadInitialReport(),

@@ -31,6 +31,10 @@ export class ReportsService {
           rows.pop();
           (document.querySelector('.progress-value') as HTMLElement).style.width = '25%';
           this.data.initialRows = rows.filter(row => row[0] != 'Report Target');
+          const length = this.data.initialRows.length;
+          for (let i = 0; i < length; i++) {
+            this.data.initialRows[i][3] = parseInt(this.data.initialRows[i][3].toString().replace('.', ''), 10)
+          }
           (document.querySelector('.progress-value') as HTMLElement).style.width = '30%';
           resolve()
           obs.unsubscribe();

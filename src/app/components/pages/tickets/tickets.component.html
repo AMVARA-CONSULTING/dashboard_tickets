@@ -2,11 +2,41 @@
 <div class="overview">
   <cism-month-selector class="mobile"></cism-month-selector>
   <cism-overall-box></cism-overall-box>
-  <cism-classification matRipple [matRippleColor]="rippleColor" routerLink="/"></cism-classification>
+  <cism-classification [paramType]="type" [paramValue]="filter" [percent]="percent" [total]="(tickets | async).length"
+    matRipple [matRippleColor]="rippleColor" routerLink="/"></cism-classification>
 </div>
-<div class="table">
-  <div matRipple [matRippleColor]="rippleColor" class="change-view"></div>
-  <mat-table [dataSource]="tickets">
+<mat-paginator [style.display]="changeView ? 'none' : 'block'" [length]=" (tickets | async).length" [pageSize]="20"
+  [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageChange($event)">
+</mat-paginator>
+<div [style.display]="changeView ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
+  matTooltipPosition="above" matTooltipClass="above" matRipple [matRippleColor]="rippleColor" class="change-view">
+  <mat-icon>remove_red_eye</mat-icon>
+</div>
+<div class="change-view-container" [style.display]="!changeView ? 'none' : 'block'">
+  <div class="box-title">Ticket view</div>
+  <div class="checkboxes">
+    <div class="column">
+      <mat-checkbox (change)="checkHandler('id', $event)" [checked]="isChecked('id')" value="id"># number</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('category', $event)" [checked]="isChecked('category')" value="category">category</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('status', $event)" [checked]="isChecked('status')" value="status">status</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('priority', $event)" [checked]="isChecked('priority')" value="priority">priority</mat-checkbox>
+    </div>
+    <div class="column">
+      <mat-checkbox (change)="checkHandler('subject', $event)" [checked]="isChecked('subject')" value="subject">subject</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('assignee', $event)" [checked]="isChecked('assignee')" value="assignee">assignee</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('updated', $event)" [checked]="isChecked('updated')" value="updated">updated</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('target', $event)" [checked]="isChecked('target')" value="target">target
+        version</mat-checkbox>
+    </div>
+    <div class="column">
+      <mat-checkbox (change)="checkHandler('time', $event)" [checked]="isChecked('time')" value="time">estimated time</mat-checkbox>
+      <mat-checkbox (change)="checkHandler('done', $event)" [checked]="isChecked('done')" value="done">% done</mat-checkbox>
+    </div>
+  </div>
+  <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
+</div>
+<div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
+  <mat-table [dataSource]="tickets | async | paginate:page_size:page_number" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -36,8 +66,8 @@
         element.subject | limitText:30 }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="asignee">
-      <mat-header-cell *matHeaderCellDef>Asignee</mat-header-cell>
+    <ng-container matColumnDef="assignee">
+      <mat-header-cell *matHeaderCellDef>Assignee</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.assignee }}</mat-cell>
     </ng-container>
 
@@ -85,7 +115,10 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <mat-header-row *matHeaderRowDef="config.config.displayedColumns"></mat-header-row>
+    <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.config.displayedColumns"></mat-row>
   </mat-table>
 </div>
+<mat-paginator *ngIf="(tickets | async).length > 0 && !changeView" class="end-paginator" [length]="(tickets | async).length"
+  [pageSize]="20" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)">
+</mat-paginator>
