@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'cism-footer',
@@ -8,7 +9,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public config: ConfigService
+  ) { }
 
   ngOnInit() {
   }

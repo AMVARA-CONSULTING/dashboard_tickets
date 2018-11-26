@@ -1,12 +1,12 @@
-<div class="flexed copyright">
-  <div class="daimler">DAIMLER &middot; IWM</div>
+<div routerLink="help" class="flexed copyright">
+  <div class="daimler">{{ config.config.copyright }} &middot; {{ config.config.appTitle }}</div>
 </div>
 <div class="flexed info">
   <div class="desktop">CISM Reporting contains confidential information!</div>
   <div class="desktop">loremipsum@daimler.com</div>
   <div class="mobile">Confidential</div>
 </div>
-<div class="flexed version">
+<div routerLink="about" class="flexed version">
   <div class="desktop execution_date">Execution Date: 28.09.2018 - 10:47h</div>
-  <div class="mobile">v1.0 EN</div>
+  <div class="mobile">v{{ config.config.version }} {{ config.config.language | uppercase }}</div>
 </div>

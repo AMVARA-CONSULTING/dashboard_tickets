@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cism-header',
@@ -7,13 +8,16 @@ import { DataService } from '@services/data.service';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(
-    private data: DataService
+    private data: DataService,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  navigate(url: string): void {
+    this.router.navigate([url])
+    this.data.opened.next(false)
   }
 
   open() {

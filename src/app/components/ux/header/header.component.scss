@@ -31,6 +31,10 @@ span {
     flex: 1;
     display: inline-block;
     font-size: 2rem;
+    @include transition(font-size);
+    @include mobile {
+        font-size: 1.5rem;
+    }
     &:last-of-type{
         margin-left: 5px;
         color: $blue;

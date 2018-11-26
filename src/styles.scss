@@ -329,3 +329,16 @@ cism-month-selector .mat-form-field-infix {
 .mat-checkbox-checkmark-path {
     stroke: black !important;
 }
+
+.solve-field {
+    .mat-form-field-underline {
+        background-color: rgba(white, .2);
+    }
+    .mat-form-field-label {
+        color: rgba(white, .6);
+    }
+}
+
+.solve-actions {
+    text-align: right;
+}

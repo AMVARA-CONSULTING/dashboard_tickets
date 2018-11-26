@@ -34,6 +34,7 @@
   flex: 1;
   text-align: right;
   color: $blue;
+  white-space: nowrap;
   @include mobile-tablet {
     font-size: 1.3rem;
   }

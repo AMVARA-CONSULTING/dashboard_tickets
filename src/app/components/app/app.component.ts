@@ -1,11 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ReportsService } from '@services/reports.service';
-import memo from 'memo-decorator';
 
 @Component({
   selector: 'cism-root',
@@ -54,7 +53,8 @@ export class AppComponent {
     private translate: TranslateService,
     public config: ConfigService,
     public data: DataService,
-    private reports: ReportsService
+    private reports: ReportsService,
+    private router: Router
   ) {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
@@ -67,5 +67,10 @@ export class AppComponent {
 
   getPage(outlet: RouterOutlet) {
     return outlet.activatedRouteData.state
+  }
+
+  navigate(url: string): void {
+    this.router.navigate([url])
+    this.data.opened.next(false)
   }
 }

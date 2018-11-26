@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, AfterContentInit } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval } from 'rxjs/internal/observable/interval';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ToolsService } from 'app/tools.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -17,7 +17,7 @@ import * as moment from 'moment';
   styleUrls: ['./tickets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit {
+export class TicketsComponent implements OnInit, AfterContentInit {
 
   constructor(
     public data: DataService,
@@ -25,9 +25,10 @@ export class TicketsComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private ac: ActivatedRoute,
     private router: Router,
-    private tools: ToolsService
+    private tools: ToolsService,
+    private ref: ChangeDetectorRef
   ) {
-    this.tickets = new BehaviorSubject<any[]>([])
+    this.tickets = new BehaviorSubject<Ticket[]>([])
     const types = data.initialRows.reduce((r, a) => {
       r[a[0]] = r[a[0]] || []
       r[a[0]].push(a)
@@ -54,6 +55,10 @@ export class TicketsComponent implements OnInit {
   }
 
   displayedColumns_copy: string[] = []
+
+  ngAfterContentInit() {
+    this.ref.detectChanges()
+  }
 
   changeViewClick() {
     this.displayedColumns_copy = this.config.config.displayedColumns
@@ -163,13 +168,27 @@ export class TicketsComponent implements OnInit {
 
   changeView: boolean = false
 
-  tickets: BehaviorSubject<any[]>
+  tickets: BehaviorSubject<Ticket[]>
 
   goSolve(ticket: Ticket): void {
-    this.bottomSheet.open(SolveTicket, {
+    let ref = this.bottomSheet.open(SolveTicket, {
       panelClass: 'solve-ticket-panel',
       data: ticket
     })
+    ref.instance.success.subscribe(success => {
+      if (success.success) {
+        const text = success.solveText
+        const id = success.id
+        const tickets = this.tickets.getValue()
+        const index = tickets.findIndex(row => row.id == id)
+        tickets[index].status = 'Solved'
+        this.tickets.next([].concat(tickets))
+      }
+    })
+  }
+
+  removeItem(ticket: Ticket): void {
+    this.tickets.next(this.tickets.getValue().filter(ticketB => ticketB.id != ticket.id))
   }
 
 }
@@ -177,17 +196,30 @@ export class TicketsComponent implements OnInit {
 @Component({
   selector: 'solve-ticket',
   templateUrl: 'solve.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SolveTicket {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public ticket: Ticket,
     private bottomSheetRef: MatBottomSheetRef<SolveTicket>
   ) {
-    console.log(ticket)
+    this.success = new Subject<{id: number, success: boolean, solveText: string}>()
   }
 
-  close() {
+  solveText: string = ''
+
+  close(): void {
+    this.success.next({ id: 0, success: false, solveText: '' })
+    this.success.complete()
     this.bottomSheetRef.dismiss()
   }
+
+  solve(): void {
+    this.success.next({ id: this.ticket.id, success: true, solveText: this.solveText })
+    this.success.complete()
+    this.bottomSheetRef.dismiss()
+  }
+
+  success: Subject<{id: number, success: boolean, solveText: string}>
 
 }

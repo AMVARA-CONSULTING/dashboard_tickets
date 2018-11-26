@@ -1,10 +1,10 @@
 {
-	"version": "1.3.0",
+	"version": "1.4.0",
 	"language": "en",
-	"appTitle": "CISM",
+	"appTitle": "IWM",
 	"scenario": "dev",
 	"delay": 1000,
-	"copyright": "AMVARA",
+	"copyright": "DAIMLER",
 	"license": "SFASR",
 	"languageCodes": {
 		"en": "English",
@@ -55,6 +55,13 @@
 		}
 	],
 	"changelog": [
+		{
+			"version": "1.4.0",
+			"text": [
+				"Complete data from tickets",
+				"Solve or remove ticket"
+			]
+		},
 		{
 			"version": "1.3.0",
 			"text": [

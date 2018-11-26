@@ -27,17 +27,18 @@
     width: 300px;
 }
 .nav{
-    padding-top: 20px;
+    padding-top: 40px;
     line-height: 35px;
-    padding-left: 20px;
+    padding-left: 45px;
     list-style-type: none 
 }
 .nav li{
     flex: 1;
     font-size: 1.5rem;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     position: relative;
-    padding-left: 40px
+    cursor: pointer;
+    padding-left: 25px
 }
 .nav li::before{
     width: 15px;
@@ -56,7 +57,7 @@
     transition: left .15s ease-in-out;
 }
 .nav li:hover:before{
-    left: 10px;
+    left: 5px;
     background-image: url("/assets/img/src_assets_arrow.blue.svg");
 }
 .nav li:hover{

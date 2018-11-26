@@ -30,6 +30,10 @@ $graphic-teal: #7e57c2;
 // Shadows
 $box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 
+// Transitions
+@mixin transition($property) {
+    transition: $property .15s ease-in-out;
+}
 
 // Mixins
 
