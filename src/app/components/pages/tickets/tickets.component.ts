@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { ToolsService } from 'app/tools.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import * as moment from 'moment';
 
 @Component({
   selector: 'cism-tickets',
@@ -27,9 +28,6 @@ export class TicketsComponent implements OnInit {
     private tools: ToolsService
   ) {
     this.tickets = new BehaviorSubject<any[]>([])
-    this.tickets.subscribe(tickets => {
-      this.percent = parseInt((tickets.length * 100 / this.data.tickets.length).toString(), 10)
-    })
     const types = data.initialRows.reduce((r, a) => {
       r[a[0]] = r[a[0]] || []
       r[a[0]].push(a)
@@ -46,11 +44,11 @@ export class TicketsComponent implements OnInit {
         const intervalB = interval(100).subscribe(_ => {
           if (!this.data.loadingTickets) {
             intervalB.unsubscribe()
-            this.rollup()
+            this.data.month.subscribe(_ => this.rollup())
           }
         })
       } else {
-        this.rollup()
+        this.data.month.subscribe(_ => this.rollup())
       }
     })
   }
@@ -102,6 +100,9 @@ export class TicketsComponent implements OnInit {
 
   rollup(): void {
     let ticketRows = this.data.tickets
+    const month = this.data.month.getValue()
+    ticketRows = ticketRows.filter(row => moment(row[2], 'DD.MM.YYYY HH:mm').format('YYYY[M]MM') == month)
+    const totalOfMonth = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
         this.router.navigate(['/'])
@@ -109,6 +110,7 @@ export class TicketsComponent implements OnInit {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
+    if (ticketRows.length === 0) return
     const length = ticketRows.length
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
@@ -142,6 +144,7 @@ export class TicketsComponent implements OnInit {
       })
     }
     this.tickets.next(tickets)
+    this.percent = parseInt((ticketRows.length * 100 / totalOfMonth).toString(), 10)
   }
 
   type: string

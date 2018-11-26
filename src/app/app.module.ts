@@ -22,6 +22,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +33,7 @@ import { HeaderComponent } from './components/ux/header/header.component';
 import { FooterComponent } from './components/ux/footer/footer.component';
 import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.component';
 import { AboutComponent } from './components/pages/about/about.component';
-import { MainComponent } from './components/pages/main/main.component';
+import { MainComponent, DataNotFound } from './components/pages/main/main.component';
 import { MonthSelectorComponent } from './components/month-selector/month-selector.component';
 import { OverallBoxComponent } from './components/overall-box/overall-box.component';
 import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
@@ -85,7 +86,8 @@ export function createTranslateLoader(http: HttpClient) {
     SolveTicket,
     LimitTextPipe,
     SidenavComponent,
-    PaginatePipe
+    PaginatePipe,
+    DataNotFound
   ],
   imports: [
     BrowserModule,
@@ -106,6 +108,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatInputModule,
     MatCheckboxModule,
     MatRippleModule,
+    MatDialogModule,
     MatTableModule,
     FormsModule,
     HttpClientModule,
@@ -120,7 +123,8 @@ export function createTranslateLoader(http: HttpClient) {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
   ],
   entryComponents: [
-    SolveTicket
+    SolveTicket,
+    DataNotFound
   ],
   providers: [
     ConfigService,

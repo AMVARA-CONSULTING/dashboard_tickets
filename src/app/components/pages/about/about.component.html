@@ -15,11 +15,6 @@
         matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{
         'about.reloadLanguageFiles'| translate }}</button>
     </p>
-    <mat-slide-toggle [(ngModel)]="config.config.negativeBad">Negative Delta should be
-      bad ?</mat-slide-toggle>
-    <div class="separator"></div>
-    <mat-slide-toggle [(ngModel)]="config.config.infiniteScroll">Infinite
-      Scroll on item lists</mat-slide-toggle>
     <!--<p style="cursor: pointer;" class="actual-config" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
       <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>-->
   </mat-expansion-panel>

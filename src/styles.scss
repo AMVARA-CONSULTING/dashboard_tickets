@@ -38,12 +38,12 @@ body, html {
     color: $semi-white;
     font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
     font-size: 13px;
-    @include mobile {
+    /* @include mobile {
         font-size: 10px;
     }
     @include tablet {
         font-size: 11px;
-    }
+    } */
     color: $semi-white;
     overflow-x: hidden;
 }
@@ -135,6 +135,28 @@ html, body { height: 100%; }
     background-color: $bg-color;
 }
 
+.mat-dialog-container {
+    background-color: $semi-black-1;
+}
+
+.mat-dialog-title {
+    color: $blue;
+}
+
+.mat-dialog-content {
+    color: $semi-white;
+    margin-bottom: 10px !important;
+    font-size: 1.2rem;
+}
+
+.mat-dialog-actions {
+    justify-content: flex-end;
+    .mat-button {
+        color: $blue;
+        font-weight: normal;
+    }
+}
+
 .mat-select-panel::-webkit-scrollbar-track {
     background-color: $semi-black-2;
 }
@@ -198,7 +220,7 @@ html, body { height: 100%; }
     overflow: initial !important;
 }
 
-[routerlink] {
+[routerLink] {
     outline: 0 !important;
 }
 

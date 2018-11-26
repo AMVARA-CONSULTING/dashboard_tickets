@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'cism-stadistic-box',
@@ -12,7 +13,8 @@ export class StadisticBoxComponent implements OnInit, OnChanges {
 
   constructor(
     private router: Router,
-    private _data: DataService
+    private _data: DataService,
+    private _config: ConfigService
   ) { }
 
   ngOnInit() {
@@ -24,15 +26,31 @@ export class StadisticBoxComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     const newData: any[] = changes.data.currentValue
-    const total = newData.reduce((r, a) => r + a[3], 0)
     const newRows = []
-    const length = newData.length
-    for (let i = 0; i < length; i++) {
-      newRows.push({
-        name: newData[i][2],
-        count: newData[i][3].toLocaleString(),
-        percent: (newData[i][3] * 100 / total).toFixed(0)
-      })
+    if (Array.isArray(newData)) {
+      const length = newData.length
+      const total = newData.reduce((r, a) => r + a[3], 0)
+      for (let i = 0; i < length; i++) {
+        newRows.push({
+          name: newData[i][2],
+          count: newData[i][3].toLocaleString(),
+          percent: (newData[i][3] * 100 / total).toFixed(0)
+        })
+      }
+    } else {
+      const total = changes.data.currentValue[Object.keys(changes.data.currentValue)[0]].length
+      const dataV2 = changes.data.currentValue[Object.keys(changes.data.currentValue)[0]].reduce((r, a) => {
+        r[a[this._config.config.columns[this.go]]] = r[a[this._config.config.columns[this.go]]] || []
+        r[a[this._config.config.columns[this.go]]].push(a)
+        return r
+      }, {})
+      for (let prop in dataV2) {
+        newRows.push({
+          name: prop,
+          count: dataV2[prop].length.toLocaleString(),
+          percent: (dataV2[prop].length * 100 / total).toFixed(0)
+        })
+      }
     }
     this.rows = newRows
   }

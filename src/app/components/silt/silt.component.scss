@@ -12,13 +12,20 @@
   border-radius: $border-radius;
   justify-content: space-between;
   box-shadow: $box-shadow;
+  @include mobile-tablet {
+    margin-top: -15px;
+  }
 }
 
 .title {
   font-size: 1.7rem;
   line-height: 45px;
   flex: 1;
-  color: $blue
+  color: $blue;
+  @include mobile-tablet {
+    font-size: 1.4rem;
+    color: darken($blue, 5);
+  }
 }
 
 .count {
@@ -26,5 +33,8 @@
   line-height: 45px;
   flex: 1;
   text-align: right;
-  color: $blue
+  color: $blue;
+  @include mobile-tablet {
+    font-size: 1.3rem;
+  }
 }
