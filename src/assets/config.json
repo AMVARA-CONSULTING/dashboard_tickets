@@ -56,6 +56,14 @@
 	],
 	"reports": {
 		"dev": {
+			"barchart": {
+				"id": "",
+				"selector": ""
+			},
+			"overview": {
+				"id": "",
+				"selector": ""
+			},
 			"tickets": {
 				"id": "x",
 				"selector": "[lid=AMVARA_DATA_OI] tr"

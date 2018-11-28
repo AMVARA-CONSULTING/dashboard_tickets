@@ -60,6 +60,16 @@ export class ReportsService {
     })
   }
 
+  loadBarchartData(): Promise<void> {
+    return new Promise(resolve => {
+      this.getBarchart(this.config.config.reports.dev.barchart).subscribe(
+        res => {
+          resolve()
+        }
+      )
+    })
+  }
+
   htmlToJson(data, element): any[] {
     const htmlDoc = new DOMParser().parseFromString(data, "text/html")
     const table = htmlDoc.querySelectorAll(element)
