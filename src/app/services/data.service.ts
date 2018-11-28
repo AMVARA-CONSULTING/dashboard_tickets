@@ -20,6 +20,7 @@ export class DataService {
   // Used to don't calculate totals if comes from L1
   count: number = 0
   percent: number = 0
+  barchart = []
 
   loadingTickets: boolean = true
 

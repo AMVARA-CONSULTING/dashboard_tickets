@@ -17,7 +17,7 @@ export class MonthSelectorComponent implements OnInit {
   ) {
     this.data.month.subscribe(month => this.currentMonth = month)
     const months = []
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 24.; i++) {
       months.push(moment().subtract(i, 'months').format('YYYY[M]MM'))
     }
     this.months = months
