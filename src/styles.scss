@@ -313,6 +313,13 @@ cism-month-selector .mat-form-field-infix {
     }
 }
 
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .mat-row {
+        padding: 3px 0;
+        min-height: 10px;
+    }
+ }
+
 .mat-cell {
     touch-action: auto !important;
     -ms-touch-action: auto !important;

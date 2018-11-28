@@ -54,6 +54,11 @@
 			"telephone": "+34 670 61 74 71"
 		}
 	],
+	"reports": {
+		"dev": {
+			"tickets": "x"
+		}
+	},
 	"changelog": [
 		{
 			"version": "1.4.0",

@@ -6,7 +6,9 @@
     <li (click)="navigate('help')">Help</li>
   </ul>
 </cism-sidenav>
-<div class="wrapper" (@routerTransitions.done)="trigger()" [@routerTransitions]="getPage(o)">
-  <router-outlet #o="outlet"></router-outlet>
+<div [@.disabled]="true">
+  <div class="wrapper" (@routerTransitions.done)="trigger()" [@routerTransitions]="getPage(o)">
+    <router-outlet #o="outlet"></router-outlet>
+  </div>
 </div>
 <cism-footer></cism-footer>

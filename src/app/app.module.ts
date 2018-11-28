@@ -60,6 +60,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from '../environments/environment';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { CismPaginatorIntl } from './paginator-intl';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -95,6 +96,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserAnimationsModule,
     MatExpansionModule,
     NgxChartsModule,
+    NgxJsonViewerModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatTooltipModule,
@@ -146,7 +148,7 @@ export function createTranslateLoader(http: HttpClient) {
       // This loads the config.json file before the App is initialized
       provide: APP_INITIALIZER,
       useFactory: (configService: ConfigService) => () => configService.load(),
-      deps: [ConfigService],
+      deps: [ConfigService, DataService, ToolsService],
       multi: true
     }
   ],

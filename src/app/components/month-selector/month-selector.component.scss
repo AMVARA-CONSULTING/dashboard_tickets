@@ -22,9 +22,11 @@
 
 ::ng-deep .no-underline .mat-select-value {
   color: $semi-white;
-  max-width: initial;
-  width: auto;
   padding-right: 10px;
+}
+
+::ng-deep .no-underline .mat-select {
+  width: 100px;
 }
 
 ::ng-deep .no-underline .mat-select-arrow {
