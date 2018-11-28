@@ -57,17 +57,35 @@
 	"reports": {
 		"dev": {
 			"barchart": {
-				"id": "",
-				"selector": ""
-			},
-			"overview": {
-				"id": "",
-				"selector": ""
+				"id": "iF4C016DAEBE44C6D8858D68E8A3F672A",
+				"selector": "lid=Overview_Diagram_NS_"
 			},
 			"tickets": {
-				"id": "x",
-				"selector": "[lid=AMVARA_DATA_OI] tr"
+				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
+				"selector": "[lid=List1_NS_] tr"
+			},
+			"overview_prio": {
+				"id": "iD0950E7C33A74DE08A909904A30E3DC6",
+				"selector": "[lid=Ticket_Priority_NS_] tr"
+			},
+			"overview_type": {
+				"id": "i00B4A60D67674C20B46F76A5F64D5F7C",
+				"selector": "[lid=Ticket_Status1_NS_] tr"
+			},
+			"overview_status": {
+				"id": "i334A42AE2B00491A90D1D9297C7241F2",
+				"selector": "[lid=Ticket_Status_NS_] tr"
+			},
+			"overview_service": {
+				"id": "i742135DE2F3B48E782A8D5CA2F5D22F4",
+				"selector": "[lid=Ticket_Application_NS_] tr"
+			},
+			"overview_silt": {
+				"id": "iD90CD52D305E4083A871B2E3514300B8",
+				"selector": "[lid=List1_NS_] tr"
 			}
+
+			
 		}
 	},
 	"changelog": [
