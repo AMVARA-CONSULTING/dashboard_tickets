@@ -1,7 +1,7 @@
 {
 	"version": "1.4.0",
 	"language": "en",
-	"appTitle": "IWM",
+	"appTitle": "IWM Reporting",
 	"scenario": "dev",
 	"delay": 1000,
 	"copyright": "DAIMLER",
