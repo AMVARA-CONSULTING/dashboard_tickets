@@ -6,6 +6,7 @@ import { trigger, transition, query, style, group, animate, keyframes, animateCh
 import { DataService } from '@services/data.service';
 import { ReportsService } from '@services/reports.service';
 import { ToolsService } from 'app/tools.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'cism-root',
@@ -56,11 +57,13 @@ export class AppComponent {
     public data: DataService,
     private reports: ReportsService,
     private router: Router,
-    private tools: ToolsService
+    private tools: ToolsService,
+    private http: HttpClient
   ) {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
     this.reports.loadTickets().then(_ => this.data.loadingTickets = false)
+    this.http.get('/ibmcognos/cgi-bin/cognosisapi.dll/repository/sid/cm/oid/i16c2787e57d24b9c88c8b3805f5a88cf/content', { responseType: 'text' }).subscribe(data => console.log('AMVARA HTML', data))
     this.reports.getReportData('i162AB365F31345B2AAAAA1A9D4D98203', 'HTML').then(res => console.log('AMVARA xml:',res))
   }
 
