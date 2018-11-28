@@ -70,7 +70,7 @@ export class ReportsService {
 
   getReportData(ReportID: string, format: string): Promise<any> {
     return new Promise(resolve => {
-      this.http.get(this.config.config.cognosRepository+'/atom/cm/id/'+ReportID+'?XSSSTARTfilter=content-version&fmt=HTML&version=latest&containingClass=query&HTXSSEND', { responseType: 'text'}).subscribe(data => {
+      this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'/atom/cm/id/'+ReportID+'?XSSSTARTfilter=content-version&fmt=HTML&version=latest&containingClass=query&HTXSSEND', { responseType: 'text'}).subscribe(data => {
         const xmlData = this.transcode(data)
         resolve(xmlData)
       })

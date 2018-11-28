@@ -10,6 +10,7 @@ export interface Config {
   readonly copyright: string;
   readonly columns: any,
   readonly cognosRepository: string,
+  readonly scenario: string,
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;
