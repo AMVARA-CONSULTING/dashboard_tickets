@@ -1,0 +1,117 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.3162949cad70d3443abe.js",
+        "/polyfills.c4e3b1ea078042257dac.js",
+        "/runtime.ec2944dd8b20ec099bf3.js",
+        "/scripts.76fef747243b017b527c.js",
+        "/styles.979bebebbf1ee2f55e9d.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/config.json",
+        "/assets/fonts/c062003t.ttf",
+        "/assets/fonts/c063003t.svg",
+        "/assets/fonts/c063003t.ttf",
+        "/assets/fonts/c063004t.ttf",
+        "/assets/i18n/de.json",
+        "/assets/i18n/en.json",
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/img/DIP_ICON_Hand1.svg",
+        "/assets/img/DIP_ICON_Hand2.svg",
+        "/assets/img/DIP_ICON_PortLandsView.svg",
+        "/assets/img/DIP_ICON_ScrollSwipeView.svg",
+        "/assets/img/Datec24_logo1.svg",
+        "/assets/img/arrow.svg",
+        "/assets/img/menu_dots.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_About.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_About_active.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_Help.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_Help_active.svg",
+        "/assets/img/src_assets_arrow.blue.svg",
+        "/assets/img/src_assets_arrow.svg",
+        "/assets/reports/Mobile_Overview.csv",
+        "/assets/reports/Mobile_Ticket_List.csv"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/config.json": "a10691c22769e2de42097772d2ac9cc388110bee",
+    "/assets/fonts/c062003t.ttf": "03a5c1309edaa0df7461645b727a3929cc3575ea",
+    "/assets/fonts/c063003t.svg": "4bb994c38f0472d4b76de65d84c505524d33d8b8",
+    "/assets/fonts/c063003t.ttf": "b114eb4b0d75a3542b734fbfce132879baa3a5fb",
+    "/assets/fonts/c063004t.ttf": "75be9265203ed6c1dda618b6411ea8957b7ebe98",
+    "/assets/i18n/de.json": "aa6f82f8a07af76d049391ee70adc36c582b0c42",
+    "/assets/i18n/en.json": "9921b31a5fe68fb6e5ea9f9f4f4cd63daf181265",
+    "/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/assets/img/DIP_ICON_Hand1.svg": "7db8a05adf94995295d78c322b1e54f8dbc83671",
+    "/assets/img/DIP_ICON_Hand2.svg": "f4f512eee94c37291e5570c5fbacf815fc3327f7",
+    "/assets/img/DIP_ICON_PortLandsView.svg": "9261190abd5146a80b20d7f5a32d44141e77ba81",
+    "/assets/img/DIP_ICON_ScrollSwipeView.svg": "fc43d139a45bc51dfc38a5c6b7194922a23ae94a",
+    "/assets/img/Datec24_logo1.svg": "b1eae69758b7a9c4822b61a2add629ae67977c93",
+    "/assets/img/arrow.svg": "bb1cbd1eca2ff7e438bd5b5550031b0bd0ed13a9",
+    "/assets/img/menu_dots.svg": "d592cc165e385b0002a0a20589224d3e994f0608",
+    "/assets/img/src_assets_LicenseScan_Icon_About.svg": "7aeae2b017fe824bad2e69e440711b209f796459",
+    "/assets/img/src_assets_LicenseScan_Icon_About_active.svg": "2c001882cee5289e33d06596349f8fe6e051324a",
+    "/assets/img/src_assets_LicenseScan_Icon_Help.svg": "0fed4277dfe478dd60b40e4c84c4f0565d583877",
+    "/assets/img/src_assets_LicenseScan_Icon_Help_active.svg": "f9bcf18ca2e3f3667339fae2b893ed26f7e71ec8",
+    "/assets/img/src_assets_arrow.blue.svg": "96febde6c981be3032183add9bbc7038aa52867b",
+    "/assets/img/src_assets_arrow.svg": "4d0ab662117ccd5cd3603a3f398a004dae008245",
+    "/assets/reports/Mobile_Overview.csv": "4699e2d63d61e502d2c202e7af2a2f433da750f1",
+    "/assets/reports/Mobile_Ticket_List.csv": "9dfb1ee2be8e1634af7eee7b08e8b09bac97514a",
+    "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/index.html": "4cd3ff13635d03a8b5a3e895470217f199f4082e",
+    "/main.3162949cad70d3443abe.js": "b28806d9deee783f748b8df8a796158d5c3549ab",
+    "/polyfills.c4e3b1ea078042257dac.js": "23f30a1ed95261fae2b799f9194c64248fb8353d",
+    "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
+    "/scripts.76fef747243b017b527c.js": "8937eb7127b3072ebe4f0d69d5dee40fb9217e1e",
+    "/styles.979bebebbf1ee2f55e9d.css": "fe65777f0c5a2466f3dc25cc2dbf97fcb1e188fa"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}
