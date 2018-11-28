@@ -56,7 +56,10 @@
 	],
 	"reports": {
 		"dev": {
-			"tickets": "x"
+			"tickets": {
+				"id": "x",
+				"selector": "[lid=AMVARA_DATA_OI] tr"
+			}
 		}
 	},
 	"changelog": [

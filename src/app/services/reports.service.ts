@@ -22,7 +22,7 @@ export class ReportsService {
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
       (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
-      const obs = this.getInitialReport().subscribe(
+      this.getInitialReport().subscribe(
         res => {
           const rows = [];
           const lines = res.split('\n');
@@ -45,21 +45,17 @@ export class ReportsService {
           }
           (document.querySelector('.progress-value') as HTMLElement).style.width = '30%';
           resolve()
-          obs.unsubscribe();
-        },
-        err => obs.unsubscribe()
+        }
       )
     })
   }
 
   loadTickets(): Promise<void> {
     return new Promise(resolve => {
-      const obs = this.getTickets(this.config.config.reports.dev.tickets).subscribe(
+      this.getTickets(this.config.config.reports.dev.tickets).subscribe(
         res => {
           resolve()
-          obs.unsubscribe()
-        },
-        err => obs.unsubscribe()
+        }
       )
     })
   }
@@ -93,7 +89,7 @@ export class ReportsService {
             const nextLink = json.data[0]._meta.links.content.url
             this.reportDates.tickets = json.data[0].modificationTime
             this.http.get(nextLink, { responseType: 'text', headers: { 'X-XSRF-TOKEN': this.tools.xsrf_token } }).subscribe(data => {
-              const rows = this.htmlToJson(data, '[lid=AMVARA_DATA_OI] tr')
+              const rows = this.htmlToJson(data, this.config.config.reports.dev.tickets.selector)
               rows.forEach((row, index, rows) => {
                 this.config.config.reports.trucks.columns.orderIntake.shouldBeNumber.forEach(num => {
                   rows[index][num] = isNaN(rows[index][num]) ? 0 : parseFloat(rows[index][num])
