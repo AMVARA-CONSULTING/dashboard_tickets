@@ -15,8 +15,8 @@
         matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{
         'about.reloadLanguageFiles'| translate }}</button>
     </p>
-    <!--<p style="cursor: pointer;" class="actual-config" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
-      <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>-->
+    <p style="cursor: pointer;" class="actual-config" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
+      <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>

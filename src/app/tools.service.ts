@@ -14,5 +14,12 @@ export class ToolsService {
     const str = foo.toString().match(/^\s*function\s*\(\s*\)\s*\{(([\s\S](?!\}$))*[\s\S])/)[1]
     return new Worker(window.URL.createObjectURL(new Blob([str], { type: 'text/javascript' })))
   }
+
+  xsrf_token
+
+  isIE(): boolean {
+    const ua = window.navigator.userAgent
+    return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
+  }
   
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Config } from '../common/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from './data.service';
+import { ToolsService } from 'app/tools.service';
 
 @Injectable()
 export class ConfigService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private data: DataService,
+    private tools: ToolsService
   ) { }
 
   config: Config;
@@ -15,6 +19,7 @@ export class ConfigService {
 
   load(): Promise<void> {
     return new Promise(resolve => {
+      this.data.disabledAnimations = this.tools.isIE();
       (document.querySelector('.progress-value') as HTMLElement).style.width = '35%';
       this.http.get('assets/config.json').subscribe(config => {
         (document.querySelector('.progress-value') as HTMLElement).style.width = '40%';

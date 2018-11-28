@@ -5,6 +5,7 @@ import { RouterOutlet, Router } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ReportsService } from '@services/reports.service';
+import { ToolsService } from 'app/tools.service';
 
 @Component({
   selector: 'cism-root',
@@ -54,7 +55,8 @@ export class AppComponent {
     public config: ConfigService,
     public data: DataService,
     private reports: ReportsService,
-    private router: Router
+    private router: Router,
+    private tools: ToolsService
   ) {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
@@ -62,7 +64,7 @@ export class AppComponent {
   }
 
   trigger() {
-    window.dispatchEvent(new Event('resize'))
+    if (!this.tools.isIE()) window.dispatchEvent(new Event('resize'))
   }
 
   getPage(outlet: RouterOutlet) {

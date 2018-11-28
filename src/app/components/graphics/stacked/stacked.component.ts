@@ -30,7 +30,7 @@ export class StackedComponent implements OnInit, OnChanges {
   yAxisLabel = 'License Type';
   xAxisLabel = 'License Type';
 
-  @Input() data: any[] = [];
+  @Input() data: any[] = []
   @Input() prefix: string[] = []
 
   ngOnChanges(changes: SimpleChanges) {
