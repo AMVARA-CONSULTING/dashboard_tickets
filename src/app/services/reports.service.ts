@@ -70,9 +70,9 @@ export class ReportsService {
 
   getReportData(ReportID: string, format: string): Promise<any> {
     return new Promise(resolve => {
-      this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'/atom/cm/id/'+ReportID+'?XSSSTARTfilter=content-version&fmt=HTML&version=latest&containingClass=query&HTXSSEND', { responseType: 'text'}).subscribe(data => {
-        const xmlData = this.transcode(data)
-        resolve(xmlData)
+      this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*22'+ReportID+'*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text'}).subscribe(data => {
+        const htmlData = this.htmlToJson(data, '[lid=List1] tr')
+        resolve(htmlData)
       })
     })
   }
