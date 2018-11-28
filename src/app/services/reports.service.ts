@@ -5,6 +5,8 @@ import { DataService } from './data.service';
 import { ConfigService } from './config.service';
 import { ToolsService } from 'app/tools.service';
 
+declare const JKL, XML: any
+
 @Injectable()
 export class ReportsService {
 
@@ -18,6 +20,12 @@ export class ReportsService {
   }
 
   corpintra: boolean = false
+
+  transcode(data) {
+    const xotree = new XML.ObjTree()
+    const dumper = new JKL.Dumper()
+    return JSON.parse(dumper.dump(xotree.parseXML(data)))
+  }
 
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
@@ -60,13 +68,12 @@ export class ReportsService {
     })
   }
 
-  loadBarchartData(): Promise<void> {
+  getReportData(ReportID: string, format: string): Promise<any> {
     return new Promise(resolve => {
-      this.getBarchart(this.config.config.reports.dev.barchart).subscribe(
-        res => {
-          resolve()
-        }
-      )
+      this.http.get(this.config.config.cognosRepository+'/atom/cm/id/'+ReportID+'?XSSSTARTfilter=content-version&fmt=HTML&version=latest&containingClass=query&HTXSSEND', { responseType: 'text'}).subscribe(data => {
+        const xmlData = this.transcode(data)
+        resolve(xmlData)
+      })
     })
   }
 

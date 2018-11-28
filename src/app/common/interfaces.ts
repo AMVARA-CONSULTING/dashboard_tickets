@@ -9,6 +9,7 @@ export interface Config {
   readonly changelog: any[];
   readonly copyright: string;
   readonly columns: any,
+  readonly cognosRepository: string,
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;

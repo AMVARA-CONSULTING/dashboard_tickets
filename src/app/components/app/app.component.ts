@@ -61,6 +61,7 @@ export class AppComponent {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
     this.reports.loadTickets().then(_ => this.data.loadingTickets = false)
+    this.reports.getReportData('i162AB365F31345B2AAAAA1A9D4D98203', 'HTML').then(res => console.log(res))
   }
 
   trigger() {
