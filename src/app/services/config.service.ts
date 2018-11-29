@@ -3,6 +3,7 @@ import { Config } from '../common/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data.service';
 import { ToolsService } from 'app/tools.service';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable()
 export class ConfigService {
@@ -11,9 +12,13 @@ export class ConfigService {
     private http: HttpClient,
     private data: DataService,
     private tools: ToolsService
-  ) { }
+  ) {
+    this.completed = new Subject<void>()
+  }
 
   config: Config;
+
+  completed: Subject<void>
 
   displayedColumnsDefault: string[] = ['id', 'category', 'status', 'priority', 'subject', 'assignee', 'updated', 'target', 'time', 'done', 'options']
 
@@ -31,6 +36,8 @@ export class ConfigService {
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';
         console.log(this.config)
+        this.completed.next()
+        this.completed.complete()
         setTimeout(_ => resolve(), this.config.delay);
       });
     });

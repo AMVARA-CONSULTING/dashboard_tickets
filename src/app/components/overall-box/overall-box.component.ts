@@ -14,7 +14,11 @@ export class OverallBoxComponent implements OnInit {
     private data: DataService,
     private config: ConfigService
   ) {
-    this.total = this.data.initialRows.filter(row => row[0] == 'BYPRIORITY').reduce((r, a) => r + parseInt(a[3].toString().replace('.', ''), 10), 0).toLocaleString(this.config.config.language)
+    this.data.month.subscribe(month => {
+      const total = +this.data.priority.filter(row => row[1] == month.month).reduce((r, a) => r + a[3], 0)
+      this.total = total.toLocaleString(this.config.config.language)
+      console.log('AMVARA Overall',total)
+    })
   }
 
   ngOnInit() {

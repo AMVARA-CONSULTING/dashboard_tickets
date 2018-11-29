@@ -17,7 +17,7 @@ export class MainComponent implements OnInit {
   ) {
     this.data.month.subscribe(month => {
       if (this.data.tickets.length > 0) {
-        const newRows = this.data.tickets.filter(row => row[0] == month)
+        const newRows = this.data.tickets.filter(row => row[0] == month.month)
         if (newRows.length === 0) {
           this._dialog.open(DataNotFound)
           return

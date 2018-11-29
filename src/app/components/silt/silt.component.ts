@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 declare var humanizeDuration: any
 
@@ -10,17 +11,25 @@ declare var humanizeDuration: any
   styleUrls: ['./silt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SiltComponent implements OnInit {
+export class SiltComponent implements OnInit, OnDestroy {
 
   constructor(
     private data: DataService
   ) {
-    const currenDate = moment().format('YYYY[M]MM')
-    const total = parseInt(this.data.initialRows.filter(row => row[0] == 'SILT' && row[1] == currenDate)[0][2].replace(/[.]/g, '').replace(/[,]/g, '.'))
-    this.total = humanizeDuration(total * 60000)
+    this.data.month.subscribe(month => {
+      const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
+      console.log('AMVARA Silt',total)
+      this.total = humanizeDuration(total * 60000)
+    })
   }
 
+  monthSubscription: Subscription
+
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    if (this.monthSubscription) this.monthSubscription.unsubscribe()
   }
 
   total: number | string = 0

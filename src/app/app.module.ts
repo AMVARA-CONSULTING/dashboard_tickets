@@ -141,7 +141,7 @@ export function createTranslateLoader(http: HttpClient) {
     {
       provide: APP_INITIALIZER,
       useFactory: (reportsService: ReportsService) => () => reportsService.loadInitialReport(),
-      deps: [ReportsService, DataService],
+      deps: [ReportsService, DataService, ConfigService],
       multi: true,
     },
     {

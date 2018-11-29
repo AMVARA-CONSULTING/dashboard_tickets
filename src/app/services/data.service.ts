@@ -7,13 +7,13 @@ export class DataService {
 
   constructor() {
     const actualMonth = moment().format('YYYY[M]MM')
-    this.month = new BehaviorSubject<string>(actualMonth)
+    this.month = new BehaviorSubject<{month: string, index: number}>({ month: actualMonth, index: 0})
     this.isMobile = window.screen.width <= 800
     this.opened = new BehaviorSubject<boolean>(false)
   }
 
   currentLevel: number
-  month: BehaviorSubject<string>
+  month: BehaviorSubject<{month: string, index: number}>
 
   disabledAnimations: boolean = false
 
@@ -29,5 +29,12 @@ export class DataService {
 
   isMobile: boolean = false
   opened: BehaviorSubject<boolean>
+
+  chart: any[] = []
+  silt: any[] = []
+  priority: any[] = []
+  service: any[] = []
+  status: any[] = []
+  type: any[] = []
 
 }

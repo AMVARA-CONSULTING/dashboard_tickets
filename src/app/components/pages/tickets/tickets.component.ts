@@ -106,7 +106,7 @@ export class TicketsComponent implements OnInit, AfterContentInit {
   rollup(): void {
     let ticketRows = this.data.tickets
     const month = this.data.month.getValue()
-    ticketRows = ticketRows.filter(row => moment(row[2], 'DD.MM.YYYY HH:mm').format('YYYY[M]MM') == month)
+    ticketRows = ticketRows.filter(row => moment(row[2], 'DD.MM.YYYY HH:mm').format('YYYY[M]MM') == month.month)
     const totalOfMonth = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {

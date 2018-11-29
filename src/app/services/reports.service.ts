@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { DataService } from './data.service';
 import { ConfigService } from './config.service';
 import { ToolsService } from 'app/tools.service';
+import { map } from 'rxjs/operators';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 
 declare const JKL, XML: any
 
@@ -30,50 +32,42 @@ export class ReportsService {
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
       (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
-      this.getInitialReport().subscribe(
-        res => {
-          const rows = [];
-          const lines = res.split('\n');
-          (document.querySelector('.progress-value') as HTMLElement).style.width = '15%';
-          lines.forEach(line => {
-            const newRow = []
-            line.split(';').forEach(element => {
-              newRow.push(isNaN(element) ? element : +element)
-            })
-            rows.push(newRow)
-          });
-          (document.querySelector('.progress-value') as HTMLElement).style.width = '20%';
-          rows.shift();
-          rows.pop();
-          (document.querySelector('.progress-value') as HTMLElement).style.width = '25%';
-          this.data.initialRows = rows.filter(row => row[0] != 'Report Target');
-          const length = this.data.initialRows.length;
-          for (let i = 0; i < length; i++) {
-            this.data.initialRows[i][3] = parseInt(this.data.initialRows[i][3].toString().replace('.', ''), 10)
-          }
-          (document.querySelector('.progress-value') as HTMLElement).style.width = '30%';
+      this.config.completed.subscribe(() => {
+        forkJoin(
+          this.getReportData(this.config.config.reports.dev.barchart.id, this.config.config.reports.dev.barchart.selector, 'Mobile_Tickets_Chart.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_prio.id, this.config.config.reports.dev.overview_prio.selector, 'Mobile_Tickets_Priority.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_service.id, this.config.config.reports.dev.overview_service.selector, 'Mobile_Tickets_Service.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_silt.id, this.config.config.reports.dev.overview_silt.selector, 'Mobile_Tickets_Silt.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_status.id, this.config.config.reports.dev.overview_status.selector, 'Mobile_Tickets_Status.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_type.id, this.config.config.reports.dev.overview_type.selector, 'Mobile_Tickets_Type.csv')
+        ).subscribe(data => {
+          this.data.chart = data[0]
+          this.data.priority = data[1]
+          this.data.service = data[2]
+          this.data.silt = data[3]
+          this.data.status = data[4]
+          this.data.type = data[5]
+          console.log('AMVARA',data)
           resolve()
-        }
-      )
-    })
-  }
-
-  loadTickets(): Promise<void> {
-    return new Promise(resolve => {
-      this.getTickets(this.config.config.reports.dev.tickets).subscribe(
-        res => {
-          resolve()
-        }
-      )
-    })
-  }
-
-  getReportData(ReportID: string, format: string): Promise<any> {
-    return new Promise(resolve => {
-      this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'/ibmcognos/cgi-bin/cognosisapi.dll?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*22'+ReportID+'*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text'}).subscribe(data => {
-        const htmlData = this.htmlToJson(data, '[lid=List1] tr')
-        resolve(htmlData)
+        })
       })
+    })
+  }
+
+  getReportData(ReportID: string, selector: string, fallback: string): Promise<any> {
+    return new Promise(resolve => {
+      if (this.corpintra) {
+        this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*'+ReportID+'*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text'}).subscribe(data => {
+          const htmlData = this.htmlToJson(data, selector)
+          resolve(htmlData)
+        })
+      } else {
+        this.http.get('assets/reports/'+fallback, { responseType: 'text' })
+        .pipe(
+          map(data => this.csvToJson(data))
+        )
+        .subscribe(data => resolve(data))
+      }
     })
   }
 
@@ -92,68 +86,17 @@ export class ReportsService {
     return rows
   }
 
-  reportDates = {
-    tickets: 'x'
-  }
-
-    // Get Order Intake Data from Report (temporarily from JSON File)
-  getTickets(ReportID: string): Observable<{ success: boolean, data?: any[], error?: string, more?: any }> {
-    if (this.corpintra) {
-      return new Observable(observer => {
-        this.http.get('/internal/bi/v1/objects/' + ReportID + '/versions', { headers: { 'X-XSRF-TOKEN': this.tools.xsrf_token } }).subscribe((json: any) => {
-          const nextLink = json.data[0]._meta.links.outputs.url
-          this.http.get(nextLink, { headers: { 'X-XSRF-TOKEN': this.tools.xsrf_token } }).subscribe((json: any) => {
-            const nextLink = json.data[0]._meta.links.content.url
-            this.reportDates.tickets = json.data[0].modificationTime
-            this.http.get(nextLink, { responseType: 'text', headers: { 'X-XSRF-TOKEN': this.tools.xsrf_token } }).subscribe(data => {
-              const rows = this.htmlToJson(data, this.config.config.reports.dev.tickets.selector)
-              rows.forEach((row, index, rows) => {
-                this.config.config.reports.trucks.columns.orderIntake.shouldBeNumber.forEach(num => {
-                  rows[index][num] = isNaN(rows[index][num]) ? 0 : parseFloat(rows[index][num])
-                })
-              })
-              rows.shift()
-              this.data.tickets = rows
-              observer.next({ success: true, data: rows })
-              observer.complete()
-            }, err => {
-              observer.next({ success: false, data: [], error: 'OI - Fail at getting report table data.', more: err })
-              observer.complete()
-            })
-          }, err => {
-            observer.next({ success: false, data: [], error: 'OI - Fail at getting last report versions.', more: err })
-            observer.complete()
-          })
-        }, err => {
-          observer.next({ success: false, data: [], error: 'OI - Fail at retrieving report info.', more: err })
-          observer.complete()
-        })
+  csvToJson(data): any[] {
+    const rows = []
+    const lines: any[] = data.split('\n')
+    lines.shift()
+    lines.forEach(line => {
+      const newRow = []
+      line.split(';').forEach(element => {
+        newRow.push(isNaN(element) ? element : +element)
       })
-    } else {
-      return new Observable(observer => {
-        this.http.get('/assets/reports/Mobile_Ticket_List.csv', { responseType: 'text' }).subscribe((res: any) => {
-          const rows = []
-          const lines = res.split('\n')
-          lines.forEach(line => {
-            const newRow = []
-            line.split(';').forEach(element => {
-              newRow.push(isNaN(element) ? element : +element)
-            })
-            rows.push(newRow)
-          })
-          rows.shift()
-          this.data.tickets = rows
-          observer.next({ success: true, data: res })
-          observer.complete()
-        })
-      })
-    }
-  }
-
-  getInitialReport(): Observable<any> {
-    (document.querySelector('.progress-value') as HTMLElement).style.width = '10%';
-    return this.http.get('assets/reports/Mobile_Overview.csv', {
-      responseType: 'text'
+      rows.push(newRow)
     })
+    return rows
   }
 }

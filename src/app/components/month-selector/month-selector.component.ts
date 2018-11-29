@@ -15,7 +15,7 @@ export class MonthSelectorComponent implements OnInit {
     private data: DataService,
     public config: ConfigService
   ) {
-    this.data.month.subscribe(month => this.currentMonth = month)
+    this.data.month.subscribe(month => this.currentMonth = month.month)
     const months = []
     for (let i = 0; i < 24.; i++) {
       months.push(moment().subtract(i, 'months').format('YYYY[M]MM'))
@@ -27,8 +27,8 @@ export class MonthSelectorComponent implements OnInit {
 
   months = []
 
-  newMonth(month: string): void {
-    this.data.month.next(month)
+  newMonth(month: string, index: number): void {
+    this.data.month.next({ month: month, index: index })
   }
 
   ngOnInit() {
