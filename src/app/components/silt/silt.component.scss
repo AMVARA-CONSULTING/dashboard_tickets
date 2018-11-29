@@ -21,10 +21,9 @@
   font-size: 1.7rem;
   line-height: 45px;
   flex: 1;
-  color: $blue;
+  color: rgba($semi-white, .6);
   @include mobile-tablet {
     font-size: 1.4rem;
-    color: darken($blue, 5);
   }
 }
 
@@ -33,7 +32,7 @@
   line-height: 45px;
   flex: 1;
   text-align: right;
-  color: $blue;
+  color: rgba($semi-white, .6);
   white-space: nowrap;
   @include mobile-tablet {
     font-size: 1.3rem;

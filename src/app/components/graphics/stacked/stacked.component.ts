@@ -49,8 +49,7 @@ export class StackedComponent implements OnInit, OnDestroy {
         })
       }
       this.multi = series.reverse()
-      console.log(this.multi)
-      this.ref.detectChanges()
+      if (!this.ref['destroyed']) this.ref.detectChanges()
     })
   }
   multi = []

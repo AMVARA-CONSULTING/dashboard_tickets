@@ -5,10 +5,10 @@
   display: flex;
   margin-top: 20px;
   flex-wrap: wrap;
-  height: calc(100vh - 400px);
+  height: calc(100vh - 300px);
   will-change: transform;
   @include desktop {
-    height: calc(100vh - 300px) !important;
+    height: calc(100vh - 270px) !important;
   }
   @include mobile {
     height: auto;

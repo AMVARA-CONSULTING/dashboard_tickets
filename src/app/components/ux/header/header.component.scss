@@ -2,7 +2,7 @@
 @import '../../../common/colors';
 
 :host {
-    padding: 30px 40px;
+    padding: 30px 40px 20px;
     display: inline-block;
     position: relative;
     width: 100%;
@@ -70,8 +70,8 @@ cism-menu-icon {
     padding: 0 15px;
     cursor: pointer;
     position: relative;
-    max-width: 40px;
-    height: 40px;
+    max-width: 30px;
+    height: 30px;
     background-repeat: no-repeat;
 }
 

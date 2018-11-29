@@ -47,7 +47,7 @@ export class ReportsService {
           this.data.silt = data[3]
           this.data.status = data[4]
           this.data.type = data[5]
-          console.log('AMVARA',data)
+          console.log('AMVARA', data)
           resolve()
         })
       })
@@ -57,16 +57,16 @@ export class ReportsService {
   getReportData(ReportID: string, selector: string, fallback: string): Promise<any> {
     return new Promise(resolve => {
       if (this.corpintra) {
-        this.http.get(this.config.config.cognosRepository[this.config.config.scenario]+'?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*'+ReportID+'*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text'}).subscribe(data => {
+        this.http.get(this.config.config.cognosRepository[this.config.config.scenario] + '?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*' + ReportID + '*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text' }).subscribe(data => {
           const htmlData = this.htmlToJson(data, selector)
           resolve(htmlData)
         })
       } else {
-        this.http.get('assets/reports/'+fallback, { responseType: 'text' })
-        .pipe(
-          map(data => this.csvToJson(data))
-        )
-        .subscribe(data => resolve(data))
+        this.http.get('assets/reports/' + fallback, { responseType: 'text' })
+          .pipe(
+            map(data => this.csvToJson(data))
+          )
+          .subscribe(data => resolve(data))
       }
     })
   }
@@ -91,11 +91,13 @@ export class ReportsService {
     const lines: any[] = data.split('\n')
     lines.shift()
     lines.forEach(line => {
-      const newRow = []
-      line.split(';').forEach(element => {
-        newRow.push(isNaN(element) ? element : +element)
-      })
-      rows.push(newRow)
+      if (line.length > 0) {
+        const newRow = []
+        line.split(';').forEach(element => {
+          newRow.push(isNaN(element) ? element : +element)
+        })
+        rows.push(newRow)
+      }
     })
     return rows
   }
