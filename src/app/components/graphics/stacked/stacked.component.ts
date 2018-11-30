@@ -69,7 +69,7 @@ export class StackedComponent implements OnInit, OnDestroy {
   showYAxisLabel = false;
 
   colorScheme = {
-    domain: ['#ffb74d', '#00bcd4', '#7e57c2', '#039be5']
+    domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }
 
   go(e): void {

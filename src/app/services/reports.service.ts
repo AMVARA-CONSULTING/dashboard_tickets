@@ -91,9 +91,15 @@ export class ReportsService {
 
   getCognosIframe(html): string {
     const htmlDoc = new DOMParser().parseFromString(html, "text/html")
-    const iframe = htmlDoc.querySelector('iframe')
-    const link = iframe.src
-    return link.split('?')[0]
+    try {
+      const iframe = htmlDoc.querySelector('iframe')
+      const link = iframe.getAttribute('src')
+      return link.split('?')[0]
+    } catch (err) { // IE Fix
+      const regex = /(\/ibmcognos\/cgi-bin\/cognosisapi\.dll\/repository\/sid\/cm\/oid\/(.+)\/content)/g
+      const matches = regex.exec(html)
+      return matches[0]
+    }
   }
 
   htmlToJson(data, element): any[] {
