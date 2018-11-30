@@ -32,7 +32,7 @@ export class ReportsService {
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
       (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
-      this.config.completed.subscribe(() => {
+      this.config.completed.subscribe(_ => {
         forkJoin(
           this.getReportData(this.config.config.reports.dev.barchart.id, this.config.config.reports.dev.barchart.selector, 'Mobile_Tickets_Chart.csv'),
           this.getReportData(this.config.config.reports.dev.overview_prio.id, this.config.config.reports.dev.overview_prio.selector, 'Mobile_Tickets_Priority.csv'),
@@ -47,28 +47,53 @@ export class ReportsService {
           this.data.silt = data[3]
           this.data.status = data[4]
           this.data.type = data[5]
-          console.log('AMVARA', data)
           resolve()
         })
       })
     })
   }
 
-  getReportData(ReportID: string, selector: string, fallback: string): Promise<any> {
-    return new Promise(resolve => {
+  getReportData(ReportID: string, selector: string, fallback: string): Observable<any[]> {
+    return new Observable(observer => {
       if (this.corpintra) {
         this.http.get(this.config.config.cognosRepository[this.config.config.scenario] + '?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*' + ReportID + '*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text' }).subscribe(data => {
-          const htmlData = this.htmlToJson(data, selector)
-          resolve(htmlData)
+          const dataUrl = this.getCognosIframe(data)
+          this.http.get(dataUrl, { responseType: 'text' }).subscribe(data => {
+            const rows = this.htmlToJson(data, selector)
+            if (rows.length > 0) {
+              observer.next(rows)
+              observer.complete()
+            } else {
+              console.log("AMVARA - Using local CSV file instead due to error in request", fallback)
+              this.http.get('assets/reports/' + fallback, { responseType: 'text' })
+                .pipe(
+                  map(data => this.csvToJson(data))
+                )
+                .subscribe(data => {
+                  observer.next(data)
+                  observer.complete()
+                })
+            }
+          })
         })
       } else {
         this.http.get('assets/reports/' + fallback, { responseType: 'text' })
           .pipe(
             map(data => this.csvToJson(data))
           )
-          .subscribe(data => resolve(data))
+          .subscribe(data => {
+            observer.next(data)
+            observer.complete()
+          })
       }
     })
+  }
+
+  getCognosIframe(html): string {
+    const htmlDoc = new DOMParser().parseFromString(html, "text/html")
+    const iframe = htmlDoc.querySelector('iframe')
+    const link = iframe.src
+    return link.split('?')[0].replace('http:', 'https:')
   }
 
   htmlToJson(data, element): any[] {

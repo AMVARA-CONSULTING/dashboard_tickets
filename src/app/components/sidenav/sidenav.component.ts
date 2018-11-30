@@ -25,7 +25,6 @@ export class SidenavComponent implements OnInit {
   ) {
     this.data.opened.subscribe(open => {
       this.opened = open
-      console.log(open)
     })
   }
 

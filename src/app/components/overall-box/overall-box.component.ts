@@ -17,7 +17,6 @@ export class OverallBoxComponent implements OnInit {
     this.data.month.subscribe(month => {
       const total = +this.data.priority.filter(row => row[1] == month.month).reduce((r, a) => r + a[3], 0)
       this.total = total.toLocaleString(this.config.config.language)
-      console.log('AMVARA Overall',total)
     })
   }
 

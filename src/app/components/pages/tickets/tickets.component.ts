@@ -1,15 +1,15 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewInit, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentInit, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Router } from '@angular/router';
-import { interval } from 'rxjs/internal/observable/interval';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { ToolsService } from 'app/tools.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import * as moment from 'moment';
+import { ReportsService } from '@services/reports.service';
 
 @Component({
   selector: 'cism-tickets',
@@ -17,7 +17,7 @@ import * as moment from 'moment';
   styleUrls: ['./tickets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit, AfterContentInit {
+export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
 
   constructor(
     public data: DataService,
@@ -26,35 +26,24 @@ export class TicketsComponent implements OnInit, AfterContentInit {
     private ac: ActivatedRoute,
     private router: Router,
     private tools: ToolsService,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private reports: ReportsService
   ) {
     this.tickets = new BehaviorSubject<Ticket[]>([])
-    const types = data.initialRows.reduce((r, a) => {
-      r[a[0]] = r[a[0]] || []
-      r[a[0]].push(a)
-      return r
-    }, {})
-    this.byPriority = types['BYPRIORITY']
-    this.byType = types['BYTYPE']
-    this.byApplication = types['BYSERVICE']
-    this.byStatus = types['BYSTATUS']
     this.ac.paramMap.subscribe(params => {
       this.type = params.get('type')
       this.filter = params.get('filter')
-      if (this.data.loadingTickets) {
-        const intervalB = interval(100).subscribe(_ => {
-          if (!this.data.loadingTickets) {
-            intervalB.unsubscribe()
-            this.data.month.subscribe(_ => this.rollup())
-          }
-        })
-      } else {
-        this.data.month.subscribe(_ => this.rollup())
-      }
+      this.monthSubscription = this.data.month.subscribe(_ => this.rollup())
     })
   }
 
+  monthSubscription: Subscription
+
   displayedColumns_copy: string[] = []
+
+  ngOnDestroy() {
+    if (this.monthSubscription) this.monthSubscription.unsubscribe()
+  }
 
   ngAfterContentInit() {
     this.ref.detectChanges()
@@ -104,9 +93,21 @@ export class TicketsComponent implements OnInit, AfterContentInit {
   }
 
   rollup(): void {
-    let ticketRows = this.data.tickets
     const month = this.data.month.getValue()
-    ticketRows = ticketRows.filter(row => moment(row[2], 'DD.MM.YYYY HH:mm').format('YYYY[M]MM') == month.month)
+    const monthIndex = month.index
+    if (!Array.isArray(this.data.tickets[monthIndex])) {
+      this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
+        .subscribe(data => {
+          this.data.tickets[monthIndex] = data
+          console.log("AMVARA - Data Tickets", data)
+          this.rollupPart2(data)
+        })
+    } else {
+      this.rollupPart2(this.data.tickets[monthIndex])
+    }
+  }
+
+  rollupPart2(ticketRows: any[]): void {
     const totalOfMonth = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
@@ -203,7 +204,7 @@ export class SolveTicket {
     @Inject(MAT_BOTTOM_SHEET_DATA) public ticket: Ticket,
     private bottomSheetRef: MatBottomSheetRef<SolveTicket>
   ) {
-    this.success = new Subject<{id: number, success: boolean, solveText: string}>()
+    this.success = new Subject<{ id: number, success: boolean, solveText: string }>()
   }
 
   solveText: string = ''
@@ -220,6 +221,6 @@ export class SolveTicket {
     this.bottomSheetRef.dismiss()
   }
 
-  success: Subject<{id: number, success: boolean, solveText: string}>
+  success: Subject<{ id: number, success: boolean, solveText: string }>
 
 }

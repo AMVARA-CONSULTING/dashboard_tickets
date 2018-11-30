@@ -11,18 +11,18 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 
 @font-face {
     font-family: CorpoS;
-    src: url(/assets/fonts/c063003t.ttf) format('truetype');
+    src: url(assets/fonts/c063003t.ttf) format('truetype');
 }
   
 @font-face {
     font-family: CorpoSDem;
-    src: url(/assets/fonts/c063004t.ttf) format('truetype');
+    src: url(assets/fonts/c063004t.ttf) format('truetype');
 }
   
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     @font-face {
         font-family: 'CorpoS';
-        src: url(/assets/fonts/c063003t.svg) format('svg');
+        src: url(assets/fonts/c063003t.svg) format('svg');
     }
 }
 

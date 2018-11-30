@@ -11,7 +11,7 @@
 		"de": "Deutsch"
 	},
 	"cognosRepository": {
-		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+		"dev": "/ibmcognos/cgi-bin/cognosapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
 	},
 	"displayedColumns": [
@@ -62,7 +62,7 @@
 		"dev": {
 			"barchart": {
 				"id": "iF4C016DAEBE44C6D8858D68E8A3F672A",
-				"selector": "lid=Overview_Diagram_NS_"
+				"selector": "[lid=Overview_Diagram_NS_] tr"
 			},
 			"tickets": {
 				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
@@ -87,9 +87,22 @@
 			"overview_silt": {
 				"id": "iD90CD52D305E4083A871B2E3514300B8",
 				"selector": "[lid=List1_NS_] tr"
-			}
-
-			
+			},
+			"monthsSelector": "[lid=List1_NS_] tr",
+			"months": [
+				"i84A6B3DFEB334876B075E4AF7730943F",
+				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
+				"i442340B2AE134527A95ACA75D644D43E",
+				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
+				"i7823E458BF1A45708E6503BB2855D7EF",
+				"i7EC5D13883ED4C53B31C344173AF9BA1",
+				"i63397EC9C40140EDA4B457F678BAACCB",
+				"i5F81078AC36F4542A58FB730FFCCCF30",
+				"i80EF1A7C76D94B279A6A12BA650CE1F6",
+				"i2551180ACCC14FAEA25EEEA79805973D",
+				"i594A3A26CF3E46688D09D9CE6F711210",
+				"i5D28D159F965423DBDEB2EA72C3DCD29"
+			]
 		}
 	},
 	"changelog": [

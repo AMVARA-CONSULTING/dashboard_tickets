@@ -63,7 +63,6 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
         stats = this.data.service
         break
     }
-    console.log(month)
     stats = stats.filter(row => row[1] == month)
     const newRows = []
     const length = stats.length

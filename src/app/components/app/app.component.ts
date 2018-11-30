@@ -62,8 +62,6 @@ export class AppComponent {
   ) {
     translate.setDefaultLang('en')
     translate.use(localStorage.getItem('lang') || config.config.language)
-    // this.reports.loadTickets().then(_ => this.data.loadingTickets = false)
-    this.http.get('/ibmcognos/cgi-bin/cognosisapi.dll/repository/sid/cm/oid/i16c2787e57d24b9c88c8b3805f5a88cf/content', { responseType: 'text' }).subscribe(data => console.log('AMVARA HTML', data))
   }
 
   trigger() {

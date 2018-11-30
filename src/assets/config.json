@@ -11,7 +11,7 @@
 		"de": "Deutsch"
 	},
 	"cognosRepository": {
-		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+		"dev": "/ibmcognos/cgi-bin/cognosapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
 	},
 	"displayedColumns": [
@@ -88,8 +88,9 @@
 				"id": "iD90CD52D305E4083A871B2E3514300B8",
 				"selector": "[lid=List1_NS_] tr"
 			},
+			"monthsSelector": "[lid=List1_NS_] tr",
 			"months": [
-				"i162AB365F31345B2AAAAA1A9D4D98203",
+				"i84A6B3DFEB334876B075E4AF7730943F",
 				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
 				"i442340B2AE134527A95ACA75D644D43E",
 				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
