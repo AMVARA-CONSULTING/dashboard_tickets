@@ -16,6 +16,7 @@ export class HeaderComponent {
   ) { }
 
   navigate(url: string): void {
+    this.data.loading.next(true)
     this.router.navigate([url])
     this.data.opened.next(false)
   }

@@ -111,6 +111,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
     const totalOfMonth = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
+        this.data.loading.next(true)
         this.router.navigate(['/'])
         return
       }
@@ -151,6 +152,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
     }
     this.tickets.next(tickets)
     this.percent = parseInt((ticketRows.length * 100 / totalOfMonth).toString(), 10)
+    this.data.loading.next(false)
   }
 
   type: string

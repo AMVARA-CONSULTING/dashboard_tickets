@@ -1,11 +1,12 @@
 <div class="header">
-    <div class="logo" (click)="navigate('/')" routerLinkActive="active" >
+    <div class="logo" (click)="navigate('/')" routerLinkActive="active">
         <span>Daimler</span>
         <span>Reporting@IWM</span>
     </div>
-    <cism-menu-icon (click)="open()" ></cism-menu-icon>
+    <cism-menu-icon (click)="open()"></cism-menu-icon>
     <ul class="nav">
         <li routerLink="/about" routerLinkActive="active" class="about"></li>
         <li routerLink="/help" routerLinkActive="active" class="help"></li>
     </ul>
 </div>
+<cism-loader></cism-loader>

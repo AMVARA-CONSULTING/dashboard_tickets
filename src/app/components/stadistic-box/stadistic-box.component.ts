@@ -43,6 +43,7 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
   goA(row): void {
     this.data.count = row.count
     this.data.percent = row.percent
+    this.data.loading.next(true)
     this.router.navigate(['tickets', this.go, row.name])
   }
 

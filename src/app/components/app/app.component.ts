@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ReportsService } from '@services/reports.service';
@@ -55,13 +55,15 @@ export class AppComponent {
     private translate: TranslateService,
     public config: ConfigService,
     public data: DataService,
-    private reports: ReportsService,
     private router: Router,
-    private tools: ToolsService,
-    private http: HttpClient
+    private tools: ToolsService
   ) {
-    translate.setDefaultLang('en')
-    translate.use(localStorage.getItem('lang') || config.config.language)
+    this.translate.setDefaultLang('en')
+    this.translate.use(localStorage.getItem('lang') || config.config.language)
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) console.log("Navigation Start")
+      if (event instanceof NavigationEnd) console.log("Navigation End")
+    })
   }
 
   trigger() {
@@ -73,6 +75,7 @@ export class AppComponent {
   }
 
   navigate(url: string): void {
+    this.data.loading.next(true)
     this.router.navigate([url])
     this.data.opened.next(false)
   }

@@ -11,7 +11,7 @@
 		"de": "Deutsch"
 	},
 	"cognosRepository": {
-		"dev": "/ibmcognos/cgi-bin/cognosapi.dll",
+		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
 	},
 	"displayedColumns": [

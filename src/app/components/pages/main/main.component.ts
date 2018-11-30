@@ -19,6 +19,7 @@ export class MainComponent implements OnInit {
   rows: any[] = []
 
   ngOnInit() {
+    this.data.loading.next(false)
   }
 
   rippleColor: string = 'rgba(255,255,255,.08)'

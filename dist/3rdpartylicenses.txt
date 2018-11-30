@@ -847,6 +847,8 @@ MIT
 
 @angular/material/dialog
 
+@angular/material/progress-bar
+
 @angular/service-worker
 MIT
 

@@ -73,6 +73,7 @@ export class StackedComponent implements OnInit, OnDestroy {
   }
 
   go(e): void {
+    this.data.loading.next(true)
     this.router.navigate(['tickets', 'type', e.name])
   }
 

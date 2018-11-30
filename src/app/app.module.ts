@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -61,6 +62,7 @@ import { environment } from '../environments/environment';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { CismPaginatorIntl } from './paginator-intl';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { LoaderComponent } from './components/loader/loader.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -88,7 +90,8 @@ export function createTranslateLoader(http: HttpClient) {
     LimitTextPipe,
     SidenavComponent,
     PaginatePipe,
-    DataNotFound
+    DataNotFound,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +102,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxJsonViewerModule,
     MatSnackBarModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
     MatTooltipModule,
     MatFormFieldModule,
     MatSelectModule,
