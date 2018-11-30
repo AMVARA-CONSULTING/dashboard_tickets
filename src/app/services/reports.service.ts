@@ -93,7 +93,7 @@ export class ReportsService {
     const htmlDoc = new DOMParser().parseFromString(html, "text/html")
     const iframe = htmlDoc.querySelector('iframe')
     const link = iframe.src
-    return link.split('?')[0].replace('http:', 'https:')
+    return link.split('?')[0]
   }
 
   htmlToJson(data, element): any[] {
