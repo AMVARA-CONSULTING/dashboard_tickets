@@ -1,10 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
-import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { RouterOutlet, Router } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ToolsService } from 'app/tools.service';
+import memo from 'memo-decorator';
 
 @Component({
   selector: 'cism-root',
@@ -64,6 +65,7 @@ export class AppComponent {
     if (!this.tools.isIE()) window.dispatchEvent(new Event('resize'))
   }
 
+  @memo()
   getPage(outlet: RouterOutlet) {
     return outlet.activatedRouteData.state
   }

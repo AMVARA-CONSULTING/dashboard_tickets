@@ -58,11 +58,11 @@ import { MomentModule } from 'ngx-moment';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { environment } from '../environments/environment';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { CismPaginatorIntl } from './paginator-intl';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { LoaderComponent } from './components/loader/loader.component';
+import { HideClosedPipe } from './pipes/hide-closed.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -91,7 +91,8 @@ export function createTranslateLoader(http: HttpClient) {
     SidenavComponent,
     PaginatePipe,
     DataNotFound,
-    LoaderComponent
+    LoaderComponent,
+    HideClosedPipe
   ],
   imports: [
     BrowserModule,

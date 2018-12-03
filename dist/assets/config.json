@@ -1,9 +1,10 @@
 {
-	"version": "1.4.0",
+	"version": "1.5.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
-	"delay": 1000,
+	"delay": 0,
+	"delayRequests": 0,
 	"copyright": "DAIMLER",
 	"license": "SFASR",
 	"languageCodes": {

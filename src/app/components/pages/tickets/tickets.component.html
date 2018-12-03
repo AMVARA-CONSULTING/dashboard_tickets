@@ -5,13 +5,16 @@
   <cism-classification [paramType]="type" [paramValue]="filter" [percent]="percent" [total]="(tickets | async).length"
     matRipple [matRippleColor]="rippleColor" routerLink="/"></cism-classification>
 </div>
-<mat-paginator [style.display]="changeView ? 'none' : 'block'" [length]=" (tickets | async).length" [pageSize]="20"
-  [pageSizeOptions]="[10, 25, 50, 100]" (page)="pageChange($event)">
+<mat-paginator *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0 && !changeView" [style.display]="changeView ? 'none' : 'block'"
+  [length]=" (tickets | async | hideClosed:data.hideClosed).length" [pageSize]="20" [pageSizeOptions]="data.pagination"
+  (page)="pageChange($event)">
 </mat-paginator>
-<div [style.display]="changeView ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
-  matTooltipPosition="above" matTooltipClass="above" matRipple [matRippleColor]="rippleColor" class="change-view">
-  <mat-icon>remove_red_eye</mat-icon>
-</div>
+<ng-container *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0">
+  <div [style.display]="changeView ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
+    matTooltipPosition="above" matTooltipClass="above" matRipple [matRippleColor]="rippleColor" class="change-view">
+    <mat-icon>remove_red_eye</mat-icon>
+  </div>
+</ng-container>
 <div class="change-view-container" [style.display]="!changeView ? 'none' : 'block'">
   <div class="box-title">Ticket view</div>
   <div class="checkboxes">
@@ -33,14 +36,18 @@
       <mat-checkbox (change)="checkHandler('done', $event)" [checked]="isChecked('done')" value="done">% done</mat-checkbox>
     </div>
   </div>
+  <div class="box-title">Options</div>
+  <div class="options-box">
+    <mat-checkbox (change)="saveHideClosed($event)" [checked]="data.hideClosed">HIDE CLOSED TICKETS</mat-checkbox>
+  </div>
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table [dataSource]="tickets | async | paginate:page_size:page_number" [trackBy]="getID">
+  <mat-table [dataSource]="tickets | async | hideClosed:data.hideClosed | paginate:page_size:page_number" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element[config.config.columns.id] }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="category">
@@ -50,49 +57,50 @@
 
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element[config.config.columns.status] }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <div class="priority-circle" [ngClass]="element.priority"></div><span>{{ element.priority }}</span>
+        <div class="priority-circle" [ngClass]="'prio'+element[config.config.columns.priority]"></div><span>{{
+          element[config.config.columns.priority] }}</span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="subject">
       <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
       <mat-cell [matTooltip]="element.subject" matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
-        element.subject | limitText:30 }}</mat-cell>
+        element[config.config.columns.description] | limitText:30 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="assignee">
       <mat-header-cell *matHeaderCellDef>Assignee</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.assignee }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element[config.config.columns.external] }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="updated">
       <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
       <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
       amTimeAgo"
-        *matCellDef="let element">{{ element.updated }}</mat-cell>
+        *matCellDef="let element">{{ element[config.config.columns.modify_date] }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="target">
       <mat-header-cell *matHeaderCellDef>Target version</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.target }}</mat-cell>
+      <mat-cell *matCellDef="let element"> - </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
       <mat-header-cell *matHeaderCellDef>Estimated time</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.time }}H</mat-cell>
+      <mat-cell *matCellDef="let element">5H</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="done">
       <mat-header-cell *matHeaderCellDef>% done</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.done }}%
+      <mat-cell *matCellDef="let element">30%
         <div class="progress">
-          <div class="bar" [style.width.%]="element.done"></div>
+          <div class="bar" [style.width.%]="30"></div>
         </div>
       </mat-cell>
     </ng-container>
@@ -115,10 +123,12 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="config.config.displayedColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="(tickets | async | hideClosed:data.hideClosed).length > 0 && !changeView ? config.config.displayedColumns : []"></mat-header-row>
     <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.config.displayedColumns"></mat-row>
   </mat-table>
 </div>
-<mat-paginator *ngIf="(tickets | async).length > 0 && !changeView" class="end-paginator" [length]="(tickets | async).length"
-  [pageSize]="20" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)">
-</mat-paginator>
+<ng-container *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0">
+  <mat-paginator *ngIf="!changeView" class="end-paginator" [length]="(tickets | async| hideClosed:data.hideClosed).length"
+    [pageSize]="20" [pageSizeOptions]="data.pagination" (page)="pageChange($event)">
+  </mat-paginator>
+</ng-container>

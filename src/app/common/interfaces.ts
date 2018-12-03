@@ -6,6 +6,7 @@ export interface Config {
   readonly contacts: any[];
   readonly appTitle: string;
   readonly languageCodes: any;
+  readonly delayRequests: number,
   readonly changelog: any[];
   readonly copyright: string;
   readonly columns: any,

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import memo from 'memo-decorator';
 
 @Injectable()
 export class ToolsService {
@@ -17,9 +18,10 @@ export class ToolsService {
 
   xsrf_token
 
+  @memo((...args: any[]): string => JSON.stringify(args))
   isIE(): boolean {
     const ua = window.navigator.userAgent
     return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
   }
-  
+
 }

@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,8 +7,8 @@ import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { ToolsService } from 'app/tools.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import * as moment from 'moment';
 import { ReportsService } from '@services/reports.service';
+import memo from 'memo-decorator';
 
 @Component({
   selector: 'cism-tickets',
@@ -17,7 +16,7 @@ import { ReportsService } from '@services/reports.service';
   styleUrls: ['./tickets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit, OnDestroy {
+export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     public data: DataService,
@@ -29,12 +28,24 @@ export class TicketsComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private reports: ReportsService
   ) {
-    this.tickets = new BehaviorSubject<Ticket[]>([])
+    this.tickets = new BehaviorSubject<any[]>([])
+    this.hideClosed = this.data.hideClosed
     this.ac.paramMap.subscribe(params => {
+      this.data.loading.next(true)
       this.type = params.get('type')
       this.filter = params.get('filter')
-      this.monthSubscription = this.data.month.subscribe(_ => this.rollup())
+      if (!this.running) this.rollup()
     })
+    this.monthSubscription = this.data.month.subscribe(_ => {
+      this.data.loading.next(true)
+      if (!this.running) this.rollup()
+    })
+  }
+
+  running: boolean = false
+
+  ngAfterViewInit() {
+    setTimeout(_ => this.ref.detectChanges())
   }
 
   monthSubscription: Subscription
@@ -62,6 +73,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
     }
   }
 
+
+
   fixedWidth: boolean = true
   percent: number = 0
 
@@ -72,6 +85,12 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.config.config.displayedColumns = allColumns
     this.fixedWidth = allColumns.length > 5
     this.changeView = false
+    this.data.hideClosed = this.hideClosed
+    localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
+  }
+
+  saveHideClosed(e: MatCheckboxChange) {
+    this.hideClosed = e.checked
   }
 
   pageSizeOptions: number[] = [10, 25, 50, 100]
@@ -84,18 +103,19 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.page_number = event.pageIndex + 1
   }
 
-  getID(el: Ticket, i: number): number {
+  @memo((...args: any[]): string => JSON.stringify(args))
+  getID(el: any, i: number): number {
     return el.id
   }
 
   rollup(): void {
+    this.running = true
     const month = this.data.month.getValue()
     const monthIndex = month.index
     if (!Array.isArray(this.data.tickets[monthIndex])) {
-      this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
+      this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv')
         .subscribe(data => {
           this.data.tickets[monthIndex] = [].concat(data)
-          console.log("Source Tickets:",this.data.tickets)
           this.rollupPart2(this.data.tickets[monthIndex])
         })
     } else {
@@ -105,8 +125,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   rollupPart2(ticketRows): void {
     const month = this.data.month.getValue()
-    console.log("AMVARA - Month Index:", month.index)
-    console.log("AMVARA - Source Tickets 2:",this.data.tickets)
     const length = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
@@ -116,27 +134,11 @@ export class TicketsComponent implements OnInit, OnDestroy {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
-    console.log("Tickets Length:",length)
-    const tickets: Ticket[] = []
-    for (let i = 0; i < length; i++) {
-      console.log("Tickets Adding..."+i)
-      tickets.push({
-        id: ticketRows[i][this.config.config.columns.id],
-        assignee: ticketRows[i][this.config.config.columns.external],
-        category: '-',
-        done: 30,
-        priority: +ticketRows[i][this.config.config.columns.priority],
-        status: ticketRows[i][this.config.config.columns.status],
-        subject: ticketRows[i][this.config.config.columns.description],
-        target: '-',
-        time: 5,
-        updated: ticketRows[i][this.config.config.columns.modify_date]
-      })
-    }
-    console.log('AMVARA Tickets:', tickets)
-    this.tickets.next(tickets)
+    this.tickets.next(ticketRows)
+    console.log("AMVARA - Next Tickets:", ticketRows.length)
     this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
+    this.running = false
   }
 
   type: string
@@ -145,6 +147,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.fixedWidth = this.config.config.displayedColumns.length > 5
   }
+
+  hideClosed: boolean = true
 
   rippleColor: string = 'rgba(255,255,255,.08)'
 
@@ -155,9 +159,9 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   changeView: boolean = false
 
-  tickets: BehaviorSubject<Ticket[]>
+  tickets: BehaviorSubject<any[]>
 
-  goSolve(ticket: Ticket): void {
+  goSolve(ticket: any): void {
     let ref = this.bottomSheet.open(SolveTicket, {
       panelClass: 'solve-ticket-panel',
       data: ticket
@@ -167,15 +171,17 @@ export class TicketsComponent implements OnInit, OnDestroy {
         const text = success.solveText
         const id = success.id
         const tickets = this.tickets.getValue()
-        const index = tickets.findIndex(row => row.id == id)
-        tickets[index].status = 'Solved'
+        const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
+        tickets[index][this.config.config.columns.status] = 'Solved'
+        console.log(tickets[index])
         this.tickets.next([].concat(tickets))
+        this.ref.detectChanges()
       }
     })
   }
 
-  removeItem(ticket: Ticket): void {
-    this.tickets.next(this.tickets.getValue().filter(ticketB => ticketB.id != ticket.id))
+  removeItem(ticket): void {
+    this.tickets.next(this.tickets.getValue().filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id]))
   }
 
 }
@@ -187,8 +193,9 @@ export class TicketsComponent implements OnInit, OnDestroy {
 })
 export class SolveTicket {
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public ticket: Ticket,
-    private bottomSheetRef: MatBottomSheetRef<SolveTicket>
+    @Inject(MAT_BOTTOM_SHEET_DATA) public ticket: any,
+    private bottomSheetRef: MatBottomSheetRef<SolveTicket>,
+    public config: ConfigService
   ) {
     this.success = new Subject<{ id: number, success: boolean, solveText: string }>()
   }
@@ -202,7 +209,7 @@ export class SolveTicket {
   }
 
   solve(): void {
-    this.success.next({ id: this.ticket.id, success: true, solveText: this.solveText })
+    this.success.next({ id: this.ticket[this.config.config.columns.id], success: true, solveText: this.solveText })
     this.success.complete()
     this.bottomSheetRef.dismiss()
   }

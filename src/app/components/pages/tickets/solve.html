@@ -1,4 +1,4 @@
-<h3>Solve ticket: {{ ticket?.subject }}</h3>
+<h3>Solve ticket: {{ ticket[this.config.config.columns.subject] }}</h3>
 <mat-form-field class="solve-field">
   <input matInput [(ngModel)]="solveText" autocomplete="off" spellcheck="false" placeholder="Comments">
 </mat-form-field>

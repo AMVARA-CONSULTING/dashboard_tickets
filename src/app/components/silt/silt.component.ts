@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 
 declare var humanizeDuration: any
 
@@ -14,11 +14,13 @@ declare var humanizeDuration: any
 export class SiltComponent implements OnInit, OnDestroy {
 
   constructor(
-    private data: DataService
+    private data: DataService,
+
   ) {
+    this.total = new BehaviorSubject<string>('')
     this.data.month.subscribe(month => {
       const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
-      this.total = humanizeDuration(total * 60000)
+      this.total.next(humanizeDuration(total * 60000))
     })
   }
 
@@ -31,6 +33,6 @@ export class SiltComponent implements OnInit, OnDestroy {
     if (this.monthSubscription) this.monthSubscription.unsubscribe()
   }
 
-  total: number | string = 0
+  total: BehaviorSubject<string>
 
 }

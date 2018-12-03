@@ -31,6 +31,7 @@ export class ConfigService {
         this.config = config as Config;
         (document.querySelector('.progress-value') as HTMLElement).style.width = '45%';
         this.config.language = localStorage.getItem('lang') || this.config.language;
+        if (!!localStorage.getItem('hideClosed')) this.data.hideClosed = localStorage.getItem('hideClosed') === 'yes';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
         this.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.displayedColumnsDefault;
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.delay + 'ms';
