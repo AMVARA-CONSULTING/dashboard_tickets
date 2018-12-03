@@ -4,9 +4,7 @@ import { ConfigService } from '@services/config.service';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
-import { ReportsService } from '@services/reports.service';
 import { ToolsService } from 'app/tools.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'cism-root',
