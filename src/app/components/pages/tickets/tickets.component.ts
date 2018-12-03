@@ -99,15 +99,16 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
           this.data.tickets[monthIndex] = data
-          console.log("Source Tickets:",data)
-          this.rollupPart2(data)
+          console.log("Source Tickets:",this.data.tickets[monthIndex])
+          this.rollupPart2()
         })
     } else {
-      this.rollupPart2(this.data.tickets[monthIndex])
+      this.rollupPart2()
     }
   }
 
-  rollupPart2(ticketRows: any[]): void {
+  rollupPart2(): void {
+    let ticketRows = this.data.tickets[this.data.month.getValue().index]
     const totalOfMonth = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
