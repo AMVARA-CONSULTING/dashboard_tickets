@@ -17,7 +17,6 @@ export class SiltComponent implements OnInit, OnDestroy {
     private data: DataService
   ) {
     this.data.month.subscribe(month => {
-      console.log("Silt", this.data.silt)
       const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
       this.total = humanizeDuration(total * 60000)
     })

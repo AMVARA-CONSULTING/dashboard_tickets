@@ -99,6 +99,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
           this.data.tickets[monthIndex] = data
+          console.log("Source Tickets:",data)
           this.rollupPart2(data)
         })
     } else {
@@ -117,30 +118,16 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
     const length = ticketRows.length
+    console.log("Tickets Length:",length)
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
-      let priority = ''
-      switch (+ticketRows[i][this.config.config.columns.priority]) {
-        case 1:
-          priority = 'Normal'
-          break
-        case 2:
-          priority = 'High'
-          break
-        case 3:
-          priority = 'Urgent'
-          break
-        case 4:
-          priority = 'Immediate'
-          break
-        default:
-      }
+      console.log("Tickets Adding..."+i)
       tickets.push({
         id: ticketRows[i][this.config.config.columns.id],
         assignee: ticketRows[i][this.config.config.columns.external],
         category: '-',
         done: 30,
-        priority: priority,
+        priority: +ticketRows[i][this.config.config.columns.priority],
         status: ticketRows[i][this.config.config.columns.status],
         subject: ticketRows[i][this.config.config.columns.description],
         target: '-',
