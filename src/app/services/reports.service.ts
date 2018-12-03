@@ -71,6 +71,7 @@ export class ReportsService {
         this.http.get(this.config.config.cognosRepository[this.config.config.scenario] + '?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*22' + ReportID + '*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text' }).subscribe(data => {
           const dataUrl = this.getCognosIframe(data)
           this.http.get(dataUrl, { responseType: 'text' }).subscribe(data => {
+            console.log("AMVARA - Data from report:", data)
             const rows = this.htmlToJson(data, selector)
             console.log("AMVARA, Rows coming from report:", rows)
             if (rows.length > 0) {
