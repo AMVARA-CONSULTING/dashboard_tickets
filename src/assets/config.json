@@ -92,7 +92,7 @@
 				"id": "iD90CD52D305E4083A871B2E3514300B8",
 				"selector": "[lid=List1] tr"
 			},
-			"monthsSelector": "[lid=List1_NS_] tr",
+			"monthsSelector": "[lid=List1] tr",
 			"months": [
 				"i84A6B3DFEB334876B075E4AF7730943F",
 				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
