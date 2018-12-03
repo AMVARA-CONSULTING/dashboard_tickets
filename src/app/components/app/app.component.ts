@@ -58,10 +58,6 @@ export class AppComponent {
   ) {
     this.translate.setDefaultLang('en')
     this.translate.use(localStorage.getItem('lang') || config.config.language)
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) console.log("Navigation Start")
-      if (event instanceof NavigationEnd) console.log("Navigation End")
-    })
   }
 
   trigger() {

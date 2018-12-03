@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
@@ -17,7 +17,7 @@ import { ReportsService } from '@services/reports.service';
   styleUrls: ['./tickets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
+export class TicketsComponent implements OnInit, OnDestroy {
 
   constructor(
     public data: DataService,
@@ -43,10 +43,6 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.monthSubscription) this.monthSubscription.unsubscribe()
-  }
-
-  ngAfterContentInit() {
-    this.ref.detectChanges()
   }
 
   changeViewClick() {
@@ -98,17 +94,20 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
     if (!Array.isArray(this.data.tickets[monthIndex])) {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
-          this.data.tickets[monthIndex] = data
-          console.log("AMVARA - Data Tickets", data)
-          this.rollupPart2(data)
+          this.data.tickets[monthIndex] = [].concat(data)
+          console.log("Source Tickets:",this.data.tickets)
+          this.rollupPart2(this.data.tickets[monthIndex])
         })
     } else {
       this.rollupPart2(this.data.tickets[monthIndex])
     }
   }
 
-  rollupPart2(ticketRows: any[]): void {
-    const totalOfMonth = ticketRows.length
+  rollupPart2(ticketRows): void {
+    const month = this.data.month.getValue()
+    console.log("AMVARA - Month Index:", month.index)
+    console.log("AMVARA - Source Tickets 2:",this.data.tickets)
+    const length = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
         this.data.loading.next(true)
@@ -117,32 +116,16 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
-    if (ticketRows.length === 0) return
-    const length = ticketRows.length
+    console.log("Tickets Length:",length)
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
-      let priority = ''
-      switch (+ticketRows[i][this.config.config.columns.priority]) {
-        case 1:
-          priority = 'Normal'
-          break
-        case 2:
-          priority = 'High'
-          break
-        case 3:
-          priority = 'Urgent'
-          break
-        case 4:
-          priority = 'Immediate'
-          break
-        default:
-      }
+      console.log("Tickets Adding..."+i)
       tickets.push({
         id: ticketRows[i][this.config.config.columns.id],
         assignee: ticketRows[i][this.config.config.columns.external],
         category: '-',
         done: 30,
-        priority: priority,
+        priority: +ticketRows[i][this.config.config.columns.priority],
         status: ticketRows[i][this.config.config.columns.status],
         subject: ticketRows[i][this.config.config.columns.description],
         target: '-',
@@ -150,8 +133,9 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
         updated: ticketRows[i][this.config.config.columns.modify_date]
       })
     }
+    console.log('AMVARA Tickets:', tickets)
     this.tickets.next(tickets)
-    this.percent = parseInt((ticketRows.length * 100 / totalOfMonth).toString(), 10)
+    this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
   }
 

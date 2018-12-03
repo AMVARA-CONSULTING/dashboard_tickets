@@ -17,9 +17,7 @@ export class SiltComponent implements OnInit, OnDestroy {
     private data: DataService
   ) {
     this.data.month.subscribe(month => {
-      console.log(this.data.silt)
       const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
-      console.log('AMVARA Silt', total)
       this.total = humanizeDuration(total * 60000)
     })
   }
