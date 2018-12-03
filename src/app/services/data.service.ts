@@ -6,8 +6,6 @@ import * as moment from 'moment';
 export class DataService {
 
   constructor() {
-    const actualMonth = moment().format('YYYY[M]MM')
-    this.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })
     this.isMobile = window.screen.width <= 800
     this.opened = new BehaviorSubject<boolean>(false)
     this.loading = new BehaviorSubject<boolean>(false)
@@ -37,6 +35,7 @@ export class DataService {
   service: any[] = []
   status: any[] = []
   type: any[] = []
+  overall: any[] = []
 
   loading: BehaviorSubject<boolean>
 

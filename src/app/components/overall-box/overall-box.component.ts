@@ -15,7 +15,8 @@ export class OverallBoxComponent implements OnInit {
     private config: ConfigService
   ) {
     this.data.month.subscribe(month => {
-      const total = +this.data.priority.filter(row => row[1] == month.month).reduce((r, a) => r + a[3], 0)
+      console.log(this.data.overall)
+      const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
       this.total = total.toLocaleString(this.config.config.language)
     })
   }

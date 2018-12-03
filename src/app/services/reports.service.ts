@@ -6,6 +6,7 @@ import { ConfigService } from './config.service';
 import { ToolsService } from 'app/tools.service';
 import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 declare const JKL, XML: any
 
@@ -39,14 +40,25 @@ export class ReportsService {
           this.getReportData(this.config.config.reports.dev.overview_service.id, this.config.config.reports.dev.overview_service.selector, 'Mobile_Tickets_Service.csv'),
           this.getReportData(this.config.config.reports.dev.overview_silt.id, this.config.config.reports.dev.overview_silt.selector, 'Mobile_Tickets_Silt.csv'),
           this.getReportData(this.config.config.reports.dev.overview_status.id, this.config.config.reports.dev.overview_status.selector, 'Mobile_Tickets_Status.csv'),
-          this.getReportData(this.config.config.reports.dev.overview_type.id, this.config.config.reports.dev.overview_type.selector, 'Mobile_Tickets_Type.csv')
+          this.getReportData(this.config.config.reports.dev.overview_type.id, this.config.config.reports.dev.overview_type.selector, 'Mobile_Tickets_Type.csv'),
+          this.getReportData(this.config.config.reports.dev.overview_count.id, this.config.config.reports.dev.overview_count.selector, 'Mobile_Tickets_Overall.csv')
         ).subscribe(data => {
           this.data.chart = data[0]
+          console.log('AMVARA - Chart Data -', data[0])
           this.data.priority = data[1]
+          console.log('AMVARA - Priority Data -', data[1])
           this.data.service = data[2]
+          console.log('AMVARA - Service Data -', data[2])
           this.data.silt = data[3]
+          console.log('AMVARA - Silt Data -', data[3])
           this.data.status = data[4]
+          console.log('AMVARA - Status Data -', data[4])
           this.data.type = data[5]
+          console.log('AMVARA - Type Data -', data[5])
+          this.data.overall = data[6]
+          console.log('AMVARA - Overall Data -', data[6])
+          const actualMonth = this.data.overall.map(t => t[0])[0]
+          this.data.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })
           resolve()
         })
       })
@@ -60,6 +72,7 @@ export class ReportsService {
           const dataUrl = this.getCognosIframe(data)
           this.http.get(dataUrl, { responseType: 'text' }).subscribe(data => {
             const rows = this.htmlToJson(data, selector)
+            console.log("AMVARA, Rows coming from report:", rows)
             if (rows.length > 0) {
               observer.next(rows)
               observer.complete()
