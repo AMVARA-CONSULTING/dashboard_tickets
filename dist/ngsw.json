@@ -8,7 +8,6 @@
       "updateMode": "prefetch",
       "urls": [
         "/favicon.ico",
-        "/index.html",
         "/main.842d9d2487889027edb8.js",
         "/polyfills.c4e3b1ea078042257dac.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
@@ -99,7 +98,6 @@
     "/assets/reports/Mobile_Tickets_Status.csv": "c3ae0e92d356d0d8b5c3d6dd808c3144169a413b",
     "/assets/reports/Mobile_Tickets_Type.csv": "8cff1dafc8c492f8d181a40b7a982332f49722c5",
     "/favicon.ico": "a95f7210ab811d500c9a1145371dc8476ebea7e2",
-    "/index.html": "a7a9d3310eeba64c81b7cbffa3e2c5c8565d81cd",
     "/main.842d9d2487889027edb8.js": "6376edd6ede44a63212ae1933d7bdd5d69d699ee",
     "/polyfills.c4e3b1ea078042257dac.js": "23f30a1ed95261fae2b799f9194c64248fb8353d",
     "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
