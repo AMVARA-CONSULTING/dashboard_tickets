@@ -21,8 +21,6 @@ export class MonthSelectorComponent implements OnInit {
       months.push(moment().subtract(i, 'months').format('YYYY[M]MM'))
     }
     const availableMonths = this.data.overall.map(row => row[0])
-    console.log("Available:",availableMonths)
-    console.log("Have:", months)
     this.months = months.filter(month => availableMonths.indexOf(month) > -1)
   }
 

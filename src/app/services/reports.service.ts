@@ -44,19 +44,19 @@ export class ReportsService {
           this.getReportData(this.config.config.reports.dev.overview_count.id, this.config.config.reports.dev.overview_count.selector, 'Mobile_Tickets_Overall.csv')
         ).subscribe(data => {
           this.data.chart = data[0]
-          console.log('AMVARA - Chart Data -', data[0])
+          console.log('AMVARA - Chart Data - ', data[0].length)
           this.data.priority = data[1]
-          console.log('AMVARA - Priority Data -', data[1])
+          console.log('AMVARA - Priority Data - ', data[1].length)
           this.data.service = data[2]
-          console.log('AMVARA - Service Data -', data[2])
+          console.log('AMVARA - Service Data - ', data[2].length)
           this.data.silt = data[3]
-          console.log('AMVARA - Silt Data -', data[3])
+          console.log('AMVARA - Silt Data - ', data[3].length)
           this.data.status = data[4]
-          console.log('AMVARA - Status Data -', data[4])
+          console.log('AMVARA - Status Data - ', data[4].length)
           this.data.type = data[5]
-          console.log('AMVARA - Type Data -', data[5])
+          console.log('AMVARA - Type Data - ', data[5].length)
           this.data.overall = data[6]
-          console.log('AMVARA - Overall Data -', data[6])
+          console.log('AMVARA - Overall Data - ', data[6].length)
           const actualMonth = this.data.overall.map(t => t[0])[0]
           this.data.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })
           resolve()

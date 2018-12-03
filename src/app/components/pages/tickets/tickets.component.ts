@@ -99,7 +99,6 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
           this.data.tickets[monthIndex] = data
-          console.log("AMVARA - Data Tickets", data)
           this.rollupPart2(data)
         })
     } else {
@@ -117,7 +116,6 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
-    if (ticketRows.length === 0) return
     const length = ticketRows.length
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
@@ -150,6 +148,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
         updated: ticketRows[i][this.config.config.columns.modify_date]
       })
     }
+    console.log('AMVARA Tickets:', tickets)
     this.tickets.next(tickets)
     this.percent = parseInt((ticketRows.length * 100 / totalOfMonth).toString(), 10)
     this.data.loading.next(false)
