@@ -99,7 +99,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
           this.data.tickets[monthIndex] = data
-          console.log("Source Tickets:",this.data.tickets[monthIndex])
+          console.log("Source Tickets:",this.data.tickets)
           this.rollupPart2()
         })
     } else {
@@ -108,8 +108,11 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   rollupPart2(): void {
-    let ticketRows = this.data.tickets[this.data.month.getValue().index]
-    const totalOfMonth = ticketRows.length
+    const month = this.data.month.getValue()
+    console.log("AMVARA - Month Index:", month.index)
+    console.log("AMVARA - Source Tickets 2:",this.data.tickets)
+    let ticketRows = this.data.tickets[month.index]
+    const length = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
         this.data.loading.next(true)
@@ -118,7 +121,6 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
-    const length = ticketRows.length
     console.log("Tickets Length:",length)
     const tickets: Ticket[] = []
     for (let i = 0; i < length; i++) {
@@ -138,7 +140,7 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
     }
     console.log('AMVARA Tickets:', tickets)
     this.tickets.next(tickets)
-    this.percent = parseInt((ticketRows.length * 100 / totalOfMonth).toString(), 10)
+    this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
   }
 
