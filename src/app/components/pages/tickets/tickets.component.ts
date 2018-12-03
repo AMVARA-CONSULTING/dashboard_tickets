@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Ticket } from '@other/interfaces';
 import { ConfigService } from '@services/config.service';
@@ -17,7 +17,7 @@ import { ReportsService } from '@services/reports.service';
   styleUrls: ['./tickets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
+export class TicketsComponent implements OnInit, OnDestroy {
 
   constructor(
     public data: DataService,
@@ -43,10 +43,6 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.monthSubscription) this.monthSubscription.unsubscribe()
-  }
-
-  ngAfterContentInit() {
-    this.ref.detectChanges()
   }
 
   changeViewClick() {
@@ -98,20 +94,19 @@ export class TicketsComponent implements OnInit, AfterContentInit, OnDestroy {
     if (!Array.isArray(this.data.tickets[monthIndex])) {
       this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, '')
         .subscribe(data => {
-          this.data.tickets[monthIndex] = data
+          this.data.tickets[monthIndex] = [].concat(data)
           console.log("Source Tickets:",this.data.tickets)
-          this.rollupPart2()
+          this.rollupPart2(this.data.tickets[monthIndex])
         })
     } else {
-      this.rollupPart2()
+      this.rollupPart2(this.data.tickets[monthIndex])
     }
   }
 
-  rollupPart2(): void {
+  rollupPart2(ticketRows): void {
     const month = this.data.month.getValue()
     console.log("AMVARA - Month Index:", month.index)
     console.log("AMVARA - Source Tickets 2:",this.data.tickets)
-    let ticketRows = this.data.tickets[month.index]
     const length = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
