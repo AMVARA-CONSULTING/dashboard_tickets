@@ -67,7 +67,7 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
     stats = stats.filter(row => row[1] == month)
     const newRows = []
     const length = stats.length
-    const total = stats.reduce((r, a) => r + a[3], 0)
+    const total = stats.reduce((r, a) => r + parseInt(a[3], 10), 0)
     for (let i = 0; i < length; i++) {
       newRows.push({
         name: stats[i][2],

@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\" && ng build --prod --aot && json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\"",
-    "build-cognos": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.cognos.html'\" && ng build --prod --aot && cd dist && rename index.cognos.html index.html",
+    "build": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\" && ng build --prod --aot",
+    "build-cognos": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.cognos.html'\" && ng build --prod --aot && cd dist && rename index.cognos.html index.html && json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\"",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
