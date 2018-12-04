@@ -48,14 +48,20 @@ export interface ContactInfo {
 }
 
 export interface Ticket {
-  id: number,
-  category: string,
-  status: string,
-  priority: string | number,
-  subject: string,
-  assignee: string,
-  updated: string,
-  target: string,
-  time: number,
+  id: number
+  category: string
+  status: string
+  priority: string | number
+  subject: string
+  assignee: string
+  updated: string
+  target: string
+  time: number
   done: number
+}
+
+export interface ClassificationGroup {
+  name: string
+  total: string
+  percent: number
 }

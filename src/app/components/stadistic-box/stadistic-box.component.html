@@ -2,7 +2,7 @@
 <div class="stats">
   <div class="stat" [matTooltip]="(go | titlecase)+': '+row.name" matTooltipPosition="before" matTooltipClass="before"
     (click)="goA(row)" *ngFor="let row of rows" matRipple [matRippleColor]="rippleColor">
-    <div class="stat-name">{{
+    <div class="stat-name"># of {{
       row.name }}:</div>
     <div class="stat-primary-value">{{ row.count }}</div>
     <div class="stat-secondary-value">{{ row.percent }}%</div>

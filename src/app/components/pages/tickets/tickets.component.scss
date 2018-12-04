@@ -18,6 +18,9 @@
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
+  @include mobile-tablet {
+    flex-wrap: wrap;
+  }
   @include mobile {
     flex-wrap: wrap;
   }
@@ -25,7 +28,7 @@
 
 cism-month-selector.mobile {
   @include tablet {
-    flex: 0 0 calc(33.3333333% - 15px);
+    flex: 0 calc(50% - 10px);
   }
   @include mobile {
     flex: 1 100%;
@@ -33,20 +36,24 @@ cism-month-selector.mobile {
 }
 
 cism-overall-box {
-  flex: 0 calc(60% - 10px);
+  margin-right: 20px;
+  flex: 0 0 310px;
   @include tablet {
-    flex: 0 0 calc(33.3333333% - 15px);
+    flex: 0 calc(50% - 10px);
+    margin-right: 0;
   }
   @include mobile {
     flex: 1 100%;
     margin-top: 20px;
+    margin-right: 0;
   }
 }
 
 cism-classification {
-  flex: 0 calc(40% - 10px);
+  flex: 1;
   @include tablet {
-    flex: 0 0 calc(33.3333333% - 15px);
+    flex: 1 100%;
+    margin-top: 20px;
   }
   @include mobile {
     flex: 1 100%;

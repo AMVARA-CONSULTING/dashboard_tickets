@@ -109,6 +109,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   rollup(): void {
+    this.data.loading.next(true)
     this.running = true
     const month = this.data.month.getValue()
     const monthIndex = month.index

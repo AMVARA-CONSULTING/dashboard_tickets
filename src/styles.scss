@@ -372,3 +372,15 @@ cism-month-selector .mat-form-field-infix {
 .mat-progress-bar {
     height: 1px !important;
 }
+
+.mat-paginator-container {
+    justify-content: space-between !important;
+}
+
+.end-paginator .mat-paginator-page-size {
+    display: none !important;
+}
+
+.end-paginator .mat-paginator-container {
+    justify-content: flex-end !important;
+}

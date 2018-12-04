@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'cism-overall-box',
@@ -14,15 +15,16 @@ export class OverallBoxComponent implements OnInit {
     private data: DataService,
     private config: ConfigService
   ) {
+    this.total$ = new BehaviorSubject<string>('')
     this.data.month.subscribe(month => {
       const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
-      this.total = total.toLocaleString(this.config.config.language)
+      this.total$.next(total.toLocaleString(this.config.config.language))
     })
   }
 
   ngOnInit() {
   }
 
-  total: number | string = 0
+  total$: BehaviorSubject<string>
 
 }

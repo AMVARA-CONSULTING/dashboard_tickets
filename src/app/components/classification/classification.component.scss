@@ -5,19 +5,26 @@
   display: flex;
   width: 100%;
   height: 45px;
+  @media (max-width: 850px) {
+    height: auto;
+  }
   background-color: $semi-black-1;
   border-radius: $border-radius;
-  padding: 0 20px;
   font-size: 1.2rem;
   box-shadow: $box-shadow;
   line-height: 45px;
   justify-content: space-between;
+  overflow: hidden;
   cursor: pointer;
 }
 
 .classification {
-  flex: 1;
+  flex: initial;
+  padding: 0 20px;
   font-size: 1.5rem;
+  @media (max-width: 850px) {
+    flex: 0 0 150px;
+  }
   &:before {
     content: "";
     background-image: url(assets/img/arrow.svg);
@@ -36,6 +43,9 @@
 .group {
   flex: 1;
   display: flex;
+  @media (max-width: 850px) {
+    flex: 1 100%;
+  }
   justify-content: space-between;
   .selected, .count, .percent {
     flex: 1;
@@ -46,7 +56,7 @@
   }
   .count, .percent {
     text-align: right;
-    font-size: 1.7rem;
+    font-size: 1.4rem;
   }
   .count {
     color: $blue;
@@ -54,5 +64,66 @@
   }
   .percent {
     color: $orange;
+  }
+}
+
+.groups {
+  flex: 1;
+  display: flex;
+  @media (max-width: 850px) {
+    flex-wrap: wrap;
+  }
+}
+
+.group {
+  padding: 0 15px;
+  position: relative;
+  transition: background-color .1s ease-in-out;
+  @media (max-width: 850px) {
+    padding-left: 20px;
+  }
+  &:hover {
+    background-color: rgba(white, .03)
+  }
+  &.selected {
+    .selected {
+      opacity: .9;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 8px solid darken($blue, 13);
+      @media (max-width: 850px) {
+        top: 0;
+        right: initial;
+        border-left: 8px solid darken($blue, 13);
+        border-top: 7px solid transparent;
+        border-right: 0px solid transparent;
+        border-bottom: 7px solid transparent;
+        border-radius: 2px;
+      }
+      width: 0;
+      height: 0;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      height: 2px;
+      background-color: darken($blue, 13);
+      width: 100%;
+      @media (max-width: 850px) {
+        background-color: transparent;
+      }
+    }
   }
 }

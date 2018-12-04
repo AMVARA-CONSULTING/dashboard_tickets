@@ -2,7 +2,7 @@
 <div class="overview">
   <cism-month-selector class="mobile"></cism-month-selector>
   <cism-overall-box></cism-overall-box>
-  <cism-classification matRipple [matRippleColor]="rippleColor" routerLink="/"></cism-classification>
+  <cism-classification></cism-classification>
 </div>
 <mat-paginator *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0 && !changeView" [style.display]="changeView ? 'none' : 'block'"
   [length]=" (tickets | async | hideClosed:data.hideClosed).length" [pageSize]="20" [pageSizeOptions]="data.pagination"

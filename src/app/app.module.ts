@@ -63,6 +63,7 @@ import { CismPaginatorIntl } from './paginator-intl';
 import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HideClosedPipe } from './pipes/hide-closed.pipe';
+import { ToStringPipe } from './pipes/to-string.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -92,7 +93,8 @@ export function createTranslateLoader(http: HttpClient) {
     PaginatePipe,
     DataNotFound,
     LoaderComponent,
-    HideClosedPipe
+    HideClosedPipe,
+    ToStringPipe
   ],
   imports: [
     BrowserModule,
