@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Cism</title>
+  <title>reporting@iwm</title>
   <base href="/">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -194,7 +194,11 @@
       </div>
     </div>
   </cism-root>
+  <script>
+  if (location.protocol != 'https:') {
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+  }
+  </script>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
-
 </html>
