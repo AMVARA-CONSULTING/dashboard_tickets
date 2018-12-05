@@ -1,8 +1,8 @@
 {
   "name": "cism",
   "short_name": "cism",
-  "theme_color": "#00bcd4",
-  "background_color": "#1A1A1A",
+  "theme_color": "#039be5",
+  "background_color": "#00bcd4",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
