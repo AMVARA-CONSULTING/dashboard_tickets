@@ -67,6 +67,8 @@ import { ToStringPipe } from './pipes/to-string.pipe';
 import { environment } from 'environments/environment.prod';
 import { MatSortModule } from '@angular/material/sort';
 import { SortPipe } from './pipes/sort.pipe';
+import { GroupByPipe } from './pipes/group-by.pipe';
+import { RuPipe } from './pipes/ru.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -98,7 +100,9 @@ export function createTranslateLoader(http: HttpClient) {
     LoaderComponent,
     HideClosedPipe,
     ToStringPipe,
-    SortPipe
+    SortPipe,
+    GroupByPipe,
+    RuPipe
   ],
   imports: [
     BrowserModule,

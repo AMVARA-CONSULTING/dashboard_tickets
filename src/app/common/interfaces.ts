@@ -13,6 +13,8 @@ export interface Config {
   readonly cognosRepository: string,
   readonly scenario: string,
   readonly portalLink: { dev: string, prod: string }
+  readonly displayedColumnsDefault: string[],
+  readonly displayedColumnsOrder: string[],
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;

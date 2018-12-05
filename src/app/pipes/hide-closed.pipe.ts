@@ -14,7 +14,7 @@ export class HideClosedPipe implements PipeTransform {
   @memo((...args: any[]): string => JSON.stringify(args))
   transform(values: any[], hide: boolean): any[] {
     if (!values) return []
-    return hide ? values.filter(row => row[this.config.config.columns.status] != 'Closed') : values
+    return hide ? values.filter(row => row.status !== 'Closed') : values
   }
 
 }

@@ -17,22 +17,9 @@
 <div class="change-view-container" [style.display]="!changeView ? 'none' : 'block'">
   <div class="box-title">Ticket view</div>
   <div class="checkboxes">
-    <div class="column">
-      <mat-checkbox (change)="checkHandler('id', $event)" [checked]="isChecked('id')" value="id"># number</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('category', $event)" [checked]="isChecked('category')" value="category">category</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('status', $event)" [checked]="isChecked('status')" value="status">status</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('priority', $event)" [checked]="isChecked('priority')" value="priority">priority</mat-checkbox>
-    </div>
-    <div class="column">
-      <mat-checkbox (change)="checkHandler('subject', $event)" [checked]="isChecked('subject')" value="subject">subject</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('assignee', $event)" [checked]="isChecked('assignee')" value="assignee">assignee</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('updated', $event)" [checked]="isChecked('updated')" value="updated">updated</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('target', $event)" [checked]="isChecked('target')" value="target">target
-        version</mat-checkbox>
-    </div>
-    <div class="column">
-      <mat-checkbox (change)="checkHandler('time', $event)" [checked]="isChecked('time')" value="time">estimated time</mat-checkbox>
-      <mat-checkbox (change)="checkHandler('done', $event)" [checked]="isChecked('done')" value="done">% done</mat-checkbox>
+    <div class="column" *ngFor="let group of config.config.columns | keyvalue | groupBy:3">
+      <mat-checkbox *ngFor="let prop of group" (change)="checkHandler(prop.key, $event)" [checked]="isChecked(prop.key)"
+        [value]="prop.key">{{ prop.key | ru }}</mat-checkbox>
     </div>
   </div>
   <div class="box-title">Options</div>
@@ -42,21 +29,31 @@
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table #table matSort (matSortChange)="sortChange($event)" [dataSource]="tickets | async | hideClosed:data.hideClosed | sort:column_sorted:direction_sorted | paginate:page_size:page_number" [trackBy]="getID">
+  <mat-table matSort (matSortChange)="sortChange($event)" [dataSource]="tickets | async | hideClosed:data.hideClosed | sort:column_sorted:direction_sorted | paginate:page_size:page_number"
+    [trackBy]="getID">
 
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="category">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.category }}</mat-cell>
+    <ng-container matColumnDef="create_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
+      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.create_date | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
+          amTimeAgo"
+        *matCellDef="let element">{{ element.create_date }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+    <ng-container matColumnDef="modify_date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
+      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.modify_date | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
+              amTimeAgo"
+        *matCellDef="let element">{{ element.modify_date }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Type</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">
@@ -67,32 +64,56 @@
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Subject</mat-header-cell>
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Short Description</mat-header-cell>
       <mat-cell [matTooltip]="element.subject" matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
         element.description | limitText:30 }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="assignee">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Assignee</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.assignee }}</mat-cell>
+    <ng-container matColumnDef="external">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>External</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.external }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="updated">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Updated</mat-header-cell>
-      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
-      amTimeAgo"
-        *matCellDef="let element">{{ element.updated }}</mat-cell>
+    <ng-container matColumnDef="classification">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Classification</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.classification }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="target">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Target version</mat-header-cell>
-      <mat-cell *matCellDef="let element"> - </mat-cell>
+    <ng-container matColumnDef="component">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.component }}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Estimated time</mat-header-cell>
-      <mat-cell *matCellDef="let element">5H</mat-cell>
+    <ng-container matColumnDef="service_group">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned to Servicegroup</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.service_group }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="month_id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>MonthID</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.month_id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="service">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Service Label</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.service }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="count">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Count</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.count }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="silt">
+      <mat-header-cell matTooltip="Sales Incident Lifecycle Time" matTooltipPosition="above" matTooltipClass="above"
+        *matHeaderCellDef mat-sort-header>SILT</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.silt }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="done">

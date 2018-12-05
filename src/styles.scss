@@ -384,3 +384,18 @@ cism-month-selector .mat-form-field-infix {
 .end-paginator .mat-paginator-container {
     justify-content: flex-end !important;
 }
+
+.mat-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 10px;
+}
+
+.mat-header-cell button {
+    font-size: 1rem;
+}
+
+.mat-checkbox-frame {
+    border-color: darken($blue, 10);
+}

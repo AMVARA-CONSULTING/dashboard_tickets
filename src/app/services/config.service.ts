@@ -20,7 +20,7 @@ export class ConfigService {
 
   completed: Subject<void>
 
-  displayedColumnsDefault: string[] = ['id', 'category', 'status', 'priority', 'subject', 'assignee', 'updated', 'target', 'time', 'done', 'options']
+  displayedColumnsDefault: string[] = []
 
   load(): Promise<void> {
     return new Promise(resolve => {
@@ -33,6 +33,7 @@ export class ConfigService {
         this.config.language = localStorage.getItem('lang') || this.config.language;
         if (!!localStorage.getItem('hideClosed')) this.data.hideClosed = localStorage.getItem('hideClosed') === 'yes';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
+        this.displayedColumnsDefault = this.config.displayedColumnsDefault
         this.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.displayedColumnsDefault;
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';

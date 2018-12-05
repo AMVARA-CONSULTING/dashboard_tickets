@@ -19,20 +19,53 @@
 		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
 	},
-	"displayedColumns": [
+	"displayedColumnsDefault": [
 		"id",
-		"category",
-		"status",
+		"create_date",
+		"modify_date",
+		"type",
 		"priority",
-		"subject",
-		"assignee",
-		"updated",
-		"target",
-		"time",
-		"done",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group",
 		"options"
 	],
+	"displayedColumns": [
+		"id",
+		"create_date",
+		"modify_date",
+		"type",
+		"priority",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group",
+		"options"
+	],
+	"displayedColumnsOrder": [
+		"month_id",
+		"id",
+		"create_date",
+		"modify_date",
+		"type",
+		"priority",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group",
+		"service",
+		"count",
+		"silt"
+	],
 	"columns": {
+		"month_id": 0,
 		"id": 1,
 		"create_date": 2,
 		"modify_date": 3,
@@ -43,8 +76,10 @@
 		"external": 8,
 		"classification": 9,
 		"component": 10,
+		"service_group": 11,
 		"service": 12,
-		"count": 13
+		"count": 13,
+		"silt": 14
 	},
 	"contacts": {
 		"dev": [

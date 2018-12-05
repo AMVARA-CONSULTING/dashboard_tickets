@@ -81,7 +81,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   percent: number = 0
 
   saveColumns() {
-    let allColumns = this.config.displayedColumnsDefault
+    let allColumns = this.config.config.displayedColumnsOrder
     allColumns = allColumns.filter(column => this.displayedColumns_copy.indexOf(column) > -1)
     localStorage.setItem('displayedColumns', JSON.stringify(allColumns))
     this.config.config.displayedColumns = allColumns
@@ -89,6 +89,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.changeView = false
     this.data.hideClosed = this.hideClosed
     localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
+    setTimeout(_ => this.ref.detectChanges())
   }
 
   saveHideClosed(e: MatCheckboxChange) {
@@ -138,20 +139,12 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     const length = ticketRows.length
     let newTickets: Ticket[] = []
-    for ( let i = 0; i < length; i++ ) {
-      console.log(i)
-      newTickets.push({
-        id: ticketRows[i][this.config.config.columns.id],
-        assignee: ticketRows[i][this.config.config.columns.assignee],
-        category: ticketRows[i][this.config.config.columns.category],
-        done: ticketRows[i][this.config.config.columns.done],
-        priority: ticketRows[i][this.config.config.columns.priority],
-        status: ticketRows[i][this.config.config.columns.status],
-        subject: ticketRows[i][this.config.config.columns.subject],
-        target: ticketRows[i][this.config.config.columns.target],
-        time: ticketRows[i][this.config.config.columns.time],
-        updated: ticketRows[i][this.config.config.columns.updated]
-      })
+    for (let i = 0; i < length; i++) {
+      let newTicket = {}
+      for (let prop in this.config.config.columns) {
+        newTicket[prop] = ticketRows[i][this.config.config.columns[prop]]
+      }
+      newTickets.push(newTicket as any)
     }
     this.tickets.next(newTickets)
     console.log("AMVARA - Next Tickets:", ticketRows.length)
@@ -168,11 +161,9 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('table') table: MatTable<any>
 
-  sortChange(e: { active: string, direction: string}) {
+  sortChange(e: { active: string, direction: string }) {
     this.column_sorted = e.active
     this.direction_sorted = e.direction
-    console.log(e)
-    setTimeout(_ => this.table.renderRows())
   }
 
   ngOnInit() {

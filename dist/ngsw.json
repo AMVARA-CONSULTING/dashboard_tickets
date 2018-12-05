@@ -9,11 +9,11 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.9d22b11107b24dda097f.js",
+        "/main.de45eb88beb0265ec348.js",
         "/polyfills.1dd62c6f71d609a17023.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/scripts.0e8c25f2eb225f7dc422.js",
-        "/styles.edb1194e382447effcec.css"
+        "/styles.f04f4a62f14b1efc443c.css"
       ],
       "patterns": []
     },
@@ -65,7 +65,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/assets/config.json": "2acf90991dd50f442b31f4ba8500d3ca8132e475",
+    "/assets/config.json": "f62787a2a353872f8c1202149a089bb4ba14fc8c",
     "/assets/fonts/c062003t.ttf": "03a5c1309edaa0df7461645b727a3929cc3575ea",
     "/assets/fonts/c063003t.svg": "4bb994c38f0472d4b76de65d84c505524d33d8b8",
     "/assets/fonts/c063003t.ttf": "b114eb4b0d75a3542b734fbfce132879baa3a5fb",
@@ -86,7 +86,7 @@
     "/assets/img/DIP_ICON_ScrollSwipeView.svg": "fc43d139a45bc51dfc38a5c6b7194922a23ae94a",
     "/assets/img/Datec24_logo1.svg": "b1eae69758b7a9c4822b61a2add629ae67977c93",
     "/assets/img/arrow.svg": "bb1cbd1eca2ff7e438bd5b5550031b0bd0ed13a9",
-    "/assets/img/menu_dots.svg": "d592cc165e385b0002a0a20589224d3e994f0608",
+    "/assets/img/menu_dots.svg": "44ea7a75477fac84320fd84af3cc5b18c4bf1a99",
     "/assets/img/src_assets_LicenseScan_Icon_About.svg": "7aeae2b017fe824bad2e69e440711b209f796459",
     "/assets/img/src_assets_LicenseScan_Icon_About_active.svg": "2c001882cee5289e33d06596349f8fe6e051324a",
     "/assets/img/src_assets_LicenseScan_Icon_Help.svg": "0fed4277dfe478dd60b40e4c84c4f0565d583877",
@@ -95,7 +95,7 @@
     "/assets/img/src_assets_arrow.svg": "4d0ab662117ccd5cd3603a3f398a004dae008245",
     "/assets/reports/Mobile_Overview.csv": "4699e2d63d61e502d2c202e7af2a2f433da750f1",
     "/assets/reports/Mobile_Tickets_Chart.csv": "52bdf420c07fa0a5d3061637e556b75b371b5a75",
-    "/assets/reports/Mobile_Tickets_List.csv": "fb4f99ea40f3a41e6600fe450a928423239a69ed",
+    "/assets/reports/Mobile_Tickets_List.csv": "1ca0b1049fbf4420801bca84ae88242a1c41a912",
     "/assets/reports/Mobile_Tickets_Overall.csv": "bd6ed73d8a7318dfa1bc557be2c58b590c6e3227",
     "/assets/reports/Mobile_Tickets_Priority.csv": "ba1640df6a5e73a9bae2a37c4682e7e11a6d557b",
     "/assets/reports/Mobile_Tickets_Service.csv": "bed76dae3a1ebe9299683edde683d875ae01c9a4",
@@ -103,12 +103,12 @@
     "/assets/reports/Mobile_Tickets_Status.csv": "c3ae0e92d356d0d8b5c3d6dd808c3144169a413b",
     "/assets/reports/Mobile_Tickets_Type.csv": "8cff1dafc8c492f8d181a40b7a982332f49722c5",
     "/favicon.ico": "a95f7210ab811d500c9a1145371dc8476ebea7e2",
-    "/index.html": "c746224ad290fd02451603510b5d2472649344df",
-    "/main.9d22b11107b24dda097f.js": "1c0d5ce45daad8ba123f182ddc410fba44d521cf",
+    "/index.html": "1d94603f00ea91f1bec032fd2f95b7aef5f57589",
+    "/main.de45eb88beb0265ec348.js": "f2169bce4b86e6461c5a5152cdd5ad662f9bd3a6",
     "/polyfills.1dd62c6f71d609a17023.js": "c18a0f3187e6e75f4a668e90aef16c27dc009d40",
     "/runtime.ec2944dd8b20ec099bf3.js": "85de9363951a1d033a479e1e3b0d2259a9ea2b1f",
     "/scripts.0e8c25f2eb225f7dc422.js": "652b9ac77932d67e4bc2d4a4e0347c53eb437076",
-    "/styles.edb1194e382447effcec.css": "cb9e8daf61884bcd630479004003f876385f47e2"
+    "/styles.f04f4a62f14b1efc443c.css": "667b0c2f9a08368f7812d9157e471f5a32e9135f"
   },
   "navigationUrls": [
     {
