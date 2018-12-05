@@ -64,6 +64,7 @@ import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { LoaderComponent } from './components/loader/loader.component';
 import { HideClosedPipe } from './pipes/hide-closed.pipe';
 import { ToStringPipe } from './pipes/to-string.pipe';
+import { environment } from 'environments/environment.prod';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -129,7 +130,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
     SolveTicket,
