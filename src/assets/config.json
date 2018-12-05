@@ -11,6 +11,10 @@
 		"en": "English",
 		"de": "Deutsch"
 	},
+	"portalLink": {
+		"dev": "/ibmcognos/",
+		"prod": "/ibmcognos/"
+	},
 	"cognosRepository": {
 		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
@@ -42,23 +46,15 @@
 		"service": 12,
 		"count": 13
 	},
-	"contacts": [
-		{
-			"name": "Ralf Roeber",
-			"description": "Coordinator",
-			"telephone": "+34 717 10 26 03"
-		},
-		{
-			"name": "Alex Barba",
-			"description": "Programmer",
-			"telephone": "+34 640 91 59 83"
-		},
-		{
-			"name": "Luís Torroja",
-			"description": "Designer",
-			"telephone": "+34 670 61 74 71"
-		}
-	],
+	"contacts": {
+		"dev": [
+			{
+				"name": "Csaba Slemmer",
+				"description": "ITS/M",
+				"telephone": "+49 711 17 94201"
+			}
+		]
+	},
 	"reports": {
 		"dev": {
 			"barchart": {

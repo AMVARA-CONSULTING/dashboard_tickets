@@ -65,6 +65,8 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { HideClosedPipe } from './pipes/hide-closed.pipe';
 import { ToStringPipe } from './pipes/to-string.pipe';
 import { environment } from 'environments/environment.prod';
+import { MatSortModule } from '@angular/material/sort';
+import { SortPipe } from './pipes/sort.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -95,11 +97,11 @@ export function createTranslateLoader(http: HttpClient) {
     DataNotFound,
     LoaderComponent,
     HideClosedPipe,
-    ToStringPipe
+    ToStringPipe,
+    SortPipe
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MatExpansionModule,
     NgxChartsModule,
@@ -120,9 +122,11 @@ export function createTranslateLoader(http: HttpClient) {
     MatRippleModule,
     MatDialogModule,
     MatTableModule,
+    MatSortModule,
     FormsModule,
     HttpClientModule,
     MomentModule,
+    AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import * as moment from 'moment';
 import { Subscription, BehaviorSubject } from 'rxjs';
 
 declare var humanizeDuration: any

@@ -42,61 +42,61 @@
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table [dataSource]="tickets | async | hideClosed:data.hideClosed | paginate:page_size:page_number" [trackBy]="getID">
+  <mat-table #table matSort (matSortChange)="sortChange($event)" [dataSource]="tickets | async | hideClosed:data.hideClosed | sort:column_sorted:direction_sorted | paginate:page_size:page_number" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element[config.config.columns.id] }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="category">
-      <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
       <mat-cell *matCellDef="let element">{{ element.category }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element[config.config.columns.status] }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">
-      <mat-header-cell *matHeaderCellDef>Priority</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <div class="priority-circle" [ngClass]="'prio'+element[config.config.columns.priority]"></div><span>{{
-          element[config.config.columns.priority] }}</span>
+          element.priority }}</span>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="subject">
-      <mat-header-cell *matHeaderCellDef>Subject</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Subject</mat-header-cell>
       <mat-cell [matTooltip]="element.subject" matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
-        element[config.config.columns.description] | limitText:30 }}</mat-cell>
+        element.description | limitText:30 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="assignee">
-      <mat-header-cell *matHeaderCellDef>Assignee</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element[config.config.columns.external] }}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Assignee</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.assignee }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="updated">
-      <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Updated</mat-header-cell>
       <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.updated | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
       amTimeAgo"
-        *matCellDef="let element">{{ element[config.config.columns.modify_date] }}</mat-cell>
+        *matCellDef="let element">{{ element.updated }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="target">
-      <mat-header-cell *matHeaderCellDef>Target version</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Target version</mat-header-cell>
       <mat-cell *matCellDef="let element"> - </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
-      <mat-header-cell *matHeaderCellDef>Estimated time</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Estimated time</mat-header-cell>
       <mat-cell *matCellDef="let element">5H</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="done">
-      <mat-header-cell *matHeaderCellDef>% done</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>% done</mat-header-cell>
       <mat-cell *matCellDef="let element">30%
         <div class="progress">
           <div class="bar" [style.width.%]="30"></div>
@@ -105,7 +105,7 @@
     </ng-container>
 
     <ng-container matColumnDef="options">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
       <mat-cell *matCellDef="let element">
         <div [matMenuTriggerFor]="menuOptions" class="options"></div>
         <mat-menu #menuOptions="matMenu">

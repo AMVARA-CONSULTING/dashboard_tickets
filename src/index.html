@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <title>reporting@iwm</title>
+  <title>Reporting@IWM</title>
   <base href="/">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +11,6 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#039be5">
 </head>
-
 <body>
   <cism-root>
     <style>
@@ -195,7 +193,7 @@
     </div>
   </cism-root>
   <script>
-  if (location.protocol != 'https:') {
+  if (location.protocol != 'https:' && location.hostname.indexOf('localhost') == -1) {
     location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
   }
   </script>

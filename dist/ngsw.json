@@ -8,11 +8,12 @@
       "updateMode": "prefetch",
       "urls": [
         "/favicon.ico",
-        "/main.509ef9e7561054e7c1ab.js",
-        "/polyfills.c4e3b1ea078042257dac.js",
+        "/index.html",
+        "/main.9d22b11107b24dda097f.js",
+        "/polyfills.1dd62c6f71d609a17023.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
-        "/scripts.76fef747243b017b527c.js",
-        "/styles.ac13edded94683b64883.css"
+        "/scripts.0e8c25f2eb225f7dc422.js",
+        "/styles.edb1194e382447effcec.css"
       ],
       "patterns": []
     },
@@ -31,8 +32,10 @@
         "/assets/icons/android-icon-144x144.png",
         "/assets/icons/android-icon-192x192.png",
         "/assets/icons/android-icon-36x36.png",
+        "/assets/icons/android-icon-384x384.png",
         "/assets/icons/android-icon-48x48.png",
         "/assets/icons/android-icon-72x72.png",
+        "/assets/icons/android-icon-768x768.png",
         "/assets/icons/android-icon-96x96.png",
         "/assets/img/DIP_ICON_Hand1.svg",
         "/assets/img/DIP_ICON_Hand2.svg",
@@ -72,8 +75,10 @@
     "/assets/icons/android-icon-144x144.png": "fe30150c2db59dec63e0296dacbcf55d2846ec38",
     "/assets/icons/android-icon-192x192.png": "01e557686b9765261933712e6ea8733202696300",
     "/assets/icons/android-icon-36x36.png": "96108ef9bda605ccde05709cfb950f67f94d3050",
+    "/assets/icons/android-icon-384x384.png": "fc27cada28b64553adcc659c02b6ce965cfd5796",
     "/assets/icons/android-icon-48x48.png": "3189237a8f10fbe1198e68fb5529c76b5a9eeb8b",
     "/assets/icons/android-icon-72x72.png": "24dc556e994f3987de17a2f0196c062ff7a8c617",
+    "/assets/icons/android-icon-768x768.png": "75a5eb9bdf231730a97546112775c9909309c2a7",
     "/assets/icons/android-icon-96x96.png": "83a33efba3f9e638a0c894ba8ee71db48e6daf0f",
     "/assets/img/DIP_ICON_Hand1.svg": "7db8a05adf94995295d78c322b1e54f8dbc83671",
     "/assets/img/DIP_ICON_Hand2.svg": "f4f512eee94c37291e5570c5fbacf815fc3327f7",
@@ -81,7 +86,7 @@
     "/assets/img/DIP_ICON_ScrollSwipeView.svg": "fc43d139a45bc51dfc38a5c6b7194922a23ae94a",
     "/assets/img/Datec24_logo1.svg": "b1eae69758b7a9c4822b61a2add629ae67977c93",
     "/assets/img/arrow.svg": "bb1cbd1eca2ff7e438bd5b5550031b0bd0ed13a9",
-    "/assets/img/menu_dots.svg": "44ea7a75477fac84320fd84af3cc5b18c4bf1a99",
+    "/assets/img/menu_dots.svg": "d592cc165e385b0002a0a20589224d3e994f0608",
     "/assets/img/src_assets_LicenseScan_Icon_About.svg": "7aeae2b017fe824bad2e69e440711b209f796459",
     "/assets/img/src_assets_LicenseScan_Icon_About_active.svg": "2c001882cee5289e33d06596349f8fe6e051324a",
     "/assets/img/src_assets_LicenseScan_Icon_Help.svg": "0fed4277dfe478dd60b40e4c84c4f0565d583877",
@@ -98,11 +103,12 @@
     "/assets/reports/Mobile_Tickets_Status.csv": "c3ae0e92d356d0d8b5c3d6dd808c3144169a413b",
     "/assets/reports/Mobile_Tickets_Type.csv": "8cff1dafc8c492f8d181a40b7a982332f49722c5",
     "/favicon.ico": "a95f7210ab811d500c9a1145371dc8476ebea7e2",
-    "/main.509ef9e7561054e7c1ab.js": "fb6368b970aeba9e126376f410d91cea8e872da3",
-    "/polyfills.c4e3b1ea078042257dac.js": "23f30a1ed95261fae2b799f9194c64248fb8353d",
-    "/runtime.ec2944dd8b20ec099bf3.js": "b62956c2192bfe5516d6374e753773901ed50ec5",
-    "/scripts.76fef747243b017b527c.js": "8937eb7127b3072ebe4f0d69d5dee40fb9217e1e",
-    "/styles.ac13edded94683b64883.css": "fe2accfd17bd65d42ba46a0a75b0173e7919d243"
+    "/index.html": "c746224ad290fd02451603510b5d2472649344df",
+    "/main.9d22b11107b24dda097f.js": "1c0d5ce45daad8ba123f182ddc410fba44d521cf",
+    "/polyfills.1dd62c6f71d609a17023.js": "c18a0f3187e6e75f4a668e90aef16c27dc009d40",
+    "/runtime.ec2944dd8b20ec099bf3.js": "85de9363951a1d033a479e1e3b0d2259a9ea2b1f",
+    "/scripts.0e8c25f2eb225f7dc422.js": "652b9ac77932d67e4bc2d4a4e0347c53eb437076",
+    "/styles.edb1194e382447effcec.css": "cb9e8daf61884bcd630479004003f876385f47e2"
   },
   "navigationUrls": [
     {

@@ -75,7 +75,7 @@ export class ReportsService {
         this.http.get(this.config.config.cognosRepository[this.config.config.scenario] + '?b_action=cognosViewer&ui.action=view&ui.format=HTML&ui.object=XSSSTARTdefaultOutput(storeID(*22' + ReportID + '*22))XSSEND&ui.name=Mobile_Ticket_List&cv.header=false&ui.backURL=XSSSTART*2fibmcognos*2fcps4*2fportlets*2fcommon*2fclose.htmlXSSEND', { responseType: 'text' }).pipe(delay(this.config.config.delayRequests)).subscribe(data => {
           const dataUrl = this.getCognosIframe(data)
           this.http.get(dataUrl, { responseType: 'text' }).subscribe(data => {
-            const rows = this.htmlToJson(data, selector)
+            const rows = this.htmlToJson(data, selector, ReportID)
             if (rows.length > 0) {
               observer.next(rows)
               observer.complete()
@@ -121,9 +121,20 @@ export class ReportsService {
   }
 
   @memo((...args: any[]): string => JSON.stringify(args))
-  htmlToJson(data, element): any[] {
+  htmlToJson(data, element: string, ReportID: string): any[] {
     const htmlDoc = new DOMParser().parseFromString(data, "text/html")
-    const table = htmlDoc.querySelectorAll(element)
+    const table: any = htmlDoc.querySelectorAll(element)
+    try {
+      const dateTime = htmlDoc.querySelector('[lid=Page1] .tableRow:last-child .tableCell:first-child span').textContent
+      const dateHour = htmlDoc.querySelector('[lid=Page1] .tableRow:last-child .tableCell:last-child span').textContent
+      for (let prop in this.config.config.reports[this.config.config.scenario]) {
+        if (this.config.config.reports[this.config.config.scenario][prop].id == ReportID) {
+          this.config.config.reports[this.config.config.scenario][prop].date = dateTime + ' ' + dateHour
+        }
+      }
+    } catch (err) {
+      console.error('We couldn\'t find the run date of this report.')
+    }
     const rows = []
     for (let i = 0; i < table.length; i++) {
       const row = []

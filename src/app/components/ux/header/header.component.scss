@@ -20,6 +20,7 @@
 }
 .header{
     display: flex;
+    position: relative;
     justify-content: space-between;
 }
 .logo{
@@ -52,12 +53,14 @@ cism-menu-icon {
     flex: 1;
     display: none;
     @include desktop{
-        flex: 1;
         display: flex;
         list-style: none;
         height: inherit;
-        max-width: 130px;
+        width: 130px;
+        position: absolute;
         justify-content: space-between;
+        top: 0;
+        right: 0;
     }
 
 }

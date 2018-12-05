@@ -12,6 +12,7 @@ export interface Config {
   readonly columns: any,
   readonly cognosRepository: string,
   readonly scenario: string,
+  readonly portalLink: { dev: string, prod: string }
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;
@@ -33,12 +34,15 @@ export interface Reports {
   readonly overview_silt: ReportInfo,
   readonly monthsSelector: string,
   readonly overview_count: ReportInfo,
+  readonly monthShouldBeNumber: number[]
   readonly months: string[],
 }
 
 export interface ReportInfo {
-  readonly id: string,
+  readonly id: string
   readonly selector: string
+  readonly shouldBeNumber: number[]
+  date?: string
 }
 
 export interface ContactInfo {

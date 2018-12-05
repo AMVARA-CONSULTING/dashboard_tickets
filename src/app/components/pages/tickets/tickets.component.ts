@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
@@ -9,6 +9,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ReportsService } from '@services/reports.service';
 import memo from 'memo-decorator';
+import { MatTable } from '@angular/material/table';
+import { Ticket } from '@other/interfaces';
 
 @Component({
   selector: 'cism-tickets',
@@ -126,7 +128,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   rollupPart2(ticketRows): void {
     const month = this.data.month.getValue()
-    const length = ticketRows.length
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
         this.data.loading.next(true)
@@ -135,7 +136,24 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
       }
       ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
     }
-    this.tickets.next(ticketRows)
+    const length = ticketRows.length
+    let newTickets: Ticket[] = []
+    for ( let i = 0; i < length; i++ ) {
+      console.log(i)
+      newTickets.push({
+        id: ticketRows[i][this.config.config.columns.id],
+        assignee: ticketRows[i][this.config.config.columns.assignee],
+        category: ticketRows[i][this.config.config.columns.category],
+        done: ticketRows[i][this.config.config.columns.done],
+        priority: ticketRows[i][this.config.config.columns.priority],
+        status: ticketRows[i][this.config.config.columns.status],
+        subject: ticketRows[i][this.config.config.columns.subject],
+        target: ticketRows[i][this.config.config.columns.target],
+        time: ticketRows[i][this.config.config.columns.time],
+        updated: ticketRows[i][this.config.config.columns.updated]
+      })
+    }
+    this.tickets.next(newTickets)
     console.log("AMVARA - Next Tickets:", ticketRows.length)
     this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
@@ -144,6 +162,18 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   type: string
   filter: string
+
+  column_sorted: string = 'id'
+  direction_sorted: string = ''
+
+  @ViewChild('table') table: MatTable<any>
+
+  sortChange(e: { active: string, direction: string}) {
+    this.column_sorted = e.active
+    this.direction_sorted = e.direction
+    console.log(e)
+    setTimeout(_ => this.table.renderRows())
+  }
 
   ngOnInit() {
     this.fixedWidth = this.config.config.displayedColumns.length > 5
@@ -160,7 +190,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeView: boolean = false
 
-  tickets: BehaviorSubject<any[]>
+  tickets: BehaviorSubject<Ticket[]>
 
   goSolve(ticket: any): void {
     let ref = this.bottomSheet.open(SolveTicket, {
