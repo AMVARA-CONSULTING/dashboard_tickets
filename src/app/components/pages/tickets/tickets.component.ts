@@ -5,12 +5,14 @@ import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angul
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { ToolsService } from 'app/tools.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ReportsService } from '@services/reports.service';
 import memo from 'memo-decorator';
-import { MatTable } from '@angular/material/table';
+import * as moment from 'moment';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '@other/interfaces';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'cism-tickets',
@@ -30,8 +32,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     private ref: ChangeDetectorRef,
     private reports: ReportsService
   ) {
-    this.tickets = new BehaviorSubject<any[]>([])
-    this.hideClosed = this.data.hideClosed
+    this.ticketsLength = new BehaviorSubject<number>(0)
     this.ac.paramMap.subscribe(params => {
       this.data.loading.next(true)
       this.type = params.get('type')
@@ -51,11 +52,13 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   monthSubscription: Subscription
+  hideClosedSubscription: Subscription
 
   displayedColumns_copy: string[] = []
 
   ngOnDestroy() {
     if (this.monthSubscription) this.monthSubscription.unsubscribe()
+    if (this.hideClosedSubscription) this.hideClosedSubscription.unsubscribe()
   }
 
   changeViewClick() {
@@ -87,7 +90,8 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.config.config.displayedColumns = allColumns
     this.fixedWidth = allColumns.length > 5
     this.changeView = false
-    this.data.hideClosed = this.hideClosed
+    this.tickets.filter = this.hideClosed ? 'Closed' : ''
+    this.data.hideClosed = this.tickets.filter === 'Closed'
     localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
     setTimeout(_ => this.ref.detectChanges())
   }
@@ -100,11 +104,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   page_size: number = 20
   page_number: number = 1
-
-  pageChange(event: PageEvent) {
-    this.page_size = event.pageSize
-    this.page_number = event.pageIndex + 1
-  }
 
   @memo((...args: any[]): string => JSON.stringify(args))
   getID(el: any, i: number): number {
@@ -142,11 +141,19 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     for (let i = 0; i < length; i++) {
       let newTicket = {}
       for (let prop in this.config.config.columns) {
-        newTicket[prop] = ticketRows[i][this.config.config.columns[prop]]
+        switch (prop) {
+          case "create_date":
+          case "modify_date":
+            newTicket[prop] = moment(ticketRows[i][this.config.config.columns[prop]], 'DD.MM.YYYY HH:mm')
+            break
+          default:
+            newTicket[prop] = ticketRows[i][this.config.config.columns[prop]]
+        }
       }
       newTickets.push(newTicket as any)
     }
-    this.tickets.next(newTickets)
+    this.tickets.data = newTickets
+    this.ticketsLength.next(newTickets.length)
     console.log("AMVARA - Next Tickets:", ticketRows.length)
     this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
@@ -161,13 +168,19 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('table') table: MatTable<any>
 
-  sortChange(e: { active: string, direction: string }) {
-    this.column_sorted = e.active
-    this.direction_sorted = e.direction
-  }
+  @ViewChild(MatPaginator) paginator: MatPaginator
+  @ViewChild(MatSort) sort: MatSort
 
   ngOnInit() {
     this.fixedWidth = this.config.config.displayedColumns.length > 5
+    this.tickets.paginator = this.paginator
+    this.tickets.sort = this.sort
+    this.tickets.filterPredicate = (data: any, filter: string) => {
+      return data.status != filter
+    }
+    this.tickets.filter = this.data.hideClosed ? 'Closed' : ''
+    setTimeout(_ => this.ref.markForCheck())
+    console.log(this.config.config.displayedColumns)
   }
 
   hideClosed: boolean = true
@@ -181,7 +194,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeView: boolean = false
 
-  tickets: BehaviorSubject<Ticket[]>
+  tickets = new MatTableDataSource<Ticket>([])
 
   goSolve(ticket: any): void {
     let ref = this.bottomSheet.open(SolveTicket, {
@@ -192,19 +205,23 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
       if (success.success) {
         const text = success.solveText
         const id = success.id
-        const tickets = this.tickets.getValue()
+        const tickets = this.tickets.data
         const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
         tickets[index][this.config.config.columns.status] = 'Solved'
         console.log(tickets[index])
-        this.tickets.next([].concat(tickets))
+        this.tickets.data = tickets
+        this.ticketsLength.next(tickets.length)
         this.ref.detectChanges()
       }
     })
   }
 
   removeItem(ticket): void {
-    this.tickets.next(this.tickets.getValue().filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id]))
+    this.tickets.data = this.tickets.data.filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id])
+    this.ticketsLength.next(this.tickets.data.length)
   }
+
+  ticketsLength: BehaviorSubject<number>
 
 }
 

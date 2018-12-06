@@ -38,7 +38,7 @@ export class DataService {
 
   loading: BehaviorSubject<boolean>
 
-  hideClosed: boolean = true
+  hideClosed: boolean = false
 
   pagination = [10, 20, 50, 100]
 }

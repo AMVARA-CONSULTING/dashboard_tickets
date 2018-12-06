@@ -399,3 +399,11 @@ cism-month-selector .mat-form-field-infix {
 .mat-checkbox-frame {
     border-color: darken($blue, 10);
 }
+
+.pointer {
+    outline: 0;
+    cursor: pointer;
+    &:hover {
+        background-color: rgba(white, .05);
+    }
+}

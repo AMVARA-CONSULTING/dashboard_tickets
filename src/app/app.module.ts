@@ -69,6 +69,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { SortPipe } from './pipes/sort.pipe';
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { RuPipe } from './pipes/ru.pipe';
+import { config } from 'rxjs';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {

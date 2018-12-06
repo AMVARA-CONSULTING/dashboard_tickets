@@ -1,5 +1,5 @@
 {
-	"version": "1.6.0",
+	"version": "1.7.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
@@ -62,7 +62,8 @@
 		"service_group",
 		"service",
 		"count",
-		"silt"
+		"silt",
+		"options"
 	],
 	"columns": {
 		"month_id": 0,

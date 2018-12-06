@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ToolsService } from 'app/tools.service';
@@ -59,6 +59,10 @@ export class AppComponent {
   ) {
     this.translate.setDefaultLang('en')
     this.translate.use(localStorage.getItem('lang') || config.config.language)
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) this.data.loading.next(true)
+      if (event instanceof NavigationEnd) this.data.loading.next(false)
+    })
   }
 
   trigger() {

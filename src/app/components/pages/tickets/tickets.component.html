@@ -4,11 +4,10 @@
   <cism-overall-box></cism-overall-box>
   <cism-classification></cism-classification>
 </div>
-<mat-paginator *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0 && !changeView" [style.display]="changeView ? 'none' : 'block'"
-  [length]=" (tickets | async | hideClosed:data.hideClosed).length" [pageSize]="20" [pageSizeOptions]="data.pagination"
-  (page)="pageChange($event)">
+<mat-paginator showFirstLastButtons [style.display]="(ticketsLength | async) && !changeView ? 'block' : 'none'"
+  [pageSizeOptions]="data.pagination">
 </mat-paginator>
-<ng-container *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0">
+<ng-container *ngIf="ticketsLength | async">
   <div [style.display]="changeView ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
     matTooltipPosition="above" matTooltipClass="above" matRipple [matRippleColor]="rippleColor" class="change-view">
     <mat-icon>remove_red_eye</mat-icon>
@@ -29,36 +28,41 @@
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table matSort (matSortChange)="sortChange($event)" [dataSource]="tickets | async | hideClosed:data.hideClosed | sort:column_sorted:direction_sorted | paginate:page_size:page_number"
-    [trackBy]="getID">
+  <mat-table matSort matSortActive="id" matSortDisableClear matSortDirection="desc" [dataSource]="tickets" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.id" *matCellDef="let element">{{
+        element.id }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="create_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
-      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.create_date | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | amLocale:config.config.language |
           amTimeAgo"
-        *matCellDef="let element">{{ element.create_date }}</mat-cell>
+        *matCellDef="let element">{{ element.create_date | amLocale:config.config.language | amDateFormat:'DD.MM.YYYY
+        HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
-      <mat-cell matTooltipPosition="after" matTooltipClass="after" [matTooltip]="element.modify_date | amParse:'DD.MM.YYYY HH:mm' | amLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | amLocale:config.config.language |
               amTimeAgo"
-        *matCellDef="let element">{{ element.modify_date }}</mat-cell>
+        *matCellDef="let element">{{ element.modify_date | amLocale:config.config.language | amDateFormat:'DD.MM.YYYY
+        HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Type</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+      <mat-cell class="pointer" [routerLink]="['/tickets', 'type', element.type]" matTooltipPosition="above"
+        matTooltipClass="above" [matTooltip]="element.type" *matCellDef="let element">{{
+        element.type }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
-      <mat-cell *matCellDef="let element">
+      <mat-cell class="pointer" [routerLink]="['/tickets', 'priority', element.priority]" matTooltipPosition="above"
+        matTooltipClass="above" [matTooltip]="element.priority" *matCellDef="let element">
         <div class="priority-circle" [ngClass]="'prio'+element[config.config.columns.priority]"></div><span>{{
           element.priority }}</span>
       </mat-cell>
@@ -66,59 +70,71 @@
 
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.status }}</mat-cell>
+      <mat-cell class="pointer" [routerLink]="['/tickets', 'status', element.status]" matTooltipPosition="above"
+        matTooltipClass="above" [matTooltip]="element.status" *matCellDef="let element">{{
+        element.status }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Short Description</mat-header-cell>
-      <mat-cell [matTooltip]="element.subject" matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.description" [matTooltip]="element.subject"
+        matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
         element.description | limitText:30 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="external">
       <mat-header-cell *matHeaderCellDef mat-sort-header>External</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.external }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.external" *matCellDef="let element">{{
+        element.external }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="classification">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Classification</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.classification }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.classification" *matCellDef="let element">{{
+        element.classification }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="component">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.component }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.component" *matCellDef="let element">{{
+        element.component }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="service_group">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned to Servicegroup</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.service_group }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.service_group" *matCellDef="let element">{{
+        element.service_group }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="month_id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>MonthID</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.month_id }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.month_id" *matCellDef="let element">{{
+        element.month_id }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="service">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Service Label</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.service }}</mat-cell>
+      <mat-cell class="pointer" [routerLink]="['/tickets', 'service', element.service]" matTooltipPosition="above"
+        matTooltipClass="above" [matTooltip]="element.service" *matCellDef="let element">{{
+        element.service }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="count">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Count</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.count }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.count" *matCellDef="let element">{{
+        element.count }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="silt">
       <mat-header-cell matTooltip="Sales Incident Lifecycle Time" matTooltipPosition="above" matTooltipClass="above"
         *matHeaderCellDef mat-sort-header>SILT</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.silt }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.silt" *matCellDef="let element">{{
+        element.silt }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="done">
       <mat-header-cell *matHeaderCellDef mat-sort-header>% done</mat-header-cell>
-      <mat-cell *matCellDef="let element">30%
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.done+'%'" *matCellDef="let element">30%
         <div class="progress">
           <div class="bar" [style.width.%]="30"></div>
         </div>
@@ -143,12 +159,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="(tickets | async | hideClosed:data.hideClosed).length > 0 && !changeView ? config.config.displayedColumns : []"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="(ticketsLength | async ) && !changeView ? config.config.displayedColumns : []"></mat-header-row>
     <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.config.displayedColumns"></mat-row>
   </mat-table>
 </div>
-<ng-container *ngIf="(tickets | async | hideClosed:data.hideClosed).length > 0">
-  <mat-paginator *ngIf="!changeView" class="end-paginator" [length]="(tickets | async| hideClosed:data.hideClosed).length"
-    [pageSize]="20" [pageSizeOptions]="data.pagination" (page)="pageChange($event)">
-  </mat-paginator>
-</ng-container>

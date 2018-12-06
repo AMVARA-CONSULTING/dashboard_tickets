@@ -10,11 +10,12 @@ export class SortPipe implements PipeTransform {
   transform(values: any[], prop: string, order: string): any[] {
     if (!values) return []
     if (order !== '') {
-      switch(prop) {
+      switch (prop) {
         case "priority":
           values = _.sortBy(values, num => num[prop])
           break
-        case "updated":
+        case "create_date":
+        case "modify_date":
           values = _.sortBy(values, date => moment(date[prop], 'DD.MM.YYYY HH:mm'))
           break
         default:
