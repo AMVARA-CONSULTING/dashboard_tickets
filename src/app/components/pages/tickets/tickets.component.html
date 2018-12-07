@@ -28,7 +28,7 @@
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table matSort matSortActive="id" matSortDisableClear matSortDirection="desc" [dataSource]="tickets" [trackBy]="getID">
+  <mat-table matSort (matSortChange)="saveSort($event)" [matSortActive]="column_active" matSortDisableClear [matSortDirection]="column_direction" [dataSource]="tickets" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
@@ -63,7 +63,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'priority', element.priority]" matTooltipPosition="above"
         matTooltipClass="above" [matTooltip]="element.priority" *matCellDef="let element">
-        <div class="priority-circle" [ngClass]="'prio'+element[config.config.columns.priority]"></div><span>{{
+        <div class="priority-circle" [ngClass]="'prio-'+element.priority"></div><span>{{
           element.priority }}</span>
       </mat-cell>
     </ng-container>

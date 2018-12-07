@@ -12,7 +12,7 @@ import memo from 'memo-decorator';
 import * as moment from 'moment';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '@other/interfaces';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'cism-tickets',
@@ -154,7 +154,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.tickets.data = newTickets
     this.ticketsLength.next(newTickets.length)
-    console.log("AMVARA - Next Tickets:", ticketRows.length)
     this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
     this.data.loading.next(false)
     this.running = false
@@ -179,8 +178,9 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
       return data.status != filter
     }
     this.tickets.filter = this.data.hideClosed ? 'Closed' : ''
+    this.column_active = localStorage.getItem('column_active') || 'id'
+    this.column_direction = localStorage.getItem('column_direction') || 'desc'
     setTimeout(_ => this.ref.markForCheck())
-    console.log(this.config.config.displayedColumns)
   }
 
   hideClosed: boolean = true
@@ -193,6 +193,16 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   byStatus = []
 
   changeView: boolean = false
+
+  column_active: string = 'id'
+  column_direction: string = 'desc'
+
+  saveSort(e: Sort) {
+    this.column_active = e.active
+    this.column_direction = e.direction
+    localStorage.setItem('column_active', e.active)
+    localStorage.setItem('column_direction', e.direction)
+  }
 
   tickets = new MatTableDataSource<Ticket>([])
 
@@ -208,7 +218,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
         const tickets = this.tickets.data
         const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
         tickets[index][this.config.config.columns.status] = 'Solved'
-        console.log(tickets[index])
         this.tickets.data = tickets
         this.ticketsLength.next(tickets.length)
         this.ref.detectChanges()

@@ -12,6 +12,7 @@
   padding: 5px 20px;
   @include mobile {
     height: 30px;
+    padding: 5px 10px;
   }
   @include tablet {
     height: 40px;
@@ -37,6 +38,8 @@
   }
   @include mobile {
     line-height: 20px;
+    font-size: 1rem;
+    white-space: nowrap;
   }
   @include tablet {
     line-height: 30px;
@@ -48,6 +51,9 @@
   font-size: 1.2rem;
   @include tablet {
     line-height: 30px;
+  }
+  @include mobile {
+    font-size: 1rem;
   }
 }
 

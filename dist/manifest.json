@@ -1,7 +1,7 @@
 {
-  "name": "cism",
-  "short_name": "cism",
-  "theme_color": "#039be5",
+  "name": "Reporting@IWM",
+  "short_name": "Reporting@IWM",
+  "theme_color": "#00bcd4",
   "background_color": "#00bcd4",
   "display": "standalone",
   "scope": "/",

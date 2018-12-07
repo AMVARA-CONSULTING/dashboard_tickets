@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --aot",
     "build": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\" && ng build --prod --aot",
     "build-cognos": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.cognos.html'\" && ng build --prod --aot && cd dist && rename index.cognos.html index.html && json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\"",
     "test": "ng test",

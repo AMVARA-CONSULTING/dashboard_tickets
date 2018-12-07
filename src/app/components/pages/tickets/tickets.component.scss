@@ -84,6 +84,7 @@ cism-classification {
 :host {
   display: block;
   will-change: transform;
+  margin-bottom: 50px;
 }
 
 mat-header-cell {
@@ -242,6 +243,12 @@ mat-icon {
   border-radius: 5px;
   margin-top: 25px;
   padding: 20px 40px;
+  position: relative;
+  .close {
+    display: block;
+    height: 20px;
+    width: 20px;
+  }
   .box-title {
     line-height: 50px;
     font-size: 1.5rem;

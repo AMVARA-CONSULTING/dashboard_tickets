@@ -9,11 +9,11 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.45fcfa2136089066c124.js",
-        "/polyfills.94f3068642dde7896f06.js",
+        "/main.6bc61880ca5187156c18.js",
+        "/polyfills.1dd62c6f71d609a17023.js",
         "/runtime.ec2944dd8b20ec099bf3.js",
         "/scripts.0e8c25f2eb225f7dc422.js",
-        "/styles.ec7bf0647564f14b9be0.css"
+        "/styles.b04a76b36a2e1d37dea1.css"
       ],
       "patterns": []
     },
@@ -86,7 +86,7 @@
     "/assets/img/DIP_ICON_ScrollSwipeView.svg": "fc43d139a45bc51dfc38a5c6b7194922a23ae94a",
     "/assets/img/Datec24_logo1.svg": "b1eae69758b7a9c4822b61a2add629ae67977c93",
     "/assets/img/arrow.svg": "bb1cbd1eca2ff7e438bd5b5550031b0bd0ed13a9",
-    "/assets/img/menu_dots.svg": "44ea7a75477fac84320fd84af3cc5b18c4bf1a99",
+    "/assets/img/menu_dots.svg": "d592cc165e385b0002a0a20589224d3e994f0608",
     "/assets/img/src_assets_LicenseScan_Icon_About.svg": "7aeae2b017fe824bad2e69e440711b209f796459",
     "/assets/img/src_assets_LicenseScan_Icon_About_active.svg": "2c001882cee5289e33d06596349f8fe6e051324a",
     "/assets/img/src_assets_LicenseScan_Icon_Help.svg": "0fed4277dfe478dd60b40e4c84c4f0565d583877",
@@ -103,12 +103,12 @@
     "/assets/reports/Mobile_Tickets_Status.csv": "c3ae0e92d356d0d8b5c3d6dd808c3144169a413b",
     "/assets/reports/Mobile_Tickets_Type.csv": "8cff1dafc8c492f8d181a40b7a982332f49722c5",
     "/favicon.ico": "a95f7210ab811d500c9a1145371dc8476ebea7e2",
-    "/index.html": "73009f8e7ee531f07c90ba372be1f9c625d143bc",
-    "/main.45fcfa2136089066c124.js": "8d29bb5ba1493f9213974f8a58ebd09c7e0f77ae",
-    "/polyfills.94f3068642dde7896f06.js": "4c287da8c70ed0d92fa0bbdcb33c01c76799172d",
+    "/index.html": "1036995e9378b8c62bed76c3c42bd7071eb7c495",
+    "/main.6bc61880ca5187156c18.js": "d2cb5decf874d2420195e6f2175ca09638dac9b9",
+    "/polyfills.1dd62c6f71d609a17023.js": "c18a0f3187e6e75f4a668e90aef16c27dc009d40",
     "/runtime.ec2944dd8b20ec099bf3.js": "85de9363951a1d033a479e1e3b0d2259a9ea2b1f",
     "/scripts.0e8c25f2eb225f7dc422.js": "652b9ac77932d67e4bc2d4a4e0347c53eb437076",
-    "/styles.ec7bf0647564f14b9be0.css": "959c2dc6f1d3a5a392489b414b8ffaa7baf36859"
+    "/styles.b04a76b36a2e1d37dea1.css": "c3f2ef9d73a1da49110cd94f22839cdf07726dcb"
   },
   "navigationUrls": [
     {

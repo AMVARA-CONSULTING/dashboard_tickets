@@ -407,3 +407,10 @@ cism-month-selector .mat-form-field-infix {
         background-color: rgba(white, .05);
     }
 }
+
+@include mobile {
+    .mat-paginator-navigation-last,
+    .mat-paginator-navigation-first {
+        display: none !important;
+    }
+}
