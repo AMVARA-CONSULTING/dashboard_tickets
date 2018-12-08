@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { ConfigService } from '@services/config.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '@services/data.service';
+
+declare const moment: any
 
 @Component({
   selector: 'cism-stacked',

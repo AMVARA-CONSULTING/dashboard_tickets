@@ -28,7 +28,8 @@
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
 <div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
-  <mat-table matSort (matSortChange)="saveSort($event)" [matSortActive]="column_active" matSortDisableClear [matSortDirection]="column_direction" [dataSource]="tickets" [trackBy]="getID">
+  <mat-table matSort (matSortChange)="saveSort($event)" [matSortActive]="column_active" matSortDisableClear
+    [matSortDirection]="column_direction" [dataSource]="tickets" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
@@ -38,17 +39,17 @@
 
     <ng-container matColumnDef="create_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | amLocale:config.config.language |
-          amTimeAgo"
-        *matCellDef="let element">{{ element.create_date | amLocale:config.config.language | amDateFormat:'DD.MM.YYYY
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateLocale:config.config.language |
+          dateAgo"
+        *matCellDef="let element">{{ element.create_date | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | amLocale:config.config.language |
-              amTimeAgo"
-        *matCellDef="let element">{{ element.modify_date | amLocale:config.config.language | amDateFormat:'DD.MM.YYYY
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateLocale:config.config.language |
+              dateAgo"
+        *matCellDef="let element">{{ element.modify_date | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 

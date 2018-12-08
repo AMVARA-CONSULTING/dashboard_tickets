@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit, ViewChild, Input } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
@@ -9,10 +9,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ReportsService } from '@services/reports.service';
 import memo from 'memo-decorator';
-import * as moment from 'moment';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
+
+declare const moment: any
 
 @Component({
   selector: 'cism-tickets',

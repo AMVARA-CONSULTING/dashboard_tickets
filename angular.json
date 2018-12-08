@@ -31,7 +31,9 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/humanize-duration/humanize-duration.js"
+              "node_modules/humanize-duration/humanize-duration.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/moment/locale/de.js"
             ]
           },
           "configurations": {

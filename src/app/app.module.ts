@@ -54,7 +54,6 @@ import { ToolsService } from './tools.service';
 import { ReportsService } from '@services/reports.service';
 
 // Plugins
-import { MomentModule } from 'ngx-moment';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -66,6 +65,10 @@ import { environment } from 'environments/environment.prod';
 import { MatSortModule } from '@angular/material/sort';
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { RuPipe } from './pipes/ru.pipe';
+import { DateFormatPipe } from './pipes/date-format.pipe';
+import { DateParsePipe } from './pipes/date-parse.pipe';
+import { DateLocalePipe } from './pipes/date-locale.pipe';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -96,7 +99,11 @@ export function createTranslateLoader(http: HttpClient) {
     LoaderComponent,
     ToStringPipe,
     GroupByPipe,
-    RuPipe
+    RuPipe,
+    DateFormatPipe,
+    DateParsePipe,
+    DateLocalePipe,
+    DateAgoPipe
   ],
   imports: [
     BrowserModule,
@@ -123,7 +130,6 @@ export function createTranslateLoader(http: HttpClient) {
     MatSortModule,
     FormsModule,
     HttpClientModule,
-    MomentModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {

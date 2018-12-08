@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import * as moment from 'moment';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
+
+declare const moment: any
 
 @Component({
   selector: 'cism-month-selector',
