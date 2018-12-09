@@ -12,13 +12,15 @@ import memo from 'memo-decorator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
-
-declare const moment: any
+import { DateParsePipe } from '@pipes/date-parse.pipe';
 
 @Component({
   selector: 'cism-tickets',
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.scss'],
+  providers: [
+    DateParsePipe
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -31,7 +33,8 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     private router: Router,
     private tools: ToolsService,
     private ref: ChangeDetectorRef,
-    private reports: ReportsService
+    private reports: ReportsService,
+    private parsePipe: DateParsePipe
   ) {
     this.ticketsLength = new BehaviorSubject<number>(0)
     this.ac.paramMap.subscribe(params => {
@@ -64,7 +67,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   changeViewClick() {
     this.displayedColumns_copy = this.config.config.displayedColumns
-    this.changeView = true
+    this.changeView = !this.changeView
   }
 
   isChecked(column: string): boolean {
@@ -88,6 +91,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     let allColumns = this.config.config.displayedColumnsOrder
     allColumns = allColumns.filter(column => this.displayedColumns_copy.indexOf(column) > -1)
     localStorage.setItem('displayedColumns', JSON.stringify(allColumns))
+    if (this.config.config.ticketOptions) allColumns.push('options')
     this.config.config.displayedColumns = allColumns
     this.fixedWidth = allColumns.length > 5
     this.changeView = false
@@ -145,7 +149,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
         switch (prop) {
           case "create_date":
           case "modify_date":
-            newTicket[prop] = moment(ticketRows[i][this.config.config.columns[prop]], 'DD.MM.YYYY HH:mm')
+            newTicket[prop] = this.parsePipe.transform(ticketRows[i][this.config.config.columns[prop]])
             break
           default:
             newTicket[prop] = ticketRows[i][this.config.config.columns[prop]]

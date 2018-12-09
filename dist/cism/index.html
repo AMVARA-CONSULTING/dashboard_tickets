@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reporting@IWM</title>
+  <base href="/">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v2">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#039be5">
+<link rel="stylesheet" href="styles.914289c0f2e5f6245935.css"></head>
+<body>
+  <cism-root>
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+        background-color: #111;
+        color: rgba(255, 255, 255, .85);
+        font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+        font-size: 13px;
+      }
+
+      @font-face {
+        font-family: CorpoS;
+        src: url(assets/fonts/c063003t.ttf) format('truetype');
+      }
+
+      @font-face {
+        font-family: CorpoSDem;
+        src: url(assets/fonts/c063004t.ttf) format('truetype');
+      }
+
+      @media screen and (-webkit-min-device-pixel-ratio:0) {
+        @font-face {
+          font-family: 'CorpoS';
+          src: url(assets/fonts/c063003t.svg) format('svg');
+        }
+      }
+
+      body {
+        font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+      }
+
+      .img {
+        width: 100px;
+        height: 100px;
+        background-image: url("./assets/img/Datec24_logo1.svg");
+        background-repeat: no-repeat;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 160px;
+        margin: auto;
+      }
+
+      .blue {
+        color: #00bcd4
+      }
+
+      .name {
+        width: 100%;
+        text-align: center;
+        height: 60px;
+        padding-top: 20px;
+        color: white;
+        font-size: 1.7em;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 65px;
+        bottom: 0px;
+        margin: auto;
+
+      }
+
+      .footer {
+        background-color: black;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 55px;
+        color: rgba(255, 255, 255, .7);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 20px;
+        font-size: 1.1em
+      }
+
+      .left {
+        width: 100px;
+        flex: 1;
+        text-align: right;
+        display: none
+      }
+
+      .center {
+        text-align: center;
+        width: 300px;
+        left: 0;
+        right: 0;
+        flex: 1;
+
+      }
+
+      .right {
+        flex: 1;
+        display: none
+      }
+
+      @media (min-width: 1300px) {
+        .left {
+          display: block
+        }
+
+        .right {
+          display: block
+        }
+
+        .name {
+          font-size: 2.5em;
+          ;
+        }
+
+        .img {
+          width: 150px;
+          height: 150px;
+          bottom: 230px;
+        }
+
+        .footer {
+          background-color: black;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 55px;
+          color: rgba(255, 255, 255, .7);
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0px 20px;
+          font-size: 1.1em
+        }
+      }
+
+      .progress {
+        width: 180px;
+        position: fixed;
+        height: 7px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 7px;
+        background-color: #151515;
+      }
+
+      .progress .progress-value {
+        position: absolute;
+        top: 0;
+        width: 0%;
+        height: 100%;
+        border-radius: 7px;
+        background-color: #00bcd4;
+        box-shadow: 0 0 15px #00bcd4;
+        transition: width .2s ease-in-out;
+      }
+    </style>
+    <div class="main">
+      <div class="img"></div>
+      <div class="name">Daimler <b class="blue">Reporting@IWM</b></div>
+    </div>
+    <div class="footer">
+      <div class="right">DAIMLER &middot; IWM</div>
+      <div class="center">
+        CISM Reporting contains confidential information!
+      </div>
+      <div class="left">
+        iwm-sales-hotline-management@daimler.com
+      </div>
+    </div>
+    <div class="progress">
+      <div style="position:relative;width:100%;height:100%;">
+        <div class="progress-value"></div>
+      </div>
+    </div>
+  </cism-root>
+  <script>
+  if (location.protocol != 'https:' && location.hostname.indexOf('localhost') == -1) {
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+  }
+  </script>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+<script type="text/javascript" src="runtime.ec2944dd8b20ec099bf3.js"></script><script type="text/javascript" src="polyfills.94f3068642dde7896f06.js"></script><script type="text/javascript" src="scripts.29b4e156db49b1b96310.js"></script><script type="text/javascript" src="main.a1f612e0eacda683d767.js"></script></body>
+</html>

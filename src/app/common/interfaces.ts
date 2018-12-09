@@ -15,6 +15,7 @@ export interface Config {
   readonly portalLink: { dev: string, prod: string }
   readonly displayedColumnsDefault: string[],
   readonly displayedColumnsOrder: string[],
+  readonly ticketOptions: boolean,
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;
@@ -60,17 +61,17 @@ export interface Ticket {
   assignee: string
   updated: string
   month_id: string,
-	create_date: Date,
-	modify_date: Date,
-	type: string,
-	description: string,
-	external: string,
-	classification: string,
-	component: string,
-	service_group: string,
-	service: string,
-	count: number,
-	silt: number
+  create_date: Date,
+  modify_date: Date,
+  type: string,
+  description: string,
+  external: string,
+  classification: string,
+  component: string,
+  service_group: string,
+  service: string,
+  count: number,
+  silt: number
 }
 
 export interface ClassificationGroup {

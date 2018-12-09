@@ -35,6 +35,7 @@ export class ConfigService {
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
         this.displayedColumnsDefault = this.config.displayedColumnsDefault
         this.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.displayedColumnsDefault;
+        if (this.config.ticketOptions) this.config.displayedColumns.push('options');
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';
         console.log(this.config)

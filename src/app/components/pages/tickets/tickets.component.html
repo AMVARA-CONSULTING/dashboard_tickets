@@ -14,6 +14,7 @@
   </div>
 </ng-container>
 <div class="change-view-container" [style.display]="!changeView ? 'none' : 'block'">
+  <div (click)="changeViewClick()" class="close">X</div>
   <div class="box-title">Ticket view</div>
   <div class="checkboxes">
     <div class="column" *ngFor="let group of config.config.columns | keyvalue | groupBy:3">

@@ -246,8 +246,15 @@ mat-icon {
   position: relative;
   .close {
     display: block;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 40px;
+    font-size: 13pt;
+    right: 40px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
   }
   .box-title {
     line-height: 50px;

@@ -1,0 +1,13 @@
+<div class="title">{{ prop.key | uppercase }}</div>
+<div class="container">
+  <div class="id">
+    <div class="prop">ID:</div>
+    <div class="value">{{ prop.value.id }}</div>
+  </div>
+  <div class="date">
+    <div class="prop">Date:</div>
+    <div class="value">
+      <span>{{ date | dateParse | dateLocale:config.config.language | dateFormat:'MMM YYYY' }}</span>
+    </div>
+  </div>
+</div>

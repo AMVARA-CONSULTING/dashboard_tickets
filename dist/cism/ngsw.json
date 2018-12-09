@@ -1,0 +1,131 @@
+{
+  "configVersion": 1,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/favicon.ico",
+        "/index.html",
+        "/main.a1f612e0eacda683d767.js",
+        "/polyfills.94f3068642dde7896f06.js",
+        "/runtime.ec2944dd8b20ec099bf3.js",
+        "/scripts.29b4e156db49b1b96310.js",
+        "/styles.914289c0f2e5f6245935.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/assets/config.json",
+        "/assets/fonts/c062003t.ttf",
+        "/assets/fonts/c063003t.svg",
+        "/assets/fonts/c063003t.ttf",
+        "/assets/fonts/c063004t.ttf",
+        "/assets/i18n/de.json",
+        "/assets/i18n/en.json",
+        "/assets/icons/android-icon-144x144.png",
+        "/assets/icons/android-icon-192x192.png",
+        "/assets/icons/android-icon-36x36.png",
+        "/assets/icons/android-icon-384x384.png",
+        "/assets/icons/android-icon-48x48.png",
+        "/assets/icons/android-icon-72x72.png",
+        "/assets/icons/android-icon-768x768.png",
+        "/assets/icons/android-icon-96x96.png",
+        "/assets/img/DIP_ICON_Hand1.svg",
+        "/assets/img/DIP_ICON_Hand2.svg",
+        "/assets/img/DIP_ICON_PortLandsView.svg",
+        "/assets/img/DIP_ICON_ScrollSwipeView.svg",
+        "/assets/img/Datec24_logo1.svg",
+        "/assets/img/arrow.svg",
+        "/assets/img/menu_dots.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_About.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_About_active.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_Help.svg",
+        "/assets/img/src_assets_LicenseScan_Icon_Help_active.svg",
+        "/assets/img/src_assets_arrow.blue.svg",
+        "/assets/img/src_assets_arrow.svg",
+        "/assets/reports/Mobile_Overview.csv",
+        "/assets/reports/Mobile_Tickets_Chart.csv",
+        "/assets/reports/Mobile_Tickets_List.csv",
+        "/assets/reports/Mobile_Tickets_Overall.csv",
+        "/assets/reports/Mobile_Tickets_Priority.csv",
+        "/assets/reports/Mobile_Tickets_Service.csv",
+        "/assets/reports/Mobile_Tickets_Silt.csv",
+        "/assets/reports/Mobile_Tickets_Status.csv",
+        "/assets/reports/Mobile_Tickets_Type.csv"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/config.json": "b429350a596d8655891f1d477f464aae5c755d22",
+    "/assets/fonts/c062003t.ttf": "03a5c1309edaa0df7461645b727a3929cc3575ea",
+    "/assets/fonts/c063003t.svg": "4bb994c38f0472d4b76de65d84c505524d33d8b8",
+    "/assets/fonts/c063003t.ttf": "b114eb4b0d75a3542b734fbfce132879baa3a5fb",
+    "/assets/fonts/c063004t.ttf": "75be9265203ed6c1dda618b6411ea8957b7ebe98",
+    "/assets/i18n/de.json": "aa6f82f8a07af76d049391ee70adc36c582b0c42",
+    "/assets/i18n/en.json": "9921b31a5fe68fb6e5ea9f9f4f4cd63daf181265",
+    "/assets/icons/android-icon-144x144.png": "fe30150c2db59dec63e0296dacbcf55d2846ec38",
+    "/assets/icons/android-icon-192x192.png": "01e557686b9765261933712e6ea8733202696300",
+    "/assets/icons/android-icon-36x36.png": "96108ef9bda605ccde05709cfb950f67f94d3050",
+    "/assets/icons/android-icon-384x384.png": "fc27cada28b64553adcc659c02b6ce965cfd5796",
+    "/assets/icons/android-icon-48x48.png": "3189237a8f10fbe1198e68fb5529c76b5a9eeb8b",
+    "/assets/icons/android-icon-72x72.png": "24dc556e994f3987de17a2f0196c062ff7a8c617",
+    "/assets/icons/android-icon-768x768.png": "75a5eb9bdf231730a97546112775c9909309c2a7",
+    "/assets/icons/android-icon-96x96.png": "83a33efba3f9e638a0c894ba8ee71db48e6daf0f",
+    "/assets/img/DIP_ICON_Hand1.svg": "7db8a05adf94995295d78c322b1e54f8dbc83671",
+    "/assets/img/DIP_ICON_Hand2.svg": "f4f512eee94c37291e5570c5fbacf815fc3327f7",
+    "/assets/img/DIP_ICON_PortLandsView.svg": "9261190abd5146a80b20d7f5a32d44141e77ba81",
+    "/assets/img/DIP_ICON_ScrollSwipeView.svg": "fc43d139a45bc51dfc38a5c6b7194922a23ae94a",
+    "/assets/img/Datec24_logo1.svg": "b1eae69758b7a9c4822b61a2add629ae67977c93",
+    "/assets/img/arrow.svg": "bb1cbd1eca2ff7e438bd5b5550031b0bd0ed13a9",
+    "/assets/img/menu_dots.svg": "44ea7a75477fac84320fd84af3cc5b18c4bf1a99",
+    "/assets/img/src_assets_LicenseScan_Icon_About.svg": "7aeae2b017fe824bad2e69e440711b209f796459",
+    "/assets/img/src_assets_LicenseScan_Icon_About_active.svg": "2c001882cee5289e33d06596349f8fe6e051324a",
+    "/assets/img/src_assets_LicenseScan_Icon_Help.svg": "0fed4277dfe478dd60b40e4c84c4f0565d583877",
+    "/assets/img/src_assets_LicenseScan_Icon_Help_active.svg": "f9bcf18ca2e3f3667339fae2b893ed26f7e71ec8",
+    "/assets/img/src_assets_arrow.blue.svg": "96febde6c981be3032183add9bbc7038aa52867b",
+    "/assets/img/src_assets_arrow.svg": "4d0ab662117ccd5cd3603a3f398a004dae008245",
+    "/assets/reports/Mobile_Overview.csv": "4699e2d63d61e502d2c202e7af2a2f433da750f1",
+    "/assets/reports/Mobile_Tickets_Chart.csv": "52bdf420c07fa0a5d3061637e556b75b371b5a75",
+    "/assets/reports/Mobile_Tickets_List.csv": "1ca0b1049fbf4420801bca84ae88242a1c41a912",
+    "/assets/reports/Mobile_Tickets_Overall.csv": "bd6ed73d8a7318dfa1bc557be2c58b590c6e3227",
+    "/assets/reports/Mobile_Tickets_Priority.csv": "ba1640df6a5e73a9bae2a37c4682e7e11a6d557b",
+    "/assets/reports/Mobile_Tickets_Service.csv": "bed76dae3a1ebe9299683edde683d875ae01c9a4",
+    "/assets/reports/Mobile_Tickets_Silt.csv": "ff372d89e1be57b46dc55b469b85a7794ad920cd",
+    "/assets/reports/Mobile_Tickets_Status.csv": "c3ae0e92d356d0d8b5c3d6dd808c3144169a413b",
+    "/assets/reports/Mobile_Tickets_Type.csv": "8cff1dafc8c492f8d181a40b7a982332f49722c5",
+    "/favicon.ico": "a95f7210ab811d500c9a1145371dc8476ebea7e2",
+    "/index.html": "971f99c258a46964fe1f2051ab86171fb93c3f98",
+    "/main.a1f612e0eacda683d767.js": "35468dc3ae7e64fc05814e45fec36a4e70826c79",
+    "/polyfills.94f3068642dde7896f06.js": "4c287da8c70ed0d92fa0bbdcb33c01c76799172d",
+    "/runtime.ec2944dd8b20ec099bf3.js": "85de9363951a1d033a479e1e3b0d2259a9ea2b1f",
+    "/scripts.29b4e156db49b1b96310.js": "b67fc5081052ef60aba18833abc21b1b52bf6fde",
+    "/styles.914289c0f2e5f6245935.css": "97aae199affc729b34e73a7ccf7c97a17eef14c1"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ]
+}

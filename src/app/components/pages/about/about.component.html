@@ -16,7 +16,7 @@
         'about.reloadLanguageFiles'| translate }}</button>
     </p>
     <p style="cursor: pointer;" class="actual-config" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
-      <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>
+    <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -29,7 +29,8 @@
       need. <a href="https://material.io/" target="_blank">See Google Material Guidelines</a>
     </p>
     <p>
-      We also thank IBM for providing Cognos Analytics to business departments as the tool of choice for data analysis, data exploration as well as fast dashboards and pixel perfect reporting.
+      We also thank IBM for providing Cognos Analytics to business departments as the tool of choice for data analysis,
+      data exploration as well as fast dashboards and pixel perfect reporting.
     </p>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -81,6 +82,7 @@
     Version: {{ config.config.version }}<br />
     Service Worker Status: <span class="sw_status enabled">OK</span><span style="display:none" class="sw_status disabled">Not
       running</span>
+    <report-info *ngFor="let prop of config.config.reports[config.config.scenario] | keyvalue" [prop]="prop"></report-info>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>

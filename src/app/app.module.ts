@@ -1,7 +1,8 @@
 // Angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Injector, DoBootstrap } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -69,11 +70,45 @@ import { DateFormatPipe } from './pipes/date-format.pipe';
 import { DateParsePipe } from './pipes/date-parse.pipe';
 import { DateLocalePipe } from './pipes/date-locale.pipe';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { ReportInfoComponent } from './components/report-info/report-info.component';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const componentsUsed = [
+  AppComponent,
+  HeaderComponent,
+  FooterComponent,
+  MenuIconComponent,
+  AboutComponent,
+  MainComponent,
+  MonthSelectorComponent,
+  OverallBoxComponent,
+  StackedComponent,
+  StadisticBoxComponent,
+  LegendComponent,
+  ColorComponent,
+  SiltComponent,
+  TicketsComponent,
+  ClassificationComponent,
+  SolveTicket,
+  SidenavComponent,
+  DataNotFound,
+  LoaderComponent
+]
+
+const pipesUsed = [
+  ToStringPipe,
+  GroupByPipe,
+  RuPipe,
+  DateFormatPipe,
+  DateParsePipe,
+  DateLocalePipe,
+  DateAgoPipe,
+  LimitTextPipe
+]
 
 @NgModule({
   declarations: [
@@ -103,7 +138,9 @@ export function createTranslateLoader(http: HttpClient) {
     DateFormatPipe,
     DateParsePipe,
     DateLocalePipe,
-    DateAgoPipe
+    DateAgoPipe,
+    LimitTextPipe,
+    ReportInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -141,8 +178,25 @@ export function createTranslateLoader(http: HttpClient) {
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    MenuIconComponent,
+    AboutComponent,
+    MainComponent,
+    MonthSelectorComponent,
+    OverallBoxComponent,
+    StackedComponent,
+    StadisticBoxComponent,
+    LegendComponent,
+    ColorComponent,
+    SiltComponent,
+    TicketsComponent,
+    ClassificationComponent,
     SolveTicket,
-    DataNotFound
+    SidenavComponent,
+    DataNotFound,
+    LoaderComponent
   ],
   providers: [
     ConfigService,
@@ -170,4 +224,39 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule implements DoBootstrap {
+  constructor(
+    private injector: Injector
+  ) { }
+
+  ngDoBootstrap() {
+    const elements: any[] = [
+      [MainComponent, 'cism-main'],
+      [TicketsComponent, 'cism-tickets'],
+      [AppComponent, 'cism-root'],
+      [HeaderComponent, 'cism-header'],
+      [FooterComponent, 'cism-footer'],
+      [MenuIconComponent, 'cism-menu-icon'],
+      [AboutComponent, 'cism-about'],
+      [MainComponent, 'cism-main'],
+      [MonthSelectorComponent, 'cism-month-selector'],
+      [OverallBoxComponent, 'cism-overall-box'],
+      [StackedComponent, 'cism-stacked'],
+      [StadisticBoxComponent, 'cism-stadistic-box'],
+      [LegendComponent, 'cism-legend'],
+      [ColorComponent, 'cism-color'],
+      [SiltComponent, 'cism-silt'],
+      [TicketsComponent, 'cism-tickets'],
+      [ClassificationComponent, 'cism-classification'],
+      [SolveTicket, 'cism-solve'],
+      [SidenavComponent, 'cism-sidenav'],
+      [DataNotFound, 'data-unavailable'],
+      [LoaderComponent, 'cism-loader'],
+    ]
+
+    for (const [component, name] of elements) {
+      const el = createCustomElement(component, { injector: this.injector })
+      customElements.define(name, el)
+    }
+  }
+}
