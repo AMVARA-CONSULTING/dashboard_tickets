@@ -18,7 +18,7 @@ export class ReportInfoComponent implements OnChanges {
   @Input() prop
 
   ngOnChanges(changes: SimpleChanges) {
-    this.date = this.config.config.reports[this.config.config.scenario][changes.prop.currentValue].date
+    this.date = changes.prop.currentValue.value.date
   }
 
   date

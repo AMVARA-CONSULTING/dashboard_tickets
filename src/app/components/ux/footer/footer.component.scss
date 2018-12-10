@@ -59,4 +59,7 @@
 
 .execution_date {
   line-height: 45px;
+  @include desktop {
+    line-height: 24px
+  }
 }
