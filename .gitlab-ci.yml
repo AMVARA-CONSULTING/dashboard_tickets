@@ -3,4 +3,4 @@
 pages:
   stage: deploy
   script:
-  - ssh -o StrictHostKeyChecking=no root@cometa.amvara.de docker exec cism_front /code/update.sh
+  - ssh root@cometa.amvara.de docker exec cism_front /code/update.sh
