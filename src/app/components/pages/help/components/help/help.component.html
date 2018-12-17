@@ -16,7 +16,8 @@
       <contact *ngFor="let contact of contacts; let i = index;">
         <name>{{ contact.name }}</name>
         <description>{{ contact.description }}</description>
-        <tel>{{ contact.telephone }}</tel>
+        <email *ngIf="contact.email">{{ contact.email }}</email>
+        <tel *ngFor="let tel of contact.telephones">{{ tel }}</tel>
       </contact>
     </div>
   </div>

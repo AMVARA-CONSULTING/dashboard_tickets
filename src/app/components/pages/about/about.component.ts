@@ -30,8 +30,8 @@ export class AboutComponent implements OnInit {
   version
 
   ngOnInit() {
-    let a: any[] = this.config.config.reports[this.config.config.scenario]
-    a = a.filter(item => item.key !== 'monthsSelector' || item.key !== 'months')
+    let a: any[] = this.keyValue.transform(this.config.config.reports[this.config.config.scenario])
+    a = a.filter(item => item.key !== 'monthsSelector' && item.key !== 'months')
     this.reports = a
   }
 

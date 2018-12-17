@@ -85,7 +85,8 @@
 			{
 				"name": "Csaba Slemmer",
 				"description": "ITS/M",
-				"telephone": "+49 711 17 94201"
+				"email": "Csaba.slemmer@daimler.com",
+				"telephones": ["+49 711 17 94201", "+49 176 3096 3593"]
 			}
 		]
 	},

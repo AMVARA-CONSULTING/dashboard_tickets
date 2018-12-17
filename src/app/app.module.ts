@@ -71,6 +71,8 @@ import { DateParsePipe } from './pipes/date-parse.pipe';
 import { DateLocalePipe } from './pipes/date-locale.pipe';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ReportInfoComponent } from './components/report-info/report-info.component';
+import { APP_BASE_HREF } from '@angular/common';
+import { FixFilterPipe } from './pipes/fix-filter.pipe';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -140,7 +142,8 @@ const pipesUsed = [
     DateLocalePipe,
     DateAgoPipe,
     LimitTextPipe,
-    ReportInfoComponent
+    ReportInfoComponent,
+    FixFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -220,6 +223,10 @@ const pipesUsed = [
       useFactory: (configService: ConfigService) => () => configService.load(),
       deps: [ConfigService, DataService, ToolsService],
       multi: true
+    },
+    {
+      provide: APP_BASE_HREF,
+      useValue: window.location.pathname || '/'
     }
   ],
   bootstrap: [AppComponent]
