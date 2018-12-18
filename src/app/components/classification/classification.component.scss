@@ -21,7 +21,7 @@
 .classification {
   flex: initial;
   padding: 0 20px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   @media (max-width: 850px) {
     flex: 0 0 150px;
   }
@@ -50,6 +50,20 @@
   .selected, .count, .percent {
     flex: 1;
     white-space: nowrap;
+    @include desktop {
+      flex: initial;
+      &.selected,
+      &.count {
+        margin-right: 20px;
+      }
+    }
+    @include tablet {
+      flex: initial;
+      &.selected,
+      &.count {
+        margin-right: 20px;
+      }
+    }
   }
   .selected {
     opacity: .6;
@@ -81,6 +95,29 @@
   transition: background-color .1s ease-in-out;
   @media (max-width: 850px) {
     padding-left: 20px;
+  }
+  @include desktop {
+    justify-content: center;
+    align-items: center;
+  }
+  @include tablet {
+    justify-content: center;
+    align-items: center;
+  }
+  @include tablet-desktop {
+    &:not(:first-child) {
+      .holder:after {
+        content: "";
+        height: 65%;
+        width: 1px;
+        background-color: rgba(white, .15);
+        position: absolute;
+        margin: auto;
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
   }
   &:hover {
     background-color: rgba(white, .03)

@@ -80,8 +80,6 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     Version: {{ config.config.version }}<br />
-    Service Worker Status: <span class="sw_status enabled">OK</span><span style="display:none" class="sw_status disabled">Not
-      running</span>
     <report-info *ngFor="let prop of reports" [prop]="prop"></report-info>
   </mat-expansion-panel>
   <mat-expansion-panel>

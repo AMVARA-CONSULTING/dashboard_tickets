@@ -10,6 +10,36 @@ $cism-theme: mat-light-theme($cism-primary, $cism-accent, $cism-warn);
 @import './app/common/colors';
 
 @font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(/assets/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: local('Material Icons'),
+        local('MaterialIcons-Regular'),
+        url(/assets/iconfont/MaterialIcons-Regular.woff2) format('woff2'),
+        url(/assets/iconfont/MaterialIcons-Regular.woff) format('woff'),
+        url(/assets/iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+@font-face {
     font-family: CorpoS;
     src: url(assets/fonts/c063003t.ttf) format('truetype');
 }
@@ -418,4 +448,15 @@ cism-month-selector .mat-form-field-infix {
 .mat-expansion-panel-content,
 .mat-expansion-panel-header {
     font-family: "CorpoS", "Segoe UI" !important;
+}
+
+.overview cism-overall-box,
+.boxes cism-silt {
+    @include desktop {
+        display: none;
+    }
+}
+
+.mat-checkbox-label {
+    font-family: "CorpoS", "Segoe UI";
 }

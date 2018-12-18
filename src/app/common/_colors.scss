@@ -81,3 +81,12 @@ $tablet: 1100px;
         @content;
     }
 }
+
+@mixin tablet-desktop {
+    @include desktop {
+        @content;
+    }
+    @include tablet {
+        @content;
+    }
+}

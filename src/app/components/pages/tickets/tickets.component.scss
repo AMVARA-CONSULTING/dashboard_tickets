@@ -258,7 +258,7 @@ mat-icon {
   }
   .box-title {
     line-height: 50px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     border-bottom: 1px solid rgba($semi-white, .4)
   }
   .checkboxes {
@@ -280,9 +280,9 @@ mat-icon {
         display: block;
         height: 40px;
         ::ng-deep .mat-checkbox-label {
-          text-transform: uppercase;
           margin-left: 10px;
           font-size: 1rem;
+          letter-spacing: .5px;
           @include mobile {
             font-size: 1.1rem;
           }
@@ -307,4 +307,52 @@ mat-icon {
 
 ::ng-deep .save-changes .mat-ripple-element {
   background-color: rgba(255,255,255,.08) !important;
+}
+
+::ng-deep .header cism-month-selector .mat-form-field {
+  width: 115px;
+}
+
+.header {
+  display: flex;
+  @include desktop {
+    cism-month-selector {
+      flex: 0 0 100px;
+    }
+    .info {
+      flex: 1;
+      display: flex;
+      margin-left: 20px;
+      height: 45px;
+      justify-content: space-between;
+      background-color: $semi-black-1;
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      cism-overall-box,
+      cism-silt {
+        flex: 0 0 40%;
+        background-color: transparent;
+        box-shadow: none;
+      }
+      cism-overall-box {
+        justify-content: flex-start;
+      }
+      cism-silt {
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+::ng-deep .info .title {
+  flex: initial !important;
+}
+
+::ng-deep .info .count {
+  flex: initial !important;
+  margin-left: 30px;
+}
+
+::ng-deep .info cism-overall-box .count {
+  margin-left: 70px;
 }

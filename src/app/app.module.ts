@@ -5,7 +5,6 @@ import { NgModule, APP_INITIALIZER, Injector, DoBootstrap } from '@angular/core'
 import { createCustomElement } from '@angular/elements';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Angular Material
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -177,8 +176,7 @@ const pipesUsed = [
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    })
   ],
   entryComponents: [
     AppComponent,
@@ -226,7 +224,7 @@ const pipesUsed = [
     },
     {
       provide: APP_BASE_HREF,
-      useValue: window.location.pathname || '/'
+      useValue: '/'
     }
   ],
   bootstrap: [AppComponent]

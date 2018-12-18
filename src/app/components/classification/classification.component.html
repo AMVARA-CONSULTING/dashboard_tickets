@@ -2,6 +2,7 @@
 <div class="groups">
   <div class="group" (click)="changeTickets(group.name)" [class.selected]="group.name == filter" matRipple
     [matRippleColor]="rippleColor" *ngFor="let group of groups$ | async">
+    <div class="holder"></div>
     <div class="selected"># of {{ group.name | toString | titlecase }}:</div>
     <div class="count">{{ group.total }}</div>
     <div class="percent">{{ group.percent }}%</div>

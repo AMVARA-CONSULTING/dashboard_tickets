@@ -12,6 +12,10 @@
   box-shadow: $box-shadow;
 }
 
+::ng-deep cism-month-selector .mat-select-value-text {
+  font-size: 1.05rem;
+}
+
 ::ng-deep cism-month-selector .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0;
 }

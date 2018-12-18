@@ -2,7 +2,7 @@
 @import '../../../common/colors';
 
 :host {
-    padding: 30px 40px 20px;
+    padding: 20px 40px;
     display: inline-block;
     position: relative;
     width: 100%;
@@ -15,7 +15,7 @@
         margin: auto;
         left: 0;
         right: 0;
-        background-color: rgba(white, .05);
+        background-color: rgba(white, .15);
     }
 }
 .header{
@@ -31,7 +31,7 @@
 span {
     flex: 1;
     display: inline-block;
-    font-size: 2rem;
+    font-size: 1.8rem;
     @include transition(font-size);
     @include mobile {
         font-size: 1.5rem;
@@ -74,8 +74,27 @@ cism-menu-icon {
     cursor: pointer;
     position: relative;
     max-width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
+    height: 32px;
+    border: 1.5px solid darken($blue, 25);
+    border-radius: 50%;
+    &.active {
+        background-color: darken($blue, 15);
+        border-color: darken($blue, 15);
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        margin: auto;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center center;
+        height: 18px;
+        width: 18px;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 }
 
 
@@ -84,17 +103,9 @@ cism-menu-icon {
     flex: 1;
     
 }
-.help{
-    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_Help.svg");
+.help:after{
+    background-image: url(/assets/img/CISM_Icon_Help.svg);
 }
-.about{
-    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_About.svg")
-}
-.help:hover{
-    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_Help_active.svg");
-
-}
-.about:hover{
-    background-image: url("../../../../assets/img/src_assets_LicenseScan_Icon_About_active.svg");
-
+.about:after{
+    background-image: url(/assets/img/CISM_Icon_About.svg)
 }
