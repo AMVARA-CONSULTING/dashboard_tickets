@@ -1,8 +1,8 @@
 {
   "name": "Reporting@IWM",
   "short_name": "Reporting@IWM",
-  "theme_color": "#00bcd4",
-  "background_color": "#00bcd4",
+  "theme_color": "#111111",
+  "background_color": "#111111",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
