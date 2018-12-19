@@ -6,17 +6,7 @@
     display: inline-block;
     position: relative;
     width: 100%;
-    &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        width: calc(100% - 80px);
-        height: 1px;
-        margin: auto;
-        left: 0;
-        right: 0;
-        background-color: rgba(white, .15);
-    }
+    background-color: darken($bg-color, 10);
 }
 .header{
     display: flex;
