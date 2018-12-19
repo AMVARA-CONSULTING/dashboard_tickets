@@ -16,13 +16,17 @@ export class MonthSelectorComponent implements OnInit {
     private data: DataService,
     public config: ConfigService
   ) {
-    this.data.month.subscribe(month => this.currentMonth = month.month)
     const months = []
     for (let i = 0; i < 12; i++) {
       months.push(moment().subtract(i, 'months').format('YYYY[M]MM'))
     }
     const availableMonths = this.data.overall.map(row => row[0])
     this.months = months.filter(month => availableMonths.indexOf(month) > -1)
+    this.data.availableMonths = this.months
+    this.data.month.subscribe(month => {
+      this.currentMonth = month.month
+      console.log(this.currentMonth)
+    })
   }
 
   currentMonth: string = ''

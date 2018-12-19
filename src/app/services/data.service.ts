@@ -12,6 +12,7 @@ export class DataService {
 
   currentLevel: number
   month: BehaviorSubject<{ month: string, index: number }>
+  availableMonths = []
 
   disabledAnimations: boolean = false
 

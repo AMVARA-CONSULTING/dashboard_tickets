@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
@@ -6,6 +6,9 @@ import { trigger, transition, query, style, group, animate, keyframes, animateCh
 import { DataService } from '@services/data.service';
 import { ToolsService } from 'app/tools.service';
 import memo from 'memo-decorator';
+import { interval } from 'rxjs';
+
+declare const moment: any
 
 @Component({
   selector: 'cism-root',
@@ -49,7 +52,7 @@ import memo from 'memo-decorator';
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     public config: ConfigService,
@@ -67,6 +70,18 @@ export class AppComponent {
 
   trigger() {
     if (!this.tools.isIE()) window.dispatchEvent(new Event('resize'))
+  }
+
+  ngOnInit() {
+    const int = interval(50).subscribe(_ => {
+      if (this.data.availableMonths.length > 0) {
+        this.data.month.next({
+          month: this.data.availableMonths[0],
+          index: 0
+        })
+        int.unsubscribe()
+      }
+    })
   }
 
   @memo()
