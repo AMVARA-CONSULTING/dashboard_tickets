@@ -1,6 +1,6 @@
 <mat-form-field class="no-underline">
-  <mat-select panelClass="month-selector" [ngModel]="currentMonth">
-    <mat-option selected (click)="newMonth(month, i)" [value]="month" *ngFor="let month of months; let i = index;">{{ month |
+  <mat-select panelClass="month-selector" [(ngModel)]="currentMonth" (ngModelChange)="handleMonth($event)">
+    <mat-option (click)="newMonth(month, i)" *ngFor="let month of months; let i = index;">{{ month |
       dateParse:'YYYY[M]MM' |
       dateLocale:config.config.language |
       dateFormat:'MMM YYYY' }}</mat-option>
