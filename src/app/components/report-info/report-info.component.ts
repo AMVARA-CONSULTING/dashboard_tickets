@@ -19,7 +19,6 @@ export class ReportInfoComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.date = changes.prop.currentValue.value.date
-    console.log(changes.prop.currentValue)
   }
 
   date

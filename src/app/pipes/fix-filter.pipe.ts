@@ -7,7 +7,6 @@ import memo from 'memo-decorator';
 export class FixFilterPipe implements PipeTransform {
 
   transform(filters: any[]): any[] {
-    console.log(filters)
     // @ts-ignore
     window.filters = filters
     const newList = []

@@ -6,6 +6,30 @@ export class ToolsService {
 
   constructor() { }
 
+  log(classe: string, ...args: any[]) {
+    const texts = []
+    const objects = []
+    const arrays = []
+    args.forEach(arg => {
+      if (Array.isArray(arg)) {
+        arrays.push(arg)
+        return
+      }
+      if (typeof arg === 'object') {
+        objects.push(arg)
+        return
+      }
+      if (typeof arg === 'number') {
+        texts.push(arg)
+        return
+      }
+      if (typeof arg === 'string') {
+        texts.push(arg)
+      }
+    })
+    console.log("%cAMVARA %c| %c"+classe+"%c | "+texts.join(' '), 'color:#1976d2;font-weight:bold;', 'color:#37474f;', 'color:#009688;font-weight:bold;', 'color:#37474f;', ...objects, ...arrays)
+  }
+
   /**
    * Return a WebWorker object
    * 
