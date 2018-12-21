@@ -4,12 +4,8 @@
 :host {
   flex: 0 50%;
   flex: 0 calc(50% - 20px);
-  height: calc(50% - 50px);
+  height: calc(50% - 30px);
   max-width: calc(50% - 20px);
-  &:nth-child(4),
-  &:nth-child(5) {
-    margin-top: 40px;
-  }
   @include mobile {
     flex: 1 100%;
     height: auto;

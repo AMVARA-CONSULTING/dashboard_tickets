@@ -20,7 +20,10 @@
 }
 
 .prop {
-    flex: 1;
+    flex: initial;
+    @include tablet-desktop {
+        margin-right: 30px;
+    }
     @include mobile {
         flex: 0 0 120px;
     }
@@ -28,7 +31,7 @@
 }
 
 .value {
-    flex: 1;
+    flex: initial;
     white-space: nowrap;
     @include desktop {
         flex: 0 0 120px;

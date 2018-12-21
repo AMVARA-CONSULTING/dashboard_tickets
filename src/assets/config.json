@@ -1,5 +1,5 @@
 {
-	"version": "1.10.0",
+	"version": "1.11.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
@@ -13,8 +13,8 @@
 		"de": "Deutsch"
 	},
 	"portalLink": {
-		"dev": "/ibmcognos/",
-		"prod": "/ibmcognos/"
+		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
 	},
 	"cognosRepository": {
 		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
@@ -142,6 +142,12 @@
 		}
 	},
 	"changelog": [
+		{
+			"version": "1.11.0",
+			"text": [
+				""
+			]
+		},
 		{
 			"version": "1.10.0",
 			"text": [

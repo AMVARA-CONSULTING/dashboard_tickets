@@ -28,7 +28,7 @@
 }
 .info {
   text-align: center;
-  line-height: 20px;
+  line-height: 23px;
 }
 
 .daimler {
@@ -60,6 +60,6 @@
 .execution_date {
   line-height: 45px;
   @include desktop {
-    line-height: 24px
+    line-height: 27px
   }
 }

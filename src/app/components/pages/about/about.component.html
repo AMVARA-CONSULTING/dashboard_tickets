@@ -40,7 +40,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <p>This mobile report has been developed by <a href="https://www.datec24.de/" target="_blank">datec24 AG</a>
-      using <span>IBM Cognos Analytics</span> and <a href="https://angular.io/" target="_blank">Angular 7</a><br />
+      using <span>IBM Cognos Analytics</span> and <a href="https://angular.io/" target="_blank">Angular</a><br />
       The data queries were provided by the respective business department itself.
     </p>
   </mat-expansion-panel>
@@ -52,7 +52,7 @@
     </mat-expansion-panel-header>
     <div class="software">
       <ul>
-        <li>IBM Cognos Analytics 11: <a href="#" target="_blank">Consumer License</a></li>
+        <li>IBM Cognos Analytics 11: <a [href]="config.config.portalLink[config.config.scenario]" target="_blank">Consumer License</a></li>
         <li>Angular 7.0.3: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
         <li>HammerJS v2.0.8: <a href="https://github.com/hammerjs/hammer.js/blob/master/LICENSE.md" target="_blank">MIT
             License</a></li>

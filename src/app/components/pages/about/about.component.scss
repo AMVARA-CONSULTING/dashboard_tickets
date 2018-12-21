@@ -30,3 +30,22 @@
 ::ng-deep cism-about .mat-expansion-panel:not([class*='mat-elevation-z']){
     box-shadow: none;
 }
+
+.changelog > ul > li {
+    color: $blue;
+  }
+  
+  .changelog ul li {
+      line-height: 30px;
+      list-style-type: none;
+      line-height: 30px;
+      li {
+        &:before {
+            content: "•";
+            color: $blue;
+            margin-right: 10px;
+        }
+        color: $semi-white;
+        padding-left: 15px;
+      }
+  }
