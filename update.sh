@@ -20,6 +20,6 @@ echo -e "\e[37mCompiling...\e[0m"
 ng build --prod --aot --build-optimizer >> output.log 2>&1
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[37mCopying files to public folder...\e[0m"
-cp -a /code/dist/cism/. /usr/share/nginx/html/ >> output.log 2>&1
+cp -r /code/dist/. /usr/share/nginx/html/ >> output.log 2>&1
 echo -e "\e[32mOK\e[0m"
 echo -e "\e[32mSuccessful\e[0m"
