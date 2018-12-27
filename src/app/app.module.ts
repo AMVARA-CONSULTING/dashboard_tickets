@@ -58,7 +58,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CismPaginatorIntl } from './paginator-intl';
-import { NgxJsonViewerModule } from 'ngx-json-viewer';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ToStringPipe } from './pipes/to-string.pipe';
 import { environment } from 'environments/environment.prod';
@@ -149,7 +148,6 @@ const pipesUsed = [
     BrowserAnimationsModule,
     MatExpansionModule,
     NgxChartsModule,
-    NgxJsonViewerModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatProgressBarModule,

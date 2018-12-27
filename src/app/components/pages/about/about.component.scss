@@ -1,5 +1,12 @@
 @import '../../../common/colors';
 
+:host {
+    display: block;
+    margin: 0 auto;
+    max-width: 1000px;
+    margin-top: 20px;
+}
+
 .reload-translations{
     padding: 0 10px!important;
     line-height: 27px!important;

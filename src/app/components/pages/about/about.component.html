@@ -15,8 +15,6 @@
         matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{
         'about.reloadLanguageFiles'| translate }}</button>
     </p>
-    <p style="cursor: pointer;" class="actual-config" (click)="showConfig = !showConfig"><span>Show actual config</span></p>
-    <ngx-json-viewer *ngIf="showConfig" [json]="config.config" [expanded]="false"></ngx-json-viewer>
   </mat-expansion-panel>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -53,23 +51,22 @@
     <div class="software">
       <ul>
         <li>IBM Cognos Analytics 11: <a [href]="config.config.portalLink[config.config.scenario]" target="_blank">Consumer License</a></li>
-        <li>Angular 7.0.3: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
-        <li>HammerJS v2.0.8: <a href="https://github.com/hammerjs/hammer.js/blob/master/LICENSE.md" target="_blank">MIT
+        <li>Angular: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
+        <li>HammerJS: <a href="https://github.com/hammerjs/hammer.js/blob/master/LICENSE.md" target="_blank">MIT
             License</a></li>
-        <li>ngx-translate v10.0.2: <a href="https://github.com/ngx-translate/core/blob/master/LICENSE" target="_blank">MIT
+        <li>ngx-translate: <a href="https://github.com/ngx-translate/core/blob/master/LICENSE" target="_blank">MIT
             License</a></li>
-        <li>ng-connection-service v1.0.4: <a href="https://github.com/ultrasonicsoft/ng-connection-service/blob/master/LICENSE"
+        <li>ng-connection-service: <a href="https://github.com/ultrasonicsoft/ng-connection-service/blob/master/LICENSE"
             target="_blank">MIT License</a></li>
-        <li>ngx-json-viewer v2.4.0: <a href="https://github.com/hivivo/ngx-json-viewer/blob/master/LICENSE" target="_blank">MIT
-            License</a></li>
-        <li>memo-decorator v1.0.2: <a href="https://github.com/mgechev/memo-decorator" target="_blank">MIT License</a></li>
-        <li>ngx-virtual-scroller v1.0.11: <a href="https://github.com/rintoj/ngx-virtual-scroller/blob/master/LICENSE"
+        <li>memo-decorator: <a href="https://github.com/mgechev/memo-decorator" target="_blank">MIT License</a></li>
+        <li>ngx-virtual-scroller: <a href="https://github.com/rintoj/ngx-virtual-scroller/blob/master/LICENSE"
             target="_blank">MIT License</a></li>
-        <li>moment v2.22.2: <a href="https://github.com/moment/moment/blob/develop/LICENSE" target="_blank">MIT License</a></li>
-        <li>ngx-moment v3.0.2: <a href="https://github.com/urish/ngx-moment/blob/master/LICENSE" target="_blank">MIT
+        <li>moment: <a href="https://github.com/moment/moment/blob/develop/LICENSE" target="_blank">MIT License</a></li>
+        <li>ngx-moment: <a href="https://github.com/urish/ngx-moment/blob/master/LICENSE" target="_blank">MIT
             License</a></li>
-        <li>underscore v1.9.1: <a href="https://github.com/jashkenas/underscore/blob/master/LICENSE" target="_blank">MIT
+        <li>underscore: <a href="https://github.com/jashkenas/underscore/blob/master/LICENSE" target="_blank">MIT
             License</a></li>
+        <p>All packages listed above uses the latest stable version.</p>
       </ul>
     </div>
   </mat-expansion-panel>

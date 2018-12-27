@@ -113,10 +113,11 @@ html, body { height: 100%; }
 }
 
 .mat-raised-button{
-    background-color: $blue;
+    background-color: darken($blue, 10);
     border: $semi-white;
     color: $semi-white;
 }
+
 .mat-expansion-panel-body  a{
     color: lighten($blue,20);
     text-decoration: none;

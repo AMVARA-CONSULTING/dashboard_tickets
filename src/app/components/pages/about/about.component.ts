@@ -48,6 +48,4 @@ export class AboutComponent implements OnInit {
     this.snack.open('Language reloaded successfully!', 'OK', { duration: 3000 });
   }
 
-  showConfig: boolean = false
-
 }

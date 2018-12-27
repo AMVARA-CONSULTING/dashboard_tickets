@@ -49,7 +49,7 @@ cism-menu-icon {
         width: 130px;
         position: absolute;
         justify-content: space-between;
-        top: 0;
+        top: -2px;
         right: 0;
     }
 
@@ -67,6 +67,9 @@ cism-menu-icon {
     height: 32px;
     border: 1.5px solid darken($blue, 25);
     border-radius: 50%;
+    &:hover {
+        background-color: darken($blue, 25);
+    }
     &.active {
         background-color: darken($blue, 15);
         border-color: darken($blue, 15);
