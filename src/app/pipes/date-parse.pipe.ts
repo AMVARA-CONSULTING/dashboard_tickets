@@ -13,7 +13,7 @@ export class DateParsePipe implements PipeTransform {
     if (date === undefined) {
       return moment()
     }
-    if (date.indexOf('M') > -1) {
+    if (date.length == 7) {
       return moment(date, 'YYYY[M]MM')
     } else if (date.indexOf(',') > -1) {
       return moment(date, 'MMM D, YYYY H:mm:ss A')

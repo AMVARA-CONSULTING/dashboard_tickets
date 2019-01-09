@@ -1,5 +1,5 @@
 {
-	"version": "1.12.0",
+	"version": "1.13.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
@@ -86,7 +86,10 @@
 				"name": "Csaba Slemmer",
 				"description": "ITS/M",
 				"email": "Csaba.slemmer@daimler.com",
-				"telephones": ["+49 711 17 94201", "+49 176 3096 3593"]
+				"telephones": [
+					"+49 711 17 94201",
+					"+49 176 3096 3593"
+				]
 			}
 		]
 	},
@@ -142,6 +145,12 @@
 		}
 	},
 	"changelog": [
+		{
+			"version": "1.13.0",
+			"text": [
+				"Fixed dates due to new format in reports"
+			]
+		},
 		{
 			"version": "1.11.0",
 			"text": [

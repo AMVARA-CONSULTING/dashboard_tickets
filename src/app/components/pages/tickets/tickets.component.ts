@@ -149,6 +149,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
         switch (prop) {
           case "create_date":
           case "modify_date":
+            console.log(ticketRows[i][this.config.config.columns[prop]])
             newTicket[prop] = this.parsePipe.transform(ticketRows[i][this.config.config.columns[prop]])
             break
           default:
