@@ -77,39 +77,6 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-const componentsUsed = [
-  AppComponent,
-  HeaderComponent,
-  FooterComponent,
-  MenuIconComponent,
-  AboutComponent,
-  MainComponent,
-  MonthSelectorComponent,
-  OverallBoxComponent,
-  StackedComponent,
-  StadisticBoxComponent,
-  LegendComponent,
-  ColorComponent,
-  SiltComponent,
-  TicketsComponent,
-  ClassificationComponent,
-  SolveTicket,
-  SidenavComponent,
-  DataNotFound,
-  LoaderComponent
-]
-
-const pipesUsed = [
-  ToStringPipe,
-  GroupByPipe,
-  RuPipe,
-  DateFormatPipe,
-  DateParsePipe,
-  DateLocalePipe,
-  DateAgoPipe,
-  LimitTextPipe
-]
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -227,39 +194,5 @@ const pipesUsed = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule implements DoBootstrap {
-  constructor(
-    private injector: Injector
-  ) { }
+export class AppModule { }
 
-  ngDoBootstrap() {
-    const elements: any[] = [
-      [MainComponent, 'cism-main'],
-      [TicketsComponent, 'cism-tickets'],
-      [AppComponent, 'cism-root'],
-      [HeaderComponent, 'cism-header'],
-      [FooterComponent, 'cism-footer'],
-      [MenuIconComponent, 'cism-menu-icon'],
-      [AboutComponent, 'cism-about'],
-      [MainComponent, 'cism-main'],
-      [MonthSelectorComponent, 'cism-month-selector'],
-      [OverallBoxComponent, 'cism-overall-box'],
-      [StackedComponent, 'cism-stacked'],
-      [StadisticBoxComponent, 'cism-stadistic-box'],
-      [LegendComponent, 'cism-legend'],
-      [ColorComponent, 'cism-color'],
-      [SiltComponent, 'cism-silt'],
-      [TicketsComponent, 'cism-tickets'],
-      [ClassificationComponent, 'cism-classification'],
-      [SolveTicket, 'cism-solve'],
-      [SidenavComponent, 'cism-sidenav'],
-      [DataNotFound, 'data-unavailable'],
-      [LoaderComponent, 'cism-loader'],
-    ]
-
-    for (const [component, name] of elements) {
-      const el = createCustomElement(component, { injector: this.injector })
-      customElements.define(name, el)
-    }
-  }
-}

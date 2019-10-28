@@ -1,0 +1,18 @@
+
+:host {
+    display: block;
+    width: 100vw;
+    padding: 50px;
+    box-sizing: border-box;
+    min-height: 300px;
+    margin: 0 -40px;
+    position: relative;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+    color: rgba(white, .7);
+    font-size: 1.6rem;
+}

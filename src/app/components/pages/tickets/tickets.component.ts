@@ -171,10 +171,10 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   column_sorted: string = 'id'
   direction_sorted: string = ''
 
-  @ViewChild('table') table: MatTable<any>
+  @ViewChild('table', { static: true }) table: MatTable<any>
 
-  @ViewChild(MatPaginator) paginator: MatPaginator
-  @ViewChild(MatSort) sort: MatSort
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+  @ViewChild(MatSort, { static: true }) sort: MatSort
 
   ngOnInit() {
     this.fixedWidth = this.config.config.displayedColumns.length > 5

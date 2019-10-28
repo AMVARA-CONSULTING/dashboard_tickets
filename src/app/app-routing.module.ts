@@ -23,6 +23,10 @@ const routes: Routes = [
     data: { state: 'tickets' }
   },
   {
+    path: 'system',
+    loadChildren: () => import('./modules/system.module').then(m => m.SystemModule)
+  },
+  {
     path: "about", component: AboutComponent
   },
   {
