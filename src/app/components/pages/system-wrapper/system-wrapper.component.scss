@@ -1,7 +1,38 @@
+
+@import '../../../common/breakpoints';
+
 :host {
-    display: block;
+    display: flex;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
 }
 
-cism-system-graphic-holder:nth-child(2n + 2) {
-    background-color: rgba(white, .04);
+@include for-desktop-down {
+    cism-system-graphic-holder:nth-child(2n + 2) {
+        background-color: rgba(white, .04);
+    }
+}
+
+@include for-desktop-up {
+    cism-system-graphic-holder {
+        flex: 1 50%;
+        &:nth-child(2n + 1):after {
+            position: absolute;
+            content: "";
+            right: 0;
+            height: 80%;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 1px;
+            background-color: rgba(white, .05);
+        }
+        &:nth-child(4n + 3),
+        &:nth-child(4n + 4) {
+            background-color: rgba(white, .04);
+        }
+        &:last-child {
+            flex: 1 100%;
+        }
+    }
 }

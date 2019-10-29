@@ -36,8 +36,9 @@ export interface Reports {
   readonly overview_service: ReportInfo,
   readonly overview_silt: ReportInfo,
   readonly monthsSelector: string,
+  readonly allMonths: string,
   readonly overview_count: ReportInfo,
-  readonly monthShouldBeNumber: number[]
+  readonly monthShouldBeNumber: number[],
   readonly months: string[],
 }
 

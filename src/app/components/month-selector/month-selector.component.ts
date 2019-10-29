@@ -24,8 +24,8 @@ export class MonthSelectorComponent implements OnInit {
       months.push(moment().subtract(i, 'months').format('YYYY[M]MM'))
     }
     this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()
-    this.tools.log('Month Selector', 'Available months:', this.data.availableMonths)
-    this.tools.log('Month Selector', 'Available months after filter:', months)
+    // this.tools.log('Month Selector', 'Available months:', this.data.availableMonths)
+    // this.tools.log('Month Selector', 'Available months after filter:', months)
     this.currentMonth = months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
     this.months = months
     this.data.month.subscribe(month => {
@@ -34,7 +34,7 @@ export class MonthSelectorComponent implements OnInit {
   }
 
   handleMonth(month: string) {
-    this.tools.log('Month Selector', 'Selected:',month)
+    // this.tools.log('Month Selector', 'Selected:',month)
     const index = this.data.availableMonths.findIndex(mon => mon === month)
     this.data.month.next({
       month: month,

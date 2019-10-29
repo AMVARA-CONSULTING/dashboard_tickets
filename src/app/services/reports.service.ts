@@ -43,7 +43,9 @@ export class ReportsService {
           this.getReportData(this.config.config.reports[this.config.config.scenario].overview_silt.id, this.config.config.reports[this.config.config.scenario].overview_silt.selector, 'Mobile_Tickets_Silt.csv'),
           this.getReportData(this.config.config.reports[this.config.config.scenario].overview_status.id, this.config.config.reports[this.config.config.scenario].overview_status.selector, 'Mobile_Tickets_Status.csv'),
           this.getReportData(this.config.config.reports[this.config.config.scenario].overview_type.id, this.config.config.reports[this.config.config.scenario].overview_type.selector, 'Mobile_Tickets_Type.csv'),
-          this.getReportData(this.config.config.reports[this.config.config.scenario].overview_count.id, this.config.config.reports[this.config.config.scenario].overview_count.selector, 'Mobile_Tickets_Overall.csv')
+          this.getReportData(this.config.config.reports[this.config.config.scenario].overview_count.id, this.config.config.reports[this.config.config.scenario].overview_count.selector, 'Mobile_Tickets_Overall.csv'),
+          this.getReportData(this.config.config.reports[this.config.config.scenario].allMonths, this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'),
+          this.getReportData(this.config.config.reports[this.config.config.scenario].system, this.config.config.reports[this.config.config.scenario].system, 'System.csv')
         )
           .pipe(delay(this.config.config.delayRequests))
           .subscribe(data => {
@@ -61,6 +63,10 @@ export class ReportsService {
             this.tools.log('API','Type Data:', data[5].length)
             this.data.overall = data[6]
             this.tools.log('API','Overall Data:', data[6].length)
+            this.data.allTickets = data[7]
+            this.tools.log('API','All Tickets:', data[7].length)
+            this.data.system = data[8]
+            this.tools.log('API','System Availability:', data[8].length)
             const actualMonth = this.data.overall.map(t => t[0])[0]
             this.data.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })
             resolve()

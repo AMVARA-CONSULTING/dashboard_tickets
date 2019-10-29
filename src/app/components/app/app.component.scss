@@ -2,15 +2,15 @@
 @import '../../common/colors';
 
 .wrapper {
-    padding: 30px 40px;
+    /* padding: 30px 40px; */
     perspective: 2000px;
     @include mobile {
         margin-bottom: 40px;
-        padding: 15px;
+        /* padding: 15px; */
     }
     @include tablet {
         margin-bottom: 40px;
-        padding: 25px;
+        /* padding: 25px; */
     }
 }
 .mat-drawer-container{

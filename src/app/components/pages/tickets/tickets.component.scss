@@ -1,6 +1,18 @@
 
 @import '../../../common/colors';
 
+:host {
+  padding: 30px 40px;
+  @include mobile {
+      margin-bottom: 40px;
+      padding: 15px;
+  }
+  @include tablet {
+      margin-bottom: 40px;
+      padding: 25px;
+  }
+}
+
 .flex {
   display: flex;
   margin-top: 20px;

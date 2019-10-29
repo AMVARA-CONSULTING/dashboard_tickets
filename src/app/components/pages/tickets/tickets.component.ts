@@ -121,18 +121,12 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     const month = this.data.month.getValue()
     const monthIndex = month.index
     if (!Array.isArray(this.data.tickets[monthIndex])) {
-      this.reports.getReportData(this.config.config.reports[this.config.config.scenario].months[monthIndex], this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv')
-        .subscribe(data => {
-          this.data.tickets[monthIndex] = [].concat(data)
-          this.rollupPart2(this.data.tickets[monthIndex])
-        })
-    } else {
-      this.rollupPart2(this.data.tickets[monthIndex])
+      this.data.tickets[monthIndex] = this.data.allTickets.filter(ticket => ticket[this.config.config.columns.month_id] == month.month)
     }
+    this.rollupPart2(this.data.tickets[monthIndex])
   }
 
   rollupPart2(ticketRows): void {
-    const month = this.data.month.getValue()
     if (this.type !== null && this.filter !== null) {
       if (!this.config.config.columns.hasOwnProperty(this.type)) {
         this.data.loading.next(true)
@@ -149,7 +143,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
         switch (prop) {
           case "create_date":
           case "modify_date":
-            console.log(ticketRows[i][this.config.config.columns[prop]])
             newTicket[prop] = this.parsePipe.transform(ticketRows[i][this.config.config.columns[prop]])
             break
           default:

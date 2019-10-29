@@ -24,7 +24,9 @@ export class DataService {
   loadingTickets: boolean = true
 
   tickets = []
+  allTickets = []
   initialRows = []
+  system = []
 
   isMobile: boolean = false
   opened: BehaviorSubject<boolean>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '@services/data.service';
 
 @Component({
   selector: 'cism-system-wrapper',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SystemWrapperComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _data: DataService
+  ) { }
 
   ngOnInit() {
+    console.log(this._data.allTickets)
   }
 
 }

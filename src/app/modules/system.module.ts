@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { SystemWrapperComponent } from '@components/pages/system-wrapper/system-wrapper.component';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
+import { SharedModule } from './shared.module';
+import { SystemAvailabilityComponent } from '@components/system/system-availability/system-availability.component';
 
 const systemRoutes: Routes = [
   {
@@ -15,14 +17,14 @@ const systemRoutes: Routes = [
 @NgModule({
   declarations: [
     SystemWrapperComponent,
-    SystemGraphicHolderComponent
+    SystemGraphicHolderComponent,
+    SystemAvailabilityComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),
+    SharedModule,
     CommonModule
   ],
-  exports: [
-    SystemWrapperComponent
-  ]
+  exports: []
 })
 export class SystemModule { }

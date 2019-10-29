@@ -54,7 +54,6 @@ import { ToolsService } from './tools.service';
 import { ReportsService } from '@services/reports.service';
 
 // Plugins
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CismPaginatorIntl } from './paginator-intl';
@@ -71,6 +70,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { ReportInfoComponent } from './components/report-info/report-info.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { FixFilterPipe } from './pipes/fix-filter.pipe';
+import { SharedModule } from '@modules/shared.module';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -114,7 +114,6 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     MatExpansionModule,
-    NgxChartsModule,
     MatSnackBarModule,
     MatSlideToggleModule,
     MatProgressBarModule,
@@ -132,6 +131,7 @@ export function createTranslateLoader(http: HttpClient) {
     MatDialogModule,
     MatTableModule,
     MatSortModule,
+    SharedModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,

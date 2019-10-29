@@ -2,8 +2,9 @@
 <cism-sidenav>
   <ul class="nav">
     <li (click)="navigate('/')">Home</li>
-    <li (click)="navigate('about')">About</li>
-    <li (click)="navigate('help')">Help</li>
+    <li (click)="navigate('/system')">System</li>
+    <li (click)="navigate('/about')">About</li>
+    <li (click)="navigate('/help')">Help</li>
   </ul>
 </cism-sidenav>
 <div [@.disabled]="data.disabledAnimations">
