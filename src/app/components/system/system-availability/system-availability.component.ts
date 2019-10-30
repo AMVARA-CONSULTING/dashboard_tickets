@@ -52,7 +52,19 @@ export class SystemAvailabilityComponent implements OnInit {
       this._tools.log('System Availability', 'Processing', 'Percent not found for previous week')
       console.error(err)
     }
-    // Extract previous week %
+    // Extract current week %
+    let act_week = 0
+    try {
+      const week = moment().week()
+      // @ts-ignore
+      const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').week() == week)
+      const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
+      act_week = this._tools.formatPercent(sum / rows.length)
+    } catch (err) {
+      this._tools.log('System Availability', 'Processing', 'Percent not found for actual week')
+      console.error(err)
+    }
+    // Extract previous month %
     let prev_month = 0
     try {
       const month = moment().subtract(1, 'month').month()
@@ -60,16 +72,30 @@ export class SystemAvailabilityComponent implements OnInit {
       const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').month() == month)
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
       prev_month = this._tools.formatPercent(sum / rows.length)
-      console.log(prev_month)
     } catch (err) {
       this._tools.log('System Availability', 'Processing', 'Percent not found for previous month')
+      console.error(err)
+    }
+    // Extract current month %
+    let act_month = 0
+    try {
+      const month = moment().month()
+      // @ts-ignore
+      const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').month() == month)
+      const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
+      act_month = this._tools.formatPercent(sum / rows.length)
+    } catch (err) {
+      this._tools.log('System Availability', 'Processing', 'Percent not found for actual month')
       console.error(err)
     }
     this.percents.next({
       today: today,
       yesterday: yesterday,
       prev_week: prev_week,
-      prev_month: prev_month
+      prev_month: prev_month,
+      yesterday_up: today > yesterday ? 'up' : 'down',
+      week_up: act_week > prev_week ? 'up' : 'down',
+      month_up: act_month > prev_month ? 'up' : 'down'
     })
   }
 
@@ -81,4 +107,7 @@ export interface SAPercents {
   yesterday: number
   prev_week: number
   prev_month: number
+  yesterday_up: string
+  week_up: string
+  month_up: string
 }

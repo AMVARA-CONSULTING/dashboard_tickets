@@ -1,0 +1,279 @@
+{
+	"version": "1.13.0",
+	"language": "en",
+	"appTitle": "IWM Reporting",
+	"scenario": "prod",
+	"delay": 0,
+	"delayRequests": 0,
+	"copyright": "DAIMLER",
+	"license": "SFASR",
+	"ticketOptions": true,
+	"languageCodes": {
+		"en": "English",
+		"de": "Deutsch"
+	},
+	"portalLink": {
+		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
+	},
+	"cognosRepository": {
+		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
+	},
+	"displayedColumnsDefault": [
+		"id",
+		"create_date",
+		"modify_date",
+		"type",
+		"priority",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group"
+	],
+	"displayedColumns": [
+		"id",
+		"create_date",
+		"modify_date",
+		"type",
+		"priority",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group"
+	],
+	"displayedColumnsOrder": [
+		"month_id",
+		"id",
+		"create_date",
+		"modify_date",
+		"type",
+		"priority",
+		"status",
+		"description",
+		"external",
+		"classification",
+		"component",
+		"service_group",
+		"service",
+		"count",
+		"silt"
+	],
+	"columns": {
+		"month_id": 0,
+		"id": 1,
+		"create_date": 2,
+		"modify_date": 3,
+		"type": 4,
+		"priority": 5,
+		"status": 6,
+		"description": 7,
+		"external": 8,
+		"classification": 9,
+		"component": 10,
+		"service_group": 11,
+		"service": 12,
+		"count": 13,
+		"silt": 14
+	},
+	"contacts": {
+		"dev": [
+			{
+				"name": "Csaba Slemmer",
+				"description": "ITS/M",
+				"email": "Csaba.slemmer@daimler.com",
+				"telephones": [
+					"+49 711 17 94201",
+					"+49 176 3096 3593"
+				]
+			}
+		]
+	},
+	"reports": {
+		"dev": {
+			"barchart": {
+				"id": "iF4C016DAEBE44C6D8858D68E8A3F672A",
+				"selector": "[lid=Overview_Diagram] tr"
+			},
+			"tickets": {
+				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
+				"selector": "[lid=List1] tr"
+			},
+			"overview_count": {
+				"id": "iE68518B108B5435A969C6DA8218F5C90",
+				"selector": "[lid=List1] tr"
+			},
+			"overview_prio": {
+				"id": "iD0950E7C33A74DE08A909904A30E3DC6",
+				"selector": "[lid=Ticket_Priority] tr"
+			},
+			"overview_type": {
+				"id": "i00B4A60D67674C20B46F76A5F64D5F7C",
+				"selector": "[lid=Ticket_Status1] tr"
+			},
+			"overview_status": {
+				"id": "i334A42AE2B00491A90D1D9297C7241F2",
+				"selector": "[lid=Ticket_Status] tr"
+			},
+			"overview_service": {
+				"id": "i742135DE2F3B48E782A8D5CA2F5D22F4",
+				"selector": "[lid=Ticket_Application] tr"
+			},
+			"overview_silt": {
+				"id": "iD90CD52D305E4083A871B2E3514300B8",
+				"selector": "[lid=List1] tr"
+			},
+			"monthsSelector": "[lid=List1] tr",
+			"allMonths": "null",
+			"system": "null",
+			"months": [
+				"i84A6B3DFEB334876B075E4AF7730943F",
+				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
+				"i442340B2AE134527A95ACA75D644D43E",
+				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
+				"i7823E458BF1A45708E6503BB2855D7EF",
+				"i7EC5D13883ED4C53B31C344173AF9BA1",
+				"i63397EC9C40140EDA4B457F678BAACCB",
+				"i5F81078AC36F4542A58FB730FFCCCF30",
+				"i80EF1A7C76D94B279A6A12BA650CE1F6",
+				"i2551180ACCC14FAEA25EEEA79805973D",
+				"i594A3A26CF3E46688D09D9CE6F711210",
+				"i5D28D159F965423DBDEB2EA72C3DCD29"
+			]
+		},
+		"prod": {
+			"barchart": {
+				"id": "i8562AA0919AB4DD69B06AA56711E0AF8",
+				"selector": "[lid=Overview_Diagram] tr"
+			},
+			"tickets": {
+				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
+				"selector": "[lid=List1] tr"
+			},
+			"overview_count": {
+				"id": "iE68518B108B5435A969C6DA8218F5C90",
+				"selector": "[lid=List1] tr"
+			},
+			"overview_prio": {
+				"id": "i251B3B8390D84AEFB4B53D4452E61D56",
+				"selector": "[lid=Ticket_Priority] tr"
+			},
+			"overview_type": {
+				"id": "i0D796C265A6F4CE493A9733238130230",
+				"selector": "[lid=Ticket_Status1] tr"
+			},
+			"overview_status": {
+				"id": "i52786045C01D4214BA189D034D29D618",
+				"selector": "[lid=Ticket_Status] tr"
+			},
+			"overview_service": {
+				"id": "iEBE5C5FCCFC1439D93FEBCD694D7301E",
+				"selector": "[lid=Ticket_Application] tr"
+			},
+			"overview_silt": {
+				"id": "i86B990A4322348729AD2561C0C5D7C92",
+				"selector": "[lid=List1] tr"
+			},
+			"monthsSelector": "[lid=List1] tr",
+			"months": [
+				"i84A6B3DFEB334876B075E4AF7730943F",
+				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
+				"i442340B2AE134527A95ACA75D644D43E",
+				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
+				"i7823E458BF1A45708E6503BB2855D7EF",
+				"i7EC5D13883ED4C53B31C344173AF9BA1",
+				"i63397EC9C40140EDA4B457F678BAACCB",
+				"i5F81078AC36F4542A58FB730FFCCCF30",
+				"i80EF1A7C76D94B279A6A12BA650CE1F6",
+				"i2551180ACCC14FAEA25EEEA79805973D",
+				"i594A3A26CF3E46688D09D9CE6F711210",
+				"i5D28D159F965423DBDEB2EA72C3DCD29"
+			]
+		}
+	},
+	"changelog": [
+		{
+			"version": "1.13.0",
+			"text": [
+				"Fixed dates due to new format in reports"
+			]
+		},
+		{
+			"version": "1.11.0",
+			"text": [
+				""
+			]
+		},
+		{
+			"version": "1.10.0",
+			"text": [
+				"Fixed month selector"
+			]
+		},
+		{
+			"version": "1.9.0",
+			"text": [
+				"Minimal design changes",
+				"Fixed About page"
+			]
+		},
+		{
+			"version": "1.8.1",
+			"text": [
+				"Changed legend colors"
+			]
+		},
+		{
+			"version": "1.8.0",
+			"text": [
+				"IE Top icons Fixed",
+				"Change Silt to AVERAGE SILT",
+				"Add thank you text",
+				"Fix contacts",
+				"iBISS Portal Link",
+				"Make table headers sortable",
+				"Correct columns",
+				"Change tab title",
+				"L2 Table, click on classification field goes to it"
+			]
+		},
+		{
+			"version": "1.4.0",
+			"text": [
+				"Complete data from tickets",
+				"Solve or remove ticket"
+			]
+		},
+		{
+			"version": "1.3.0",
+			"text": [
+				"Change month available",
+				"Mobile-Tablet design",
+				"Fixed percent on tickets",
+				"Better design at stadictic boxes when list items overflows out of the box"
+			]
+		},
+		{
+			"version": "1.2.0",
+			"text": [
+				"Select which columns to see",
+				"Real data and filters on L2",
+				"Fixed dot number on L1 classification boxes",
+				"Merged About & Help pages",
+				"Added sidenav menu",
+				"Added L2 pagination",
+				"Minor bugs fixed"
+			]
+		},
+		{
+			"version": "1.0.0",
+			"text": [
+				"Initial commit"
+			]
+		}
+	]
+}
