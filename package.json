@@ -68,5 +68,18 @@
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "iOS 7",
+    "iOS 8",
+    "iOS 9",
+    "ios_saf >= 10",
+    "Safari >= 10",
+    "iOS 10",
+    "IE 10",
+    "IE 11",
+    "IE 9"
+  ]
 }
