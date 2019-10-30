@@ -21,8 +21,7 @@ export class SystemWrapperComponent implements OnInit {
       console.log("Hola")
       // @ts-ignore
       return data
-    }, 11)
-    job.then(result => console.log(result))
+    }, 11).then(result => console.log(result))
   }
 
 }
