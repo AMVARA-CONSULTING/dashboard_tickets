@@ -1,12 +1,11 @@
 // Plugins
-
 // Convert XML to JSON
 
 // ========================================================================
 //  XML.ObjTree -- XML source code from/to JavaScript object like E4X
 // ========================================================================
 
-if ( typeof(XML) == 'undefined' ) XML = function() {};
+var XML = function() {};
 
 //  constructor
 
@@ -272,7 +271,7 @@ XML.ObjTree.prototype.xml_escape = function ( text ) {
     return (text + '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 };
 
-if ( typeof(JKL) == 'undefined' ) JKL = function() {};
+var JKL = function() {};
 
 //  JKL.Dumper Constructor
 
