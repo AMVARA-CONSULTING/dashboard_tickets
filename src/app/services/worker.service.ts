@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 type CallbackFunction = () => void;
 
@@ -6,81 +7,96 @@ type CallbackFunction = () => void;
   providedIn: 'root'
 })
 export class WorkerService {
-  private workerFunctionToUrlMap = new WeakMap<CallbackFunction, string>();
-  private promiseToWorkerMap = new WeakMap<Promise<any>, Worker>();
 
-  private supportsTransferableObjects(): boolean {
-    return "TextDecoder" in window && "TextEncoder" in window;
+  constructor() {
+    this.supportsTransferableObjects = "TextDecoder" in window && "TextEncoder" in window
   }
+
+  private supportsTransferableObjects: boolean = false
 
   /**
    * WorkerService: This method is used to create a WebWorker with the following advantages:
-   * - Create a WebWorker without any external script file
+   * 
+   * - No need of any external script file
    * - Runs script within a scope declared function
    * - Runs parallel to the Browser, supporting multiple CPU processes
    * - Transfers the data passed to the WebWorker using ArrayBuffers if it's supported
-   * - Supports external JS plugins, which should
-   * @param workerFunction Function used inside the WebWorker, MUST use returnResult function to get the result
-   * @param data Data to be passed to the function in the WebWorker.
-   * @returns Observable<any>
+   * - Supports external JS plugins, which should be in assets/js/ folder
+   * 
+   * WHEN YOU SHOULD USE IT:
+   * - Use this WebWorker creator to highly optimize heavy processing operations without blocking the UI.
+   * - The WebWorker instatiation takes 50-200ms, so don't use it if the operation is simple or fast enough.
+   * - WebWorkers have no access to main UI context, so make sure you pass all data and scripts you need to run it.
+   * 
+   * @param {Function} workerFunction - Function used inside the WebWorker, MUST use returnResult function to get the result
+   * @param {any} data - to be passed to the function in the WebWorker.
+   * @param {string[]} scripts - Array of JS script files to preload in the WebWorker, the scripts have to be located in assets/js/
+   * 
+   * @returns Observable<T>
    */
-  run<T>(workerFunction: (input: any) => T, data?: any, scripts: string[] = []): Promise<T> {
-    // scripts.unshift('text-encoder');
-    const url = this.getOrCreateWorkerUrl(workerFunction, scripts);
-    return this.runUrl(url, data);
-  }
-
-  runUrl(url: string, data?: any): Promise<any> {
-    const worker = new Worker(url);
-    const promise = this.createPromiseForWorker(worker, data);
-    const promiseCleaner = this.createPromiseCleaner(promise);
-
-    this.promiseToWorkerMap.set(promise, worker);
-
-    promise.then(promiseCleaner).catch(promiseCleaner);
-
-    return promise;
-  }
-
-  terminate<T>(promise: Promise<T>): Promise<T> {
-    return this.removePromise(promise);
-  }
-
-  getWorker(promise: Promise<any>): Worker {
-    return this.promiseToWorkerMap.get(promise);
-  }
-
-  private fromArrayBuffer(buffer): any {
-    const decoder = new TextDecoder(this.encoding);
-    return JSON.parse(decoder.decode(buffer))
-  }
-
-  private createPromiseForWorker<T>(worker: Worker, data: any) {
-    return new Promise<T>((resolve, reject) => {
-      worker.addEventListener('message', (event) => {
-        if (this.supportsTransferableObjects()) {
-          resolve(this.fromArrayBuffer(event.data))
+  run<T>(workerFunction: (input: any) => T, data?: any, scripts: string[] = []): Observable<T> {
+    return new Observable(observer => {
+      const resolveString = workerFunction.toString()
+      const path = location.protocol + "//" + location.host
+      if (this.supportsTransferableObjects) {
+        this.encoding = new TextDecoder('utf-8').encoding
+      }
+      let webWorkerTemplate = '';
+      if (scripts.length > 0) {
+        console.log("The WebWorker will fetch these scripts:")
+        scripts.forEach(script => {
+          console.log(`${path}/assets/js/${script}.js`)
+        })
+        const scriptFiles = scripts.map(script => `'${path}/assets/js/${script}.js'`)
+        webWorkerTemplate += `
+          importScripts(${scriptFiles.join(',')});
+        `;
+      }
+      if (this.supportsTransferableObjects) {
+        webWorkerTemplate += `
+          var decoder = new TextDecoder('utf-8');
+          self.addEventListener('message', function(e) {
+            var data = JSON.parse(decoder.decode(e.data));
+            var encoder = new TextEncoder();
+            postMessage(encoder.encode(JSON.stringify((${resolveString})(data))));
+            close();
+          });
+        `;
+      } else {
+        webWorkerTemplate += `
+        self.addEventListener('message', function(e) {
+          postMessage(encoder.encode(JSON.stringify((${resolveString})(e.data))));
+          close();
+        });
+      `;
+      }
+      const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
+      const worker = new Worker(URL.createObjectURL(blob))
+      worker.onmessage = ({ data }) => {
+        if (this.supportsTransferableObjects) {
+          observer.next(this.fromArrayBuffer(data))
         } else {
-          resolve(event.data)
+          observer.next(data)
         }
-      });
-      worker.addEventListener('error', reject);
-      if (this.supportsTransferableObjects()) {
+        worker.terminate()
+        observer.complete()
+      }
+      worker.onerror = event => {
+        observer.error(event)
+        observer.complete()
+      }
+      if (this.supportsTransferableObjects) {
         const buffer = this.toArrayBuffer(data)
         worker.postMessage(buffer, [buffer.buffer]);
       } else {
         worker.postMessage(data);
       }
-    });
+    }) 
   }
 
-  private getOrCreateWorkerUrl(fn: any, scripts: string[] = []): string {
-    if (!this.workerFunctionToUrlMap.has(fn)) {
-      const url = this.createWorkerUrl(fn, scripts);
-      this.workerFunctionToUrlMap.set(fn, url);
-      return url;
-    }
-    return this.workerFunctionToUrlMap.get(fn);
+  private fromArrayBuffer(buffer): any {
+    const decoder = new TextDecoder('utf-8');
+    return JSON.parse(decoder.decode(buffer))
   }
   
   private encoding: string
@@ -92,57 +108,4 @@ export class WorkerService {
     return encoder.encode(txt)
   }
 
-  private createWorkerUrl(resolve: CallbackFunction, scripts: string[] = []): string {
-    const resolveString = resolve.toString();
-    if (this.supportsTransferableObjects()) {
-      this.encoding = new TextDecoder().encoding
-    }
-    let webWorkerTemplate = '';
-    webWorkerTemplate += `
-      var url = new URL(location.href.split('blob:')[1]);
-      var path = url.protocol + "//" + url.host;
-    `;
-    if (scripts.length > 0) {
-      scripts.forEach(script => {
-        webWorkerTemplate += `
-          console.log("WebWorker | Fetching external script ... " + path + '/assets/js/${script}.js');
-          importScripts(path + '/assets/js/${script}.js');
-        `;
-      })
-    }
-    if (this.supportsTransferableObjects()) {
-      webWorkerTemplate += `
-        var decoder = new TextDecoder('utf-8');
-        self.addEventListener('message', function(e) {
-          var data = JSON.parse(decoder.decode(e.data));
-          var encoder = new TextEncoder();
-          postMessage(encoder.encode(JSON.stringify((${resolveString})(data))));
-        });
-      `;
-    } else {
-      webWorkerTemplate += `
-      self.addEventListener('message', function(e) {
-        postMessage((${resolveString})(e.data));
-      });
-    `;
-    }
-    const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
-    return URL.createObjectURL(blob);
-  }
-
-  private createPromiseCleaner<T>(promise: Promise<T>): (input: any) => T {
-    return (event) => {
-      this.removePromise(promise);
-      return event;
-    };
-  }
-
-  private removePromise<T>(promise: Promise<T>): Promise<T> {
-    const worker = this.promiseToWorkerMap.get(promise);
-    if (worker) {
-      worker.terminate();
-    }
-    this.promiseToWorkerMap.delete(promise);
-    return promise;
-  }
 }

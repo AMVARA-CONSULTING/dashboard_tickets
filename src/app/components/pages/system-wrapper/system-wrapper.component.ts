@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { ToolsService } from 'app/tools.service';
 import { WorkerService } from '@services/worker.service';
+import { from } from 'rxjs/internal/observable/from';
 
 @Component({
   selector: 'cism-system-wrapper',
@@ -12,16 +12,10 @@ import { WorkerService } from '@services/worker.service';
 export class SystemWrapperComponent implements OnInit {
 
   constructor(
-    private _data: DataService,
     private _worker: WorkerService
   ) { }
 
   ngOnInit() {
-    let job = this._worker.run<number>(data => {
-      console.log("Hola")
-      // @ts-ignore
-      return data
-    }, 11).then(result => console.log(result))
   }
 
 }

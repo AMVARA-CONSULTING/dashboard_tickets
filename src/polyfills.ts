@@ -33,6 +33,7 @@ import 'core-js/es/regexp';
 import 'core-js/es/map';
 import 'core-js/es/weak-map';
 import 'core-js/es/set';
+import 'core-js/es/promise';
 /**
  * If the application will be indexed by Google Search, the following is required.
  * Googlebot uses a renderer based on Chrome 41.

@@ -70,6 +70,7 @@ import { ReportInfoComponent } from './components/report-info/report-info.compon
 import { APP_BASE_HREF } from '@angular/common';
 import { FixFilterPipe } from './pipes/fix-filter.pipe';
 import { SharedModule } from '@modules/shared.module';
+import { WorkerService } from '@services/worker.service';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -168,6 +169,7 @@ export function createTranslateLoader(http: HttpClient) {
     ToolsService,
     TranslateService,
     ReportsService,
+    WorkerService,
     {
       provide: MatPaginatorIntl,
       useClass: CismPaginatorIntl

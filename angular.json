@@ -33,10 +33,7 @@
             "scripts": [
               "node_modules/humanize-duration/humanize-duration.js",
               "node_modules/moment/min/moment.min.js",
-              "node_modules/moment/locale/de.js",
-              {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
-              }
+              "node_modules/moment/locale/de.js"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -66,7 +63,8 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
-                },                {
+                },
+                {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb"
                 }
@@ -103,7 +101,6 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
             "assets": [
               "src/favicon.ico",
               "src/assets",
