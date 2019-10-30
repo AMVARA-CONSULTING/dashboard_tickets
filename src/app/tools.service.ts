@@ -48,4 +48,8 @@ export class ToolsService {
     return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
   }
 
+  formatPercent(percent: number): number {
+    return Math.round(percent * 100) / 100
+  }
+
 }
