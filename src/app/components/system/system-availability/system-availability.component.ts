@@ -21,6 +21,9 @@ export class SystemAvailabilityComponent implements OnInit {
   percents = new BehaviorSubject<SAPercents>(null)
 
   ngOnInit() {
+    this._worker.run<number>(data => {
+      return data * 9
+    }, 10).subscribe(resultado => console.log(resultado))
     this._worker.run<SAPercents>(data => {
       // Filter system rows with System Availability section
       const SARows = data.filter(row => row[0] == 'SA')

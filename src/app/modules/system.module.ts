@@ -5,6 +5,8 @@ import { SystemWrapperComponent } from '@components/pages/system-wrapper/system-
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { SharedModule } from './shared.module';
 import { SystemAvailabilityComponent } from '@components/system/system-availability/system-availability.component';
+import { OverviewManagementComponent } from '@components/system/overview-management/overview-management.component';
+import { SystemPerformanceComponent } from '@components/system/system-performance/system-performance.component';
 
 const systemRoutes: Routes = [
   {
@@ -18,7 +20,9 @@ const systemRoutes: Routes = [
   declarations: [
     SystemWrapperComponent,
     SystemGraphicHolderComponent,
-    SystemAvailabilityComponent
+    SystemAvailabilityComponent,
+    OverviewManagementComponent,
+    SystemPerformanceComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),
