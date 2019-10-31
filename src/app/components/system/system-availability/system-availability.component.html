@@ -1,4 +1,12 @@
-<ng-container [ngSwitch]="view | async">
+<mat-form-field class="view-selector" appearance="outline">
+    <mat-select [formControl]="view">
+        <mat-option value="overview" selected>Overview</mat-option>
+        <mat-option value="daily">Daily</mat-option>
+        <mat-option value="weekly">Weekly</mat-option>
+        <mat-option value="monthly">Monthly</mat-option>
+    </mat-select>
+</mat-form-field>
+<ng-container [ngSwitch]="view.value">
     <cism-system-scroller *ngSwitchCase="'daily'">
         <cism-system-availability-chart [data]="SystemAvailabilityRows | async" type="daily"></cism-system-availability-chart>
     </cism-system-scroller>
@@ -21,21 +29,21 @@
                     <div class="percent">{{ perc.today }} %</div>
                 </div>
                 <div class="rest">
-                    <div class="unit" (click)="view.next('daily')" matTooltip="View details" matTooltipPosition="below">
+                    <div class="unit" (click)="view.setValue('daily')" matTooltip="View details" matTooltipPosition="below">
                         <div class="header">Prev. Day</div>
                         <div class="percent">{{ perc.yesterday }} %</div>
                         <div class="difference">
                             <div class="difference-sign" [ngClass]="perc.yesterday_up"></div>
                         </div>
                     </div>
-                    <div class="unit" (click)="view.next('weekly')" matTooltip="View details" matTooltipPosition="below">
+                    <div class="unit" (click)="view.setValue('weekly')" matTooltip="View details" matTooltipPosition="below">
                         <div class="header">Prev. Week</div>
                         <div class="percent">{{ perc.prev_week }} %</div>
                         <div class="difference">
                             <div class="difference-sign" [ngClass]="perc.week_up"></div>
                         </div>
                     </div>
-                    <div class="unit" (click)="view.next('monthly')" matTooltip="View details" matTooltipPosition="below">
+                    <div class="unit" (click)="view.setValue('monthly')" matTooltip="View details" matTooltipPosition="below">
                         <div class="header">Prev. Month</div>
                         <div class="percent">{{ perc.prev_month }} %</div>
                         <div class="difference">

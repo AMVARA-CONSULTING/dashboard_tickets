@@ -19,6 +19,28 @@
     }
 }
 
+.mat-form-field {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+:host::ng-deep .mat-form-field-infix {
+    border-top: 0 !important;
+}
+:host::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: unset !important;
+}
+:host::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 255, 255, 0.05) !important;
+}
+:host::ng-deep .mat-form-field .mat-select-arrow {
+    color: rgba(255, 255, 255, 0.05) !important
+}
+:host::ng-deep .mat-form-field .mat-select-value-text span {
+    color: rgba(255, 255, 255, 0.6) !important
+}
+
 .semaphore {
     flex: 1 100%;
     max-width: 100%;

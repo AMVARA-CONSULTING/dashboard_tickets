@@ -9,8 +9,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
@@ -115,8 +113,6 @@ export function createTranslateLoader(http: HttpClient) {
     MatSnackBarModule,
     MatSlideToggleModule,
     MatProgressBarModule,
-    MatFormFieldModule,
-    MatSelectModule,
     MatButtonModule,
     MatPaginatorModule,
     MatMenuModule,

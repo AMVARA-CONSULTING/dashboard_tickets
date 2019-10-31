@@ -3,6 +3,8 @@ import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs';
 import { WorkerService } from '@services/worker.service';
 import { SAPercents, SAViewType } from '@other/interfaces';
+import { FormControl } from '@angular/forms';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 declare const moment, formatPercent: any
 
@@ -23,12 +25,9 @@ export class SystemAvailabilityComponent implements OnInit {
 
   SystemAvailabilityRows = new BehaviorSubject<any[]>([])
 
-  view = new BehaviorSubject<SAViewType>('overview');
+  view = new FormControl('overview')
 
   ngOnInit() {
-    this._worker.run<number>(data => {
-      return data * 9
-    }, 10).subscribe(resultado => console.log(resultado))
     this._worker.run<SAPercents>(data => {
       // Filter system rows with System Availability section
       const SARows = data.filter(row => row[0] == 'SA')

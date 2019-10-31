@@ -1,5 +1,23 @@
 
+@import '_breakpoints.scss';
+
 :host {
     display: block;
     height: 100%;
+    margin: 0 -10px 0 -20px;
+    @include for-tablet-portrait-up {
+        margin: 0 -40px 0 -50px;
+    }
+}
+
+:host::ng-deep .ngx-charts .line-highlight {
+    display: block !important;
+}
+
+:host::ng-deep .ngx-charts .tick text {
+    fill: rgba(white, .5) !important;
+}
+
+:host::ng-deep ngx-charts-line-chart.translate .ngx-charts [ngx-charts-x-axis] {
+    transform: translate(55px, 0);
 }

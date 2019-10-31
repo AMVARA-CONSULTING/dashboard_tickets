@@ -52,94 +52,6 @@ export class ToolsService {
   formatPercent(percent: number): number {
     return Math.round(percent * 100) / 100
   }
-
-  supportsTransferableObjects(): boolean {
-    return "TextDecoder" in window && "TextDecoder" in window
-  }
-  
-  /**
-   * WorkerRunner: This method is used to create a WebWorker with the following advantages:
-   * - Create a WebWorker without any external script file
-   * - Runs script within a scope declared function
-   * - Runs parallel to the Browser, supporting multiple CPU processes
-   * - Transfers the data passed to the WebWorker using ArrayBuffers if it's supported
-   * @param task Function used inside the WebWorker, MUST use returnResult function to get the result
-   * @param data Data to be passed to the function in the WebWorker.
-   * @returns Observable<any>
-   */
-  WorkerRunner(task: Function, data: any): Observable<any> {
-    return new Observable(observer => {
-      // Convert the function to string
-      const taskRunner = task.toString()
-      let webWorkerTemplate = `
-        self.addEventListener('message', function(e) {
-          var data = JSON.parse(e.data);
-          postMessage((${taskRunner})(data));
-        });
-      `;
-      // If the browser supports Transferable Objects, take advantage of them
-      if (this.supportsTransferableObjects()) {
-        webWorkerTemplate = `
-          var decoder = new TextDecoder('utf-8');
-          self.addEventListener('message', function(e) {
-            var data = JSON.parse(decoder.decode(e.data));
-            postMessage((${taskRunner})(data));
-          });
-        `;
-      }
-      // Add the function to return the results
-      webWorkerTemplate += `
-        function returnResult(data) {
-          postMessage([{
-            result: data,
-          }]);
-          close();
-        }
-      `;
-      // Create blob file for the WebWorker, this avoids having to use an external script file
-      const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' })
-      // Create the WebWorker
-      const worker = new Worker(URL.createObjectURL(blob))
-      // If the browser supports Transferable Objects, take advantage of them
-      if (this.supportsTransferableObjects()) {
-        const buffer = this.toArrayBuffer(data)
-        worker.postMessage(buffer, [buffer.buffer])
-      } else {
-        worker.postMessage(data)
-      }
-      // Observable results handling
-      worker.onmessage = e => {
-        observer.next(e.data)
-        observer.complete()
-        worker.terminate()
-      }
-    })
-  }
-
-  encoding: string
-
-  /**
-   * Returns a Uint8Array buffer from any object
-   *
-   * @param obj Object to encode
-   */
-  toArrayBuffer(obj): Uint8Array {
-    const txt = JSON.stringify(obj)
-    const encoder = new TextEncoder()
-    this.encoding = encoder.encoding
-    return encoder.encode(txt)
-  }
-
-  /**
-   * Returns an object from a Uint8array
-   *
-   * @param buffer Buffer to decode
-   */
-  fromArrayBuffer(buffer): string {
-    const decoder = new TextDecoder(this.encoding);
-    return JSON.parse(decoder.decode(buffer))
-  }
-
   /**
    * Sums values of an array collection
    * @param array An array containing other arrays
@@ -147,6 +59,26 @@ export class ToolsService {
    */
   sumByIndex(array: any[], i: number): any {
     return array.reduce((a, b) => a + b[i], 0)
+  }
+
+  /**
+   * Sums values of an array collection and return it's average
+   * @param array An array containing other arrays
+   * @param i A number defining the index of the desired value to make the sum
+   */
+  averageByIndex(array: any[], i: number, useFormatPercent: boolean = false): any {
+    const avg = this.sumByIndex(array, i) / array.length
+    return useFormatPercent ? this.formatPercent(avg) : avg
+  }
+
+  getMin(array: any[], i: number, useFormatPercent: boolean = false): number {
+    const min = Math.min(...array.map(r => r[i]))
+    return useFormatPercent ? this.formatPercent(min) : min
+  }
+
+  getMax(array: any[], i: number, useFormatPercent: boolean = false): number {
+    const min = Math.max(...array.map(r => r[i]))
+    return useFormatPercent ? this.formatPercent(min) : min
   }
 
   /**
