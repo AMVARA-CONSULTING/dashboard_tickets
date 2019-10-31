@@ -8,8 +8,6 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class SystemGraphicHolderComponent {
 
-  constructor() { }
-
   @Input() title: string
 
 }

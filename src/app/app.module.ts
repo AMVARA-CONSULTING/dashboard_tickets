@@ -1,8 +1,7 @@
 // Angular
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, Injector, DoBootstrap } from '@angular/core';
-import { createCustomElement } from '@angular/elements';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -58,7 +57,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CismPaginatorIntl } from './paginator-intl';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ToStringPipe } from './pipes/to-string.pipe';
-import { environment } from 'environments/environment.prod';
 import { MatSortModule } from '@angular/material/sort';
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { RuPipe } from './pipes/ru.pipe';

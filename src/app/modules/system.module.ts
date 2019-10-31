@@ -7,6 +7,8 @@ import { SharedModule } from './shared.module';
 import { SystemAvailabilityComponent } from '@components/system/system-availability/system-availability.component';
 import { OverviewManagementComponent } from '@components/system/overview-management/overview-management.component';
 import { SystemPerformanceComponent } from '@components/system/system-performance/system-performance.component';
+import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
+import { SystemAvailabilityChartComponent } from '@components/system/system-availability-chart/system-availability-chart.component';
 
 const systemRoutes: Routes = [
   {
@@ -22,7 +24,9 @@ const systemRoutes: Routes = [
     SystemGraphicHolderComponent,
     SystemAvailabilityComponent,
     OverviewManagementComponent,
-    SystemPerformanceComponent
+    SystemPerformanceComponent,
+    SystemScrollerComponent,
+    SystemAvailabilityChartComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),

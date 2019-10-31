@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs';
 import { WorkerService } from '@services/worker.service';
+import { SAPercents, SAViewType } from '@other/interfaces';
 
 declare const moment, formatPercent: any
 
@@ -19,6 +20,10 @@ export class SystemAvailabilityComponent implements OnInit {
   ) { }
 
   percents = new BehaviorSubject<SAPercents>(null)
+
+  SystemAvailabilityRows = new BehaviorSubject<any[]>([])
+
+  view = new BehaviorSubject<SAViewType>('overview');
 
   ngOnInit() {
     this._worker.run<number>(data => {
@@ -94,6 +99,7 @@ export class SystemAvailabilityComponent implements OnInit {
         console.error(err)
       }
       return {
+        rows: SARows,
         today: today,
         yesterday: yesterday,
         prev_week: prev_week,
@@ -104,18 +110,8 @@ export class SystemAvailabilityComponent implements OnInit {
       }
     }, this._data.system, ['moment', 'format-percent']).subscribe(result => {
       this.percents.next(result)
+      this.SystemAvailabilityRows.next(result.rows)
     })
   }
 
-}
-
-
-export interface SAPercents {
-  today: number
-  yesterday: number
-  prev_week: number
-  prev_month: number
-  yesterday_up: string
-  week_up: string
-  month_up: string
 }

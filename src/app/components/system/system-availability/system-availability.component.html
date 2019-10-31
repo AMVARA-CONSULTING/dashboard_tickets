@@ -1,36 +1,49 @@
-<ng-container *ngIf="percents | async as perc">
-    <div class="semaphore">
-        <div class="status bad" [class.active]="perc.today < 98"></div>
-        <div class="status medium" [class.active]="perc.today > 98 && perc.today < 99"></div>
-        <div class="status good" [class.active]="perc.today > 99"></div>
-    </div>
-    <div class="chart">
-        <div class="today">
-            <div class="header">Today</div>
-            <div class="percent">{{ perc.today }} %</div>
+<ng-container [ngSwitch]="view | async">
+    <cism-system-scroller *ngSwitchCase="'daily'">
+        <cism-system-availability-chart [data]="SystemAvailabilityRows | async" type="daily"></cism-system-availability-chart>
+    </cism-system-scroller>
+    <cism-system-scroller *ngSwitchCase="'weekly'">
+        <cism-system-availability-chart [data]="SystemAvailabilityRows | async" type="weekly"></cism-system-availability-chart>
+    </cism-system-scroller>
+    <cism-system-scroller *ngSwitchCase="'monthly'">
+        <cism-system-availability-chart [data]="SystemAvailabilityRows | async" type="monthly"></cism-system-availability-chart>
+    </cism-system-scroller>
+    <ng-container *ngSwitchDefault>
+        <div class="overview-container" *ngIf="percents | async as perc">
+            <div class="semaphore">
+                <div class="status bad" [class.active]="perc.today < 98"></div>
+                <div class="status medium" [class.active]="perc.today > 98 && perc.today < 99"></div>
+                <div class="status good" [class.active]="perc.today > 99"></div>
+            </div>
+            <div class="chart">
+                <div class="today">
+                    <div class="header">Today</div>
+                    <div class="percent">{{ perc.today }} %</div>
+                </div>
+                <div class="rest">
+                    <div class="unit" (click)="view.next('daily')" matTooltip="View details" matTooltipPosition="below">
+                        <div class="header">Prev. Day</div>
+                        <div class="percent">{{ perc.yesterday }} %</div>
+                        <div class="difference">
+                            <div class="difference-sign" [ngClass]="perc.yesterday_up"></div>
+                        </div>
+                    </div>
+                    <div class="unit" (click)="view.next('weekly')" matTooltip="View details" matTooltipPosition="below">
+                        <div class="header">Prev. Week</div>
+                        <div class="percent">{{ perc.prev_week }} %</div>
+                        <div class="difference">
+                            <div class="difference-sign" [ngClass]="perc.week_up"></div>
+                        </div>
+                    </div>
+                    <div class="unit" (click)="view.next('monthly')" matTooltip="View details" matTooltipPosition="below">
+                        <div class="header">Prev. Month</div>
+                        <div class="percent">{{ perc.prev_month }} %</div>
+                        <div class="difference">
+                            <div class="difference-sign" [ngClass]="perc.month_up"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="rest">
-            <div class="unit" matTooltip="View details" matTooltipPosition="below">
-                <div class="header">Prev. Day</div>
-                <div class="percent">{{ perc.yesterday }} %</div>
-                <div class="difference">
-                    <div class="difference-sign" [ngClass]="perc.yesterday_up"></div>
-                </div>
-            </div>
-            <div class="unit" matTooltip="View details" matTooltipPosition="below">
-                <div class="header">Prev. Week</div>
-                <div class="percent">{{ perc.prev_week }} %</div>
-                <div class="difference">
-                    <div class="difference-sign" [ngClass]="perc.week_up"></div>
-                </div>
-            </div>
-            <div class="unit" matTooltip="View details" matTooltipPosition="below">
-                <div class="header">Prev. Month</div>
-                <div class="percent">{{ perc.prev_month }} %</div>
-                <div class="difference">
-                    <div class="difference-sign" [ngClass]="perc.month_up"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </ng-container>
 </ng-container>

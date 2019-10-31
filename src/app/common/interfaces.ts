@@ -80,3 +80,16 @@ export interface ClassificationGroup {
   total: string
   percent: number
 }
+
+export type SAViewType = 'overview' | 'daily' | 'weekly' | 'monthly'
+
+export interface SAPercents {
+  rows: any[]
+  today: number
+  yesterday: number
+  prev_week: number
+  prev_month: number
+  yesterday_up: string
+  week_up: string
+  month_up: string
+}
