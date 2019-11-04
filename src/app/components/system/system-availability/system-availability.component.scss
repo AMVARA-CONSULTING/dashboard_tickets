@@ -21,8 +21,11 @@
 
 .mat-form-field {
     position: absolute;
-    top: 15px;
+    top: 8px;
     right: 20px;
+    @include for-tablet-portrait-up {
+        top: 15px;
+    }
 }
 
 :host::ng-deep .mat-form-field-infix {
@@ -31,11 +34,14 @@
 :host::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
     transform: unset !important;
 }
+:host::ng-deep .mat-form-field {
+    width: 130px;
+}
 :host::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(255, 255, 255, 0.1) !important;
 }
 :host::ng-deep .mat-form-field .mat-select-arrow {
-    color: rgba(255, 255, 255, 0.05) !important
+    color: rgba(255, 255, 255, 0.1) !important
 }
 :host::ng-deep .mat-form-field .mat-select-value-text span {
     color: rgba(255, 255, 255, 0.6) !important
@@ -88,9 +94,10 @@
     flex: 1 100%;
     max-width: 100%;
     display: flex;
-    height: 150px;
+    height: 120px;
     @include for-tablet-portrait-up {
         flex: 0 400px;
+        height: 150px;
     }
     .today {
         flex: 0 30%;
@@ -103,15 +110,21 @@
         box-sizing: border-box;
         .header {
             flex: 0 50px;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: $blue;
             white-space: nowrap;
             font-weight: bold;
+            @include for-tablet-portrait-up {
+                font-size: 1.5rem;
+            }
         }
         .percent {
             flex: 1;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             white-space: nowrap;
+            @include for-tablet-portrait-up {
+                font-size: 2.5rem;
+            }
         }
     }
     .rest {
@@ -161,5 +174,17 @@
                 }
             }
         }
+    }
+}
+
+.show-on-portrait-up {
+    @include for-phone-only {
+        display: none;
+    }
+}
+
+.show-on-mobile {
+    @include for-tablet-portrait-up {
+        display: none;
     }
 }

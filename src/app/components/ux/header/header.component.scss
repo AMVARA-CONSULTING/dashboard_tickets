@@ -2,10 +2,11 @@
 @import '../../../common/colors';
 
 :host {
-    padding: 20px 40px;
+    padding: 20px;
     display: inline-block;
     position: relative;
     width: 100%;
+    box-sizing: border-box;
     background-color: darken($bg-color, 10);
 }
 .header{
