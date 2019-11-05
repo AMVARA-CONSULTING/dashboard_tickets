@@ -9,6 +9,9 @@ import { OverviewManagementComponent } from '@components/system/overview-managem
 import { SystemPerformanceComponent } from '@components/system/system-performance/system-performance.component';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { SystemAvailabilityChartComponent } from '@components/system/system-availability-chart/system-availability-chart.component';
+import { SystemRobustnessComponent } from '../components/system/system-robustness/system-robustness.component';
+import { SystemRobustnessChartComponent } from '../components/system/system-robustness-chart/system-robustness-chart.component';
+import { SystemTicketColorsComponent } from '../components/system/system-ticket-colors/system-ticket-colors.component';
 
 const systemRoutes: Routes = [
   {
@@ -26,7 +29,10 @@ const systemRoutes: Routes = [
     OverviewManagementComponent,
     SystemPerformanceComponent,
     SystemScrollerComponent,
-    SystemAvailabilityChartComponent
+    SystemAvailabilityChartComponent,
+    SystemRobustnessComponent,
+    SystemRobustnessChartComponent,
+    SystemTicketColorsComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),

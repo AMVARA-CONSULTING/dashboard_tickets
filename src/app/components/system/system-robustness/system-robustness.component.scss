@@ -1,0 +1,30 @@
+
+@import '_breakpoints.scss';
+
+.mat-form-field {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    @include for-tablet-portrait-up {
+        top: 15px;
+    }
+}
+
+:host::ng-deep .mat-form-field-infix {
+    border-top: 0 !important;
+}
+:host::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+    transform: unset !important;
+}
+:host::ng-deep .mat-form-field {
+    width: 130px;
+}
+:host::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(255, 255, 255, 0.1) !important;
+}
+:host::ng-deep .mat-form-field .mat-select-arrow {
+    color: rgba(255, 255, 255, 0.1) !important
+}
+:host::ng-deep .mat-form-field .mat-select-value-text span {
+    color: rgba(255, 255, 255, 0.6) !important
+}

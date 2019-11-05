@@ -6,10 +6,10 @@
     width: 100%;
     padding: 20px 20px 30px;
     @include for-tablet-portrait-up {
-        padding: 30px 50px 35px;
+        padding: 30px 30px 35px;
     }
     box-sizing: border-box;
-    min-height: 300px;
+    min-height: 350px;
     position: relative;
     font-size: 1.3rem;
 }

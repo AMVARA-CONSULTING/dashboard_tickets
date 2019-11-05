@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Host } from '@angular/core';
 import { SAViewType } from '@other/interfaces';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import * as moment from 'moment';
 import { ToolsService } from 'app/tools.service';
+import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
 
 @Component({
   selector: 'cism-system-availability-chart',
@@ -13,7 +14,8 @@ import { ToolsService } from 'app/tools.service';
 export class SystemAvailabilityChartComponent implements OnInit {
 
   constructor(
-    private _tools: ToolsService
+    private _tools: ToolsService,
+    @Host() private _scroller: SystemScrollerComponent 
   ) { }
 
   ngOnInit() {
@@ -71,6 +73,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
     if (minValue > 5) minValue -= 5
     this.minScale.next(minValue)
     this.yAxisTicks.next([minValue, 100])
+    this._scroller.bars.next(newData.length)
     this.chartData.next([
       {
         name: "System Availability",

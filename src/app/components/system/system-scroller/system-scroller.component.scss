@@ -4,6 +4,21 @@
     height: 200px;
 }
 
+.scrollable {
+    &.enable {
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+        height: initial;
+        .content {
+            margin-bottom: 20px;
+        }
+        &::ng-deep cism-system-availability-chart {
+            height: 200px !important;
+        }
+    }
+    height: 100%;
+}
+
 .content {
     height: 100%;
 }
