@@ -32,7 +32,9 @@ const systemRoutes: Routes = [
     SystemAvailabilityChartComponent,
     SystemRobustnessComponent,
     SystemRobustnessChartComponent,
-    SystemTicketColorsComponent
+    SystemTicketColorsComponent,
+    SystemPerformanceComponent,
+    OverviewManagementComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),

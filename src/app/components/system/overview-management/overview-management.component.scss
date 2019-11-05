@@ -1,0 +1,16 @@
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.content{
+    width: 100% !important;
+    height: 500px !important;
+}
+
+::ng-deep .ngx-charts { 
+    text{
+        fill: #fff!important; 
+    }
+}
