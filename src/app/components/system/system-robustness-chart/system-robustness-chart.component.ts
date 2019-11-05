@@ -35,9 +35,37 @@ export class SystemRobustnessChartComponent implements OnChanges {
             return r
           }, {})
           break
+        case "daily":
+          groups = data.tickets.reduce((r, ticket) => {
+            const momented = moment(ticket[2])
+            if (!momented.isValid()) return r
+            const date = momented.format('YYYY[M]MM[D]DD')
+            r[date] = r[date] || []
+            r[date].push(ticket)
+            return r
+          }, {})
+          break
+        case "weekly":
+          groups = data.tickets.reduce((r, ticket) => {
+            const momented = moment(ticket[2])
+            if (!momented.isValid()) return r
+            const date = momented.format('YYYY[W]w')
+            r[date] = r[date] || []
+            r[date].push(ticket)
+            return r
+          }, {})
+          break
       }
       const keys = Object.keys(groups)
-      keys.sort()
+      if (data.view == 'weekly') {
+        keys.sort((a, b) => {
+          const left = moment(a, 'YYYY[W]w')
+          const right = moment(b, 'YYYY[W]w')
+          return left.valueOf() - right.valueOf()
+        })
+      } else {
+        keys.sort()
+      }
       const chartData = keys.map( key => {
         const group = groups[key]
         groups[key] = classifyByIndex(group, 4)
@@ -69,14 +97,13 @@ export class SystemRobustnessChartComponent implements OnChanges {
   data = new BehaviorSubject<any[]>([])
 
   xAxisFormatting = val => {
-    const momented = moment(val, 'YYYY[M]MM').locale('de')
     switch (this.type) {
       case "daily":
-        return val
+        return moment(val, 'YYYY[M]MM[D]DD').locale('de').format('DD/MM/YYYY')
       case "monthly":
-        return momented.format('MMM YYYY')
+        return moment(val, 'YYYY[M]MM').locale('de').format('MMM YYYY')
       case "weekly":
-        return momented.format('DD/MM/YYYY')
+        return moment(val, 'YYYY[W]w').locale('de').format('DD/MM/YYYY')
     }
   }
 
