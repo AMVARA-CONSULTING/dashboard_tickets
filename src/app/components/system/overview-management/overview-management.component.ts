@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Host} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild} from '@angular/core';
 import { ToolsService } from 'app/tools.service';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
@@ -21,9 +21,10 @@ export class OverviewManagementComponent implements OnInit {
     private _data: DataService,
     private _tools: ToolsService,
     private _config: ConfigService,
-    private _worker: WorkerService,
-    @Host() private _scroller: SystemScrollerComponent
+    private _worker: WorkerService
   ) { }
+
+  @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent
 
   ngOnInit() {
   var chartDataHolder = []
