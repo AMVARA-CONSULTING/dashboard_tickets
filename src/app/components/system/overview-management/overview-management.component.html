@@ -1,10 +1,15 @@
+<p> Overview of Inc/Prb Management</p>
 <cism-system-scroller>
     <ngx-charts-bar-vertical-2d
         [results]="chartData | async"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
-        [legend]="showLegend"
+        [legend]="legend"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [scheme]="colorScheme"
+        [legendTitle]="legendTitle"
         (select)="changeData($event)" >
     </ngx-charts-bar-vertical-2d>
 </cism-system-scroller>

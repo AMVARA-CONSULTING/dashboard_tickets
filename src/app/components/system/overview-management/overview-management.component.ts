@@ -10,7 +10,8 @@ import { SystemScrollerComponent } from '../system-scroller/system-scroller.comp
   selector: 'cism-overview-management',
   templateUrl: './overview-management.component.html',
   styleUrls: ['./overview-management.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [SystemScrollerComponent]
 })
 export class OverviewManagementComponent implements OnInit {
 
@@ -37,6 +38,8 @@ export class OverviewManagementComponent implements OnInit {
      // @ts-ignore
      const enterprise = classifyByIndex(data.tickets, data.configColumns.service)
      for(let key in enterprise){
+      if(key.length > 15){
+      }
       let child = enterprise[key];
           var ticketsByService = child.length
           var pushedData =  {"name": key, "series": [
@@ -75,15 +78,18 @@ export class OverviewManagementComponent implements OnInit {
       ticketsType.push([event.series , ticketsChange.length, ticketsIncident.length, ticketsProblem.length, ticketsRequest.length]);
       var newData = [];
       var pushedData =  {"name": event.series, "series": [
-                        {"name": "Change", "value": ticketsType[0][1]},
-                        {"name": "Incident", "value": ticketsType[0][2]},
                         {"name": "Problem", "value": ticketsType[0][3]},
-                        {"name": "Request", "value": ticketsType[0][4]}]
+                        {"name": "Request", "value": ticketsType[0][4]},
+                        {"name": "Change", "value": ticketsType[0][1]},
+                        {"name": "Incident", "value": ticketsType[0][2]}]
                         };
       newData.push(pushedData);
       // Change observable values to update the table
       this.chartData.next(
         newData
+      )
+      this._scroller.bars.next(
+        newData.length
       )
 
       // Second drill
@@ -111,6 +117,9 @@ export class OverviewManagementComponent implements OnInit {
       this.chartData.next(
         newData
       )
+      this._scroller.bars.next(
+        newData.length
+      )
     }
  }
 
@@ -121,6 +130,10 @@ export class OverviewManagementComponent implements OnInit {
   showLegend = false;
   showXAxisLabel = false;
   showYAxisLabel = false;
+  xAxisLabel = 'test'
+  yAxisLabel = 'test'
+  legend = true;
+  legendTitle = 'Legend'
   colorScheme = {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }

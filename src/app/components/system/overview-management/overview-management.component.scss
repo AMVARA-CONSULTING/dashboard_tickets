@@ -6,11 +6,12 @@
 
 .content{
     width: 100% !important;
-    height: 500px !important;
+    height: 1000px !important;
 }
 
 ::ng-deep .ngx-charts { 
     text{
-        fill: #fff!important; 
+        fill: rgba(255, 255, 255, 0.6) !important; 
     }
 }
+
