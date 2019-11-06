@@ -6,6 +6,8 @@ import { WorkerService } from '@services/worker.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
 
+declare const classifyByIndex: any
+
 @Component({
   selector: 'cism-overview-management',
   templateUrl: './overview-management.component.html',
@@ -25,7 +27,7 @@ export class OverviewManagementComponent implements OnInit {
     private _worker: WorkerService
   ) { }
 
-  @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent
+  //@ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent
 
   ngOnInit() {
   var chartDataHolder = []
@@ -35,20 +37,29 @@ export class OverviewManagementComponent implements OnInit {
      // Variable Declarations
      var chartDataa = [];
      // Get the data and sort them by Service.
-     // @ts-ignore
      const enterprise = classifyByIndex(data.tickets, data.configColumns.service)
+     
      for(let key in enterprise){
-      if(key.length > 15){
+      const classifiedByType = classifyByIndex(enterprise[key], data.configColumns.type)
+      for (let prop in classifiedByType) {
+        classifiedByType[prop] = classifiedByType[prop].length
       }
+      const keys = Object.keys(classifiedByType)
+      const childData = keys.map( key => {
+        return {
+          name: key,
+          value: classifiedByType[key],
+          extra: { drill: 'first' }
+        }
+      })
       let child = enterprise[key];
           var ticketsByService = child.length
-          var pushedData =  {"name": key, "series": [
-                            {"name": "Tickets", "value": ticketsByService}]
+          var pushedData =  {"name": key, "series": childData
                             };
           chartDataa.push(pushedData);
      }
      console.log("3"+performance.now())
-     return chartDataa
+     return chartDataa.slice(0,10)
     }, {
       tickets: this._data.allTickets,
       configColumns: Object.assign({}, this._config.config.columns)
@@ -56,18 +67,25 @@ export class OverviewManagementComponent implements OnInit {
       console.log("ChartData log: ") 
       console.log(resultado);
       console.log("webWorker End: "+performance.now())
-      this._scroller.bars.next(
+      //console.log(this._scroller)
+      console.log(resultado)
+      /*this._scroller.bars.next(
         resultado.length
-      )
+      )*/
       this.chartData.next(
         resultado
       )
     })
   }
 
+  // FIXME ADD TRY AND ERROR
+  // FIXME BAR WIDTH
+  // FIXME REMOVE SLICES AND RE-ADD SCROLL WHEN ALEX IS DONE WITH THE FIX
+
   changeData(event){  
     // Check if it's first drill or second drill
-    if(event.name == 'Tickets'){
+    if(event.extra.drill == 'first'){
+      console.log(event)
       var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
       var ticketsType = []
       // Filter the tickets type and group them in different arrays.
@@ -78,22 +96,23 @@ export class OverviewManagementComponent implements OnInit {
       ticketsType.push([event.series , ticketsChange.length, ticketsIncident.length, ticketsProblem.length, ticketsRequest.length]);
       var newData = [];
       var pushedData =  {"name": event.series, "series": [
-                        {"name": "Problem", "value": ticketsType[0][3]},
-                        {"name": "Request", "value": ticketsType[0][4]},
-                        {"name": "Change", "value": ticketsType[0][1]},
-                        {"name": "Incident", "value": ticketsType[0][2]}]
+                        {"name": "Incident", "value": ticketsType[0][2], "extra": {"drill": "second"}},
+                        {"name": "Request", "value": ticketsType[0][4], "extra": {"drill": "second"}},
+                        {"name": "Change", "value": ticketsType[0][1], "extra": {"drill": "second"}},
+                        {"name": "Problem", "value": ticketsType[0][3], "extra": {"drill": "second"}}]
                         };
       newData.push(pushedData);
       // Change observable values to update the table
       this.chartData.next(
         newData
       )
-      this._scroller.bars.next(
+      /*this._scroller.bars.next(
         newData.length
-      )
+      )*/
 
       // Second drill
-    } else if (event.name == 'Change' || event.name == 'Incident' || event.name == 'Problem' || event.name == 'Request'){
+    } else if (event.extra.drill == 'second'){
+      console.log(event)
       var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
       enterprise = enterprise.filter(type => type[4] == event.name)
       var ticketsType = []
@@ -108,20 +127,57 @@ export class OverviewManagementComponent implements OnInit {
       ticketsInfo.push([event.series, ticketsSleep.length, ticketsWip.length, ticketsAssigned.length])
       var newData = [];
       let pushedData =  {"name": event.name+' '+event.series, "series": [
-                        {"name": "Sleep", "value": ticketsInfo[0][1]},
-                        {"name": "WIP", "value": ticketsInfo[0][2]},
-                        {"name": "Assigned", "value": ticketsInfo[0][3]}]
+                        {"name": "Sleep", "value": ticketsInfo[0][1], "extra": {"drill": "third"}},
+                        {"name": "WIP", "value": ticketsInfo[0][2], "extra": {"drill": "third"}},
+                        {"name": "Assigned", "value": ticketsInfo[0][3], "extra": {"drill": "third"}}]
                         };
       newData.push(pushedData);
       // Change observable values to update the table
       this.chartData.next(
         newData
       )
-      this._scroller.bars.next(
+      /*this._scroller.bars.next(
         newData.length
-      )
+      )*/
     }
  }
+
+ resetData(){
+  var chartDataa = [];
+     // Get the data and sort them by Service.
+     const enterprise = this.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
+     
+     for(let key in enterprise){
+      const classifiedByType = this.classifyByIndex(enterprise[key], this._config.config.columns.type)
+      for (let prop in classifiedByType) {
+        classifiedByType[prop] = classifiedByType[prop].length
+      }
+      const keys = Object.keys(classifiedByType)
+      const childData = keys.map( key => {
+        return {
+          name: key,
+          value: classifiedByType[key],
+          extra: { drill: 'first' }
+        }
+      })
+      let child = enterprise[key];
+          var ticketsByService = child.length
+          var pushedData =  {"name": key, "series": childData
+                            };
+          chartDataa.push(pushedData);
+     }
+     this.chartData.next(
+      chartDataa.slice(0,10)
+    )
+ }
+ 
+ classifyByIndex(array, index) {
+  return array.reduce((r, a) => {
+      r[a[index]] = r[a[index]] || [];
+      r[a[index]].push(a);
+      return r;
+  }, {});
+}
 
   // options
   showXAxis = true;
@@ -133,7 +189,7 @@ export class OverviewManagementComponent implements OnInit {
   xAxisLabel = 'test'
   yAxisLabel = 'test'
   legend = true;
-  legendTitle = 'Legend'
+  legendTitle = ''
   colorScheme = {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }
