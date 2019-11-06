@@ -8,6 +8,7 @@ import { map, delay } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import memo from 'memo-decorator';
+import * as moment from 'moment';
 
 declare const JKL, XML: any
 
@@ -64,8 +65,14 @@ export class ReportsService {
             this.data.overall = data[6]
             this.tools.log('API','Overall Data:', data[6].length)
             this.data.allTickets = data[7]
+            if (this.config.config.excludeDatesFuture) {
+              this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2]).isAfter())
+            }
             this.tools.log('API','All Tickets:', data[7].length)
             this.data.system = data[8]
+            if (this.config.config.excludeDatesFuture) {
+              this.data.system = this.data.system.filter(row => !moment(row[1], 'MM/DD/YYYY').isAfter())
+            }
             this.tools.log('API','System Availability:', data[8].length)
             const actualMonth = this.data.overall.map(t => t[0])[0]
             this.data.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })

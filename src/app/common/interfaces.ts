@@ -12,6 +12,7 @@ export interface Config {
   readonly columns: any,
   readonly cognosRepository: string,
   readonly scenario: string,
+  readonly excludeDatesFuture: boolean,
   readonly portalLink: { dev: string, prod: string }
   readonly displayedColumnsDefault: string[],
   readonly displayedColumnsOrder: string[],

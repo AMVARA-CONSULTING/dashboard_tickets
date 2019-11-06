@@ -12,6 +12,7 @@
 		"en": "English",
 		"de": "Deutsch"
 	},
+	"excludeDatesFuture": true,
 	"portalLink": {
 		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
 		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
