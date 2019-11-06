@@ -78,14 +78,13 @@ export class OverviewManagementComponent implements OnInit {
     })
   }
 
-  // FIXME ADD TRY AND ERROR
   // FIXME BAR WIDTH
   // FIXME REMOVE SLICES AND RE-ADD SCROLL WHEN ALEX IS DONE WITH THE FIX
 
   changeData(event){  
     // Check if it's first drill or second drill
     if(event.extra.drill == 'first'){
-      console.log(event)
+      try{
       var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
       var ticketsType = []
       // Filter the tickets type and group them in different arrays.
@@ -109,10 +108,14 @@ export class OverviewManagementComponent implements OnInit {
       /*this._scroller.bars.next(
         newData.length
       )*/
+      }catch(error){
+        console.log('System Overview Management', 'Processing', 'Error in data filtering');
+        console.error(error)
+      }
 
       // Second drill
     } else if (event.extra.drill == 'second'){
-      console.log(event)
+      try{
       var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
       enterprise = enterprise.filter(type => type[4] == event.name)
       var ticketsType = []
@@ -139,6 +142,10 @@ export class OverviewManagementComponent implements OnInit {
       /*this._scroller.bars.next(
         newData.length
       )*/
+      }catch(error){
+        console.log('System Overview Management ', 'Processing ', 'Error in data filtering, second drill');
+        console.error(error)
+      }
     }
  }
 
@@ -146,7 +153,6 @@ export class OverviewManagementComponent implements OnInit {
   var chartDataa = [];
      // Get the data and sort them by Service.
      const enterprise = this.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
-     
      for(let key in enterprise){
       const classifiedByType = this.classifyByIndex(enterprise[key], this._config.config.columns.type)
       for (let prop in classifiedByType) {
@@ -186,10 +192,10 @@ export class OverviewManagementComponent implements OnInit {
   showLegend = false;
   showXAxisLabel = false;
   showYAxisLabel = false;
-  xAxisLabel = 'test'
-  yAxisLabel = 'test'
+  xAxisLabel = 'test';
+  yAxisLabel = 'test';
   legend = true;
-  legendTitle = ''
+  legendTitle = '';
   colorScheme = {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }

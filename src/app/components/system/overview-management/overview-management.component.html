@@ -4,6 +4,7 @@
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
         [legend]="legend"
+        [legendTitle]="legendTitle"
         [xAxisLabel]="xAxisLabel"
         [yAxisLabel]="yAxisLabel"
         [scheme]="colorScheme"
@@ -11,4 +12,4 @@
         [groupPadding]="2"
         (select)="changeData($event)" >
     </ngx-charts-bar-vertical-2d>
-<button class='mat-button' (click)="resetData()"> Back </button>
+<button class='mat-button back-button' (click)="resetData()"> Back </button>
