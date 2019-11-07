@@ -27,8 +27,7 @@ export class OverviewManagementComponent implements OnInit {
     private _worker: WorkerService
   ) { }
 
-  //@ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent
-
+  @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent  
   ngOnInit() {
   var chartDataHolder = []
     console.log("webWorker Start: "+performance.now())
@@ -38,7 +37,6 @@ export class OverviewManagementComponent implements OnInit {
      var chartDataa = [];
      // Get the data and sort them by Service.
      const enterprise = classifyByIndex(data.tickets, data.configColumns.service)
-     
      for(let key in enterprise){
       const classifiedByType = classifyByIndex(enterprise[key], data.configColumns.type)
       for (let prop in classifiedByType) {
@@ -68,10 +66,9 @@ export class OverviewManagementComponent implements OnInit {
       console.log(resultado);
       console.log("webWorker End: "+performance.now())
       //console.log(this._scroller)
-      console.log(resultado)
-      /*this._scroller.bars.next(
+      this._scroller.bars.next(
         resultado.length
-      )*/
+      )
       this.chartData.next(
         resultado
       )
@@ -84,97 +81,125 @@ export class OverviewManagementComponent implements OnInit {
   changeData(event){  
     // Check if it's first drill or second drill
     if(event.extra.drill == 'first'){
-      try{
-      var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
-      var ticketsType = []
-      // Filter the tickets type and group them in different arrays.
-      var ticketsChange = enterprise.filter(type => type[4] == 'Change');
-      var ticketsIncident = enterprise.filter(type => type[4] == 'Incident');
-      var ticketsProblem = enterprise.filter(type => type[4] == 'Problem');
-      var ticketsRequest = enterprise.filter(type => type[4] == 'Request');
-      ticketsType.push([event.series , ticketsChange.length, ticketsIncident.length, ticketsProblem.length, ticketsRequest.length]);
-      var newData = [];
-      var pushedData =  {"name": event.series, "series": [
-                        {"name": "Incident", "value": ticketsType[0][2], "extra": {"drill": "second"}},
-                        {"name": "Request", "value": ticketsType[0][4], "extra": {"drill": "second"}},
-                        {"name": "Change", "value": ticketsType[0][1], "extra": {"drill": "second"}},
-                        {"name": "Problem", "value": ticketsType[0][3], "extra": {"drill": "second"}}]
-                        };
-      newData.push(pushedData);
-      // Change observable values to update the table
-      this.chartData.next(
-        newData
-      )
-      /*this._scroller.bars.next(
-        newData.length
-      )*/
-      }catch(error){
-        console.log('System Overview Management', 'Processing', 'Error in data filtering');
-        console.error(error)
-      }
+      var csvdata = this._data.system;
+      csvdata = csvdata.filter(type => type[7] == event.series);
+      var newData = []
+      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.external)
 
-      // Second drill
+      for(let key in csvdata){
+        let incidentTickets = 0;
+        let wipTickets = 0;
+        let sleepTickets = 0;
+        let assignedTickets = 0; 
+        for (let i = 0; i < csvdata[key].length; i++){
+          incidentTickets = incidentTickets + csvdata[key][i][2];
+          wipTickets = wipTickets + csvdata[key][i][3];
+          sleepTickets = sleepTickets + csvdata[key][i][4];
+          assignedTickets = assignedTickets + csvdata[key][i][5];
+        }
+        let pushedData =  {"name": key, "series": [
+                          {"name": "Incident", "value": incidentTickets, "extra": {"drill": "second", "service": event.extra.service}},
+                          {"name": "WIP", "value": wipTickets, "extra": {"drill": "second", "service": event.extra.service}},
+                          {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "second", "service": event.extra.service}},
+                          {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "second", "service": event.extra.service}}]
+                          };
+        newData.push(pushedData);
+        }
+        this.chartData.next(
+          newData
+        )
+        this._scroller.bars.next(
+          newData.length
+        )
     } else if (event.extra.drill == 'second'){
-      try{
-      var enterprise = this._data.allTickets.filter(type => type[12] == event.series);
-      enterprise = enterprise.filter(type => type[4] == event.name)
-      var ticketsType = []
-      var ticketsInfo = []
-      // Get Sleep tickets from certain service && certain type of ticket
-      const ticketsSleep = enterprise.filter(type => type[6] == 'Sleep');
-      // Get WIP tickets from all services
-      const ticketsWip = enterprise.filter(type => type[6] == 'WIP');
-      // Get Assigned tickets from all services
-      const ticketsAssigned = enterprise.filter(type => type[6] == 'Assigned');
-      // Push all data into array
-      ticketsInfo.push([event.series, ticketsSleep.length, ticketsWip.length, ticketsAssigned.length])
-      var newData = [];
-      let pushedData =  {"name": event.name+' '+event.series, "series": [
-                        {"name": "Sleep", "value": ticketsInfo[0][1], "extra": {"drill": "third"}},
-                        {"name": "WIP", "value": ticketsInfo[0][2], "extra": {"drill": "third"}},
-                        {"name": "Assigned", "value": ticketsInfo[0][3], "extra": {"drill": "third"}}]
-                        };
-      newData.push(pushedData);
-      // Change observable values to update the table
-      this.chartData.next(
-        newData
-      )
-      /*this._scroller.bars.next(
-        newData.length
-      )*/
-      }catch(error){
-        console.log('System Overview Management ', 'Processing ', 'Error in data filtering, second drill');
-        console.error(error)
-      }
+      var csvdata = this._data.system;
+      csvdata = csvdata.filter(type => type[7] == event.extra.service);
+      var newData = []
+      csvdata = csvdata.filter(type => type[8] == event.series);
+      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.classification)
+      for(let key in csvdata){
+        let incidentTickets = 0;
+        let wipTickets = 0;
+        let sleepTickets = 0;
+        let assignedTickets = 0; 
+        for (let i = 0; i < csvdata[key].length; i++){
+          incidentTickets = incidentTickets + csvdata[key][i][2];
+          wipTickets = wipTickets + csvdata[key][i][3];
+          sleepTickets = sleepTickets + csvdata[key][i][4];
+          assignedTickets = assignedTickets + csvdata[key][i][5];
+        }
+        let pushedData =  {"name": key, "series": [
+                          {"name": "Incident", "value": incidentTickets, "extra": {"drill": "third", "service": event.extra.service}},
+                          {"name": "WIP", "value": wipTickets, "extra": {"drill": "third", "service": event.extra.service}},
+                          {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "third", "service": event.extra.service}},
+                          {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "third", "service": event.extra.service}}]
+                          };
+        newData.push(pushedData);
+        }
+        this.chartData.next(
+          newData
+        )
+        this._scroller.bars.next(
+          newData.length
+        )
     }
  }
 
  resetData(){
-  var chartDataa = [];
-     // Get the data and sort them by Service.
-     const enterprise = this.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
-     for(let key in enterprise){
-      const classifiedByType = this.classifyByIndex(enterprise[key], this._config.config.columns.type)
-      for (let prop in classifiedByType) {
-        classifiedByType[prop] = classifiedByType[prop].length
-      }
-      const keys = Object.keys(classifiedByType)
-      const childData = keys.map( key => {
-        return {
-          name: key,
-          value: classifiedByType[key],
-          extra: { drill: 'first' }
-        }
-      })
-      let child = enterprise[key];
-          var ticketsByService = child.length
-          var pushedData =  {"name": key, "series": childData
-                            };
-          chartDataa.push(pushedData);
-     }
-     this.chartData.next(
-      chartDataa.slice(0,10)
-    )
+  var csvdata = this._data.system;
+  csvdata = csvdata.filter(type => type[0] == 'S5');
+  var newData = []
+  csvdata = this.classifyByIndex(csvdata, this._config.config.columns.description)
+  for(let key in csvdata){
+    let incidentTickets = 0;
+    let wipTickets = 0;
+    let sleepTickets = 0;
+    let assignedTickets = 0; 
+    for (let i = 0; i < csvdata[key].length; i++){
+      incidentTickets = incidentTickets + csvdata[key][i][2];
+      wipTickets = wipTickets + csvdata[key][i][3];
+      sleepTickets = sleepTickets + csvdata[key][i][4];
+      assignedTickets = assignedTickets + csvdata[key][i][5];
+    }
+    let pushedData =  {"name": key, "series": [
+                      {"name": "Incident", "value": incidentTickets, "extra": {"drill": "first", "service": key}},
+                      {"name": "WIP", "value": wipTickets, "extra": {"drill": "first", "service": key}},
+                      {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "first", "service": key}},
+                      {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "first", "service": key}}]
+                      };
+    newData.push(pushedData);
+  }
+  this.chartData.next(
+    newData
+  )
+  this._scroller.bars.next(
+    newData.length
+  )
+  // var chartDataa = [];
+  //    // Get the data and sort them by Service.
+  //    const enterprise = this.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
+  //    for(let key in enterprise){
+  //     const classifiedByType = this.classifyByIndex(enterprise[key], this._config.config.columns.type)
+  //     for (let prop in classifiedByType) {
+  //       classifiedByType[prop] = classifiedByType[prop].length
+  //     }
+  //     const keys = Object.keys(classifiedByType)
+  //     const childData = keys.map( key => {
+  //       return {
+  //         name: key,
+  //         value: classifiedByType[key],
+  //         extra: { drill: 'first' }
+  //       }
+  //     })
+  //     let child = enterprise[key];
+  //         var ticketsByService = child.length
+  //         var pushedData =  {"name": key, "series": childData
+  //                           };
+  //         chartDataa.push(pushedData);
+  //    }
+  //    this.chartData.next(
+  //     chartDataa.slice(0,10)
+  //   )
  }
  
  classifyByIndex(array, index) {

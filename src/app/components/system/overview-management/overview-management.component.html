@@ -1,15 +1,16 @@
-<ngx-charts-bar-vertical-2d
-        [view]="[1000, 200]"
-        [results]="chartData | async"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="legend"
-        [legendTitle]="legendTitle"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [scheme]="colorScheme"
-        [barPadding]="5"
-        [groupPadding]="2"
-        (select)="changeData($event)" >
-    </ngx-charts-bar-vertical-2d>
+<cism-system-scroller>
+    <ngx-charts-bar-vertical-2d
+            [results]="chartData | async"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="legend"
+            [legendTitle]="legendTitle"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [scheme]="colorScheme"
+            [barPadding]="5"
+            [groupPadding]="10"
+            (select)="changeData($event)" >
+        </ngx-charts-bar-vertical-2d>
+</cism-system-scroller>
 <button class='mat-button back-button' (click)="resetData()"> Back </button>
