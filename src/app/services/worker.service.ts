@@ -12,6 +12,8 @@ export class WorkerService {
     this.supportsTransferableObjects = "TextDecoder" in window && "TextEncoder" in window
   }
 
+  // Determine wether or not browser supports Transferable Objects
+  // https://developers.google.com/web/updates/2011/12/Transferable-Objects-Lightning-Fast
   private supportsTransferableObjects: boolean = false
 
   /**
@@ -36,12 +38,15 @@ export class WorkerService {
    */
   run<T>(workerFunction: (input: any) => T, data?: any, scripts: string[] = []): Observable<T> {
     return new Observable(observer => {
+      // Convert passed function to string
       const resolveString = workerFunction.toString()
+      // Get current host path for the plugin collector
       const path = location.protocol + "//" + location.host
       if (this.supportsTransferableObjects) {
         this.encoding = new TextDecoder('utf-8').encoding
       }
       let webWorkerTemplate = '';
+      // Fetch scripts inside the WebWorker using importScripts
       if (scripts.length > 0) {
         console.log("The WebWorker will fetch these scripts:")
         scripts.forEach(script => {
@@ -52,6 +57,8 @@ export class WorkerService {
           importScripts(${scriptFiles.join(',')});
         `;
       }
+      // Create the WebWorker Process using the function string and decoding the ArrayBuffer if
+      // Transferable Objects are supported
       if (this.supportsTransferableObjects) {
         webWorkerTemplate += `
           var decoder = new TextDecoder('utf-8');
@@ -70,8 +77,11 @@ export class WorkerService {
         });
       `;
       }
+      // Create WebWorker Blob without external file
       const blob = new Blob([webWorkerTemplate], { type: 'text/javascript' });
+      // The following line takes 50-200ms
       const worker = new Worker(URL.createObjectURL(blob))
+      // On finish handler
       worker.onmessage = ({ data }) => {
         if (this.supportsTransferableObjects) {
           observer.next(this.fromArrayBuffer(data))
@@ -81,10 +91,12 @@ export class WorkerService {
         worker.terminate()
         observer.complete()
       }
+      // On error handler
       worker.onerror = event => {
         observer.error(event)
         observer.complete()
       }
+      // Start the WebWorker by emitting data message
       if (this.supportsTransferableObjects) {
         const buffer = this.toArrayBuffer(data)
         worker.postMessage(buffer, [buffer.buffer]);
@@ -94,6 +106,7 @@ export class WorkerService {
     }) 
   }
 
+  // Convert an ArrayBuffer to JSON
   private fromArrayBuffer(buffer): any {
     const decoder = new TextDecoder('utf-8');
     return JSON.parse(decoder.decode(buffer))
@@ -101,6 +114,7 @@ export class WorkerService {
   
   private encoding: string
 
+  // Convert any kind of variable to ArrayBuffer
   private toArrayBuffer(obj): Uint8Array {
     const txt = JSON.stringify(obj)
     const encoder = new TextEncoder()

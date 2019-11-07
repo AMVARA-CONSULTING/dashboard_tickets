@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, HostListener, ElementRef, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { combineLatest } from 'rxjs/operators';
 
 @Component({
   selector: 'cism-system-scroller',
@@ -17,8 +18,12 @@ export class SystemScrollerComponent implements OnInit {
 
   enable = new BehaviorSubject<boolean>(false)
 
+  barsWidth = new BehaviorSubject<number>(25)
+
   ngOnInit() {
-    this.bars.subscribe(_ => this.resize() )
+    this.bars.pipe(
+      combineLatest(this.barsWidth)
+    ).subscribe(_ => this.resize() )
   }
 
   @HostListener("window:resize")

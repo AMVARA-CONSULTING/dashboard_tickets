@@ -1,9 +1,10 @@
 
 :host {
     display: block;
-    height: 200px;
+    height: 230px;
     padding: 0 5px;
     box-sizing: border-box;
+    padding-top: 20px;
 }
 
 :host::ng-deep .ngx-charts .tick text {

@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { WorkerService } from '@services/worker.service';
-import { SAPercents, SAViewType } from '@other/interfaces';
+import { SAPercents } from '@other/interfaces';
 import { FormControl } from '@angular/forms';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 declare const moment, formatPercent: any
 
@@ -28,6 +27,7 @@ export class SystemAvailabilityComponent implements OnInit {
   view = new FormControl('overview')
 
   ngOnInit() {
+    // Run WebWorker
     this._worker.run<SAPercents>(data => {
       // Filter system rows with System Availability section
       const SARows = data.filter(row => row[0] == 'SA')
@@ -97,6 +97,7 @@ export class SystemAvailabilityComponent implements OnInit {
         console.log('System Availability', 'Processing', 'Percent not found for actual month')
         console.error(err)
       }
+      // Return obtained stats
       return {
         rows: SARows,
         today: today,
@@ -108,6 +109,7 @@ export class SystemAvailabilityComponent implements OnInit {
         month_up: act_month > prev_month ? 'up' : 'down'
       }
     }, this._data.system, ['moment', 'format-percent']).subscribe(result => {
+      // Render DOM
       this.percents.next(result)
       this.SystemAvailabilityRows.next(result.rows)
     })

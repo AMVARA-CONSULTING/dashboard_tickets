@@ -12,6 +12,7 @@ export interface Config {
   readonly columns: any,
   readonly cognosRepository: string,
   readonly scenario: string,
+  readonly system: SystemConfig,
   readonly excludeDatesFuture: boolean,
   readonly portalLink: { dev: string, prod: string }
   readonly displayedColumnsDefault: string[],
@@ -21,6 +22,10 @@ export interface Config {
   infiniteScroll: boolean;
   negativeBad: boolean | number;
   [propName: string]: any;
+}
+
+export interface SystemConfig {
+  readonly unitsPast: number
 }
 
 export interface Scenarios {
