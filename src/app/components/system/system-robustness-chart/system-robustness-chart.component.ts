@@ -52,10 +52,10 @@ export class SystemRobustnessChartComponent implements OnChanges {
       const chartData = keys.map( key => {
         const group = groups[key]
         groups[key] = classifyByIndex(group, data.columns.type)
-        console.log(groups[key])
         for (let prop2 in groups[key]) {
           groups[key][prop2] = groups[key][prop2].length
         }
+        console.log(groups[key])
         return {
           name: key,
           series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
