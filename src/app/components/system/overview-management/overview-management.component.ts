@@ -159,6 +159,7 @@ export class OverviewManagementComponent implements OnInit {
   csvdata = csvdata.filter(type => type[0] == 'S5');
   var newData = []
   csvdata = this.classifyByIndex(csvdata, this._config.config.columns.description)
+  console.log(csvdata);
   for(let key in csvdata){
     let incidentTickets = 0;
     let wipTickets = 0;
@@ -184,8 +185,8 @@ export class OverviewManagementComponent implements OnInit {
   this._scroller.bars.next(
     newData.length
   )
-  this._scroller.bars.next(
-    newData.length
+  this._scroller.barsWidth.next(
+    100
   )
   // var chartDataa = [];
   //    // Get the data and sort them by Service.
