@@ -72,6 +72,9 @@ export class OverviewManagementComponent implements OnInit {
       this.chartData.next(
         resultado
       )
+      this._scroller.barsWidth.next(
+        100
+      )
     })
   }
 
@@ -111,6 +114,9 @@ export class OverviewManagementComponent implements OnInit {
         this._scroller.bars.next(
           newData.length
         )
+        this._scroller.barsWidth.next(
+          100
+        )
     } else if (event.extra.drill == 'second'){
       var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[7] == event.extra.service);
@@ -142,6 +148,9 @@ export class OverviewManagementComponent implements OnInit {
         this._scroller.bars.next(
           newData.length
         )
+        this._scroller.barsWidth.next(
+          100
+        )
     }
  }
 
@@ -171,6 +180,9 @@ export class OverviewManagementComponent implements OnInit {
   }
   this.chartData.next(
     newData
+  )
+  this._scroller.bars.next(
+    newData.length
   )
   this._scroller.bars.next(
     newData.length
