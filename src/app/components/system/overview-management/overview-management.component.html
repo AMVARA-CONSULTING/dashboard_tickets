@@ -3,13 +3,13 @@
             [results]="chartData | async"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
-            [legend]="legend"
+            [legend]="false"
             [legendTitle]="legendTitle"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
             [scheme]="colorScheme"
-            [barPadding]="5"
-            [groupPadding]="10"
+            [barPadding]="3"
+            [groupPadding]="15"
             (select)="changeData($event)" >
         </ngx-charts-bar-vertical-2d>
 </cism-system-scroller>

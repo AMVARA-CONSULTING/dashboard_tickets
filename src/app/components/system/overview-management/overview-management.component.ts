@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, Input} from '@angular/core';
 import { ToolsService } from 'app/tools.service';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
@@ -29,37 +29,36 @@ export class OverviewManagementComponent implements OnInit {
 
   @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent  
   ngOnInit() {
-  var chartDataHolder = []
-    console.log("webWorker Start: "+performance.now())
-  this._worker.run<any>((data: PIRData) => {
-    console.log("1"+performance.now())
-     // Variable Declarations
-     var chartDataa = [];
-     // Get the data and sort them by Service.
-     const enterprise = classifyByIndex(data.tickets, data.configColumns.service)
-     for(let key in enterprise){
-      const classifiedByType = classifyByIndex(enterprise[key], data.configColumns.type)
-      for (let prop in classifiedByType) {
-        classifiedByType[prop] = classifiedByType[prop].length
+  console.log("webWorker Start: "+performance.now())
+    this._worker.run<any>((data: PIRData) => {
+    var csvdata = data.tickets;
+    csvdata = csvdata.filter(type => type[0] == 'S5');
+    var newData = []
+    csvdata = classifyByIndex(csvdata, data.configColumns.description)
+    console.log(csvdata);
+    for(let key in csvdata){
+      let incidentTickets = 0;
+      let wipTickets = 0;
+      let sleepTickets = 0;
+      let assignedTickets = 0; 
+      for (let i = 0; i < csvdata[key].length; i++){
+        incidentTickets = incidentTickets + csvdata[key][i][2];
+        wipTickets = wipTickets + csvdata[key][i][3];
+        sleepTickets = sleepTickets + csvdata[key][i][4];
+        assignedTickets = assignedTickets + csvdata[key][i][5];
       }
-      const keys = Object.keys(classifiedByType)
-      const childData = keys.map( key => {
-        return {
-          name: key,
-          value: classifiedByType[key],
-          extra: { drill: 'first' }
-        }
-      })
-      let child = enterprise[key];
-          var ticketsByService = child.length
-          var pushedData =  {"name": key, "series": childData
-                            };
-          chartDataa.push(pushedData);
-     }
-     console.log("3"+performance.now())
-     return chartDataa.slice(0,10)
+      let pushedData =  {"name": key, "series": [
+                        {"name": "Incident", "value": incidentTickets, "extra": {"drill": "first", "service": key}},
+                        {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
+                        {"name": "WIP", "value": wipTickets, "extra": {"drill": "first", "service": key}},
+                        {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "first", "service": key}},
+                        {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "first", "service": key}}]
+                        };
+      newData.push(pushedData);
+      }
+      return newData;
     }, {
-      tickets: this._data.allTickets,
+      tickets: this._data.system,
       configColumns: Object.assign({}, this._config.config.columns)
     } as PIRData, ['classify-by-index']).subscribe(resultado =>{
       console.log("ChartData log: ") 
@@ -77,9 +76,6 @@ export class OverviewManagementComponent implements OnInit {
       )
     })
   }
-
-  // FIXME BAR WIDTH
-  // FIXME REMOVE SLICES AND RE-ADD SCROLL WHEN ALEX IS DONE WITH THE FIX
 
   changeData(event){  
     // Check if it's first drill or second drill
@@ -102,6 +98,7 @@ export class OverviewManagementComponent implements OnInit {
         }
         let pushedData =  {"name": key, "series": [
                           {"name": "Incident", "value": incidentTickets, "extra": {"drill": "second", "service": event.extra.service}},
+                          {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
                           {"name": "WIP", "value": wipTickets, "extra": {"drill": "second", "service": event.extra.service}},
                           {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "second", "service": event.extra.service}},
                           {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "second", "service": event.extra.service}}]
@@ -136,6 +133,7 @@ export class OverviewManagementComponent implements OnInit {
         }
         let pushedData =  {"name": key, "series": [
                           {"name": "Incident", "value": incidentTickets, "extra": {"drill": "third", "service": event.extra.service}},
+                          {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
                           {"name": "WIP", "value": wipTickets, "extra": {"drill": "third", "service": event.extra.service}},
                           {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "third", "service": event.extra.service}},
                           {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "third", "service": event.extra.service}}]
@@ -153,7 +151,7 @@ export class OverviewManagementComponent implements OnInit {
         )
     }
  }
-
+ 
  resetData(){
   var csvdata = this._data.system;
   csvdata = csvdata.filter(type => type[0] == 'S5');
@@ -173,6 +171,7 @@ export class OverviewManagementComponent implements OnInit {
     }
     let pushedData =  {"name": key, "series": [
                       {"name": "Incident", "value": incidentTickets, "extra": {"drill": "first", "service": key}},
+                      {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
                       {"name": "WIP", "value": wipTickets, "extra": {"drill": "first", "service": key}},
                       {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "first", "service": key}},
                       {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "first", "service": key}}]
@@ -188,31 +187,6 @@ export class OverviewManagementComponent implements OnInit {
   this._scroller.barsWidth.next(
     100
   )
-  // var chartDataa = [];
-  //    // Get the data and sort them by Service.
-  //    const enterprise = this.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
-  //    for(let key in enterprise){
-  //     const classifiedByType = this.classifyByIndex(enterprise[key], this._config.config.columns.type)
-  //     for (let prop in classifiedByType) {
-  //       classifiedByType[prop] = classifiedByType[prop].length
-  //     }
-  //     const keys = Object.keys(classifiedByType)
-  //     const childData = keys.map( key => {
-  //       return {
-  //         name: key,
-  //         value: classifiedByType[key],
-  //         extra: { drill: 'first' }
-  //       }
-  //     })
-  //     let child = enterprise[key];
-  //         var ticketsByService = child.length
-  //         var pushedData =  {"name": key, "series": childData
-  //                           };
-  //         chartDataa.push(pushedData);
-  //    }
-  //    this.chartData.next(
-  //     chartDataa.slice(0,10)
-  //   )
  }
  
  classifyByIndex(array, index) {
@@ -235,7 +209,7 @@ export class OverviewManagementComponent implements OnInit {
   legend = true;
   legendTitle = '';
   colorScheme = {
-    domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
+    domain: ['#00bcd4','lightgrey', '#ffb74d', '#7e57c2', '#039be5']
   }
 }
 
@@ -243,4 +217,5 @@ export interface PIRData {
   tickets: any[]
   configColumns: any
 }
+
 
