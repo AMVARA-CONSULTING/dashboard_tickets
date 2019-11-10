@@ -1,9 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { WorkerService } from '@services/worker.service';
 import { SAPercents } from '@other/interfaces';
 import { FormControl } from '@angular/forms';
+import { SystemGraphicHolderComponent } from '../system-graphic-holder/system-graphic-holder.component';
+import { ConfigService } from '@services/config.service';
 
 declare const moment, formatPercent: any
 
@@ -17,8 +19,12 @@ export class SystemAvailabilityComponent implements OnInit {
 
   constructor(
     private _data: DataService,
-    private _worker: WorkerService
-  ) { }
+    private _config: ConfigService,
+    private _worker: WorkerService,
+    @Host() private _holder: SystemGraphicHolderComponent
+  ) {
+    this._holder.titles.next([this._config.config.system.titles.S1])
+  }
 
   percents = new BehaviorSubject<SAPercents>(null)
 
@@ -30,7 +36,7 @@ export class SystemAvailabilityComponent implements OnInit {
     // Run WebWorker
     this._worker.run<SAPercents>(data => {
       // Filter system rows with System Availability section
-      const SARows = data.filter(row => row[0] == 'SA')
+      const SARows = data.filter(row => row[0] == 'S1')
       // Extract today's %
       let today = 0
       try {

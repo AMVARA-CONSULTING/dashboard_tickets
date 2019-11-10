@@ -25,7 +25,22 @@ export interface Config {
 }
 
 export interface SystemConfig {
-  readonly unitsPast: number
+  readonly unitsPast: number,
+  readonly titles: Titles
+}
+
+export interface Titles {
+  readonly S1: string
+  readonly S2: string
+  readonly S3: string
+  readonly S4: string
+  readonly S5: string
+}
+
+export interface SystemTitleClick {
+  readonly titles: string[]
+  readonly nameClicked: string
+  readonly indexClicked: number
 }
 
 export interface Scenarios {

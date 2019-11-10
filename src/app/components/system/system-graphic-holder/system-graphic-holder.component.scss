@@ -1,5 +1,6 @@
 
 @import '_breakpoints.scss';
+@import '_colors.scss';
 
 :host {
     flex: 1 100%;
@@ -18,4 +19,34 @@
     color: rgba(white, .7);
     font-size: 1.6rem;
     margin-bottom: 35px;
+    display: flex;
+    flex-wrap: nowrap;
+    .part {
+        flex: initial;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        &:not(:last-child) {
+            cursor: pointer;
+        }
+        &:not(:last-child):hover {
+            color: $blue;
+            & + .breadcrumb {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    .breadcrumb {
+        flex: 0 30px;
+        margin: 0 20px;
+        background-image: url(^assets/img/arrow-right.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: .5;
+        transform: rotateX(180deg);
+        transition: transform .3s ease-in-out;
+        transform-origin: 50% 50%;
+        perspective: 50px;
+    }
 }

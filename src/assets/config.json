@@ -14,7 +14,14 @@
 	},
 	"excludeDatesFuture": true,
 	"system": {
-		"unitsPast": 12
+		"unitsPast": 12,
+		"titles": {
+			"S1": "System availability",
+			"S2": "Robustness of system",
+			"S3": "Root cause",
+			"S4": "Performance of incident resolution",
+			"S5": "Overview of Inc/Prb Management"
+		}
 	},
 	"portalLink": {
 		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",

@@ -1,4 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { SystemTitleClick } from '@other/interfaces';
 
 @Component({
   selector: 'cism-system-graphic-holder',
@@ -8,6 +10,19 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class SystemGraphicHolderComponent {
 
-  @Input() titel: string
+  titles = new BehaviorSubject<string[]>([])
+
+  click = new BehaviorSubject<SystemTitleClick>(null)
+
+  emitClick($event, index, name) {
+    // Skip emit event if it's the last one, the last one shouldn't be clickable
+    if ((index - 1) != this.titles.getValue().length) {
+      this.click.next({
+        titles: this.titles.getValue(),
+        indexClicked: index,
+        nameClicked: name
+      })
+    }
+  }
 
 }

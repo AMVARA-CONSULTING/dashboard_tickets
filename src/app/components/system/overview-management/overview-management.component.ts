@@ -1,10 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, Input, OnDestroy} from '@angular/core';
 import { ToolsService } from 'app/tools.service';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { WorkerService } from '@services/worker.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
+import { SystemGraphicHolderComponent } from '../system-graphic-holder/system-graphic-holder.component';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { filter } from 'rxjs/internal/operators/filter';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 declare const classifyByIndex: any
 
@@ -15,21 +19,39 @@ declare const classifyByIndex: any
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [SystemScrollerComponent]
 })
-export class OverviewManagementComponent implements OnInit {
+export class OverviewManagementComponent implements OnInit, OnDestroy {
 
   // This Subject will be used for the chart to show the data
   chartData = new BehaviorSubject<Object[]>([])
+
+  // Title Change Subscription
+  titleChangeSub: Subscription
 
   constructor(
     private _data: DataService,
     private _tools: ToolsService,
     private _config: ConfigService,
-    private _worker: WorkerService
-  ) { }
+    private _worker: WorkerService,
+    @Host() private _holder: SystemGraphicHolderComponent
+  ) {
+    this._holder.titles.next([this._config.config.system.titles.S5])
+  }
+
+  // This function is executed when this component is destroyed
+  ngOnDestroy() {
+    if (this.titleChangeSub) this.titleChangeSub.unsubscribe()
+  }
 
   @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent  
   ngOnInit() {
-  console.log("webWorker Start: "+performance.now())
+    // Handle title click change
+    this.titleChangeSub = this._holder.click.pipe(
+      filter(val => val != null && val.titles[0] == this._config.config.system.titles.S5),
+      distinctUntilChanged()
+    ).subscribe(titleChanged => {
+      console.log(titleChanged)
+    })
+    console.log("webWorker Start: "+performance.now())
     this._worker.run<any>((data: PIRData) => {
     var csvdata = data.tickets;
     csvdata = csvdata.filter(type => type[0] == 'S5');
