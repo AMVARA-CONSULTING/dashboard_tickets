@@ -1,6 +1,6 @@
 
-<div class="scrollable" [ngClass]="{'enable': (bars | async) > 20 && (enable | async)}">
-    <div class="content" [style.width.px]="(bars | async) > 20 && (enable | async) ? (bars | async) * (barsWidth | async) + 50 : null">
+<div class="scrollable" [ngClass]="{'enable': (enable | async)}">
+    <div class="content" [style.width.px]="(enable | async) ? (bars | async) * (barsWidth | async) + 50 : null">
         <ng-content></ng-content>
     </div>
 </div>

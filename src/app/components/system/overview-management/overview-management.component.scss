@@ -4,15 +4,16 @@
     height: 100%;
 }
 
-.content{
-    width: 100% !important;
-    height: 1000px !important;
-}
 
 ::ng-deep .ngx-charts { 
     text{
         fill: rgba(255, 255, 255, 0.6) !important; 
     }
+
+}
+
+.groupedbarcontainer{
+    height: 200px;
 }
 
 .back-button{

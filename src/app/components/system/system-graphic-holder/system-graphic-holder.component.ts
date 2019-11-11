@@ -16,7 +16,7 @@ export class SystemGraphicHolderComponent {
 
   emitClick($event, index, name) {
     // Skip emit event if it's the last one, the last one shouldn't be clickable
-    if ((index - 1) != this.titles.getValue().length) {
+    if ((index + 1) != this.titles.getValue().length) {
       this.click.next({
         titles: this.titles.getValue(),
         indexClicked: index,

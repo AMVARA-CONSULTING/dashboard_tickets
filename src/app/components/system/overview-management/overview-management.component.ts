@@ -49,7 +49,23 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       filter(val => val != null && val.titles[0] == this._config.config.system.titles.S5),
       distinctUntilChanged()
     ).subscribe(titleChanged => {
-      console.log(titleChanged)
+      
+      switch(titleChanged.titles.length){
+        case 2: 
+          this.resetData();
+          this._holder.titles.next([this._config.config.system.titles.S5])
+          break;
+        case 3:
+            this.changeData({
+              series: titleChanged.nameClicked,
+              extra: {
+                drill: "first",
+                service: titleChanged.nameClicked
+              }
+            });
+            this._holder.titles.next([this._config.config.system.titles.S5, titleChanged.nameClicked])
+            break;
+          }
     })
     console.log("webWorker Start: "+performance.now())
     this._worker.run<any>((data: PIRData) => {
@@ -102,10 +118,15 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   changeData(event){  
     // Check if it's first drill or second drill
     if(event.extra.drill == 'first'){
+
+      console.log(event);
+
       var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[7] == event.series);
       var newData = []
       csvdata = this.classifyByIndex(csvdata, this._config.config.columns.external)
+
+      this._holder.titles.next([this._config.config.system.titles.S5, event.extra.service])
 
       for(let key in csvdata){
         let incidentTickets = 0;
@@ -142,6 +163,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       var newData = []
       csvdata = csvdata.filter(type => type[8] == event.series);
       csvdata = this.classifyByIndex(csvdata, this._config.config.columns.classification)
+      this._holder.titles.next(this._holder.titles.getValue().concat([event.name]))
       for(let key in csvdata){
         let incidentTickets = 0;
         let wipTickets = 0;
@@ -169,7 +191,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           newData.length
         )
         this._scroller.barsWidth.next(
-          100
+          120
         )
     }
  }
