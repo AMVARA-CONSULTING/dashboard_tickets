@@ -104,7 +104,7 @@ export function createTranslateLoader(http: HttpClient) {
     DateAgoPipe,
     LimitTextPipe,
     ReportInfoComponent,
-    FixFilterPipe,
+    FixFilterPipe
   ],
   imports: [
     BrowserModule,

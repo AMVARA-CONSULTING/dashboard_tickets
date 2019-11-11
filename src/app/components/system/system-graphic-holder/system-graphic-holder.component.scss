@@ -15,17 +15,35 @@
     font-size: 1.3rem;
 }
 
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate3d(-30px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 .title {
     color: rgba(white, .7);
     font-size: 1.6rem;
     margin-bottom: 35px;
     display: flex;
     flex-wrap: nowrap;
+    &.align .part {
+        text-align: center;
+    }
     .part {
-        flex: initial;
+        flex: 1 1 0px;
+        @include for-tablet-portrait-up {
+            flex: initial !important; 
+        }
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        animation: slideIn .3s ease-in-out;
         &:not(:last-child) {
             cursor: pointer;
         }

@@ -114,3 +114,8 @@ export interface SAPercents {
   week_up: string
   month_up: string
 }
+
+export interface KeyPair {
+  name: string
+  value: any
+}
