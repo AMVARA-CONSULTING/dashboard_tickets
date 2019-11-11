@@ -158,12 +158,13 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           80
         )
     } else if (event.extra.drill == 'second'){
+      console.log(event)
       var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[7] == event.extra.service);
       var newData = []
       csvdata = csvdata.filter(type => type[8] == event.series);
       csvdata = this.classifyByIndex(csvdata, this._config.config.columns.classification)
-      this._holder.titles.next(this._holder.titles.getValue().concat([event.name]))
+      this._holder.titles.next(this._holder.titles.getValue().concat([event.series]))
       for(let key in csvdata){
         let incidentTickets = 0;
         let wipTickets = 0;
