@@ -110,7 +110,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
         resultado
       )
       this._scroller.barsWidth.next(
-        100
+        50
       )
     })
   }
@@ -155,7 +155,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           newData.length
         )
         this._scroller.barsWidth.next(
-          100
+          80
         )
     } else if (event.extra.drill == 'second'){
       var csvdata = this._data.system;
@@ -191,7 +191,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           newData.length
         )
         this._scroller.barsWidth.next(
-          120
+          100
         )
     }
  }
@@ -229,7 +229,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
     newData.length
   )
   this._scroller.barsWidth.next(
-    100
+    50
   )
  }
  
