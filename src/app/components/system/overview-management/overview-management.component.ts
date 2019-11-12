@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
 import { filter } from 'rxjs/internal/operators/filter';
 import { distinctUntilChanged } from 'rxjs/operators';
 
+
 declare const classifyByIndex: any
 
 @Component({
@@ -17,7 +18,7 @@ declare const classifyByIndex: any
   templateUrl: './overview-management.component.html',
   styleUrls: ['./overview-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [SystemScrollerComponent]
+  providers: [SystemScrollerComponent],
 })
 export class OverviewManagementComponent implements OnInit, OnDestroy {
 
