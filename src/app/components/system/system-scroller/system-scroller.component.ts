@@ -30,8 +30,6 @@ export class SystemScrollerComponent implements OnInit {
   resize() {
     if (true) {
       const parentWidth = this._element.nativeElement.querySelector('.scrollable').offsetWidth
-      console.log(parentWidth)
-      console.log(this.bars.getValue() * this.barsWidth.getValue() + 50)
       this.enable.next((parentWidth + 5) <= (this.bars.getValue() * this.barsWidth.getValue() + 50))
     }
   }

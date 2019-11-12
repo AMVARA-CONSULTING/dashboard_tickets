@@ -68,13 +68,13 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
             break;
           }
     })
-    console.log("webWorker Start: "+performance.now())
+    //console.log("webWorker Start: "+performance.now())
     this._worker.run<any>((data: PIRData) => {
     var csvdata = data.tickets;
     csvdata = csvdata.filter(type => type[0] == 'S5');
     var newData = []
     csvdata = classifyByIndex(csvdata, data.configColumns.description)
-    console.log(csvdata);
+    //console.log(csvdata);
     for(let key in csvdata){
       let incidentTickets = 0;
       let wipTickets = 0;
@@ -100,9 +100,9 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       tickets: this._data.system,
       configColumns: Object.assign({}, this._config.config.columns)
     } as PIRData, ['classify-by-index']).subscribe(resultado =>{
-      console.log("ChartData log: ") 
-      console.log(resultado);
-      console.log("webWorker End: "+performance.now())
+      //console.log("ChartData log: ") 
+      //console.log(resultado);
+      //console.log("webWorker End: "+performance.now())
       //console.log(this._scroller)
       this._scroller.bars.next(
         resultado.length
@@ -120,7 +120,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
     // Check if it's first drill or second drill
     if(event.extra.drill == 'first'){
 
-      console.log(event);
+      //console.log(event);
 
       var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[7] == event.series);
@@ -159,7 +159,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           80
         )
     } else if (event.extra.drill == 'second'){
-      console.log(event)
+      //console.log(event)
       var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[7] == event.extra.service);
       var newData = []
@@ -203,7 +203,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   csvdata = csvdata.filter(type => type[0] == 'S5');
   var newData = []
   csvdata = this.classifyByIndex(csvdata, this._config.config.columns.description)
-  console.log(csvdata);
+  //console.log(csvdata);
   for(let key in csvdata){
     let incidentTickets = 0;
     let wipTickets = 0;

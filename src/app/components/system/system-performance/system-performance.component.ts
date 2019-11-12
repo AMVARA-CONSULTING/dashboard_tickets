@@ -35,8 +35,6 @@ export class SystemPerformanceComponent implements OnInit {
     private _worker: WorkerService,
     @Host() private _holder: SystemGraphicHolderComponent) {
       this._holder.titles.next([this._config.config.system.titles.S4])
-      console.log(' TITLE TEST ');
-      console.log(this._config.config.system.titles.S4);
      }
 
      // This function is executed when this component is destroyed

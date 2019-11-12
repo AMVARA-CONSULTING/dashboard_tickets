@@ -41,6 +41,10 @@ export class SystemRootCauseComponent implements OnInit {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }
 
+  valueFormatting = val => {
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+  }
+
   chartData = new BehaviorSubject<KeyPair[]>([])
 
 }

@@ -55,7 +55,6 @@ export class SystemRobustnessChartComponent implements OnChanges {
         for (let prop2 in groups[key]) {
           groups[key][prop2] = groups[key][prop2].length
         }
-        console.log(groups[key])
         return {
           name: key,
           series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
@@ -70,7 +69,6 @@ export class SystemRobustnessChartComponent implements OnChanges {
       // Take only last 12 units, example: months, weeks, days,...
       map(results => results.slice(Math.max(results.length - this._config.config.system.unitsPast, 1)))
     ).subscribe(results => {
-      console.log(results)
       this._scroller.bars.next(results.length)
       this.data.next(results)
     })

@@ -66,9 +66,8 @@ export class ReportsService {
             this.tools.log('API','Overall Data:', data[6].length)
             this.data.allTickets = data[7]
             if (this.config.config.excludeDatesFuture) {
-              this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2]).isAfter())
+              this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A']).isAfter())
             }
-            console.log("AllTickets:", this.data.allTickets)
             this.tools.log('API','All Tickets:', data[7].length)
             this.data.system = data[8]
             if (this.config.config.excludeDatesFuture) {
