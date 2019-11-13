@@ -27,6 +27,31 @@ export interface Config {
 export interface SystemConfig {
   readonly unitsPast: number,
   readonly titles: Titles
+  readonly S1: SystemS1Config
+  readonly S2: SystemS2Config
+  readonly S3: SystemS3Config
+  readonly S4: SystemS4Config
+  readonly S5: SystemS5Config
+}
+
+export interface SystemS1Config {
+  readonly formatDate: string
+}
+
+export interface SystemS2Config {
+  readonly formatDate: string
+}
+
+export interface SystemS3Config {
+  readonly formatDate: string
+}
+
+export interface SystemS4Config {
+  readonly formatDate: string
+}
+
+export interface SystemS5Config {
+  readonly formatDate: string
 }
 
 export interface Titles {

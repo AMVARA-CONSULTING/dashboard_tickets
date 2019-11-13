@@ -1,7 +1,7 @@
 <div class="title" [ngClass]="{'center': (titles | async).length > 2}">
     <ng-container *ngFor="let part of titles | async; let i = index">
         <div class="breadcrumb" *ngIf="i > 0"></div>
-        <span class="part" (click)="emitClick($event, i, part)">{{ part }}</span>
+        <span class="part" (click)="emitClick(i, part)">{{ part }}</span>
     </ng-container>
 </div>
 <div class="content">

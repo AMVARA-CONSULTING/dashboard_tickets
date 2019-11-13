@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import * as moment from 'moment';
 import { ToolsService } from 'app/tools.service';
 import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'cism-system-availability-chart',
@@ -15,6 +16,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
 
   constructor(
     private _tools: ToolsService,
+    private _config: ConfigService,
     @Host() private _scroller: SystemScrollerComponent 
   ) { }
 
@@ -24,48 +26,34 @@ export class SystemAvailabilityChartComponent implements OnInit {
       case "daily":
         newData = this.data.map(row => {
           return {
-            name: moment(row[1], 'MM/DD/YYYY').format('DD/MM/YYYY'),
+            name: moment(row[1], this._config.config.system.S2.formatDate).format('DD/MM/YYYY'),
             value: Math.round(row[2] * 100) / 100
           }
         })
-        this.translate.next(true)
-        this.xAxisLabels.next(this.getLabelsFor('weeks'))
+        // this.translate.next(true)
+        // this.xAxisLabels.next(this.getLabelsFor('weeks'))
         break
       case "weekly":
-        const grouped_week = this.data.reduce((r, a) => {
-          const formattedDate = moment(a[1], 'MM/DD/YYYY').format('YYYY-w')
-          r[formattedDate] = r[formattedDate] || []
-          r[formattedDate].push(a)
-          return r
-        }, {})
-        for (const month in grouped_week) {
-          newData.push({
-            name: moment(month, 'YYYYw').format('DD/MM/YYYY'),
-            value: this._tools.averageByIndex(grouped_week[month], 2, true),
-            min: this._tools.getMin(grouped_week[month], 2, true),
-            max: this._tools.getMax(grouped_week[month], 2, true)
-          })
-        }
-        this.xAxisLabels.next(this.getLabelsFor('weeks'))
-        this.translate.next(false)
-        break
       case "monthly":
-        const grouped_month = this.data.reduce((r, a) => {
-          const formattedDate = moment(a[1], 'MM/DD/YYYY').format('YYYYMM')
+        let formatToBeUnique = this.type == 'weekly' ? 'YYYY-w' : 'YYYYMM'
+        let formatDate = this.type == 'weekly' ? this._config.config.system.S2.formatDate : 'DD/MM/YYYY'
+        // let labels: any = this.type == 'weekly' ? 'weeks' : 'months'
+        const grouped_data = this.data.reduce((r, a) => {
+          const formattedDate = moment(a[1], this._config.config.system.S2.formatDate).format(formatToBeUnique)
           r[formattedDate] = r[formattedDate] || []
           r[formattedDate].push(a)
           return r
         }, {})
-        for (const month in grouped_month) {
+        for (const prop in grouped_data) {
           newData.push({
-            name: moment(month, 'YYYYMM').format('DD/MM/YYYY'),
-            value: this._tools.averageByIndex(grouped_month[month], 2, true),
-            min: this._tools.getMin(grouped_month[month], 2, true),
-            max: this._tools.getMax(grouped_month[month], 2, true)
+            name: moment(prop, formatToBeUnique).format(formatDate),
+            value: this._tools.averageByIndex(grouped_data[prop], 2, true),
+            min: this._tools.getMin(grouped_data[prop], 2, true),
+            max: this._tools.getMax(grouped_data[prop], 2, true)
           })
         }
-        this.xAxisLabels.next(this.getLabelsFor('months'))
-        this.translate.next(false)
+        // this.xAxisLabels.next(this.getLabelsFor(labels))
+        // this.translate.next(false)
         break
       default:
     }
@@ -85,9 +73,9 @@ export class SystemAvailabilityChartComponent implements OnInit {
   minScale = new BehaviorSubject<number>(0)
   yAxisTicks = new BehaviorSubject<number[]>([])
 
-  xAxisLabels = new BehaviorSubject<Date[]>([])
+  // xAxisLabels = new BehaviorSubject<Date[]>([])
 
-  translate = new BehaviorSubject<boolean>(false)
+  // translate = new BehaviorSubject<boolean>(false)
   chartData = new BehaviorSubject<Object[]>([])
 
   @Input() data: any[] = []
@@ -113,36 +101,28 @@ export class SystemAvailabilityChartComponent implements OnInit {
       case "daily":
         return val
       case "monthly":
-        return momented.format('MMM YYYY')
+        return momented.locale('de').format('MMM YYYY')
       case "weekly":
-        return momented.format('DD/MM/YYYY')
+        return momented.locale('de').format('DD/MM/YYYY')
     }
   }
 
-  getLabelsFor(type: 'weeks' | 'months'): Date[] {
+  /* getLabelsFor(type: 'weeks' | 'months'): Date[] {
     const dates = []
-    if (type == 'weeks') {
-      const grouped_weeks = this.data.reduce((r, a) => {
-        const formattedDate = moment(a[1], 'MM/DD/YYYY').format('YYYYw')
-        r[formattedDate] = r[formattedDate] || []
-        r[formattedDate] = a
-        return r
-      }, {})
-      for (const group in grouped_weeks) {
-        dates.push(moment(grouped_weeks[group][1], 'MM/DD/YYYY').format('DD/MM/YYYY'))
-      }
-    } else {
-      const grouped_weeks = this.data.reduce((r, a) => {
-        const formattedDate = moment(a[1], 'MM/DD/YYYY').format('YYYYMM')
-        r[formattedDate] = r[formattedDate] || []
-        r[formattedDate] = a
-        return r
-      }, {})
-      for (const group in grouped_weeks) {
-        dates.push(moment(grouped_weeks[group][1], 'MM/DD/YYYY').format('MMM YYYY'))
-      }
+    let formatDate = type == 'weeks' ? 'YYYYw' : 'YYYYMM'
+    let outputFormat = type == 'weeks' ? 'DD/MM/YYYY' : 'MMM YYYY'
+    const grouped_weeks = this.data.reduce((r, a) => {
+      const formattedDate = moment(a[1], this._config.config.system.S2.formatDate).format(formatDate)
+      r[formattedDate] = r[formattedDate] || []
+      r[formattedDate] = a
+      return r
+    }, {})
+    //return Object.keys(grouped_weeks).map(group => )
+    for (const group in grouped_weeks) {
+      dates.push(moment(grouped_weeks[group][1], this._config.config.system.S2.formatDate).format(outputFormat))
     }
+    console.log("Dates:", dates)
     return dates
-  }
+  } */
 
 }

@@ -14,6 +14,6 @@
     fill: rgba(white, .5) !important;
 }
 
-:host::ng-deep ngx-charts-line-chart.translate .ngx-charts [ngx-charts-x-axis] {
+/* :host::ng-deep ngx-charts-line-chart.translate .ngx-charts [ngx-charts-x-axis] {
     transform: translate(55px, 0);
-}
+} */

@@ -21,6 +21,21 @@
 			"S3": "Root cause",
 			"S4": "Performance of incident resolution",
 			"S5": "Overview of Inc/Prb Management"
+		},
+		"S1": {
+			"formatDate": "MM/DD/YYYY"
+		},
+		"S2": {
+			"formatDate": "MM/DD/YYYY"
+		},
+		"S3": {
+
+		},
+		"S4": {
+
+		},
+		"S5": {
+
 		}
 	},
 	"portalLink": {

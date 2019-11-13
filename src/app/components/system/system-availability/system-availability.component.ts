@@ -36,11 +36,11 @@ export class SystemAvailabilityComponent implements OnInit {
     // Run WebWorker
     this._worker.run<SAPercents>(data => {
       // Filter system rows with System Availability section
-      const SARows = data.filter(row => row[0] == 'S1')
+      const SARows = data.rows.filter(row => row[0] == 'S1')
       // Extract today's %
       let today = 0
       try {
-        const date = moment().format('MM/DD/YYYY')
+        const date = moment().format(data.formatDate)
         today = formatPercent(SARows.filter(row => row[1] == date)[0][2])
       } catch (err) {
         console.log('System Availability', 'Processing', 'Percent not found for today')
@@ -49,7 +49,7 @@ export class SystemAvailabilityComponent implements OnInit {
       // Extract previous day %
       let yesterday = 0
       try {
-        const date = moment().subtract(1, 'day').format('MM/DD/YYYY')
+        const date = moment().subtract(1, 'day').format(data.formatDate)
         yesterday = formatPercent(SARows.filter(row => row[1] == date)[0][2])
       } catch (err) {
         console.log('System Availability', 'Processing', 'Percent not found for yesterday')
@@ -60,7 +60,7 @@ export class SystemAvailabilityComponent implements OnInit {
       try {
         const week = moment().subtract(1, 'week').week()
         // @ts-ignore
-        const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').week() == week)
+        const rows = SARows.filter(row => moment(row[1], data.formatDate).week() == week)
         const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
         prev_week = formatPercent(sum / rows.length)
       } catch (err) {
@@ -72,7 +72,7 @@ export class SystemAvailabilityComponent implements OnInit {
       try {
         const week = moment().week()
         // @ts-ignore
-        const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').week() == week)
+        const rows = SARows.filter(row => moment(row[1], data.formatDate).week() == week)
         const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
         act_week = formatPercent(sum / rows.length)
       } catch (err) {
@@ -84,7 +84,7 @@ export class SystemAvailabilityComponent implements OnInit {
       try {
         const month = moment().subtract(1, 'month').month()
         // @ts-ignore
-        const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').month() == month)
+        const rows = SARows.filter(row => moment(row[1], data.formatDate).month() == month)
         const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
         prev_month = formatPercent(sum / rows.length)
       } catch (err) {
@@ -96,7 +96,7 @@ export class SystemAvailabilityComponent implements OnInit {
       try {
         const month = moment().month()
         // @ts-ignore
-        const rows = SARows.filter(row => moment(row[1], 'MM/DD/YYYY').month() == month)
+        const rows = SARows.filter(row => moment(row[1], data.formatDate).month() == month)
         const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
         act_month = formatPercent(sum / rows.length)
       } catch (err) {
@@ -114,7 +114,10 @@ export class SystemAvailabilityComponent implements OnInit {
         week_up: act_week > prev_week ? 'up' : 'down',
         month_up: act_month > prev_month ? 'up' : 'down'
       }
-    }, this._data.system, ['moment', 'format-percent']).subscribe(result => {
+    }, {
+      rows: this._data.system,
+      formatDate: this._config.config.system.S1.formatDate
+    }, ['moment', 'format-percent']).subscribe(result => {
       // Render DOM
       this.percents.next(result)
       this.SystemAvailabilityRows.next(result.rows)

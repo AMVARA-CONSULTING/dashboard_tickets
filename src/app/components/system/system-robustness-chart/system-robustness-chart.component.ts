@@ -85,11 +85,11 @@ export class SystemRobustnessChartComponent implements OnChanges {
   xAxisFormatting = val => {
     switch (this.type) {
       case "daily":
-        return moment(val, 'YYYY[M]MM[D]DD').locale('de').format('DD/MM/YYYY')
+        return moment(val, 'YYYY[M]MM[D]DD').format('DD/MM/YYYY')
       case "monthly":
         return moment(val, 'YYYY[M]MM').locale('de').format('MMM YYYY')
       case "weekly":
-        return moment(val, 'YYYY[W]w').locale('de').format('DD/MM/YYYY')
+        return moment(val, 'YYYY[W]w').format('DD/MM/YYYY')
     }
   }
 
