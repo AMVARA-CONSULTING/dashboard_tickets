@@ -50,7 +50,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       filter(val => val != null && val.titles[0] == this._config.config.system.titles.S5),
       distinctUntilChanged()
     ).subscribe(titleChanged => {
-      
+      console.log(titleChanged)
       switch(titleChanged.titles.length){
         case 2: 
           this.resetData();
@@ -68,142 +68,68 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
             break;
           }
     })
-    //console.log("webWorker Start: "+performance.now())
-    this._worker.run<any>((data: PIRData) => {
-    var csvdata = data.tickets;
-    csvdata = csvdata.filter(type => type[0] == 'S5');
+    this.resetData()
+  }
+
+  changeData(event?){  
+    // Check if it's first drill or second drill
+    var csvdata = this._data.system.filter(type => type[0] == 'S5')
+    csvdata = csvdata.filter(type => type[7] == event.extra.service);
+    if (event.extra.drill == 'second') {
+      csvdata = csvdata.filter(type => type[8] == event.series);
+    }
+    if (event.extra.drill == 'first') {
+      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.external)
+    } else {
+      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.classification)
+    }
+    switch (event.extra.drill) {
+      case "first":
+        this._holder.titles.next([this._config.config.system.titles.S5, event.extra.service])
+        break
+      case "second":
+        this._holder.titles.next(this._holder.titles.getValue().concat([event.series]))
+        break
+    }
     var newData = []
-    csvdata = classifyByIndex(csvdata, data.configColumns.description)
-    //console.log(csvdata);
-    for(let key in csvdata){
+    for ( let key in csvdata ) {
       let incidentTickets = 0;
       let wipTickets = 0;
       let sleepTickets = 0;
-      let assignedTickets = 0; 
+      let assignedTickets = 0;
       for (let i = 0; i < csvdata[key].length; i++){
         incidentTickets = incidentTickets + csvdata[key][i][2];
         wipTickets = wipTickets + csvdata[key][i][3];
         sleepTickets = sleepTickets + csvdata[key][i][4];
         assignedTickets = assignedTickets + csvdata[key][i][5];
       }
-      let pushedData =  {"name": key, "series": [
-                        {"name": "Incident", "value": incidentTickets, "extra": {"drill": "first", "service": key}},
-                        {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
-                        {"name": "WIP", "value": wipTickets, "extra": {"drill": "first", "service": key}},
-                        {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "first", "service": key}},
-                        {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "first", "service": key}}]
-                        };
+      let pushedData =  {
+        name: key,
+        series: [
+          { name: "Incident", value: incidentTickets, extra: { drill: "second", service: event.extra.service } },
+          { name: "", value: "", extra: { drill: "first", service: key } },
+          { name: "WIP", value: wipTickets, extra: { drill: "second", service: event.extra.service } },
+          { name: "Sleep", value: sleepTickets, extra: { drill: "second", service: event.extra.service } },
+          { name: "Assigned", value: assignedTickets, extra: { drill: "second", service: event.extra.service } }
+        ]
+      };
       newData.push(pushedData);
-      }
-      return newData;
-    }, {
-      tickets: this._data.system,
-      configColumns: Object.assign({}, this._config.config.columns)
-    } as PIRData, ['classify-by-index']).subscribe(resultado =>{
-      //console.log("ChartData log: ") 
-      //console.log(resultado);
-      //console.log("webWorker End: "+performance.now())
-      //console.log(this._scroller)
-      this._scroller.bars.next(
-        resultado.length
-      )
-      this.chartData.next(
-        resultado
-      )
-      this._scroller.barsWidth.next(
-        50
-      )
-    })
-  }
-
-  changeData(event){  
-    // Check if it's first drill or second drill
-    if(event.extra.drill == 'first'){
-
-      //console.log(event);
-
-      var csvdata = this._data.system;
-      csvdata = csvdata.filter(type => type[7] == event.series);
-      var newData = []
-      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.external)
-
-      this._holder.titles.next([this._config.config.system.titles.S5, event.extra.service])
-
-      for(let key in csvdata){
-        let incidentTickets = 0;
-        let wipTickets = 0;
-        let sleepTickets = 0;
-        let assignedTickets = 0; 
-        for (let i = 0; i < csvdata[key].length; i++){
-          incidentTickets = incidentTickets + csvdata[key][i][2];
-          wipTickets = wipTickets + csvdata[key][i][3];
-          sleepTickets = sleepTickets + csvdata[key][i][4];
-          assignedTickets = assignedTickets + csvdata[key][i][5];
-        }
-        let pushedData =  {"name": key, "series": [
-                          {"name": "Incident", "value": incidentTickets, "extra": {"drill": "second", "service": event.extra.service}},
-                          {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
-                          {"name": "WIP", "value": wipTickets, "extra": {"drill": "second", "service": event.extra.service}},
-                          {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "second", "service": event.extra.service}},
-                          {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "second", "service": event.extra.service}}]
-                          };
-        newData.push(pushedData);
-        }
-        this.chartData.next(
-          newData
-        )
-        this._scroller.bars.next(
-          newData.length
-        )
-        this._scroller.barsWidth.next(
-          80
-        )
-    } else if (event.extra.drill == 'second'){
-      //console.log(event)
-      var csvdata = this._data.system;
-      csvdata = csvdata.filter(type => type[7] == event.extra.service);
-      var newData = []
-      csvdata = csvdata.filter(type => type[8] == event.series);
-      csvdata = this.classifyByIndex(csvdata, this._config.config.columns.classification)
-      this._holder.titles.next(this._holder.titles.getValue().concat([event.series]))
-      for(let key in csvdata){
-        let incidentTickets = 0;
-        let wipTickets = 0;
-        let sleepTickets = 0;
-        let assignedTickets = 0; 
-        for (let i = 0; i < csvdata[key].length; i++){
-          incidentTickets = incidentTickets + csvdata[key][i][2];
-          wipTickets = wipTickets + csvdata[key][i][3];
-          sleepTickets = sleepTickets + csvdata[key][i][4];
-          assignedTickets = assignedTickets + csvdata[key][i][5];
-        }
-        let pushedData =  {"name": key, "series": [
-                          {"name": "Incident", "value": incidentTickets, "extra": {"drill": "third", "service": event.extra.service}},
-                          {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
-                          {"name": "WIP", "value": wipTickets, "extra": {"drill": "third", "service": event.extra.service}},
-                          {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "third", "service": event.extra.service}},
-                          {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "third", "service": event.extra.service}}]
-                          };
-        newData.push(pushedData);
-        }
-        this.chartData.next(
-          newData
-        )
-        this._scroller.bars.next(
-          newData.length
-        )
-        this._scroller.barsWidth.next(
-          100
-        )
     }
- }
+    this.chartData.next(
+      newData
+    )
+    this._scroller.bars.next(
+      newData.length
+    )
+    this._scroller.barsWidth.next(
+      80
+    )
+  }
  
  resetData(){
-  var csvdata = this._data.system;
-  csvdata = csvdata.filter(type => type[0] == 'S5');
+  var csvdata = this._data.system.filter(type => type[0] == 'S5')
   var newData = []
   csvdata = this.classifyByIndex(csvdata, this._config.config.columns.description)
-  //console.log(csvdata);
   for(let key in csvdata){
     let incidentTickets = 0;
     let wipTickets = 0;
@@ -215,12 +141,12 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       sleepTickets = sleepTickets + csvdata[key][i][4];
       assignedTickets = assignedTickets + csvdata[key][i][5];
     }
-    let pushedData =  {"name": key, "series": [
-                      {"name": "Incident", "value": incidentTickets, "extra": {"drill": "first", "service": key}},
-                      {"name": "", "value": "", "extra": {"drill": "first", "service": key}},
-                      {"name": "WIP", "value": wipTickets, "extra": {"drill": "first", "service": key}},
-                      {"name": "Sleep", "value": sleepTickets, "extra": {"drill": "first", "service": key}},
-                      {"name": "Assigned", "value": assignedTickets, "extra": {"drill": "first", "service": key}}]
+    let pushedData =  {name: key, "series": [
+                      {name: "Incident", value: incidentTickets, extra: {drill: "first", service: key}},
+                      {name: "", value: "", extra: {drill: "first", service: key}},
+                      {name: "WIP", value: wipTickets, extra: {drill: "first", service: key}},
+                      {name: "Sleep", value: sleepTickets, extra: {drill: "first", service: key}},
+                      {name: "Assigned", value: assignedTickets, extra: {drill: "first", service: key}}]
                       };
     newData.push(pushedData);
   }
@@ -248,12 +174,6 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   showYAxis = true;
   gradient = false;
   showLegend = false;
-  showXAxisLabel = false;
-  showYAxisLabel = false;
-  xAxisLabel = 'test';
-  yAxisLabel = 'test';
-  legend = true;
-  legendTitle = '';
   colorScheme = {
     domain: ['#00bcd4','lightgrey', '#ffb74d', '#7e57c2', '#039be5']
   }

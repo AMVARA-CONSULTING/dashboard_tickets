@@ -4,12 +4,9 @@
             [results]="chartData | async"
             [xAxis]="showXAxis"
             [yAxis]="showYAxis"
-            [legend]="false"
-            [legendTitle]="legendTitle"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
             [scheme]="colorScheme"
             [barPadding]="3"
+            [showGridLines]="false"
             [groupPadding]="15"
             (select)="changeData($event)" >
         </ngx-charts-bar-vertical-2d>
