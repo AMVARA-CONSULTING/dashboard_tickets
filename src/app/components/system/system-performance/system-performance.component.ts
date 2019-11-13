@@ -95,6 +95,7 @@ export class SystemPerformanceComponent implements OnInit {
   showXAxisLabel = true;
   innerPadding = '10%';
   animations: boolean = true;
+
   // Graph colors and config
   lineChartScheme = {
     name: 'coolthree',
