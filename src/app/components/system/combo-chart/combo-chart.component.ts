@@ -158,7 +158,7 @@ import {
     @Input() xAxisLabel;
     @Input() yAxisLabel;
     @Input() yAxisLabelRight;
-    @Input() tooltipDisabled: boolean = false;
+    @Input() tooltipDisabled: boolean = true;
     @Input() gradient: boolean;
     @Input() showGridLines: boolean = true;
     @Input() activeEntries: any[] = [];

@@ -65,7 +65,7 @@ import {
     @Input() xScale;
     @Input() yScale;
     @Input() colors;
-    @Input() tooltipDisabled: boolean = false;
+    @Input() tooltipDisabled: boolean = true;
     @Input() gradient: boolean;
     @Input() activeEntries: any[];
     @Input() seriesName: string;

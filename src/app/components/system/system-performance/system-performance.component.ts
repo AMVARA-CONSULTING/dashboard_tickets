@@ -50,22 +50,21 @@ export class SystemPerformanceComponent implements OnInit {
       var barData = []
       var linesData = []
       for(let key in csvdata){
-
+        // Lines data pushing
         let pushedData = {
           name: csvdata[key][1],
           value: csvdata[key][3]
         }
         linesData.push(pushedData);
-
-
+        // Bar data pushing
         let barsPush = {
           "name": csvdata[key][1],
-          "value": 55500
+          "value": csvdata[key][2]
         }
         barData.push(barsPush);
-
       }
       newData.push(barData);
+      // Formatting the lines data
       newData.push([
         {
           "name": 'Average Silt',
@@ -77,50 +76,26 @@ export class SystemPerformanceComponent implements OnInit {
         tickets: this._data.system,
         configColumns: Object.assign({}, this._config.config.columns)
       } as PIRData, ['classify-by-index']).subscribe(resultado =>{
-        console.log("S4 log: ")
-        console.log("SeriesData:", resultado[1])
-        var test = [
-          {
-            name: 'USA',
-            value: 50000
-          },
-          {
-            name: 'United Kingdom',
-            value: 30000
-          },
-          {
-            name: 'France',
-            value: 10000
-          },
-          {
-            name: 'Japan',
-            value: 5000
-          },
-          {
-            name: 'China',
-            value: 500
-          },
-          {
-            name: 'Españita',
-            value: 9000
-          }
-        ];
-        console.log("Test:", test)
+        console.log("barData:", resultado[0])
+        // Pushing into chart
         this.chartData.next(
           resultado[0]
         )
-        console.log("ChartData:", resultado[0])
-        this.seriesData.next(resultado[1])
+        console.log("seriesData:", resultado[1])
+        // Pushing into chart
+        this.seriesData.next(
+          resultado[1]
+        )
       })
   }
-
+  // Chart data
   showXAxis = true;
   showYAxis = true;
   showLegend = true;
   showXAxisLabel = true;
   innerPadding = '10%';
   animations: boolean = true;
-
+  // Graph colors and config
   lineChartScheme = {
     name: 'coolthree',
     selectable: true,
@@ -136,8 +111,6 @@ export class SystemPerformanceComponent implements OnInit {
   };
 
 }
-
-
 
 export interface PIRData {
   tickets: any[]

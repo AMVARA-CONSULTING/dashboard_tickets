@@ -122,7 +122,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
       newData.length
     )
     this._scroller.barsWidth.next(
-      80
+      100
     )
   }
  
