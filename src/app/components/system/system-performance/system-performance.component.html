@@ -1,1 +1,9 @@
-<p>system performance works!</p>
+<combo-chart-component
+    [scheme]="comboBarScheme"
+    [colorSchemeLine]="lineChartScheme"
+    [results]="chartData | async"
+    [lineChart]="seriesData | async"
+    [showGridLines]="false"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis">
+</combo-chart-component>

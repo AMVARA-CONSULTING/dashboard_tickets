@@ -50,44 +50,74 @@ export class SystemPerformanceComponent implements OnInit {
       var barData = []
       var linesData = []
       for(let key in csvdata){
-        console.log('csvdata tests');
-        console.log(csvdata[key][1]);
-        console.log(csvdata[key][2]);
-        let pushedData =  {"name": 'Average Silt', "series": [
-          {"name": csvdata[key][1], "value": csvdata[key][3]}]
-          };
+
+        let pushedData = {
+          name: csvdata[key][1],
+          value: csvdata[key][3]
+        }
         linesData.push(pushedData);
-        let barsPush =  {"name": csvdata[key][1], "series": [
-          {"name": csvdata[key][1], "value": csvdata[key][2]}]
-          };
+
+
+        let barsPush = {
+          "name": csvdata[key][1],
+          "value": 55500
+        }
         barData.push(barsPush);
+
       }
-      newData.push(linesData);
       newData.push(barData);
+      newData.push([
+        {
+          "name": 'Average Silt',
+          "series": linesData
+        }
+      ]);
       return newData;
       }, {
         tickets: this._data.system,
         configColumns: Object.assign({}, this._config.config.columns)
       } as PIRData, ['classify-by-index']).subscribe(resultado =>{
         console.log("S4 log: ")
-        console.log(resultado[0])
-        console.log(resultado[1])
+        console.log("SeriesData:", resultado[1])
+        var test = [
+          {
+            name: 'USA',
+            value: 50000
+          },
+          {
+            name: 'United Kingdom',
+            value: 30000
+          },
+          {
+            name: 'France',
+            value: 10000
+          },
+          {
+            name: 'Japan',
+            value: 5000
+          },
+          {
+            name: 'China',
+            value: 500
+          },
+          {
+            name: 'Españita',
+            value: 9000
+          }
+        ];
+        console.log("Test:", test)
         this.chartData.next(
-          resultado[1]
-        )
-        this.seriesData.next(
           resultado[0]
         )
+        console.log("ChartData:", resultado[0])
+        this.seriesData.next(resultado[1])
       })
   }
 
-  view = [1200,600];
   showXAxis = true;
   showYAxis = true;
-  gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  showGridLines = true;
   innerPadding = '10%';
   animations: boolean = true;
 
@@ -95,14 +125,14 @@ export class SystemPerformanceComponent implements OnInit {
     name: 'coolthree',
     selectable: true,
     group: 'Ordinal',
-    domain: ['#01579b', '#7aa3e5', '#a8385d', '#00bfa5']
+    domain: ['#ffb74d']
   };
 
   comboBarScheme = {
     name: 'singleLightBlue',
     selectable: true,
     group: 'Ordinal',
-    domain: ['#01579b']
+    domain: ['#00bcd4']
   };
 
 }

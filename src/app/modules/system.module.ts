@@ -13,6 +13,7 @@ import { SystemRobustnessComponent } from '../components/system/system-robustnes
 import { SystemRobustnessChartComponent } from '../components/system/system-robustness-chart/system-robustness-chart.component';
 import { SystemTicketColorsComponent } from '../components/system/system-ticket-colors/system-ticket-colors.component';
 import { SystemRootCauseComponent } from '@components/system/system-root-cause/system-root-cause.component';
+import { ComboChartComponent, ComboSeriesVerticalComponent } from '../components/system/combo-chart';
 
 const systemRoutes: Routes = [
   {
@@ -36,7 +37,9 @@ const systemRoutes: Routes = [
     SystemTicketColorsComponent,
     SystemPerformanceComponent,
     OverviewManagementComponent,
-    SystemRootCauseComponent
+    SystemRootCauseComponent,
+    ComboChartComponent,
+    ComboSeriesVerticalComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),
