@@ -21,6 +21,7 @@ export class SystemRootCauseComponent implements OnInit {
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
     this._holder.titles.next([this._config.config.system.titles.S3])
+    this.ie = this._tools.isIE()
   }
 
   ngOnInit() {
@@ -46,5 +47,7 @@ export class SystemRootCauseComponent implements OnInit {
   }
 
   chartData = new BehaviorSubject<KeyPair[]>([])
+
+  ie = false
 
 }

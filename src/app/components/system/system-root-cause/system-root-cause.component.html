@@ -1,5 +1,8 @@
-<ngx-charts-tree-map
+<ngx-charts-tree-map *ngIf="!ie; else ieTemplate"
     [scheme]="colorScheme"
     [valueFormatting]="valueFormatting"
     [results]="chartData | async">
 </ngx-charts-tree-map>
+<ng-template #ieTemplate>
+    
+</ng-template>
