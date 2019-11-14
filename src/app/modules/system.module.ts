@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { SystemWrapperComponent } from '@components/pages/system-wrapper/system-wrapper.component';
@@ -14,6 +14,7 @@ import { SystemRobustnessChartComponent } from '@components/system/system-robust
 import { SystemTicketColorsComponent } from '@components/system/system-ticket-colors/system-ticket-colors.component';
 import { SystemRootCauseComponent } from '@components/system/system-root-cause/system-root-cause.component';
 import { ComboChartComponent, ComboSeriesVerticalComponent } from '@components/system/combo-chart';
+import { CustomTreeMapComponent, CustomTreeMapCellComponent, CustomTreeMapCellSeriesComponent } from '@components/system/system-root-cause/tree-map';
 
 const systemRoutes: Routes = [
   {
@@ -39,12 +40,18 @@ const systemRoutes: Routes = [
     OverviewManagementComponent,
     SystemRootCauseComponent,
     ComboChartComponent,
-    ComboSeriesVerticalComponent
+    ComboSeriesVerticalComponent,
+    CustomTreeMapComponent,
+    CustomTreeMapCellComponent,
+    CustomTreeMapCellSeriesComponent
   ],
   imports: [
     RouterModule.forChild(systemRoutes),
     SharedModule,
     CommonModule
+  ],
+  schemas: [
+    NO_ERRORS_SCHEMA
   ],
   exports: []
 })
