@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '@services/data.service';
 
 @Component({
@@ -6,13 +6,10 @@ import { DataService } from '@services/data.service';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent implements OnInit {
+export class LoaderComponent {
 
   constructor(
     public data: DataService
   ) { }
-
-  ngOnInit() {
-  }
 
 }

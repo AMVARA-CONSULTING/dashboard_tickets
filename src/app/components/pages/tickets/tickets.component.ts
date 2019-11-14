@@ -3,16 +3,16 @@ import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { ToolsService } from 'app/tools.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { ReportsService } from '@services/reports.service';
 import memo from 'memo-decorator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Ticket } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
 import { DateParsePipe } from '@pipes/date-parse.pipe';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
   selector: 'cism-tickets',
@@ -31,9 +31,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     private bottomSheet: MatBottomSheet,
     private ac: ActivatedRoute,
     private router: Router,
-    private tools: ToolsService,
     private ref: ChangeDetectorRef,
-    private reports: ReportsService,
     private parsePipe: DateParsePipe
   ) {
     this.ticketsLength = new BehaviorSubject<number>(0)
@@ -212,7 +210,6 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     })
     ref.instance.success.subscribe(success => {
       if (success.success) {
-        const text = success.solveText
         const id = success.id
         const tickets = this.tickets.data
         const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
@@ -247,7 +244,7 @@ export class SolveTicket {
     this.success = new Subject<{ id: number, success: boolean, solveText: string }>()
   }
 
-  solveText: string = ''
+  solveText = new BehaviorSubject<string>('')
 
   close(): void {
     this.success.next({ id: 0, success: false, solveText: '' })
@@ -256,7 +253,7 @@ export class SolveTicket {
   }
 
   solve(): void {
-    this.success.next({ id: this.ticket[this.config.config.columns.id], success: true, solveText: this.solveText })
+    this.success.next({ id: this.ticket[this.config.config.columns.id], success: true, solveText: this.solveText.getValue() })
     this.success.complete()
     this.bottomSheetRef.dismiss()
   }

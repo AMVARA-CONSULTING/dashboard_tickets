@@ -4,7 +4,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,15 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTooltipModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule,
     CommonModule
   ],
   exports: [
     NgxChartsModule,
     MatTooltipModule,
     MatSelectModule,
-    MatFormFieldModule,
-    ReactiveFormsModule
+    MatFormFieldModule
   ]
 })
 export class SharedModule { }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfigService } from '@services/config.service';
-import { Subscription } from 'rxjs';
+import { Subscription } from 'rxjs/internal/Subscription';
 import { DataService } from '@services/data.service';
 
 declare const moment: any
@@ -16,7 +16,6 @@ export class StackedComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private _config: ConfigService,
     private data: DataService,
     private ref: ChangeDetectorRef
   ) { }

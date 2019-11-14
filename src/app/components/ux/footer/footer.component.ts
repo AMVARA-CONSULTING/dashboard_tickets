@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ConfigService } from '@services/config.service';
 
 @Component({
@@ -7,13 +7,10 @@ import { ConfigService } from '@services/config.service';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   constructor(
     public config: ConfigService
   ) { }
-
-  ngOnInit() {
-  }
 
 }

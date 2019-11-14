@@ -1,16 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, Input, OnDestroy, } from '@angular/core';
-import { ToolsService } from 'app/tools.service';
+import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
+import { ToolsService } from '@services/tools.service';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { WorkerService } from '@services/worker.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
-import { SystemGraphicHolderComponent } from '../system-graphic-holder/system-graphic-holder.component';
+import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { filter } from 'rxjs/internal/operators/filter';
-import { distinctUntilChanged } from 'rxjs/operators';
-
-declare const classifyByIndex: any
 
 @Component({
   selector: 'cism-system-performance',
@@ -43,7 +38,7 @@ export class SystemPerformanceComponent implements OnInit {
     }
 
   ngOnInit() {
-    this._worker.run<any>((data: PIRData) => {
+    /* this._worker.run<any>((data: PIRData) => {
       var csvdata = data.tickets;
       csvdata = csvdata.filter(type => type[0] == 'S4');
       var newData = []
@@ -86,7 +81,7 @@ export class SystemPerformanceComponent implements OnInit {
         this.seriesData.next(
           resultado[1]
         )
-      })
+      }) */
   }
   // Chart data
   showXAxis = true;

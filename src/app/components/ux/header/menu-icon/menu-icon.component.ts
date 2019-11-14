@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cism-menu-icon',
@@ -6,11 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./menu-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MenuIconComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class MenuIconComponent {
 
 }

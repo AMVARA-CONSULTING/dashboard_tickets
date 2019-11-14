@@ -1,11 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
 import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { List } from 'immutable';
 import { ClassificationGroup } from '@other/interfaces';
 
 @Component({
@@ -14,7 +13,7 @@ import { ClassificationGroup } from '@other/interfaces';
   styleUrls: ['./classification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ClassificationComponent implements OnInit, OnDestroy {
+export class ClassificationComponent implements OnDestroy {
 
   private unsubscribe$ = new Subject<void>()
 
@@ -38,9 +37,6 @@ export class ClassificationComponent implements OnInit, OnDestroy {
 
   type: string = ''
   filter: string = ''
-
-  ngOnInit() {
-  }
 
   rollup() {
     const month = this.data.month.getValue().month

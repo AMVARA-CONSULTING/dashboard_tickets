@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
-import { ToolsService } from 'app/tools.service';
+import { ToolsService } from '@services/tools.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 declare const moment: any
 
@@ -14,9 +15,8 @@ declare const moment: any
 export class MonthSelectorComponent implements OnInit {
 
   constructor(
-    private data: DataService,
+    public data: DataService,
     public config: ConfigService,
-    private tools: ToolsService,
     private ref: ChangeDetectorRef
   ) {
     const months = []
@@ -26,10 +26,10 @@ export class MonthSelectorComponent implements OnInit {
     this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()
     // this.tools.log('Month Selector', 'Available months:', this.data.availableMonths)
     // this.tools.log('Month Selector', 'Available months after filter:', months)
-    this.currentMonth = months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
+    this.currentMonth.next(months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0])
     this.months = months
     this.data.month.subscribe(month => {
-      this.currentMonth = month.month
+      this.currentMonth.next(month.month)
     })
   }
 
@@ -42,7 +42,7 @@ export class MonthSelectorComponent implements OnInit {
     })
   }
 
-  currentMonth: string = ''
+  currentMonth = new BehaviorSubject<string>('')
 
   months = []
 

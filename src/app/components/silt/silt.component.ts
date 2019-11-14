@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 declare var humanizeDuration: any
 
@@ -10,7 +11,7 @@ declare var humanizeDuration: any
   styleUrls: ['./silt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SiltComponent implements OnInit, OnDestroy {
+export class SiltComponent implements OnDestroy {
 
   constructor(
     private data: DataService,
@@ -24,9 +25,6 @@ export class SiltComponent implements OnInit, OnDestroy {
   }
 
   monthSubscription: Subscription
-
-  ngOnInit() {
-  }
 
   ngOnDestroy() {
     if (this.monthSubscription) this.monthSubscription.unsubscribe()

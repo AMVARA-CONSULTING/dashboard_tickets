@@ -1,10 +1,10 @@
 <mat-form-field class="view-selector" appearance="outline">
-    <mat-select [formControl]="view">
+    <mat-select [value]="view | async" (selectionChange)="view.next($event.value)">
         <mat-option value="daily">Daily</mat-option>
         <mat-option value="weekly">Weekly</mat-option>
         <mat-option value="monthly" selected>Monthly</mat-option>
     </mat-select>
 </mat-form-field>
 <cism-system-scroller>
-    <cism-system-robustness-chart [type]="view.value"></cism-system-robustness-chart>
+    <cism-system-robustness-chart [type]="view | async"></cism-system-robustness-chart>
 </cism-system-scroller>

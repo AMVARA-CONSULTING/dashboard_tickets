@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cism-color',
@@ -6,12 +6,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
   styleUrls: ['./color.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class ColorComponent {
 
   @Input() color: string = ''
   @Input() name: string = ''

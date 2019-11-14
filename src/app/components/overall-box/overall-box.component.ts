@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -9,7 +9,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
   styleUrls: ['./overall-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OverallBoxComponent implements OnInit {
+export class OverallBoxComponent {
 
   constructor(
     private data: DataService,
@@ -20,9 +20,6 @@ export class OverallBoxComponent implements OnInit {
       const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
       this.total$.next(total.toLocaleString(this.config.config.language))
     })
-  }
-
-  ngOnInit() {
   }
 
   total$: BehaviorSubject<string>

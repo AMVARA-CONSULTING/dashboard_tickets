@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AboutComponent } from './components/pages/about/about.component';
-import { MainComponent } from './components/pages/main/main.component';
-import { HelpComponent } from './components/pages/help/components/help/help.component';
+import { AboutComponent } from '@components/pages/about/about.component';
+import { MainComponent } from '@components/pages/main/main.component';
+import { HelpComponent } from '@components/pages/help/components/help/help.component';
 import { TicketsComponent } from '@components/pages/tickets/tickets.component';
 
 const routes: Routes = [
@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'system',
-    loadChildren: () => import('./modules/system.module').then(m => m.SystemModule)
+    loadChildren: () => import('@modules/system.module').then(m => m.SystemModule)
   },
   {
     path: "about", component: AboutComponent

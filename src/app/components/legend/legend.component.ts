@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cism-legend',
@@ -6,11 +6,6 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./legend.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LegendComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class LegendComponent {
 
 }

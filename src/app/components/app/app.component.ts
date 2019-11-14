@@ -4,11 +4,9 @@ import { ConfigService } from '@services/config.service';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
-import { ToolsService } from 'app/tools.service';
+import { ToolsService } from '@services/tools.service';
 import memo from 'memo-decorator';
-import { interval } from 'rxjs';
-
-declare const moment: any
+import { interval } from 'rxjs/internal/observable/interval';
 
 @Component({
   selector: 'cism-root',

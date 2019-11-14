@@ -2,7 +2,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // Angular Material
@@ -25,46 +24,46 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AppRoutingModule } from './app-routing.module';
 
 // Components
-import { AppComponent } from './components/app/app.component';
-import { HeaderComponent } from './components/ux/header/header.component';
-import { FooterComponent } from './components/ux/footer/footer.component';
-import { MenuIconComponent } from './components/ux/header/menu-icon/menu-icon.component';
-import { AboutComponent } from './components/pages/about/about.component';
-import { MainComponent, DataNotFound } from './components/pages/main/main.component';
-import { MonthSelectorComponent } from './components/month-selector/month-selector.component';
-import { OverallBoxComponent } from './components/overall-box/overall-box.component';
-import { TicketsComponent, SolveTicket } from './components/pages/tickets/tickets.component';
-import { ClassificationComponent } from './components/classification/classification.component';
-import { StadisticBoxComponent } from './components/stadistic-box/stadistic-box.component';
-import { StackedComponent } from './components/graphics/stacked/stacked.component';
-import { LegendComponent } from './components/legend/legend.component';
-import { ColorComponent } from './components/legend/color/color.component';
-import { SiltComponent } from './components/silt/silt.component';
-import { LimitTextPipe } from './pipes/limit-text.pipe';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { AppComponent } from '@components/app/app.component';
+import { HeaderComponent } from '@components/ux/header/header.component';
+import { FooterComponent } from '@components/ux/footer/footer.component';
+import { MenuIconComponent } from '@components/ux/header/menu-icon/menu-icon.component';
+import { AboutComponent } from '@components/pages/about/about.component';
+import { MainComponent, DataNotFound } from '@components/pages/main/main.component';
+import { MonthSelectorComponent } from '@components/month-selector/month-selector.component';
+import { OverallBoxComponent } from '@components/overall-box/overall-box.component';
+import { TicketsComponent, SolveTicket } from '@components/pages/tickets/tickets.component';
+import { ClassificationComponent } from '@components/classification/classification.component';
+import { StadisticBoxComponent } from '@components/stadistic-box/stadistic-box.component';
+import { StackedComponent } from '@components/graphics/stacked/stacked.component';
+import { LegendComponent } from '@components/legend/legend.component';
+import { ColorComponent } from '@components/legend/color/color.component';
+import { SiltComponent } from '@components/silt/silt.component';
+import { LimitTextPipe } from '@pipes/limit-text.pipe';
+import { SidenavComponent } from '@components/sidenav/sidenav.component';
 
 // Services
-import { ConfigService } from './services/config.service';
-import { DataService } from './services/data.service';
-import { ToolsService } from './tools.service';
+import { ConfigService } from '@services/config.service';
+import { DataService } from '@services/data.service';
+import { ToolsService } from '@services/tools.service';
 import { ReportsService } from '@services/reports.service';
 
 // Plugins
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CismPaginatorIntl } from './paginator-intl';
-import { LoaderComponent } from './components/loader/loader.component';
-import { ToStringPipe } from './pipes/to-string.pipe';
+import { LoaderComponent } from '@components/loader/loader.component';
+import { ToStringPipe } from '@pipes/to-string.pipe';
 import { MatSortModule } from '@angular/material/sort';
-import { GroupByPipe } from './pipes/group-by.pipe';
-import { RuPipe } from './pipes/ru.pipe';
-import { DateFormatPipe } from './pipes/date-format.pipe';
-import { DateParsePipe } from './pipes/date-parse.pipe';
-import { DateLocalePipe } from './pipes/date-locale.pipe';
-import { DateAgoPipe } from './pipes/date-ago.pipe';
-import { ReportInfoComponent } from './components/report-info/report-info.component';
+import { GroupByPipe } from '@pipes/group-by.pipe';
+import { RuPipe } from '@pipes/ru.pipe';
+import { DateFormatPipe } from '@pipes/date-format.pipe';
+import { DateParsePipe } from '@pipes/date-parse.pipe';
+import { DateLocalePipe } from '@pipes/date-locale.pipe';
+import { DateAgoPipe } from '@pipes/date-ago.pipe';
+import { ReportInfoComponent } from '@components/report-info/report-info.component';
 import { APP_BASE_HREF } from '@angular/common';
-import { FixFilterPipe } from './pipes/fix-filter.pipe';
+import { FixFilterPipe } from '@pipes/fix-filter.pipe';
 import { SharedModule } from '@modules/shared.module';
 import { WorkerService } from '@services/worker.service';
 
@@ -125,7 +124,6 @@ export function createTranslateLoader(http: HttpClient) {
     MatTableModule,
     MatSortModule,
     SharedModule,
-    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     TranslateModule.forRoot({

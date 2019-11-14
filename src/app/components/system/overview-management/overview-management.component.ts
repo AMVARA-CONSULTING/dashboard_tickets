@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, OnDestroy} from '@angular/core';
-import { ToolsService } from 'app/tools.service';
+import { ToolsService } from '@services/tools.service';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
-import { SystemGraphicHolderComponent } from '../system-graphic-holder/system-graphic-holder.component';
+import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
+import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter } from 'rxjs/internal/operators/filter';
 import { distinctUntilChanged } from 'rxjs/operators';

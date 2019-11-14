@@ -1,6 +1,6 @@
 <h3>Solve ticket: {{ ticket[this.config.config.columns.subject] }}</h3>
 <mat-form-field class="solve-field">
-  <input matInput [(ngModel)]="solveText" autocomplete="off" spellcheck="false" placeholder="Comments">
+  <input matInput [value]="solveText | async" (change)="solveText.next($event)" autocomplete="off" spellcheck="false" placeholder="Comments">
 </mat-form-field>
 <div mat-dialog-actions class="solve-actions">
   <button mat-button (click)="close()">Cancel</button>

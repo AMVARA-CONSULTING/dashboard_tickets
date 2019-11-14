@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
 import { ConfigService } from '@services/config.service';
-import { SystemGraphicHolderComponent } from '../system-graphic-holder/system-graphic-holder.component';
+import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { KeyPair } from '@other/interfaces';
 import { DataService } from '@services/data.service';
-import { ToolsService } from 'app/tools.service';
+import { ToolsService } from '@services/tools.service';
 
 @Component({
   selector: 'cism-system-root-cause',

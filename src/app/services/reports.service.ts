@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { DataService } from './data.service';
-import { ConfigService } from './config.service';
-import { ToolsService } from 'app/tools.service';
+import { DataService } from '@services/data.service';
+import { ConfigService } from '@services/config.service';
+import { ToolsService } from '@services/tools.service';
 import { map, delay } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';

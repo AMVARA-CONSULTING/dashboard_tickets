@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { MatRipple } from '@angular/material/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -12,8 +11,7 @@ import { MatDialogRef, MatDialog } from '@angular/material/dialog';
 export class MainComponent implements OnInit {
 
   constructor(
-    public data: DataService,
-    private _dialog: MatDialog
+    public data: DataService
   ) { }
 
   rows: any[] = []

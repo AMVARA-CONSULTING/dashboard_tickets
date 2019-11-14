@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Host } from '@angula
 import { SAViewType } from '@other/interfaces';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import * as moment from 'moment';
-import { ToolsService } from 'app/tools.service';
-import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
+import { ToolsService } from '@services/tools.service';
+import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { ConfigService } from '@services/config.service';
 
 @Component({
@@ -44,18 +44,21 @@ export class SystemAvailabilityChartComponent implements OnInit {
           r[formattedDate].push(a)
           return r
         }, {})
-        for (const prop in grouped_data) {
-          newData.push({
+        newData = Object.keys(grouped_data).map(prop => {
+          return {
             name: moment(prop, formatToBeUnique).format(formatDate),
             value: this._tools.averageByIndex(grouped_data[prop], 2, true),
             min: this._tools.getMin(grouped_data[prop], 2, true),
             max: this._tools.getMax(grouped_data[prop], 2, true)
-          })
-        }
+          }
+        })
         // this.xAxisLabels.next(this.getLabelsFor(labels))
         // this.translate.next(false)
         break
       default:
+    }
+    if (newData.length > this._config.config.system.unitsPast) {
+      newData = newData.slice(Math.max(newData.length - this._config.config.system.unitsPast, 1))
     }
     let minValue = Math.round(this._tools.getMin(this.data, 2))
     if (minValue > 5) minValue -= 5
@@ -96,7 +99,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
     }
   }
   xAxisFormatting = val => {
-    const momented = moment(val, 'DD/MM/YYYY')
+    const momented = moment(val, this._config.config.system.S2.formatDate)
     switch (this.type) {
       case "daily":
         return val

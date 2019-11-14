@@ -4,27 +4,20 @@ import {
     ViewEncapsulation,
     Output,
     EventEmitter,
-    ChangeDetectionStrategy,
     ViewChild,
     HostListener,
-    OnInit,
-    OnChanges,
     ContentChild,
     TemplateRef
   } from '@angular/core';
-  import { trigger, state, style, animate, transition } from '@angular/animations';
   
   import {
-    NgxChartsModule,
     BaseChartComponent,
-    LineComponent,
     LineSeriesComponent,
     calculateViewDimensions,
     ViewDimensions,
     ColorHelper
   } from '@swimlane/ngx-charts';
   import * as shape from 'd3-shape';
-  import { area, line, curveLinear, curve } from 'd3-shape';
   import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
   
   @Component({
@@ -211,7 +204,7 @@ import {
     yOrientRight = 'right';
     legendSpacing = 0;
     bandwidth;
-    barPadding = 30;
+    barPadding = 8;
   
     trackBy(index, item): string {
       return item.name;

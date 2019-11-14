@@ -1,6 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, OnChanges, ChangeDetectorRef, SimpleChanges } from '@angular/core';
 import { ConfigService } from '@services/config.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'report-info',

@@ -1,13 +1,11 @@
-import { Component, Input, OnChanges, SimpleChanges, Host } from '@angular/core';
+import { Component, Input, OnChanges, Host } from '@angular/core';
 import { SAViewType } from '@other/interfaces';
 import { DataService } from '@services/data.service';
-import { WorkerService } from '@services/worker.service';
-import { BehaviorSubject } from 'rxjs';
-import { SystemScrollerComponent } from '../system-scroller/system-scroller.component';
+import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { ConfigService } from '@services/config.service';
-import { map } from 'rxjs/internal/operators/map';
-
-declare const moment, classifyByIndex: any
+import * as moment from 'moment';
+import { ToolsService } from '@services/tools.service';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -18,60 +16,50 @@ export class SystemRobustnessChartComponent implements OnChanges {
 
   constructor(
     private _data: DataService,
-    private _worker: WorkerService,
     private _config: ConfigService,
+    private _tools: ToolsService,
     @Host() private _scroller: SystemScrollerComponent
   ) { }
 
   ngOnChanges() {
-    // Run WebWorker
-    this._worker.run<any[] | any>(data => {
-      let groups = {}
-      let classifiers = {
-        monthly: 'YYYY[M]MM',
-        daily: 'YYYY[M]MM[D]DD',
-        weekly: 'YYYY[W]w'
-      }
-      // Get rows classified by month, week, or day
-      groups = data.tickets.reduce((r, ticket) => {
-        const momented = moment(ticket[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A'])
-        if (!momented.isValid()) return r
-        const date = momented.format(classifiers[data.view])
-        r[date] = r[date] || []
-        r[date].push(ticket)
-        return r
-      }, {})
-      // Get keys of classifying indexes
-      const keys = Object.keys(groups)
-      // Apply sorting, normally it's done by the browser, by just to make sure
-      keys.sort((a, b) => {
-        const left = moment(a, classifiers[data.view])
-        const right = moment(b, classifiers[data.view])
-        return left.valueOf() - right.valueOf()
-      })
-      const chartData = keys.map( key => {
-        const group = groups[key]
-        groups[key] = classifyByIndex(group, data.columns.type)
-        for (let prop2 in groups[key]) {
-          groups[key][prop2] = groups[key][prop2].length
-        }
-        return {
-          name: key,
-          series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
-        }
-      })
-      return chartData
-    }, {
-      tickets: this._data.allTickets,
-      view: this.type,
-      columns: Object.assign({}, this._config.config.columns)
-    }, ['moment', 'classify']).pipe(
-      // Take only last 12 units, example: months, weeks, days,...
-      map(results => results.slice(Math.max(results.length - this._config.config.system.unitsPast, 1)))
-    ).subscribe(results => {
-      this._scroller.bars.next(results.length)
-      this.data.next(results)
+    let groups = {}
+    let classifiers = {
+      monthly: 'YYYY[M]MM',
+      daily: 'YYYY[M]MM[D]DD',
+      weekly: 'YYYY[W]w'
+    }
+    // Get rows classified by month, week, or day
+    groups = this._data.allTickets.reduce((r, ticket) => {
+      const momented = moment(ticket[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A'])
+      if (!momented.isValid()) return r
+      const date = momented.format(classifiers[this.type])
+      r[date] = r[date] || []
+      r[date].push(ticket)
+      return r
+    }, {})
+    // Get keys of classifying indexes
+    const keys = Object.keys(groups)
+    // Apply sorting, normally it's done by the browser, by just to make sure
+    keys.sort((a, b) => {
+      const left = moment(a, classifiers[this.type])
+      const right = moment(b, classifiers[this.type])
+      return left.valueOf() - right.valueOf()
     })
+    let chartData = keys.map( key => {
+      const group = groups[key]
+      groups[key] = this._tools.classifyByIndex(group, this._config.config.columns.type)
+      for (let prop2 in groups[key]) {
+        groups[key][prop2] = groups[key][prop2].length
+      }
+      return {
+        name: key,
+        series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
+      }
+    })
+    // Take only last 12 units, example: months, weeks, days,...
+    chartData = chartData.slice(Math.max(chartData.length - this._config.config.system.unitsPast, 1))
+    this._scroller.bars.next(chartData.length)
+    this.data.next(chartData)
   }
   
   @Input() type: SAViewType

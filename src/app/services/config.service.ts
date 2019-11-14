@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Config } from '../common/interfaces';
+import { Config } from '@other/interfaces';
 import { HttpClient } from '@angular/common/http';
-import { DataService } from './data.service';
-import { ToolsService } from 'app/tools.service';
+import { DataService } from '@services/data.service';
+import { ToolsService } from '@services/tools.service';
 import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable()

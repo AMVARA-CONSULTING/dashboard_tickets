@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -18,7 +18,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     '[@open]': 'opened'
   }
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent {
 
   constructor(
     private data: DataService
@@ -29,8 +29,5 @@ export class SidenavComponent implements OnInit {
   }
 
   opened: boolean = true
-
-  ngOnInit() {
-  }
 
 }
