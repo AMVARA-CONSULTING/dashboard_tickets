@@ -38,8 +38,8 @@ export class SystemPerformanceComponent implements OnInit {
     }
 
   ngOnInit() {
-    /* this._worker.run<any>((data: PIRData) => {
-      var csvdata = data.tickets;
+
+      var csvdata = this._data.system;
       csvdata = csvdata.filter(type => type[0] == 'S4');
       var newData = []
       var barData = []
@@ -66,23 +66,16 @@ export class SystemPerformanceComponent implements OnInit {
           "series": linesData
         }
       ]);
-      return newData;
-      }, {
-        tickets: this._data.system,
-        configColumns: Object.assign({}, this._config.config.columns)
-      } as PIRData, ['classify-by-index']).subscribe(resultado =>{
-        console.log("barData:", resultado[0])
-        // Pushing into chart
-        this.chartData.next(
-          resultado[0]
-        )
-        console.log("seriesData:", resultado[1])
-        // Pushing into chart
-        this.seriesData.next(
-          resultado[1]
-        )
-      }) */
-  }
+          this.chartData.next(
+            newData[0]
+          )
+          console.log("seriesData:", newData[1])
+          // Pushing into chart
+          this.seriesData.next(
+            newData[1]
+          )
+      }
+
   // Chart data
   showXAxis = true;
   showYAxis = true;
