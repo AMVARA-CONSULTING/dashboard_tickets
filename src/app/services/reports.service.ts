@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import * as moment from 'moment';
@@ -76,17 +76,19 @@ export class ReportsService {
   getReportData(ReportID: string, selector: string, fallback: string): Observable<any[]> {
     return new Observable(observer => {
       if (this.corpintra) {
-        this.http.get(`/analytics/bi/v1/objects/${ReportID}/versions`).subscribe((json: any) => {
-          const nextLink = json.data[0]._meta.links.content.url
-          this.http.get(nextLink, { responseType: 'text' }).subscribe(data => {
-            const rows = this.htmlToJson(data, selector)
-            observer.next(rows)
+        this.http.get(`/analytics/bi/v1/objects/${ReportID}/versions`).pipe(
+          map((json: any) => json.data[0]._meta.links.outputs.url), // Get outputs url
+          switchMap((link: string) => this.http.get(link)), // Return the outputs response json
+          map((json: any) => json.data[0]._meta.links.content.url), // Get the last saved output url
+          switchMap((link: string) => this.http.get(link, { responseType: 'text' })), // Return the content response as HTML
+          map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
+        ).subscribe((json: any) => {
+            observer.next(json)
             observer.complete()
           }, err => {
             observer.error('Couldn\'t fetch json from report.')
             console.log(err)
             observer.complete()
-          })
         })
       } else {
         this.http.get('assets/reports/' + fallback, { responseType: 'text' })
