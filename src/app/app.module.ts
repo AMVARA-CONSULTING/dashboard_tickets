@@ -2,7 +2,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Angular Material
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -66,6 +66,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { FixFilterPipe } from '@pipes/fix-filter.pipe';
 import { SharedModule } from '@modules/shared.module';
 import { WorkerService } from '@services/worker.service';
+import { XSRFInterceptor } from './interceptors/xsrf.interceptor';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -162,6 +163,12 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateService,
     ReportsService,
     WorkerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XSRFInterceptor,
+      deps: [ToolsService],
+      multi: true
+    },
     {
       provide: MatPaginatorIntl,
       useClass: CismPaginatorIntl

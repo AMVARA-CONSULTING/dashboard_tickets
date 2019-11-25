@@ -4,6 +4,8 @@
 /tmp
 /out-tsc
 
+output.log
+
 # dependencies
 /node_modules
 

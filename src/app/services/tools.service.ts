@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import memo from 'memo-decorator';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable()
 export class ToolsService {
 
-  constructor() { }
+  getCookie(name) {
+    const value = "; " + document.cookie
+    const parts = value.split("; " + name + "=")
+    if (parts.length == 2) return parts.pop().split(";").shift()
+  }
 
   log(classe: string, ...args: any[]) {
     const texts = []
@@ -43,7 +45,6 @@ export class ToolsService {
 
   xsrf_token
 
-  @memo((...args: any[]): string => JSON.stringify(args))
   isIE(): boolean {
     const ua = window.navigator.userAgent
     return ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1
