@@ -1,14 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import memo from 'memo-decorator';
+import { ConfigService } from '@services/config.service';
 
 @Pipe({
   name: 'dateLocale'
 })
 export class DateLocalePipe implements PipeTransform {
 
-  @memo((...args: any[]): string => JSON.stringify(args))
-  transform(date: any, lang: string): any {
-    return date.locale(lang)
+  constructor(
+    private _config: ConfigService
+  ) { }
+
+  transform(date: any): any {
+    return date.locale(this._config.config.language)
   }
 
 }

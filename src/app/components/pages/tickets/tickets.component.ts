@@ -1,29 +1,27 @@
-import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, AfterViewInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import memo from 'memo-decorator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Ticket } from '@other/interfaces';
+import { Ticket, Month } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
-import { DateParsePipe } from '@pipes/date-parse.pipe';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Subscription } from 'rxjs/internal/Subscription';
 import { Subject } from 'rxjs/internal/Subject';
+import { combineLatest } from 'rxjs/internal/observable/combineLatest';
+import { ReportsService } from '@services/reports.service';
+import { SubSink } from '@services/tools.service';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'cism-tickets',
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.scss'],
-  providers: [
-    DateParsePipe
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TicketsComponent implements OnInit, OnDestroy {
 
   constructor(
     public data: DataService,
@@ -32,40 +30,48 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     private ac: ActivatedRoute,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private parsePipe: DateParsePipe
+    private _reports: ReportsService
   ) {
-    this.ticketsLength = new BehaviorSubject<number>(0)
-    this.ac.paramMap.subscribe(params => {
-      this.data.loading.next(true)
-      this.type = params.get('type')
-      this.filter = params.get('filter')
-      if (!this.running) this.rollup()
-    })
-    this.monthSubscription = this.data.month.subscribe(_ => {
-      this.data.loading.next(true)
-      if (!this.running) this.rollup()
-    })
+    this.subs.add(
+      combineLatest(this.data.month, this.ac.paramMap)
+        .pipe(
+          distinctUntilChanged()
+        )
+        .subscribe(([month, params]: [Month, ParamMap]) => {
+        this.data.loading.next(true)
+        const type = params.get('type')
+        const filter = params.get('filter')
+        this.data.loading.next(true)
+        const monthIndex = month.index
+        if (!Array.isArray(this.data.tickets[monthIndex])) {
+          this.subs.add(
+            this._reports.getReportData(
+              this.config.config.reports[this.config.config.scenario].months[monthIndex],
+              this.config.config.reports[this.config.config.scenario].monthsSelector,
+              'Mobile_Tickets_List.csv'
+            ).subscribe(data => {
+              this.data.tickets[monthIndex] = data
+              this.rollup(this.data.tickets[monthIndex], type, filter)
+            })
+          )
+        } else {
+          this.rollup(this.data.tickets[monthIndex], type, filter)
+        }
+      })
+    )
   }
 
-  running: boolean = false
-
-  ngAfterViewInit() {
-    setTimeout(_ => this.ref.detectChanges())
-  }
-
-  monthSubscription: Subscription
-  hideClosedSubscription: Subscription
+  subs = new SubSink()
 
   displayedColumns_copy: string[] = []
 
   ngOnDestroy() {
-    if (this.monthSubscription) this.monthSubscription.unsubscribe()
-    if (this.hideClosedSubscription) this.hideClosedSubscription.unsubscribe()
+    this.subs.unsubscribe()
   }
 
   changeViewClick() {
     this.displayedColumns_copy = this.config.config.displayedColumns
-    this.changeView = !this.changeView
+    this.changeView.next(!this.changeView.getValue())
   }
 
   isChecked(column: string): boolean {
@@ -80,10 +86,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-
-
-  fixedWidth: boolean = true
-  percent: number = 0
+  fixedWidth = new BehaviorSubject<boolean>(true)
 
   saveColumns() {
     let allColumns = this.config.config.displayedColumnsOrder
@@ -91,10 +94,8 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('displayedColumns', JSON.stringify(allColumns))
     if (this.config.config.ticketOptions) allColumns.push('options')
     this.config.config.displayedColumns = allColumns
-    this.fixedWidth = allColumns.length > 5
-    this.changeView = false
-    this.tickets.filter = this.hideClosed ? 'Closed' : ''
-    this.data.hideClosed = this.tickets.filter === 'Closed'
+    this.fixedWidth.next(allColumns.length > 5)
+    this.changeView.next(false)
     localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
     setTimeout(_ => this.ref.detectChanges())
   }
@@ -103,81 +104,51 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.hideClosed = e.checked
   }
 
-  pageSizeOptions: number[] = [10, 25, 50, 100]
-
-  page_size: number = 20
-  page_number: number = 1
-
-  @memo((...args: any[]): string => JSON.stringify(args))
   getID(el: any, i: number): number {
     return el.id
   }
 
-  rollup(): void {
-    this.data.loading.next(true)
-    this.running = true
-    const month = this.data.month.getValue()
-    const monthIndex = month.index
-    if (!Array.isArray(this.data.tickets[monthIndex])) {
-      this.data.tickets[monthIndex] = this.data.allTickets.filter(ticket => ticket[this.config.config.columns.month_id] == month.month)
-    }
-    this.rollupPart2(this.data.tickets[monthIndex])
-  }
-
-  rollupPart2(ticketRows): void {
-    if (this.type !== null && this.filter !== null) {
-      if (!this.config.config.columns.hasOwnProperty(this.type)) {
+  rollup(ticketRows, type, filter): void {
+    if (type !== null && filter !== null) {
+      if (!this.config.config.columns.hasOwnProperty(type)) {
         this.data.loading.next(true)
         this.router.navigate(['/'])
         return
       }
-      ticketRows = ticketRows.filter(row => row[this.config.config.columns[this.type]] == this.filter)
+      ticketRows = ticketRows.filter(row => row[this.config.config.columns[type]] == filter)
     }
-    const length = ticketRows.length
-    let newTickets: Ticket[] = []
-    for (let i = 0; i < length; i++) {
+    const newTickets = ticketRows.map(row => {
       let newTicket = {}
       for (let prop in this.config.config.columns) {
-        switch (prop) {
-          case "create_date":
-          case "modify_date":
-            newTicket[prop] = this.parsePipe.transform(ticketRows[i][this.config.config.columns[prop]])
-            break
-          default:
-            newTicket[prop] = ticketRows[i][this.config.config.columns[prop]]
-        }
+        newTicket[prop] = row[this.config.config.columns[prop]]
       }
-      newTickets.push(newTicket as any)
-    }
-    this.tickets.data = newTickets
-    this.ticketsLength.next(newTickets.length)
-    this.percent = parseInt((ticketRows.length * 100 / length).toString(), 10)
+      return newTicket
+    })
+    this.newTickets(newTickets)
     this.data.loading.next(false)
-    this.running = false
+    this.ref.detectChanges()
   }
-
-  type: string
-  filter: string
-
-  column_sorted: string = 'id'
-  direction_sorted: string = ''
-
-  @ViewChild('table', { static: true }) table: MatTable<any>
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
 
   ngOnInit() {
-    this.fixedWidth = this.config.config.displayedColumns.length > 5
-    this.tickets.paginator = this.paginator
-    this.tickets.sort = this.sort
-    this.tickets.filterPredicate = (data: any, filter: string) => {
-      return data.status != filter
-    }
-    this.tickets.filter = this.data.hideClosed ? 'Closed' : ''
+    this.fixedWidth.next(this.config.config.displayedColumns.length > 5)
     this.column_active = localStorage.getItem('column_active') || 'id'
     this.column_direction = localStorage.getItem('column_direction') || 'desc'
     setTimeout(_ => this.ref.markForCheck())
+  }
+
+  newTickets(tickets: Ticket[]) {
+    const source = new MatTableDataSource<Ticket>(tickets)
+    source.paginator = this.paginator
+    source.sort = this.sort
+    source.filterPredicate = (data: any, filter: string) => {
+      return data.status != filter
+    }
+    source.filter = this.hideClosed ? 'Closed' : ''
+    this.ticketsLength.next(tickets.length)
+    this.tickets.next(source)
   }
 
   hideClosed: boolean = true
@@ -189,7 +160,7 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
   byApplication = []
   byStatus = []
 
-  changeView: boolean = false
+  changeView = new BehaviorSubject<boolean>(false)
 
   column_active: string = 'id'
   column_direction: string = 'desc'
@@ -201,32 +172,32 @@ export class TicketsComponent implements OnInit, OnDestroy, AfterViewInit {
     localStorage.setItem('column_direction', e.direction)
   }
 
-  tickets = new MatTableDataSource<Ticket>([])
+  tickets = new BehaviorSubject<MatTableDataSource<Ticket>>(new MatTableDataSource<Ticket>([]))
 
   goSolve(ticket: any): void {
     let ref = this.bottomSheet.open(SolveTicket, {
       panelClass: 'solve-ticket-panel',
       data: ticket
     })
-    ref.instance.success.subscribe(success => {
-      if (success.success) {
-        const id = success.id
-        const tickets = this.tickets.data
-        const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
-        tickets[index][this.config.config.columns.status] = 'Solved'
-        this.tickets.data = tickets
-        this.ticketsLength.next(tickets.length)
-        this.ref.detectChanges()
-      }
-    })
+    this.subs.add(
+      ref.instance.success.subscribe(success => {
+        if (success.success) {
+          const id = success.id
+          const tickets = this.tickets.getValue().data
+          const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
+          tickets[index][this.config.config.columns.status] = 'Solved'
+          this.newTickets(tickets)
+        }
+      })
+    )
   }
 
   removeItem(ticket): void {
-    this.tickets.data = this.tickets.data.filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id])
-    this.ticketsLength.next(this.tickets.data.length)
+    const tickets = this.tickets.getValue().data.filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id])
+    this.newTickets(tickets)
   }
 
-  ticketsLength: BehaviorSubject<number>
+  ticketsLength = new BehaviorSubject<number>(0)
 
 }
 

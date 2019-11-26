@@ -6,6 +6,7 @@ export interface Config {
   readonly contacts: any[];
   readonly appTitle: string;
   readonly languageCodes: any;
+  readonly heartbeat: number
   readonly delayRequests: number,
   readonly changelog: any[];
   readonly copyright: string;
@@ -18,6 +19,9 @@ export interface Config {
   readonly displayedColumnsDefault: string[],
   readonly displayedColumnsOrder: string[],
   readonly ticketOptions: boolean,
+  readonly fullUrl: string
+  readonly portalFolder: string
+  readonly corpintraMode: boolean
   displayedColumns: string[],
   infiniteScroll: boolean;
   negativeBad: boolean | number;
@@ -66,6 +70,11 @@ export interface SystemTitleClick {
   readonly titles: string[]
   readonly nameClicked: string
   readonly indexClicked: number
+}
+
+export interface Month {
+  month: string
+  index: number
 }
 
 export interface Scenarios {

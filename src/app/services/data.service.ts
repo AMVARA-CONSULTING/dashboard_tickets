@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Month } from '@other/interfaces';
 
 @Injectable()
 export class DataService {
@@ -11,7 +12,7 @@ export class DataService {
   }
 
   currentLevel: number
-  month: BehaviorSubject<{ month: string, index: number }>
+  month: BehaviorSubject<Month>
   availableMonths = []
 
   disabledAnimations: boolean = false

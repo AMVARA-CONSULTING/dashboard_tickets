@@ -175,16 +175,9 @@ export function createTranslateLoader(http: HttpClient) {
     },
     {
       provide: APP_INITIALIZER,
-      useFactory: (reportsService: ReportsService) => () => reportsService.loadInitialReport(),
-      deps: [ReportsService, DataService, ConfigService],
+      useFactory: (reportsService: ReportsService) => () => reportsService.load(),
+      deps: [ReportsService, DataService, ConfigService, ToolsService],
       multi: true,
-    },
-    {
-      // This loads the config.json file before the App is initialized
-      provide: APP_INITIALIZER,
-      useFactory: (configService: ConfigService) => () => configService.load(),
-      deps: [ConfigService, DataService, ToolsService],
-      multi: true
     },
     {
       provide: APP_BASE_HREF,

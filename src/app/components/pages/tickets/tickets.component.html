@@ -10,16 +10,16 @@
   <cism-overall-box></cism-overall-box>
   <cism-classification></cism-classification>
 </div>
-<mat-paginator showFirstLastButtons [style.display]="(ticketsLength | async) && !changeView ? 'block' : 'none'"
+<mat-paginator showFirstLastButtons [style.display]="(ticketsLength | async) && !(changeView | async) ? 'block' : 'none'"
   [pageSizeOptions]="data.pagination">
 </mat-paginator>
 <ng-container *ngIf="ticketsLength | async">
-  <div [style.display]="changeView ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
+  <div [style.display]="(changeView | async) ? 'none' : 'block'" (click)="changeViewClick()" matTooltip="Change view"
     matTooltipPosition="above" matTooltipClass="above" matRipple [matRippleColor]="rippleColor" class="change-view">
     <mat-icon>remove_red_eye</mat-icon>
   </div>
 </ng-container>
-<div class="change-view-container" [style.display]="!changeView ? 'none' : 'block'">
+<div class="change-view-container" [style.display]="!(changeView | async) ? 'none' : 'block'">
   <div (click)="changeViewClick()" class="close">X</div>
   <div class="box-title">Ticket view</div>
   <div class="checkboxes">
@@ -34,9 +34,12 @@
   </div>
   <button class="save-changes" (click)="saveColumns()" mat-raised-button>save</button>
 </div>
-<div class="table" [class.fixedWidth]="fixedWidth" [style.display]="changeView ? 'none' : 'block'">
+<div class="table" [class.fixedWidth]="fixedWidth | async
+
+
+" [style.display]="(changeView | async) ? 'none' : 'block'">
   <mat-table matSort (matSortChange)="saveSort($event)" [matSortActive]="column_active" matSortDisableClear
-    [matSortDirection]="column_direction" [dataSource]="tickets" [trackBy]="getID">
+    [matSortDirection]="column_direction" [dataSource]="tickets | async" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
@@ -46,17 +49,17 @@
 
     <ng-container matColumnDef="create_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse | dateLocale:config.config.language |
           dateAgo"
-        *matCellDef="let element">{{ element.create_date | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
+        *matCellDef="let element">{{ element.create_date | dateParse | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse | dateLocale:config.config.language |
               dateAgo"
-        *matCellDef="let element">{{ element.modify_date | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
+        *matCellDef="let element">{{ element.modify_date | dateParse | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 
@@ -167,7 +170,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="(ticketsLength | async ) && !changeView ? config.config.displayedColumns : []"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="(ticketsLength | async) > 0 && !(changeView | async) ? config.config.displayedColumns : []"></mat-header-row>
     <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.config.displayedColumns"></mat-row>
   </mat-table>
 </div>

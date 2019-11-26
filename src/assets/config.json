@@ -1,17 +1,21 @@
 {
-	"version": "1.13.0",
+	"version": "1.14.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
-	"scenario": "prod",
+	"scenario": "dev",
 	"delay": 0,
 	"delayRequests": 0,
 	"copyright": "DAIMLER",
+	"corpintraMode": true,
+	"heartbeat": 300000,
 	"license": "SFASR",
 	"ticketOptions": true,
 	"languageCodes": {
 		"en": "English",
 		"de": "Deutsch"
 	},
+	"fullUrl": "https://itm-performance-management-tst.es.corpintra.net",
+	"portalFolder": "/analytics/bi/",
 	"excludeDatesFuture": true,
 	"system": {
 		"unitsPast": 12,
@@ -122,53 +126,64 @@
 	"reports": {
 		"dev": {
 			"barchart": {
-				"id": "iF4C016DAEBE44C6D8858D68E8A3F672A",
-				"selector": "[lid=Overview_Diagram] tr"
+				"id": "iEB9769FA4B534040B1DF3CBC5BA7BA18",
+				"selector": "[lid=Overview_Diagram] tr",
+				"fallback": "Mobile_Tickets_Chart.csv"
 			},
 			"tickets": {
 				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
 				"selector": "[lid=List1] tr"
 			},
 			"overview_count": {
-				"id": "iE68518B108B5435A969C6DA8218F5C90",
-				"selector": "[lid=List1] tr"
+				"id": "i046F8C57031B43C2A9F1A546DA61F8F3",
+				"selector": "[lid=List1] tr",
+				"fallback": "Mobile_Tickets_Overall.csv"
 			},
 			"overview_prio": {
-				"id": "iD0950E7C33A74DE08A909904A30E3DC6",
-				"selector": "[lid=Ticket_Priority] tr"
+				"id": "i0241160C5EAE42B5B42259B09A807211",
+				"selector": "[lid=Ticket_Priority] tr",
+				"fallback": "Mobile_Tickets_Priority.csv"
 			},
 			"overview_type": {
-				"id": "i00B4A60D67674C20B46F76A5F64D5F7C",
-				"selector": "[lid=Ticket_Status1] tr"
+				"id": "i1562591D88004D2FA85D50C879EC4B8A",
+				"selector": "[lid=Ticket_Status1] tr",
+				"fallback": "Mobile_Tickets_Type.csv"
 			},
 			"overview_status": {
-				"id": "i334A42AE2B00491A90D1D9297C7241F2",
-				"selector": "[lid=Ticket_Status] tr"
+				"id": "iC3A0747EE4114C1BAABB887046E12778",
+				"selector": "[lid=Ticket_Status] tr",
+				"fallback": "Mobile_Tickets_Status.csv"
 			},
 			"overview_service": {
-				"id": "i742135DE2F3B48E782A8D5CA2F5D22F4",
-				"selector": "[lid=Ticket_Application] tr"
+				"id": "i8E57B9312DE24595A61F1038436C6EB6",
+				"selector": "[lid=Ticket_Application] tr",
+				"fallback": "Mobile_Tickets_Service.csv"
 			},
 			"overview_silt": {
-				"id": "iD90CD52D305E4083A871B2E3514300B8",
-				"selector": "[lid=List1] tr"
+				"id": "iAD7819B5A436416E8C9B3249014DDA1E",
+				"selector": "[lid=List1] tr",
+				"fallback": "Mobile_Tickets_Silt.csv"
+			},
+			"system": {
+				"id": "null",
+				"selector": "null",
+				"fallback": "System.csv"
 			},
 			"monthsSelector": "[lid=List1] tr",
 			"allMonths": "null",
-			"system": "null",
 			"months": [
-				"i84A6B3DFEB334876B075E4AF7730943F",
-				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
-				"i442340B2AE134527A95ACA75D644D43E",
-				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
-				"i7823E458BF1A45708E6503BB2855D7EF",
-				"i7EC5D13883ED4C53B31C344173AF9BA1",
-				"i63397EC9C40140EDA4B457F678BAACCB",
-				"i5F81078AC36F4542A58FB730FFCCCF30",
-				"i80EF1A7C76D94B279A6A12BA650CE1F6",
-				"i2551180ACCC14FAEA25EEEA79805973D",
-				"i594A3A26CF3E46688D09D9CE6F711210",
-				"i5D28D159F965423DBDEB2EA72C3DCD29"
+				"iC222E08234E64B94947E54EFABC01F52",
+				"i5B67501DB55548B296C4A77B0E4D06DE",
+				"iAC5B68CF95344BA1814DA125336E20C0",
+				"i4E15EF16981140D7BA9675FEDE6C1466",
+				"i3A69BCA91A1E4697B832DE6F2E6463A4",
+				"i2AE654FEFD1D49519739895056EE32FF",
+				"i6040714DB6CD4C75986FBA07016FEA06",
+				"i4646E67F89474D7F9F14795DD5F0B348",
+				"iCBB6CD4AC71D4B15BF17555B6D7727E1",
+				"iC9A6A0DD55A74D13AAC538342606612E",
+				"i143A18EE4A1D42B8A52482400C49EF33",
+				"i4656FF7E9489412F86EEE1B238CEA453"
 			]
 		},
 		"prod": {
@@ -222,6 +237,12 @@
 		}
 	},
 	"changelog": [
+		{
+			"version": "1.14.0",
+			"text": [
+				"Cognos 11.1 R3 API Update"
+			]
+		},
 		{
 			"version": "1.13.0",
 			"text": [

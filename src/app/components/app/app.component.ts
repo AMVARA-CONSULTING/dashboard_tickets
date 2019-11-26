@@ -7,6 +7,8 @@ import { DataService } from '@services/data.service';
 import { ToolsService } from '@services/tools.service';
 import memo from 'memo-decorator';
 import { interval } from 'rxjs/internal/observable/interval';
+import { HttpClient } from '@angular/common/http';
+import { retry } from 'rxjs/internal/operators/retry';
 
 @Component({
   selector: 'cism-root',
@@ -56,7 +58,8 @@ export class AppComponent implements OnInit {
     public config: ConfigService,
     public data: DataService,
     private router: Router,
-    private tools: ToolsService
+    private tools: ToolsService,
+    private _http: HttpClient
   ) {
     this.translate.setDefaultLang('en')
     this.translate.use(localStorage.getItem('lang') || config.config.language)
@@ -64,6 +67,15 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationStart) this.data.loading.next(true)
       if (event instanceof NavigationEnd) this.data.loading.next(false)
     })
+    if (this.config.config.heartbeat > 0) {
+      interval(this.config.config.heartbeat ).subscribe(_ => {
+        this._http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/notifications`)
+        .pipe(
+          retry(3)
+          )
+        .subscribe()
+      })
+    }
   }
 
   trigger() {

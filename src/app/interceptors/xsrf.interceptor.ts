@@ -14,7 +14,7 @@ export class XSRFInterceptor implements HttpInterceptor {
 
         let newOptions = {}
 
-        const xsrf = this._tools.getCookie('XSRF-TOKEN')
+        const xsrf = this._tools.getCookie(document.cookie, 'XSRF-TOKEN') || this._tools.getCookie(localStorage.getItem('cookies'), 'XSRF-TOKEN')
         if (xsrf) {
             newOptions = {
                 headers: new HttpHeaders({
