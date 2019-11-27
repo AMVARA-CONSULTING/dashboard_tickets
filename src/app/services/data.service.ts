@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Month } from '@other/interfaces';
+declare const moment: any
 
 @Injectable()
 export class DataService {
@@ -13,6 +14,7 @@ export class DataService {
 
   currentLevel: number
   month: BehaviorSubject<Month>
+  months = [...Array(12).keys()].map(i => moment().subtract(i, 'months').format('YYYY[M]MM'))
   availableMonths = []
 
   disabledAnimations: boolean = false

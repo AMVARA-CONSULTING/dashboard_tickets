@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { SubSink } from '@services/tools.service';
 
 declare var humanizeDuration: any
 
@@ -11,25 +12,25 @@ declare var humanizeDuration: any
   styleUrls: ['./silt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SiltComponent implements OnDestroy {
+export class SiltComponent implements OnInit, OnDestroy {
 
-  constructor(
-    private data: DataService,
+  subs = new SubSink()
 
-  ) {
-    this.total = new BehaviorSubject<string>('')
-    this.data.month.subscribe(month => {
-      const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
-      this.total.next(humanizeDuration(total * 60000))
-    })
-  }
-
-  monthSubscription: Subscription
+  constructor( private data: DataService ) { }
 
   ngOnDestroy() {
-    if (this.monthSubscription) this.monthSubscription.unsubscribe()
+    this.subs.unsubscribe()
   }
 
-  total: BehaviorSubject<string>
+  ngOnInit() {
+    this.subs.add(
+      this.data.month.subscribe(month => {
+        const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
+        this.total.next(humanizeDuration(total * 60000))
+      })
+    )
+  }
+
+  total = new BehaviorSubject<string>('')
 
 }

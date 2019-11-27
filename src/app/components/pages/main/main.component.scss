@@ -18,9 +18,11 @@
   margin-top: 20px;
   flex-wrap: wrap;
   height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
   will-change: transform;
   @include desktop {
     height: calc(100vh - 230px) !important;
+    max-height: calc(100vh - 230px) !important;
   }
   @include mobile {
     height: auto;
@@ -81,6 +83,7 @@
 .overview {
   flex: 1 60%;
   max-width: 60%;
+  height: 100%;
   border-right: 20px solid transparent;
   @include mobile {
     flex: 1 100%;
@@ -112,11 +115,13 @@
     max-width: 100%;
     border-left-width: 0;
     margin-top: 0;
+    margin-bottom: 30px;
   }
   @include tablet {
     flex: 1 100%;
     max-width: 100%;
     border-left-width: 0;
     margin-top: 50px;
+    margin-bottom: 50px;
   }
 }

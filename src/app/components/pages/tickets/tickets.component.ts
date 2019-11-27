@@ -5,7 +5,7 @@ import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angul
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Ticket, Month } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -31,35 +31,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
     private router: Router,
     private ref: ChangeDetectorRef,
     private _reports: ReportsService
-  ) {
-    this.subs.add(
-      combineLatest(this.data.month, this.ac.paramMap)
-        .pipe(
-          distinctUntilChanged()
-        )
-        .subscribe(([month, params]: [Month, ParamMap]) => {
-        this.data.loading.next(true)
-        const type = params.get('type')
-        const filter = params.get('filter')
-        this.data.loading.next(true)
-        const monthIndex = month.index
-        if (!Array.isArray(this.data.tickets[monthIndex])) {
-          this.subs.add(
-            this._reports.getReportData(
-              this.config.config.reports[this.config.config.scenario].months[monthIndex],
-              this.config.config.reports[this.config.config.scenario].monthsSelector,
-              'Mobile_Tickets_List.csv'
-            ).subscribe(data => {
-              this.data.tickets[monthIndex] = data
-              this.rollup(this.data.tickets[monthIndex], type, filter)
-            })
-          )
-        } else {
-          this.rollup(this.data.tickets[monthIndex], type, filter)
-        }
-      })
-    )
-  }
+  ) { }
 
   subs = new SubSink()
 
@@ -133,6 +105,33 @@ export class TicketsComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort
 
   ngOnInit() {
+    this.data.loading.next(true)
+    this.subs.add(
+      combineLatest(this.data.month, this.ac.paramMap)
+        .pipe(
+          distinctUntilChanged()
+        )
+        .subscribe(([month, params]: [Month, ParamMap]) => {
+        const type = params.get('type')
+        const filter = params.get('filter')
+        this.data.loading.next(true)
+        const monthIndex = month.index
+        if (!Array.isArray(this.data.tickets[monthIndex])) {
+          this.subs.add(
+            this._reports.getReportData(
+              this.config.config.reports[this.config.config.scenario].months[monthIndex],
+              this.config.config.reports[this.config.config.scenario].monthsSelector,
+              'Mobile_Tickets_List.csv'
+            ).subscribe(data => {
+              this.data.tickets[monthIndex] = data
+              this.rollup(this.data.tickets[monthIndex], type, filter)
+            })
+          )
+        } else {
+          this.rollup(this.data.tickets[monthIndex], type, filter)
+        }
+      })
+    )
     this.fixedWidth.next(this.config.config.displayedColumns.length > 5)
     this.column_active = localStorage.getItem('column_active') || 'id'
     this.column_direction = localStorage.getItem('column_direction') || 'desc'

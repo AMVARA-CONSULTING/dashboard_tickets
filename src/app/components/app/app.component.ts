@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '@services/config.service';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
 import { ToolsService } from '@services/tools.service';
-import memo from 'memo-decorator';
 import { interval } from 'rxjs/internal/observable/interval';
 import { HttpClient } from '@angular/common/http';
 import { retry } from 'rxjs/internal/operators/retry';
@@ -20,39 +19,41 @@ import { retry } from 'rxjs/internal/operators/retry';
       transition('main => tickets', [
         group([
           query('@*', animateChild(), { optional: true }),
-          query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+          query(':enter', style({ position: 'fixed', width: '100%', opacity: 0 }), { optional: true }),
+          query(':leave', style({ position: 'fixed', opacity: 1 }), { optional: true }),
         ]),
         query(':leave', style({ transform: 'rotateY(0deg)' }), { optional: true }),
         query(':enter', style({ transform: 'rotateY(-90deg)' }), { optional: true }),
         query(':leave', animate('.3s ease-in', keyframes([
-          style({ transform: 'rotateY(0deg)', offset: 0 }),
-          style({ transform: 'rotateY(90deg)', offset: 1 })
+          style({ transform: 'rotateY(0deg)', opacity: 1 }),
+          style({ transform: 'rotateY(90deg)', opacity: 0 })
         ])), { optional: true }),
         query(':enter', animate('.3s ease-out', keyframes([
-          style({ transform: 'rotateY(-90deg)', offset: 0 }),
-          style({ transform: 'rotateY(0deg)', offset: 1 })
+          style({ transform: 'rotateY(-90deg)', opacity: 0 }),
+          style({ transform: 'rotateY(0deg)', opacity: 1 })
         ])), { optional: true })
       ]),
       transition('tickets => main', [
         group([
           query('@*', animateChild(), { optional: true }),
-          query(':enter, :leave', style({ position: 'fixed', width: 'calc(100% - 80px)' }), { optional: true }),
+          query(':enter', style({ position: 'fixed', opacity: 0 }), { optional: true }),
+          query(':leave', style({ position: 'fixed', width: '100%', opacity: 1 }), { optional: true })
         ]),
         query(':leave', style({ transform: 'rotateY(0deg)' }), { optional: true }),
         query(':enter', style({ transform: 'rotateY(90deg)' }), { optional: true }),
         query(':leave', animate('.3s ease-in', keyframes([
-          style({ transform: 'rotateY(0deg)', offset: 0 }),
-          style({ transform: 'rotateY(-90deg)', offset: 1 })
+          style({ transform: 'rotateY(0deg)', opacity: 1 }),
+          style({ transform: 'rotateY(-90deg)', opacity: 0 })
         ])), { optional: true }),
         query(':enter', animate('.3s ease-out', keyframes([
-          style({ transform: 'rotateY(90deg)', offset: 0 }),
-          style({ transform: 'rotateY(0deg)', offset: 1 })
+          style({ transform: 'rotateY(90deg)', opacity: 0 }),
+          style({ transform: 'rotateY(0deg)', opacity: 1 })
         ])), { optional: true })
       ])
     ])
   ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(
     private translate: TranslateService,
     public config: ConfigService,
@@ -69,7 +70,7 @@ export class AppComponent implements OnInit {
     })
     if (this.config.config.heartbeat > 0) {
       interval(this.config.config.heartbeat ).subscribe(_ => {
-        this._http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/notifications`)
+        this._http.get(`${this.config.config.portalFolder}v1/notifications`)
         .pipe(
           retry(3)
           )
@@ -82,19 +83,6 @@ export class AppComponent implements OnInit {
     if (!this.tools.isIE()) window.dispatchEvent(new Event('resize'))
   }
 
-  ngOnInit() {
-    const int = interval(50).subscribe(_ => {
-      if (this.data.availableMonths.length > 0) {
-        this.data.month.next({
-          month: this.data.availableMonths[0],
-          index: 0
-        })
-        int.unsubscribe()
-      }
-    })
-  }
-
-  @memo()
   getPage(outlet: RouterOutlet) {
     return outlet.activatedRouteData.state
   }

@@ -6,6 +6,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./legend.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LegendComponent {
-
-}
+export class LegendComponent { }

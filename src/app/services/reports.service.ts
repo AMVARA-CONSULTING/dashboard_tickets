@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import { Config } from '@other/interfaces';
 import { ToolsService } from './tools.service';
 import { Subscriber } from 'rxjs/internal/Subscriber';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 declare const JKL, XML: any
 
@@ -20,7 +21,8 @@ export class ReportsService {
     private http: HttpClient,
     private data: DataService,
     private config: ConfigService,
-    private _tools: ToolsService
+    private _tools: ToolsService,
+    private _snack: MatSnackBar
   ) {
     this.corpintra = location.hostname.indexOf('corpintra.net') > -1
     
@@ -53,9 +55,12 @@ export class ReportsService {
         if (!!localStorage.getItem('hideClosed')) this.data.hideClosed = localStorage.getItem('hideClosed') === 'yes';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
         this.config.displayedColumnsDefault = this.config.displayedColumnsDefault
+        this.config.config.system.enable = localStorage.getItem('enableExperimentalFeatures') === 'yes' || false
+        if (this.config.config.system.enable) {
+          this._snack.open('CISM is running with Experimental Features enabled.', 'OK')
+        }
         this.config.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.config.config.displayedColumnsDefault;
         if (this.config.config.ticketOptions) this.config.config.displayedColumns.push('options');
-        console.log(this.config.config.displayedColumns);
         (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';
         this._tools.log('Config', this.config)
@@ -128,8 +133,13 @@ export class ReportsService {
         if (this.config.config.excludeDatesFuture) {
           this.data.system = this.data.system.filter(row => !moment(row[1], 'MM/DD/YYYY').isAfter())
         }
-        const actualMonth = this.data.overall.map(t => t[0])[0]
-        this.data.month = new BehaviorSubject<{ month: string, index: number }>({ month: actualMonth, index: 0 })
+        this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()
+        const currentMonth = this.data.months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
+        const currentMonthIndex = this.data.months.findIndex(month => month == currentMonth)
+        this.data.month = new BehaviorSubject<{ month: string, index: number }>({
+          month: currentMonth,
+          index: currentMonthIndex
+        })
         resolve()
       })
     })

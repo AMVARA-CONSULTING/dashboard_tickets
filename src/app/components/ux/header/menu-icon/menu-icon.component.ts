@@ -6,6 +6,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./menu-icon.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MenuIconComponent {
-
-}
+export class MenuIconComponent { }

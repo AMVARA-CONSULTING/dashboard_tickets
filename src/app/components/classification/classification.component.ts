@@ -1,11 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs/internal/Subject';
-import { takeUntil } from 'rxjs/operators';
 import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ClassificationGroup } from '@other/interfaces';
+import { SubSink } from '@services/tools.service';
 
 @Component({
   selector: 'cism-classification',
@@ -15,7 +14,7 @@ import { ClassificationGroup } from '@other/interfaces';
 })
 export class ClassificationComponent implements OnDestroy {
 
-  private unsubscribe$ = new Subject<void>()
+  subs = new SubSink()
 
   constructor(
     private data: DataService,
@@ -29,10 +28,9 @@ export class ClassificationComponent implements OnDestroy {
       this.filter = params.get('filter')
       this.rollup()
     })
-    this.data.month.pipe(
-      takeUntil(this.unsubscribe$)
+    this.subs.add(
+      this.data.month.subscribe(_ => this.rollup())
     )
-      .subscribe(_ => this.rollup())
   }
 
   type: string = ''
@@ -62,7 +60,7 @@ export class ClassificationComponent implements OnDestroy {
   total: string = ''
 
   ngOnDestroy() {
-    if (this.unsubscribe$) this.unsubscribe$.next()
+    this.subs.unsubscribe()
   }
 
   groups$: BehaviorSubject<ClassificationGroup[]>

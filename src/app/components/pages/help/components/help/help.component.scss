@@ -11,6 +11,13 @@
     max-width: 1000px;
     margin: 0 auto;
     touch-action: pan-y !important;
+    box-sizing: border-box;
+    @include mobile {
+        padding: 20px;
+    }
+    @include tablet {
+        padding: 20px;
+    }
 }
 @include desktop {
     :host{

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { ConfigService } from '@services/config.service';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { SubSink } from '@services/tools.service';
 
 @Component({
   selector: 'cism-stadistic-box',
@@ -12,6 +13,8 @@ import { Subscription } from 'rxjs/internal/Subscription';
 })
 export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
 
+  subs = new SubSink()
+
   constructor(
     private router: Router,
     private data: DataService,
@@ -20,13 +23,13 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.data.month.subscribe(() => this.rollup())
+    this.subs.add(
+      this.data.month.subscribe(() => this.rollup())
+    )
   }
 
-  monthSubscription: Subscription
-
   ngOnDestroy() {
-    if (this.monthSubscription) this.monthSubscription.unsubscribe()
+    this.subs.unsubscribe()
   }
 
   @Input() title: string = ''

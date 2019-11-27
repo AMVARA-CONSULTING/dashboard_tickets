@@ -10,7 +10,7 @@
   <cism-overall-box></cism-overall-box>
   <cism-classification></cism-classification>
 </div>
-<mat-paginator showFirstLastButtons [style.display]="(ticketsLength | async) && !(changeView | async) ? 'block' : 'none'"
+<mat-paginator showFirstLastButtons [style.display]="(ticketsLength | async) >0 && !(changeView | async) ? 'block' : 'none'"
   [pageSizeOptions]="data.pagination">
 </mat-paginator>
 <ng-container *ngIf="ticketsLength | async">

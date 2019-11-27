@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Router } from '@angular/router';
+import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'cism-header',
@@ -12,7 +13,8 @@ export class HeaderComponent {
 
   constructor(
     private data: DataService,
-    private router: Router
+    private router: Router,
+    public _config: ConfigService
   ) { }
 
   navigate(url: string): void {

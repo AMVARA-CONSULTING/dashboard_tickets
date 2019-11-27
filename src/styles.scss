@@ -461,3 +461,8 @@ cism-month-selector .mat-form-field-infix {
 .mat-checkbox-label {
     font-family: "CorpoS", "Segoe UI";
 }
+
+.mat-option.mat-active {
+    background-color: rgba(white, .05) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}

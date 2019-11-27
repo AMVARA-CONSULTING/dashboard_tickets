@@ -1,12 +1,12 @@
 {
-	"version": "1.14.0",
+	"version": "1.15.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
 	"delay": 0,
 	"delayRequests": 0,
 	"copyright": "DAIMLER",
-	"corpintraMode": true,
+	"corpintraMode": false,
 	"heartbeat": 300000,
 	"license": "SFASR",
 	"ticketOptions": true,
@@ -14,10 +14,11 @@
 		"en": "English",
 		"de": "Deutsch"
 	},
-	"fullUrl": "https://itm-performance-management-tst.es.corpintra.net",
+	"fullUrl": "",
 	"portalFolder": "/analytics/bi/",
 	"excludeDatesFuture": true,
 	"system": {
+		"enable": false,
 		"unitsPast": 12,
 		"titles": {
 			"S1": "System availability",
@@ -237,6 +238,21 @@
 		}
 	},
 	"changelog": [
+		{
+			"version": "1.15.0",
+			"text": [
+				"Improved performance",
+				"Improved stability",
+				"Added button in About page to enable/disable experimental features",
+				"Remove dead code",
+				"Improved observable handling",
+				"Hide links to internal portal for public CISM users",
+				"Added heartbeat to keep user session active",
+				"Fixed animation between pages",
+				"Fixed some styles not working as expected",
+				"Fixed first month disappearing on month selector"
+			]
+		},
 		{
 			"version": "1.14.0",
 			"text": [

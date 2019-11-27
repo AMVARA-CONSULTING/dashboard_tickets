@@ -4,6 +4,7 @@
 :host {
   display: block;
   height: calc(100% - 170px);
+  max-height: 600px;
   width: 100%;
   margin-top: 50px;
   @include tablet {
@@ -12,6 +13,12 @@
   @include mobile {
     display: none;
   }
+}
+
+:host::ng-deep ngx-charts-bar-vertical-stacked,
+:host::ng-deep ngx-charts-chart {
+  display: block;
+  height: 100%;
 }
 
 ::ng-deep text {

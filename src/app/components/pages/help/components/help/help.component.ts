@@ -16,9 +16,8 @@ export class HelpComponent {
     public data: DataService
   ) {
     data.currentLevel = 1
-    this.contacts = config.config.contacts[this.config.config.scenario]
   }
 
-  contacts: ContactInfo[] = []
+  contacts: ContactInfo[] = this.config.config.contacts[this.config.config.scenario]
 
 }

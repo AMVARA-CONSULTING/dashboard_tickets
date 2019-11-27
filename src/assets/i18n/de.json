@@ -25,6 +25,8 @@
         "allocation": "Kunde"
     },
     "about": {
+        "betaFeatures": "Aktivieren Sie experimentelle Funktionen",
+        "notBetaFeatures": "Deaktivieren Sie experimentelle Funktionen",
         "config": "Config",
         "sponsor": "Sponsor",
         "credits": "Credits",

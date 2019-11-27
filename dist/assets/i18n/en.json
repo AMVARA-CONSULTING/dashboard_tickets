@@ -25,6 +25,8 @@
         "allocation": "Allocation"
     },
     "about": {
+        "betaFeatures": "Enable experimental features",
+        "notBetaFeatures": "Disable experimental features",
         "config": "Config",
         "sponsor": "Sponsor",
         "credits": "Credits",

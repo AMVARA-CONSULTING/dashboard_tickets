@@ -5,7 +5,7 @@
     </div>
     <cism-menu-icon (click)="open()"></cism-menu-icon>
     <ul class="nav">
-        <li routerLink="/system" routerLinkActive="active" class="system"></li>
+        <li *ngIf="_config.config.system.enable" routerLink="/system" routerLinkActive="active" class="system"></li>
         <li routerLink="/about" routerLinkActive="active" class="about"></li>
         <li routerLink="/help" routerLinkActive="active" class="help"></li>
     </ul>

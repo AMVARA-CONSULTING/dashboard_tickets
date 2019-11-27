@@ -12,4 +12,8 @@
   background-color: $bg-color;
   right: 0;
   z-index: 99;
+  @include mobile {
+    top: 63px;
+    height: calc(100vh - 93px);
+  }
 }

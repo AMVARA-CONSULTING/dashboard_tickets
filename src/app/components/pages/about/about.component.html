@@ -11,9 +11,9 @@
           <mat-option *ngFor="let lang of config.config.languageCodes | keyvalue" [value]="lang.key">{{ lang.value }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button matTooltip="Useful when the language files are cached and a refresh is needed." matTooltipPosition="after"
-        matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{
-        'about.reloadLanguageFiles'| translate }}</button>
+      <button matTooltip="Useful when the language files are cached and a refresh is needed." matTooltipPosition="after" matTooltipClass="after" (click)="reloadLang()" class="reload-translations" mat-raised-button>{{ 'about.reloadLanguageFiles'| translate }}</button>
+      <button *ngIf="!config.config.system.enable" matTooltip="Enables future (beta) features" matTooltipPosition="after" matTooltipClass="after" (click)="enableExperimentalFeatures(true)" class="reload-translations" mat-raised-button>{{'about.betaFeatures'| translate }}</button>
+      <button *ngIf="config.config.system.enable" matTooltip="Disables future (beta) features" matTooltipPosition="after" matTooltipClass="after" (click)="enableExperimentalFeatures(false)" class="reload-translations" mat-raised-button>{{'about.notBetaFeatures'| translate }}</button>
     </p>
   </mat-expansion-panel>
   <mat-expansion-panel>

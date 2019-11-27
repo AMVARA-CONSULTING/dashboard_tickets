@@ -9,8 +9,6 @@ import { ConfigService } from '@services/config.service';
 })
 export class FooterComponent {
 
-  constructor(
-    public config: ConfigService
-  ) { }
+  constructor( public config: ConfigService ) { }
 
 }

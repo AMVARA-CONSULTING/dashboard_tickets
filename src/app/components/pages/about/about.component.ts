@@ -3,7 +3,6 @@ import { ConfigService } from '@services/config.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from '@services/data.service';
-import { Router } from '@angular/router';
 import { KeyValuePipe } from '@angular/common';
 
 @Component({
@@ -20,14 +19,17 @@ export class AboutComponent implements OnInit {
     private translate: TranslateService,
     private snack: MatSnackBar,
     public data: DataService,
-    private router: Router,
     private keyValue: KeyValuePipe
   ) {
     data.currentLevel = 1
-    this.version = VERSION.full
   }
 
-  version
+  enableExperimentalFeatures(tof) {
+    localStorage.setItem('enableExperimentalFeatures', tof ? 'yes' : 'no')
+    location.reload()
+  }
+
+  version = VERSION.full
 
   ngOnInit() {
     let a: any[] = this.keyValue.transform(this.config.config.reports[this.config.config.scenario])

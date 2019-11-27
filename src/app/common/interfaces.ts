@@ -29,6 +29,7 @@ export interface Config {
 }
 
 export interface SystemConfig {
+  enable: boolean
   readonly unitsPast: number,
   readonly titles: Titles
   readonly S1: SystemS1Config
