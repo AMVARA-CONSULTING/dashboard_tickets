@@ -107,17 +107,20 @@ export class ReportsService {
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
       (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
-      forkJoin(
+      const jobs = [
         this.getReportOverallData('barchart'),
         this.getReportOverallData('overview_prio'),
         this.getReportOverallData('overview_service'),
         this.getReportOverallData('overview_silt'),
         this.getReportOverallData('overview_status'),
         this.getReportOverallData('overview_type'),
-        this.getReportOverallData('overview_count'),
-        this.getReportData(this.config.config.reports[this.config.config.scenario].allMonths, this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'),
-        this.getReportOverallData('system'),
-      ).subscribe(data => {
+        this.getReportOverallData('overview_count')
+      ]
+      if (this.config.config.system.enable) {
+        jobs.push(this.getReportData(this.config.config.reports[this.config.config.scenario].allMonths, this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'))
+        jobs.push(this.getReportOverallData('system'))
+      }
+      forkJoin(...jobs).subscribe(data => {
         this.data.chart = data[0]
         this.data.priority = data[1]
         this.data.service = data[2]
@@ -125,9 +128,11 @@ export class ReportsService {
         this.data.status = data[4]
         this.data.type = data[5]
         this.data.overall = data[6]
-        this.data.allTickets = data[7]
-        if (this.config.config.excludeDatesFuture) {
-          this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A']).isAfter())
+        if (this.config.config.system.enable) {
+          this.data.allTickets = data[7]
+          if (this.config.config.excludeDatesFuture) {
+            this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A']).isAfter())
+          }
         }
         this.data.system = data[8]
         if (this.config.config.excludeDatesFuture) {
