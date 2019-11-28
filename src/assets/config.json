@@ -1,5 +1,5 @@
 {
-	"version": "1.15.0",
+	"version": "1.16.0",
 	"language": "en",
 	"appTitle": "IWM Reporting",
 	"scenario": "dev",
@@ -238,6 +238,12 @@
 		}
 	},
 	"changelog": [
+		{
+			"version": "1.16.0",
+			"text": [
+				"#2132 - Fix CISM in AMVARA DEV"
+			]
+		},
 		{
 			"version": "1.15.0",
 			"text": [

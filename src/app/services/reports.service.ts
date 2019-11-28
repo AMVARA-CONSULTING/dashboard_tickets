@@ -71,20 +71,20 @@ export class ReportsService {
 
   login(): Promise<void> {
     return new Promise(resolve => {
-      console.log("Sending XHR to /analytics/bi/v1/notifications")
-      this.http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/notifications`, { observe: 'response', responseType: 'text' })
-        .subscribe(
-          success => {
-            console.log("XSRF Token was valid, load CISM")
-            this.loadInitialReport().then(_ => resolve())
-          },
-          err => {
-            console.log(err)
-            // Login
-            console.log("XSRF Token was invalid or undefined, load Login")
-            if (location.hostname.indexOf('corpintra.net') == -1) {
+      if (location.hostname.indexOf('corpintra.net') == -1 && !this.config.config.corpintraMode) {
+        this.loadInitialReport().then(_ => resolve())
+      } else {
+        console.log("Sending XHR to /analytics/bi/v1/notifications")
+        this.http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/notifications`, { observe: 'response', responseType: 'text' })
+          .subscribe(
+            _ => {
+              console.log("XSRF Token was valid, load CISM")
               this.loadInitialReport().then(_ => resolve())
-            } else {
+            },
+            err => {
+              console.log(err)
+              // Login
+              console.log("XSRF Token was invalid or undefined, load Login")
               const app: HTMLElement = document.querySelector('cism-root')
               app.style.display = 'none'
               const iframe = document.createElement("iframe")
@@ -100,7 +100,8 @@ export class ReportsService {
                 this.loadInitialReport().then(_ => resolve())
               })
             }
-          })
+          )
+      }
     })
   }
 
@@ -133,10 +134,10 @@ export class ReportsService {
           if (this.config.config.excludeDatesFuture) {
             this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A']).isAfter())
           }
-        }
-        this.data.system = data[8]
-        if (this.config.config.excludeDatesFuture) {
-          this.data.system = this.data.system.filter(row => !moment(row[1], 'MM/DD/YYYY').isAfter())
+          this.data.system = data[8]
+          if (this.config.config.excludeDatesFuture) {
+            this.data.system = this.data.system.filter(row => !moment(row[1], 'MM/DD/YYYY').isAfter())
+          }
         }
         this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()
         const currentMonth = this.data.months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
@@ -163,8 +164,9 @@ export class ReportsService {
             observer.next(json)
             observer.complete()
           }, err => {
-            if (this.config.config.corpintraMode) {
+            if (this.config.config.system.enable) {
               this.giveFallback(fallback, observer)
+              console.log(`${ReportID} is running in fallback mode`)
             } else {
               observer.error('Couldn\'t fetch json from report.')
               console.log(err)
