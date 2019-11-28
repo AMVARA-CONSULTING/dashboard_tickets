@@ -68,7 +68,7 @@ export class AppComponent {
       if (event instanceof NavigationStart) this.data.loading.next(true)
       if (event instanceof NavigationEnd) this.data.loading.next(false)
     })
-    if (this.config.config.heartbeat > 0) {
+    if (this.config.config.heartbeat > 0 && location.hostname.indexOf('corpintra.net') == -1 && !this.config.config.corpintraMode) {
       interval(this.config.config.heartbeat ).subscribe(_ => {
         this._http.get(`${this.config.config.portalFolder}v1/notifications`)
         .pipe(

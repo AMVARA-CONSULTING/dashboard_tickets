@@ -1,0 +1,7 @@
+{
+  "menu": {
+    "description": "",
+    "build:...": "build",
+    "build-cognos:...": "build-cognos"
+  }
+}

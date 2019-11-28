@@ -1,0 +1,32 @@
+{
+  "scripts": {
+    "build": [
+      "npm install",
+      "replaceConfig:angular:projects.cism.architect.build.options.index:src/index.html",
+      "src/assets",
+      "replaceConfigBoolean:config:corpintraMode:false",
+      "replaceConfig:config:fullUrl:",
+      "../..",
+      "ng build --prod --aot"
+    ],
+    "replaceConfig:$file:$prop:$value=": "json -I -f $file.json -e \"this.$prop='$value'\"",
+    "replaceConfigBoolean:$file:$prop:$value=": "json -I -f $file.json -e \"this.$prop=$value\"",
+    "build-cognos": [
+      "npm install",
+      "replaceConfig:angular:projects.cism.architect.build.options.index:src/index.cognos.html",
+      "src/assets",
+      "replaceConfigBoolean:config:corpintraMode:false",
+      "replaceConfig:config:fullUrl:",
+      "../..",
+      "ng build --prod --aot",
+      "dist",
+      "rename index.cognos.html index.html",
+      "..",
+      "replaceConfig:angular:projects.cism.architect.build.options.index:src/index.html",
+      "src/assets",
+      "replaceConfigBoolean:config:corpintraMode:true",
+      "replaceConfig:config:fullUrl:",
+      "../.."
+    ]
+  }
+}

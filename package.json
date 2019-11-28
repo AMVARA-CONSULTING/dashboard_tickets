@@ -1,14 +1,12 @@
 {
   "name": "cism",
-  "version": "0.0.0",
+  "version": "1.16.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --aot",
-    "build": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\" && ng build --prod --aot",
-    "build-cognos": "json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.cognos.html'\" && ng build --prod --aot && cd dist && rename index.cognos.html index.html && cd .. && json -I -f .\\angular.json -e \"this.projects.cism.architect.build.options.index='src/index.html'\"",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test": "launch",
+    "start": "launch",
+    "serve": "ng serve --aot",
+    "build": "npm start build",
+    "build-cognos": "npm start build-cognos"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +60,7 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "node-sass": "^4.13.0",
     "protractor": "~5.4.2",
+    "script-launcher": "^1.22.9",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
     "typescript": "^3.6.4"

@@ -1,348 +1,342 @@
 {
-	"version": "1.16.0",
-	"language": "en",
-	"appTitle": "IWM Reporting",
-	"scenario": "dev",
-	"delay": 0,
-	"delayRequests": 0,
-	"copyright": "DAIMLER",
-	"corpintraMode": false,
-	"heartbeat": 300000,
-	"license": "SFASR",
-	"ticketOptions": true,
-	"languageCodes": {
-		"en": "English",
-		"de": "Deutsch"
-	},
-	"fullUrl": "",
-	"portalFolder": "/analytics/bi/",
-	"excludeDatesFuture": true,
-	"system": {
-		"enable": false,
-		"unitsPast": 12,
-		"titles": {
-			"S1": "System availability",
-			"S2": "Robustness of system",
-			"S3": "Root cause",
-			"S4": "Performance of incident resolution",
-			"S5": "Overview of Inc/Prb Management"
-		},
-		"S1": {
-			"formatDate": "MM/DD/YYYY"
-		},
-		"S2": {
-			"formatDate": "MM/DD/YYYY"
-		},
-		"S3": {
-
-		},
-		"S4": {
-
-		},
-		"S5": {
-
-		}
-	},
-	"portalLink": {
-		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
-		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
-	},
-	"cognosRepository": {
-		"dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
-		"prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
-	},
-	"displayedColumnsDefault": [
-		"id",
-		"create_date",
-		"modify_date",
-		"type",
-		"priority",
-		"status",
-		"description",
-		"external",
-		"classification",
-		"component",
-		"service_group"
-	],
-	"displayedColumns": [
-		"id",
-		"create_date",
-		"modify_date",
-		"type",
-		"priority",
-		"status",
-		"description",
-		"external",
-		"classification",
-		"component",
-		"service_group"
-	],
-	"displayedColumnsOrder": [
-		"month_id",
-		"id",
-		"create_date",
-		"modify_date",
-		"type",
-		"priority",
-		"status",
-		"description",
-		"external",
-		"classification",
-		"component",
-		"service_group",
-		"service",
-		"count",
-		"silt"
-	],
-	"columns": {
-		"month_id": 0,
-		"id": 1,
-		"create_date": 2,
-		"modify_date": 3,
-		"type": 4,
-		"priority": 5,
-		"status": 6,
-		"description": 7,
-		"external": 8,
-		"classification": 9,
-		"component": 10,
-		"service_group": 11,
-		"service": 12,
-		"count": 13,
-		"silt": 14
-	},
-	"contacts": {
-		"dev": [
-			{
-				"name": "Csaba Slemmer",
-				"description": "ITS/M",
-				"email": "Csaba.slemmer@daimler.com",
-				"telephones": [
-					"+49 711 17 94201",
-					"+49 176 3096 3593"
-				]
-			}
-		]
-	},
-	"reports": {
-		"dev": {
-			"barchart": {
-				"id": "iEB9769FA4B534040B1DF3CBC5BA7BA18",
-				"selector": "[lid=Overview_Diagram] tr",
-				"fallback": "Mobile_Tickets_Chart.csv"
-			},
-			"tickets": {
-				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
-				"selector": "[lid=List1] tr"
-			},
-			"overview_count": {
-				"id": "i046F8C57031B43C2A9F1A546DA61F8F3",
-				"selector": "[lid=List1] tr",
-				"fallback": "Mobile_Tickets_Overall.csv"
-			},
-			"overview_prio": {
-				"id": "i0241160C5EAE42B5B42259B09A807211",
-				"selector": "[lid=Ticket_Priority] tr",
-				"fallback": "Mobile_Tickets_Priority.csv"
-			},
-			"overview_type": {
-				"id": "i1562591D88004D2FA85D50C879EC4B8A",
-				"selector": "[lid=Ticket_Status1] tr",
-				"fallback": "Mobile_Tickets_Type.csv"
-			},
-			"overview_status": {
-				"id": "iC3A0747EE4114C1BAABB887046E12778",
-				"selector": "[lid=Ticket_Status] tr",
-				"fallback": "Mobile_Tickets_Status.csv"
-			},
-			"overview_service": {
-				"id": "i8E57B9312DE24595A61F1038436C6EB6",
-				"selector": "[lid=Ticket_Application] tr",
-				"fallback": "Mobile_Tickets_Service.csv"
-			},
-			"overview_silt": {
-				"id": "iAD7819B5A436416E8C9B3249014DDA1E",
-				"selector": "[lid=List1] tr",
-				"fallback": "Mobile_Tickets_Silt.csv"
-			},
-			"system": {
-				"id": "null",
-				"selector": "null",
-				"fallback": "System.csv"
-			},
-			"monthsSelector": "[lid=List1] tr",
-			"allMonths": "null",
-			"months": [
-				"iC222E08234E64B94947E54EFABC01F52",
-				"i5B67501DB55548B296C4A77B0E4D06DE",
-				"iAC5B68CF95344BA1814DA125336E20C0",
-				"i4E15EF16981140D7BA9675FEDE6C1466",
-				"i3A69BCA91A1E4697B832DE6F2E6463A4",
-				"i2AE654FEFD1D49519739895056EE32FF",
-				"i6040714DB6CD4C75986FBA07016FEA06",
-				"i4646E67F89474D7F9F14795DD5F0B348",
-				"iCBB6CD4AC71D4B15BF17555B6D7727E1",
-				"iC9A6A0DD55A74D13AAC538342606612E",
-				"i143A18EE4A1D42B8A52482400C49EF33",
-				"i4656FF7E9489412F86EEE1B238CEA453"
-			]
-		},
-		"prod": {
-			"barchart": {
-				"id": "i8562AA0919AB4DD69B06AA56711E0AF8",
-				"selector": "[lid=Overview_Diagram] tr"
-			},
-			"tickets": {
-				"id": "i162AB365F31345B2AAAAA1A9D4D98203",
-				"selector": "[lid=List1] tr"
-			},
-			"overview_count": {
-				"id": "iE68518B108B5435A969C6DA8218F5C90",
-				"selector": "[lid=List1] tr"
-			},
-			"overview_prio": {
-				"id": "i251B3B8390D84AEFB4B53D4452E61D56",
-				"selector": "[lid=Ticket_Priority] tr"
-			},
-			"overview_type": {
-				"id": "i0D796C265A6F4CE493A9733238130230",
-				"selector": "[lid=Ticket_Status1] tr"
-			},
-			"overview_status": {
-				"id": "i52786045C01D4214BA189D034D29D618",
-				"selector": "[lid=Ticket_Status] tr"
-			},
-			"overview_service": {
-				"id": "iEBE5C5FCCFC1439D93FEBCD694D7301E",
-				"selector": "[lid=Ticket_Application] tr"
-			},
-			"overview_silt": {
-				"id": "i86B990A4322348729AD2561C0C5D7C92",
-				"selector": "[lid=List1] tr"
-			},
-			"monthsSelector": "[lid=List1] tr",
-			"months": [
-				"i84A6B3DFEB334876B075E4AF7730943F",
-				"i6D5F5D896A4C4ABD9F203AEF9A6B180A",
-				"i442340B2AE134527A95ACA75D644D43E",
-				"i0B72C07CF0AB4E46A8E5F4D5699AC18C",
-				"i7823E458BF1A45708E6503BB2855D7EF",
-				"i7EC5D13883ED4C53B31C344173AF9BA1",
-				"i63397EC9C40140EDA4B457F678BAACCB",
-				"i5F81078AC36F4542A58FB730FFCCCF30",
-				"i80EF1A7C76D94B279A6A12BA650CE1F6",
-				"i2551180ACCC14FAEA25EEEA79805973D",
-				"i594A3A26CF3E46688D09D9CE6F711210",
-				"i5D28D159F965423DBDEB2EA72C3DCD29"
-			]
-		}
-	},
-	"changelog": [
-		{
-			"version": "1.16.0",
-			"text": [
-				"#2132 - Fix CISM in AMVARA DEV"
-			]
-		},
-		{
-			"version": "1.15.0",
-			"text": [
-				"Improved performance",
-				"Improved stability",
-				"Added button in About page to enable/disable experimental features",
-				"Remove dead code",
-				"Improved observable handling",
-				"Hide links to internal portal for public CISM users",
-				"Added heartbeat to keep user session active",
-				"Fixed animation between pages",
-				"Fixed some styles not working as expected",
-				"Fixed first month disappearing on month selector"
-			]
-		},
-		{
-			"version": "1.14.0",
-			"text": [
-				"Cognos 11.1 R3 API Update"
-			]
-		},
-		{
-			"version": "1.13.0",
-			"text": [
-				"Fixed dates due to new format in reports"
-			]
-		},
-		{
-			"version": "1.11.0",
-			"text": [
-				""
-			]
-		},
-		{
-			"version": "1.10.0",
-			"text": [
-				"Fixed month selector"
-			]
-		},
-		{
-			"version": "1.9.0",
-			"text": [
-				"Minimal design changes",
-				"Fixed About page"
-			]
-		},
-		{
-			"version": "1.8.1",
-			"text": [
-				"Changed legend colors"
-			]
-		},
-		{
-			"version": "1.8.0",
-			"text": [
-				"IE Top icons Fixed",
-				"Change Silt to AVERAGE SILT",
-				"Add thank you text",
-				"Fix contacts",
-				"iBISS Portal Link",
-				"Make table headers sortable",
-				"Correct columns",
-				"Change tab title",
-				"L2 Table, click on classification field goes to it"
-			]
-		},
-		{
-			"version": "1.4.0",
-			"text": [
-				"Complete data from tickets",
-				"Solve or remove ticket"
-			]
-		},
-		{
-			"version": "1.3.0",
-			"text": [
-				"Change month available",
-				"Mobile-Tablet design",
-				"Fixed percent on tickets",
-				"Better design at stadictic boxes when list items overflows out of the box"
-			]
-		},
-		{
-			"version": "1.2.0",
-			"text": [
-				"Select which columns to see",
-				"Real data and filters on L2",
-				"Fixed dot number on L1 classification boxes",
-				"Merged About & Help pages",
-				"Added sidenav menu",
-				"Added L2 pagination",
-				"Minor bugs fixed"
-			]
-		},
-		{
-			"version": "1.0.0",
-			"text": [
-				"Initial commit"
-			]
-		}
-	]
+  "version": "1.16.0",
+  "language": "en",
+  "appTitle": "IWM Reporting",
+  "scenario": "dev",
+  "delay": 0,
+  "delayRequests": 0,
+  "copyright": "DAIMLER",
+  "corpintraMode": true,
+  "heartbeat": 300000,
+  "license": "SFASR",
+  "ticketOptions": true,
+  "languageCodes": {
+    "en": "English",
+    "de": "Deutsch"
+  },
+  "fullUrl": "",
+  "portalFolder": "/analytics/bi/",
+  "excludeDatesFuture": true,
+  "system": {
+    "enable": false,
+    "unitsPast": 12,
+    "titles": {
+      "S1": "System availability",
+      "S2": "Robustness of system",
+      "S3": "Root cause",
+      "S4": "Performance of incident resolution",
+      "S5": "Overview of Inc/Prb Management"
+    },
+    "S1": {
+      "formatDate": "MM/DD/YYYY"
+    },
+    "S2": {
+      "formatDate": "MM/DD/YYYY"
+    },
+    "S3": {},
+    "S4": {},
+    "S5": {}
+  },
+  "portalLink": {
+    "dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+    "prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
+  },
+  "cognosRepository": {
+    "dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
+    "prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
+  },
+  "displayedColumnsDefault": [
+    "id",
+    "create_date",
+    "modify_date",
+    "type",
+    "priority",
+    "status",
+    "description",
+    "external",
+    "classification",
+    "component",
+    "service_group"
+  ],
+  "displayedColumns": [
+    "id",
+    "create_date",
+    "modify_date",
+    "type",
+    "priority",
+    "status",
+    "description",
+    "external",
+    "classification",
+    "component",
+    "service_group"
+  ],
+  "displayedColumnsOrder": [
+    "month_id",
+    "id",
+    "create_date",
+    "modify_date",
+    "type",
+    "priority",
+    "status",
+    "description",
+    "external",
+    "classification",
+    "component",
+    "service_group",
+    "service",
+    "count",
+    "silt"
+  ],
+  "columns": {
+    "month_id": 0,
+    "id": 1,
+    "create_date": 2,
+    "modify_date": 3,
+    "type": 4,
+    "priority": 5,
+    "status": 6,
+    "description": 7,
+    "external": 8,
+    "classification": 9,
+    "component": 10,
+    "service_group": 11,
+    "service": 12,
+    "count": 13,
+    "silt": 14
+  },
+  "contacts": {
+    "dev": [
+      {
+        "name": "Csaba Slemmer",
+        "description": "ITS/M",
+        "email": "Csaba.slemmer@daimler.com",
+        "telephones": [
+          "+49 711 17 94201",
+          "+49 176 3096 3593"
+        ]
+      }
+    ]
+  },
+  "reports": {
+    "dev": {
+      "barchart": {
+        "id": "iEB9769FA4B534040B1DF3CBC5BA7BA18",
+        "selector": "[lid=Overview_Diagram] tr",
+        "fallback": "Mobile_Tickets_Chart.csv"
+      },
+      "tickets": {
+        "id": "i162AB365F31345B2AAAAA1A9D4D98203",
+        "selector": "[lid=List1] tr"
+      },
+      "overview_count": {
+        "id": "i046F8C57031B43C2A9F1A546DA61F8F3",
+        "selector": "[lid=List1] tr",
+        "fallback": "Mobile_Tickets_Overall.csv"
+      },
+      "overview_prio": {
+        "id": "i0241160C5EAE42B5B42259B09A807211",
+        "selector": "[lid=Ticket_Priority] tr",
+        "fallback": "Mobile_Tickets_Priority.csv"
+      },
+      "overview_type": {
+        "id": "i1562591D88004D2FA85D50C879EC4B8A",
+        "selector": "[lid=Ticket_Status1] tr",
+        "fallback": "Mobile_Tickets_Type.csv"
+      },
+      "overview_status": {
+        "id": "iC3A0747EE4114C1BAABB887046E12778",
+        "selector": "[lid=Ticket_Status] tr",
+        "fallback": "Mobile_Tickets_Status.csv"
+      },
+      "overview_service": {
+        "id": "i8E57B9312DE24595A61F1038436C6EB6",
+        "selector": "[lid=Ticket_Application] tr",
+        "fallback": "Mobile_Tickets_Service.csv"
+      },
+      "overview_silt": {
+        "id": "iAD7819B5A436416E8C9B3249014DDA1E",
+        "selector": "[lid=List1] tr",
+        "fallback": "Mobile_Tickets_Silt.csv"
+      },
+      "system": {
+        "id": "null",
+        "selector": "null",
+        "fallback": "System.csv"
+      },
+      "monthsSelector": "[lid=List1] tr",
+      "allMonths": "null",
+      "months": [
+        "iC222E08234E64B94947E54EFABC01F52",
+        "i5B67501DB55548B296C4A77B0E4D06DE",
+        "iAC5B68CF95344BA1814DA125336E20C0",
+        "i4E15EF16981140D7BA9675FEDE6C1466",
+        "i3A69BCA91A1E4697B832DE6F2E6463A4",
+        "i2AE654FEFD1D49519739895056EE32FF",
+        "i6040714DB6CD4C75986FBA07016FEA06",
+        "i4646E67F89474D7F9F14795DD5F0B348",
+        "iCBB6CD4AC71D4B15BF17555B6D7727E1",
+        "iC9A6A0DD55A74D13AAC538342606612E",
+        "i143A18EE4A1D42B8A52482400C49EF33",
+        "i4656FF7E9489412F86EEE1B238CEA453"
+      ]
+    },
+    "prod": {
+      "barchart": {
+        "id": "i8562AA0919AB4DD69B06AA56711E0AF8",
+        "selector": "[lid=Overview_Diagram] tr"
+      },
+      "tickets": {
+        "id": "i162AB365F31345B2AAAAA1A9D4D98203",
+        "selector": "[lid=List1] tr"
+      },
+      "overview_count": {
+        "id": "iE68518B108B5435A969C6DA8218F5C90",
+        "selector": "[lid=List1] tr"
+      },
+      "overview_prio": {
+        "id": "i251B3B8390D84AEFB4B53D4452E61D56",
+        "selector": "[lid=Ticket_Priority] tr"
+      },
+      "overview_type": {
+        "id": "i0D796C265A6F4CE493A9733238130230",
+        "selector": "[lid=Ticket_Status1] tr"
+      },
+      "overview_status": {
+        "id": "i52786045C01D4214BA189D034D29D618",
+        "selector": "[lid=Ticket_Status] tr"
+      },
+      "overview_service": {
+        "id": "iEBE5C5FCCFC1439D93FEBCD694D7301E",
+        "selector": "[lid=Ticket_Application] tr"
+      },
+      "overview_silt": {
+        "id": "i86B990A4322348729AD2561C0C5D7C92",
+        "selector": "[lid=List1] tr"
+      },
+      "monthsSelector": "[lid=List1] tr",
+      "months": [
+        "i84A6B3DFEB334876B075E4AF7730943F",
+        "i6D5F5D896A4C4ABD9F203AEF9A6B180A",
+        "i442340B2AE134527A95ACA75D644D43E",
+        "i0B72C07CF0AB4E46A8E5F4D5699AC18C",
+        "i7823E458BF1A45708E6503BB2855D7EF",
+        "i7EC5D13883ED4C53B31C344173AF9BA1",
+        "i63397EC9C40140EDA4B457F678BAACCB",
+        "i5F81078AC36F4542A58FB730FFCCCF30",
+        "i80EF1A7C76D94B279A6A12BA650CE1F6",
+        "i2551180ACCC14FAEA25EEEA79805973D",
+        "i594A3A26CF3E46688D09D9CE6F711210",
+        "i5D28D159F965423DBDEB2EA72C3DCD29"
+      ]
+    }
+  },
+  "changelog": [
+    {
+      "version": "1.16.0",
+      "text": [
+        "#2132 - Fix CISM in AMVARA DEV"
+      ]
+    },
+    {
+      "version": "1.15.0",
+      "text": [
+        "Improved performance",
+        "Improved stability",
+        "Added button in About page to enable/disable experimental features",
+        "Remove dead code",
+        "Improved observable handling",
+        "Hide links to internal portal for public CISM users",
+        "Added heartbeat to keep user session active",
+        "Fixed animation between pages",
+        "Fixed some styles not working as expected",
+        "Fixed first month disappearing on month selector"
+      ]
+    },
+    {
+      "version": "1.14.0",
+      "text": [
+        "Cognos 11.1 R3 API Update"
+      ]
+    },
+    {
+      "version": "1.13.0",
+      "text": [
+        "Fixed dates due to new format in reports"
+      ]
+    },
+    {
+      "version": "1.11.0",
+      "text": [
+        ""
+      ]
+    },
+    {
+      "version": "1.10.0",
+      "text": [
+        "Fixed month selector"
+      ]
+    },
+    {
+      "version": "1.9.0",
+      "text": [
+        "Minimal design changes",
+        "Fixed About page"
+      ]
+    },
+    {
+      "version": "1.8.1",
+      "text": [
+        "Changed legend colors"
+      ]
+    },
+    {
+      "version": "1.8.0",
+      "text": [
+        "IE Top icons Fixed",
+        "Change Silt to AVERAGE SILT",
+        "Add thank you text",
+        "Fix contacts",
+        "iBISS Portal Link",
+        "Make table headers sortable",
+        "Correct columns",
+        "Change tab title",
+        "L2 Table, click on classification field goes to it"
+      ]
+    },
+    {
+      "version": "1.4.0",
+      "text": [
+        "Complete data from tickets",
+        "Solve or remove ticket"
+      ]
+    },
+    {
+      "version": "1.3.0",
+      "text": [
+        "Change month available",
+        "Mobile-Tablet design",
+        "Fixed percent on tickets",
+        "Better design at stadictic boxes when list items overflows out of the box"
+      ]
+    },
+    {
+      "version": "1.2.0",
+      "text": [
+        "Select which columns to see",
+        "Real data and filters on L2",
+        "Fixed dot number on L1 classification boxes",
+        "Merged About & Help pages",
+        "Added sidenav menu",
+        "Added L2 pagination",
+        "Minor bugs fixed"
+      ]
+    },
+    {
+      "version": "1.0.0",
+      "text": [
+        "Initial commit"
+      ]
+    }
+  ]
 }
