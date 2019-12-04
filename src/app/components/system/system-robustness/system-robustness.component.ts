@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, Host } from '@angular/core';
 import { SAViewType } from '@other/interfaces';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { ConfigService } from '@services/config.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'cism-system-robustness',

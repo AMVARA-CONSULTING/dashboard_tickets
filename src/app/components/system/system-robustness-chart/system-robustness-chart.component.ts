@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Host } from '@angular/core';
+import { Component, Input, OnChanges, Host, ChangeDetectionStrategy } from '@angular/core';
 import { SAViewType } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
@@ -10,7 +10,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 @Component({
   selector: 'cism-system-robustness-chart',
   templateUrl: './system-robustness-chart.component.html',
-  styleUrls: ['./system-robustness-chart.component.scss']
+  styleUrls: ['./system-robustness-chart.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SystemRobustnessChartComponent implements OnChanges {
 
@@ -22,44 +23,46 @@ export class SystemRobustnessChartComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    let groups = {}
-    let classifiers = {
-      monthly: 'YYYY[M]MM',
-      daily: 'YYYY[M]MM[D]DD',
-      weekly: 'YYYY[W]w'
-    }
-    // Get rows classified by month, week, or day
-    groups = this._data.allTickets.reduce((r, ticket) => {
-      const momented = moment(ticket[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A'])
-      if (!momented.isValid()) return r
-      const date = momented.format(classifiers[this.type])
-      r[date] = r[date] || []
-      r[date].push(ticket)
-      return r
-    }, {})
-    // Get keys of classifying indexes
-    const keys = Object.keys(groups)
-    // Apply sorting, normally it's done by the browser, by just to make sure
-    keys.sort((a, b) => {
-      const left = moment(a, classifiers[this.type])
-      const right = moment(b, classifiers[this.type])
-      return left.valueOf() - right.valueOf()
-    })
-    let chartData = keys.map( key => {
-      const group = groups[key]
-      groups[key] = this._tools.classifyByIndex(group, this._config.config.columns.type)
-      for (let prop2 in groups[key]) {
-        groups[key][prop2] = groups[key][prop2].length
+    setTimeout(_ => {
+      let groups = {}
+      let classifiers = {
+        monthly: 'YYYY[M]MM',
+        daily: 'YYYY[M]MM[D]DD',
+        weekly: 'YYYY[W]w'
       }
-      return {
-        name: key,
-        series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
-      }
-    })
-    // Take only last 12 units, example: months, weeks, days,...
-    chartData = chartData.slice(Math.max(chartData.length - this._config.config.system.unitsPast, 1))
-    this._scroller.bars.next(chartData.length)
-    this.data.next(chartData)
+      // Get rows classified by month, week, or day
+      groups = this._data.allTickets.reduce((r, ticket) => {
+        const momented = moment(ticket[2])
+        if (!momented.isValid()) return r
+        const date = momented.format(classifiers[this.type])
+        r[date] = r[date] || []
+        r[date].push(ticket)
+        return r
+      }, {})
+      // Get keys of classifying indexes
+      const keys = Object.keys(groups)
+      // Apply sorting, normally it's done by the browser, by just to make sure
+      keys.sort((a, b) => {
+        const left = moment(a, classifiers[this.type])
+        const right = moment(b, classifiers[this.type])
+        return left.valueOf() - right.valueOf()
+      })
+      let chartData = keys.map( key => {
+        const group = groups[key]
+        groups[key] = this._tools.classifyByIndex(group, this._config.config.columns.type)
+        for (let prop2 in groups[key]) {
+          groups[key][prop2] = groups[key][prop2].length
+        }
+        return {
+          name: key,
+          series: Object.keys(groups[key]).map( key2 => ({ name: key2, value: groups[key][key2] }) )
+        }
+      })
+      // Take only last 12 units, example: months, weeks, days,...
+      chartData = chartData.slice(Math.max(chartData.length - this._config.config.system.unitsPast, 1))
+      this._scroller.bars.next(chartData.length)
+      this.data.next(chartData)
+    }, 200)
   }
   
   @Input() type: SAViewType

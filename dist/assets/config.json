@@ -1,5 +1,5 @@
 {
-  "version": "1.16.0",
+  "version": "1.17.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
@@ -15,7 +15,7 @@
     "de": "Deutsch"
   },
   "fullUrl": "",
-  "portalFolder": "/analytics/bi/",
+  "portalFolder": "",
   "excludeDatesFuture": true,
   "system": {
     "enable": false,
@@ -232,6 +232,13 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.17.0",
+      "text": [
+        "#2048 - Improve performance",
+        "#2047 - Fix padding top of 100% percentage"
+      ]
+    },
     {
       "version": "1.16.0",
       "text": [

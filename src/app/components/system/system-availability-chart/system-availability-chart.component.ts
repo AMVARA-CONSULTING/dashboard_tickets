@@ -110,22 +110,4 @@ export class SystemAvailabilityChartComponent implements OnInit {
     }
   }
 
-  /* getLabelsFor(type: 'weeks' | 'months'): Date[] {
-    const dates = []
-    let formatDate = type == 'weeks' ? 'YYYYw' : 'YYYYMM'
-    let outputFormat = type == 'weeks' ? 'DD/MM/YYYY' : 'MMM YYYY'
-    const grouped_weeks = this.data.reduce((r, a) => {
-      const formattedDate = moment(a[1], this._config.config.system.S2.formatDate).format(formatDate)
-      r[formattedDate] = r[formattedDate] || []
-      r[formattedDate] = a
-      return r
-    }, {})
-    //return Object.keys(grouped_weeks).map(group => )
-    for (const group in grouped_weeks) {
-      dates.push(moment(grouped_weeks[group][1], this._config.config.system.S2.formatDate).format(outputFormat))
-    }
-    console.log("Dates:", dates)
-    return dates
-  } */
-
 }

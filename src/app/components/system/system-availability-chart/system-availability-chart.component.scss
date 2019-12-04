@@ -4,6 +4,8 @@
 :host {
     display: block;
     height: 225px;
+    padding-top: 5px;
+    box-sizing: border-box;
 }
 
 :host::ng-deep .ngx-charts .line-highlight {

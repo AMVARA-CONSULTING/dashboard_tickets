@@ -73,7 +73,7 @@ export class AppComponent {
         this._http.get(`${this.config.config.portalFolder}v1/notifications`)
         .pipe(
           retry(3)
-          )
+        )
         .subscribe()
       })
     }
