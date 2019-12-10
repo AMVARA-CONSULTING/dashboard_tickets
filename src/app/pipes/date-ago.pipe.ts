@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import memo from 'memo-decorator';
-
-declare const moment: any
+import dayjs from 'dayjs';
 
 @Pipe({
   name: 'dateAgo'
 })
 export class DateAgoPipe implements PipeTransform {
 
-  @memo()
-  transform(date: any): string {
+  transform(date: dayjs.Dayjs): string {
     return date.fromNow()
   }
 

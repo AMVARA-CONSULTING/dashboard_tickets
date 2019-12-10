@@ -4,8 +4,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SAPercents, SAViewType } from '@other/interfaces';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { ConfigService } from '@services/config.service';
-import * as moment from 'moment';
 import { ToolsService } from '@services/tools.service';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'cism-system-availability',
@@ -38,7 +38,7 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract today's %
     let today = 0
     try {
-      const date = moment().format(this._config.config.system.S1.formatDate)
+      const date = dayjs().format(this._config.config.system.S1.formatDate)
       today = this._tools.formatPercent(SARows.filter(row => row[1] == date)[0][2])
     } catch (err) {
       console.log('System Availability', 'Processing', 'Percent not found for today')
@@ -47,7 +47,7 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract previous day %
     let yesterday = 0
     try {
-      const date = moment().subtract(1, 'day').format(this._config.config.system.S1.formatDate)
+      const date = dayjs().subtract(1, 'day').format(this._config.config.system.S1.formatDate)
       yesterday = this._tools.formatPercent(SARows.filter(row => row[1] == date)[0][2])
     } catch (err) {
       console.log('System Availability', 'Processing', 'Percent not found for yesterday')
@@ -56,9 +56,8 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract previous week %
     let prev_week = 0
     try {
-      const week = moment().subtract(1, 'week').week()
-      // @ts-ignore
-      const rows = SARows.filter(row => moment(row[1], this._config.config.system.S1.formatDate).week() == week)
+      const week = dayjs().subtract(1, 'week').week()
+      const rows = SARows.filter(row => dayjs(row[1], this._config.config.system.S1.formatDate).week() == week)
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
       prev_week = this._tools.formatPercent(sum / rows.length)
     } catch (err) {
@@ -68,9 +67,9 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract current week %
     let act_week = 0
     try {
-      const week = moment().week()
+      const week = dayjs().week()
       // @ts-ignore
-      const rows = SARows.filter(row => moment(row[1], this._config.config.system.S1.formatDate).week() == week)
+      const rows = SARows.filter(row => dayjs(row[1], this._config.config.system.S1.formatDate).week() == week)
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
       act_week = this._tools.formatPercent(sum / rows.length)
     } catch (err) {
@@ -80,9 +79,9 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract previous month %
     let prev_month = 0
     try {
-      const month = moment().subtract(1, 'month').month()
+      const month = dayjs().subtract(1, 'month').month()
       // @ts-ignore
-      const rows = SARows.filter(row => moment(row[1], this._config.config.system.S1.formatDate).month() == month)
+      const rows = SARows.filter(row => dayjs(row[1], this._config.config.system.S1.formatDate).month() == month)
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
       prev_month = this._tools.formatPercent(sum / rows.length)
     } catch (err) {
@@ -92,9 +91,9 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract current month %
     let act_month = 0
     try {
-      const month = moment().month()
+      const month = dayjs().month()
       // @ts-ignore
-      const rows = SARows.filter(row => moment(row[1], this._config.config.system.S1.formatDate).month() == month)
+      const rows = SARows.filter(row => dayjs(row[1], this._config.config.system.S1.formatDate).month() == month)
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
       act_month = this._tools.formatPercent(sum / rows.length)
     } catch (err) {

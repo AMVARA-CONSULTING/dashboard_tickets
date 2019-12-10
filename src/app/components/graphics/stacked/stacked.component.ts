@@ -2,8 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRe
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { SubSink } from '@services/tools.service';
-
-declare const moment: any
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'cism-stacked',
@@ -29,7 +28,7 @@ export class StackedComponent implements OnInit, OnDestroy {
         const series = []
         for (let i = 0; i < length; i++) {
           series.push({
-            'name': moment(barchartData[i][1], 'YYYY-MM-DD').format('D'),
+            'name': dayjs(barchartData[i][1], 'YYYY-MM-DD').format('D'),
             'series': [
               {
                 'name': 'Change',

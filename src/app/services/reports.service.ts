@@ -6,11 +6,11 @@ import { ConfigService } from '@services/config.service';
 import { map, switchMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import * as moment from 'moment';
 import { Config } from '@other/interfaces';
 import { ToolsService } from './tools.service';
 import { Subscriber } from 'rxjs/internal/Subscriber';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import dayjs from 'dayjs';
 
 declare const JKL, XML: any
 
@@ -132,11 +132,13 @@ export class ReportsService {
         if (this.config.config.system.enable) {
           this.data.allTickets = data[7]
           if (this.config.config.excludeDatesFuture) {
-            this.data.allTickets = this.data.allTickets.filter(row => !moment(row[2], ['DD.MM.YYYY HH:mm', 'MMM D, YYYY H:mm:ss A']).isAfter())
+            // @ts-ignore
+            this.data.allTickets = this.data.allTickets.filter(row => !dayjs(row[2], 'DD.MM.YYYY HH:mm').isAfter())
           }
           this.data.system = data[8]
           if (this.config.config.excludeDatesFuture) {
-            this.data.system = this.data.system.filter(row => !moment(row[1], 'MM/DD/YYYY').isAfter())
+            // @ts-ignore
+            this.data.system = this.data.system.filter(row => !dayjs(row[1], 'MM/DD/YYYY').isAfter())
           }
         }
         this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()

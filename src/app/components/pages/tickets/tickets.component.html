@@ -49,17 +49,17 @@
 
     <ng-container matColumnDef="create_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse | dateLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language |
           dateAgo"
-        *matCellDef="let element">{{ element.create_date | dateParse | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
+        *matCellDef="let element">{{ element.create_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse | dateLocale:config.config.language |
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language |
               dateAgo"
-        *matCellDef="let element">{{ element.modify_date | dateParse | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
+        *matCellDef="let element">{{ element.modify_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
         HH:mm' }}</mat-cell>
     </ng-container>
 

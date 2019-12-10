@@ -1,7 +1,7 @@
 <mat-form-field class="no-underline">
   <mat-select panelClass="month-selector" [value]="(data.month | async).month" (selectionChange)="handleMonth($event.value)">
     <mat-option [value]="month" [disabled]="data.availableMonths.indexOf(month) == -1" *ngFor="let month of data.months; let i = index;">{{ month |
-      dateParse |
+      dateParse:'YYYY[M]M' |
       dateLocale |
       dateFormat:'MMM YYYY' }}</mat-option>
   </mat-select>

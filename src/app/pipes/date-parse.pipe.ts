@@ -1,17 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
-declare const moment: any
+import dayjs from 'dayjs';
 
 @Pipe({
   name: 'dateParse'
 })
 export class DateParsePipe implements PipeTransform {
 
-  transform(date: string): any {
+  transform(date: string, format: string): any {
     if (date === undefined) {
-      return moment()
+      return dayjs()
     }
-    return moment(date, ['YYYY[M]MM', 'MMM D, YYYY H:mm:ss A', 'DD.MM.YYYY HH:mm'])
+    return dayjs(date, format)
   }
 
 }

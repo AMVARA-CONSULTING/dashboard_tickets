@@ -3,9 +3,9 @@ import { SAViewType } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { ConfigService } from '@services/config.service';
-import * as moment from 'moment';
 import { ToolsService } from '@services/tools.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -28,13 +28,16 @@ export class SystemRobustnessChartComponent implements OnChanges {
       let classifiers = {
         monthly: 'YYYY[M]MM',
         daily: 'YYYY[M]MM[D]DD',
-        weekly: 'YYYY[W]w'
+        weekly: 'YYYYw'
       }
+      const t0 = performance.now()
       // Get rows classified by month, week, or day
       groups = this._data.allTickets.reduce((r, ticket) => {
-        const momented = moment(ticket[2])
-        if (!momented.isValid()) return r
-        const date = momented.format(classifiers[this.type])
+        const dateParsed = dayjs(ticket[2], 'DD.MM.YYYY HH:mm')
+        if (!dateParsed.isValid()) {
+          return r
+        }
+        const date = dateParsed.format(classifiers[this.type])
         r[date] = r[date] || []
         r[date].push(ticket)
         return r
@@ -43,8 +46,8 @@ export class SystemRobustnessChartComponent implements OnChanges {
       const keys = Object.keys(groups)
       // Apply sorting, normally it's done by the browser, by just to make sure
       keys.sort((a, b) => {
-        const left = moment(a, classifiers[this.type])
-        const right = moment(b, classifiers[this.type])
+        const left = this.type == 'weekly' ? dayjs(a.substr(0, 4), 'YYYY').week(+a.substr(4,2)) : dayjs(a, classifiers[this.type])
+        const right = this.type == 'weekly' ? dayjs(b.substr(0, 4), 'YYYY').week(+b.substr(4,2)) : dayjs(b, classifiers[this.type])
         return left.valueOf() - right.valueOf()
       })
       let chartData = keys.map( key => {
@@ -73,14 +76,14 @@ export class SystemRobustnessChartComponent implements OnChanges {
 
   data = new BehaviorSubject<any[]>([])
 
-  xAxisFormatting = val => {
+  xAxisFormatting = (val: string) => {
     switch (this.type) {
       case "daily":
-        return moment(val, 'YYYY[M]MM[D]DD').format('DD/MM/YYYY')
+        return dayjs(val, 'YYYY[M]MM[D]DD').format('DD/MM/YYYY')
       case "monthly":
-        return moment(val, 'YYYY[M]MM').locale('de').format('MMM YYYY')
+        return dayjs(val, 'YYYY[M]MM').format('MMM YYYY')
       case "weekly":
-        return moment(val, 'YYYY[W]w').format('DD/MM/YYYY')
+        return dayjs(val.substr(0, 4), 'YYYY').week(+val.substr(4,2)).format('DD/MM/YYYY')
     }
   }
 

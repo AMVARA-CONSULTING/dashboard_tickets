@@ -1,10 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Host } from '@angular/core';
 import { SAViewType } from '@other/interfaces';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import * as moment from 'moment';
 import { ToolsService } from '@services/tools.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { ConfigService } from '@services/config.service';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'cism-system-availability-chart',
@@ -26,7 +26,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
       case "daily":
         newData = this.data.map(row => {
           return {
-            name: moment(row[1], this._config.config.system.S2.formatDate).format('DD/MM/YYYY'),
+            name: dayjs(row[1], this._config.config.system.S2.formatDate).format('DD/MM/YYYY'),
             value: Math.round(row[2] * 100) / 100
           }
         })
@@ -35,18 +35,18 @@ export class SystemAvailabilityChartComponent implements OnInit {
         break
       case "weekly":
       case "monthly":
-        let formatToBeUnique = this.type == 'weekly' ? 'YYYY-w' : 'YYYYMM'
+        let formatToBeUnique = this.type == 'weekly' ? 'YYYYw' : 'YYYYMM'
         let formatDate = this.type == 'weekly' ? this._config.config.system.S2.formatDate : 'DD/MM/YYYY'
         // let labels: any = this.type == 'weekly' ? 'weeks' : 'months'
         const grouped_data = this.data.reduce((r, a) => {
-          const formattedDate = moment(a[1], this._config.config.system.S2.formatDate).format(formatToBeUnique)
+          const formattedDate = dayjs(a[1], this._config.config.system.S2.formatDate).format(formatToBeUnique)
           r[formattedDate] = r[formattedDate] || []
           r[formattedDate].push(a)
           return r
         }, {})
         newData = Object.keys(grouped_data).map(prop => {
           return {
-            name: moment(prop, formatToBeUnique).format(formatDate),
+            name: this.type == 'weekly' ? dayjs(prop.substr(0, 4), 'YYYY').week(+prop.substr(4, 2)).startOf('week').format(formatDate) : dayjs(prop, formatToBeUnique).format(formatDate),
             value: this._tools.averageByIndex(grouped_data[prop], 2, true),
             min: this._tools.getMin(grouped_data[prop], 2, true),
             max: this._tools.getMax(grouped_data[prop], 2, true)
@@ -99,14 +99,14 @@ export class SystemAvailabilityChartComponent implements OnInit {
     }
   }
   xAxisFormatting = val => {
-    const momented = moment(val, this._config.config.system.S2.formatDate)
+    const parsed = dayjs(val, this._config.config.system.S2.formatDate)
     switch (this.type) {
       case "daily":
         return val
       case "monthly":
-        return momented.locale('de').format('MMM YYYY')
+        return parsed.locale('de').format('MMM YYYY')
       case "weekly":
-        return momented.locale('de').format('DD/MM/YYYY')
+        return parsed.locale('de').format('DD/MM/YYYY')
     }
   }
 

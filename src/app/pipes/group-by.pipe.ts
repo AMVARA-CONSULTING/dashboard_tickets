@@ -1,16 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as _ from 'underscore';
-import memo from 'memo-decorator';
+import { ToolsService } from '@services/tools.service';
 
 @Pipe({
   name: 'groupBy'
 })
 export class GroupByPipe implements PipeTransform {
 
-  @memo((...args: any[]): string => JSON.stringify(args))
+  constructor (
+    private _tools: ToolsService
+  ) { }
+
   transform(values: any[], group: any): any[] {
     if (!values) return []
-    return _.chain(values).groupBy((el, index) => Math.floor(index / group)).toArray().value()
+    return this._tools.chunkArray(values, group)
   }
 
 }
