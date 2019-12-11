@@ -4,5 +4,11 @@
     [results]="chartData | async">
 </ngx-charts-tree-map>
 <ng-template #ieTemplate>
-    
+    <google-chart
+        [title]="rootcause"
+        [type]="TreeMap"
+        [data]="myData | async"
+        [columnNames]="myColumnNames"
+        [options]="myOptions">
+    </google-chart>
 </ng-template>

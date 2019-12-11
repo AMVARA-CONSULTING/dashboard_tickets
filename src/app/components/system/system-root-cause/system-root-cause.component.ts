@@ -36,17 +36,45 @@ export class SystemRootCauseComponent implements OnInit {
       } as KeyPair
     })
     this.chartData.next(chartData)
+
+    var myData = [];
+    let barsPush =
+      ['Root Cause', null, 0]
+    myData.push(barsPush);
+    for (const group in groups) {
+      let barsPush = 
+        [group, 'Root Cause', groups[group]]
+      myData.push(barsPush);
+    }
+    this.myData.next(myData);
   }
 
   colorScheme = {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }
 
+  // Internet Explorer - Google Charts Data & Config.
+
+  rootcause = 'rootcause';
+  TreeMap = 'TreeMap';
+
+  myColumnNames = ['Group', 'Parent', 'Tickets'];
+
+  myOptions = {
+    minColor: '#00bcd4',
+    midColor: '#039be5',
+    maxColor: '#7e57c2',
+    width: '100%',
+    height: '100%'
+  };
+
   valueFormatting = val => {
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
   chartData = new BehaviorSubject<KeyPair[]>([])
+
+  myData = new BehaviorSubject<any[]>([])
 
   ie = false
 

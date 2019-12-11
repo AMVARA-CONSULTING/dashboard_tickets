@@ -14,6 +14,7 @@ import { SystemRobustnessChartComponent } from '@components/system/system-robust
 import { SystemTicketColorsComponent } from '@components/system/system-ticket-colors/system-ticket-colors.component';
 import { SystemRootCauseComponent } from '@components/system/system-root-cause/system-root-cause.component';
 import { ComboChartComponent, ComboSeriesVerticalComponent } from '@components/system/combo-chart';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 const systemRoutes: Routes = [
   {
@@ -44,7 +45,8 @@ const systemRoutes: Routes = [
   imports: [
     RouterModule.forChild(systemRoutes),
     SharedModule,
-    CommonModule
+    CommonModule,
+    GoogleChartsModule.forRoot(),
   ],
   exports: []
 })
