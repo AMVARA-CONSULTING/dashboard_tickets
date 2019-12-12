@@ -24,26 +24,36 @@ export class SystemRootCauseComponent implements OnInit {
     this.ie = this._tools.isIE()
   }
 
+  groups:any;
+  
+
   ngOnInit() {
-    const groups = this._tools.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
-    for (const group in groups) {
-      groups[group] = groups[group].length
+    // ngx
+    this.groups = this._tools.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
+
+    for (const group in this.groups) {
+      this.groups[group] = this.groups[group].length
     }
-    const chartData: KeyPair[] = Object.keys(groups).map(group => {
+    const chartData: KeyPair[] = Object.keys(this.groups).map(group => {
       return {
         name: group,
-        value: groups[group]
+        value: this.groups[group]
       } as KeyPair
     })
     this.chartData.next(chartData)
 
+    // gchart
+    this.drawChart();
+  }
+  // Draws the google-chart data for IE, so it can be redrawn on resize.
+  drawChart(){
     var myData = [];
     let barsPush =
       ['Root Cause', null, 0]
     myData.push(barsPush);
-    for (const group in groups) {
-      let barsPush = 
-        [group, 'Root Cause', groups[group]]
+    for (const group in this.groups) {
+      let barsPush =
+        [group, 'Root Cause', this.groups[group]]
       myData.push(barsPush);
     }
     this.myData.next(myData);
@@ -53,28 +63,30 @@ export class SystemRootCauseComponent implements OnInit {
     domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
   }
 
-  // Internet Explorer - Google Charts Data & Config.
+  onResize($event){
+    this.drawChart();
+  }
 
-  rootcause = 'rootcause';
   TreeMap = 'TreeMap';
 
   myColumnNames = ['Group', 'Parent', 'Tickets'];
 
   myOptions = {
-    minColor: '#00bcd4',
-    midColor: '#039be5',
-    maxColor: '#7e57c2',
-    width: '100%',
-    height: '100%'
+    minColor: '#48bd88',
+    midColor: '#00938c',
+    maxColor: '#007a93',
+    headerHeight: 0,
+    highlightOnMouseOver: false,
+    fontFamily: 'CorpoS'
   };
 
   valueFormatting = val => {
     return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   }
 
-  chartData = new BehaviorSubject<KeyPair[]>([])
+  chartData = new BehaviorSubject<KeyPair[]>([]) // ng data var
 
-  myData = new BehaviorSubject<any[]>([])
+  myData = new BehaviorSubject<any[]>([]) // gcharts data var
 
   ie = false
 

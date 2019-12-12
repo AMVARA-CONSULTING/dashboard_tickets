@@ -4,8 +4,7 @@
     [results]="chartData | async">
 </ngx-charts-tree-map>
 <ng-template #ieTemplate>
-    <google-chart
-        [title]="rootcause"
+    <google-chart (window:resize)="onResize($event)" id='googlechart'
         [type]="TreeMap"
         [data]="myData | async"
         [columnNames]="myColumnNames"
