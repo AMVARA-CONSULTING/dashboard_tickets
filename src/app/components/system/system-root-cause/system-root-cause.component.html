@@ -1,11 +1,13 @@
 <ngx-charts-tree-map *ngIf="!ie; else ieTemplate"
     [scheme]="colorScheme"
     [valueFormatting]="valueFormatting"
+    (select)="onSelect($event)"
     [results]="chartData | async">
 </ngx-charts-tree-map>
 <ng-template #ieTemplate>
     <google-chart (window:resize)="onResize($event)" id='googlechart'
         [type]="TreeMap"
+        (select)="onSelect($event)"
         [data]="myData | async"
         [columnNames]="myColumnNames"
         [options]="myOptions">

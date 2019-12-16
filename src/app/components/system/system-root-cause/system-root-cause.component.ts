@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { KeyPair } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { ToolsService } from '@services/tools.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'cism-system-root-cause',
@@ -18,6 +19,7 @@ export class SystemRootCauseComponent implements OnInit {
     private _config: ConfigService,
     private _data: DataService,
     private _tools: ToolsService,
+    private _router: Router,
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
     this._holder.titles.next([this._config.config.system.titles.S3])
@@ -28,9 +30,7 @@ export class SystemRootCauseComponent implements OnInit {
   
 
   ngOnInit() {
-    // ngx
     this.groups = this._tools.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
-
     for (const group in this.groups) {
       this.groups[group] = this.groups[group].length
     }
@@ -48,12 +48,10 @@ export class SystemRootCauseComponent implements OnInit {
   // Draws the google-chart data for IE, so it can be redrawn on resize.
   drawChart(){
     var myData = [];
-    let barsPush =
-      ['Root Cause', null, 0]
+    let barsPush = ['Root Cause', null, 0]
     myData.push(barsPush);
     for (const group in this.groups) {
-      let barsPush =
-        [group, 'Root Cause', this.groups[group]]
+      let barsPush = [group, 'Root Cause', this.groups[group]]
       myData.push(barsPush);
     }
     this.myData.next(myData);
@@ -65,6 +63,11 @@ export class SystemRootCauseComponent implements OnInit {
 
   onResize($event){
     this.drawChart();
+  }
+
+  onSelect(e) {
+    const service = Array.isArray(e) ? this.myData.getValue()[e[0].row][0] : e.name
+    this._router.navigate(['tickets', 'service', service])
   }
 
   TreeMap = 'TreeMap';

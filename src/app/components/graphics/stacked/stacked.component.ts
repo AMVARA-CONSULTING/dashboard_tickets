@@ -21,38 +21,36 @@ export class StackedComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.add(
-      this.data.month.subscribe(month => {
-        const barchartData = this.data.chart.filter(row => row[2] == month.month)
-        const length = barchartData.length
-        const series = []
-        for (let i = 0; i < length; i++) {
-          series.push({
-            'name': dayjs(barchartData[i][1], 'YYYY-MM-DD').format('D'),
-            'series': [
-              {
-                'name': 'Change',
-                'value': +barchartData[i][5]
-              },
-              {
-                'name': 'Incident',
-                'value': +barchartData[i][3]
-              },
-              {
-                'name': 'Problem',
-                'value': +barchartData[i][6]
-              },
-              {
-                'name': 'Request',
-                'value': +barchartData[i][4]
-              }
-            ]
-          })
-        }
-        this.multi = series.reverse()
-        if (!this.ref['destroyed']) this.ref.detectChanges()
-      })
-    )
+    this.subs.sink = this.data.month.subscribe(month => {
+      const barchartData = this.data.chart.filter(row => row[2] == month.month)
+      const length = barchartData.length
+      const series = []
+      for (let i = 0; i < length; i++) {
+        series.push({
+          'name': dayjs(barchartData[i][1], 'YYYY-MM-DD').format('D'),
+          'series': [
+            {
+              'name': 'Change',
+              'value': +barchartData[i][5]
+            },
+            {
+              'name': 'Incident',
+              'value': +barchartData[i][3]
+            },
+            {
+              'name': 'Problem',
+              'value': +barchartData[i][6]
+            },
+            {
+              'name': 'Request',
+              'value': +barchartData[i][4]
+            }
+          ]
+        })
+      }
+      this.multi = series.reverse()
+      if (!this.ref['destroyed']) this.ref.detectChanges()
+    })
   }
   multi = []
 

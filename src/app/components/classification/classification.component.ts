@@ -23,14 +23,12 @@ export class ClassificationComponent implements OnDestroy {
     private router: Router
   ) {
     this.groups$ = new BehaviorSubject<ClassificationGroup[]>([])
-    this.ac.paramMap.subscribe(params => {
+    this.subs.sink = this.ac.paramMap.subscribe(params => {
       this.type = params.get('type')
       this.filter = params.get('filter')
       this.rollup()
     })
-    this.subs.add(
-      this.data.month.subscribe(_ => this.rollup())
-    )
+    this.subs.sink = this.data.month.subscribe(_ => this.rollup())
   }
 
   type: string = ''

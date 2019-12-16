@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy, HostListener, ElementRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { combineLatest } from 'rxjs/operators';
+import { SubSink } from '@services/tools.service';
 
 @Component({
   selector: 'cism-system-scroller',
@@ -8,7 +9,9 @@ import { combineLatest } from 'rxjs/operators';
   styleUrls: ['./system-scroller.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SystemScrollerComponent implements OnInit {
+export class SystemScrollerComponent implements OnInit, OnDestroy {
+
+  subs = new SubSink()
 
   constructor(
     private _element: ElementRef
@@ -20,8 +23,12 @@ export class SystemScrollerComponent implements OnInit {
 
   barsWidth = new BehaviorSubject<number>(25)
 
+  ngOnDestroy() {
+    this.subs.unsubscribe()
+  }
+
   ngOnInit() {
-    this.bars.pipe(
+    this.subs.sink = this.bars.pipe(
       combineLatest(this.barsWidth)
     ).subscribe(_ => this.resize() )
   }

@@ -30,7 +30,6 @@ export class SystemRobustnessChartComponent implements OnChanges {
         daily: 'YYYY[M]MM[D]DD',
         weekly: 'YYYYw'
       }
-      const t0 = performance.now()
       // Get rows classified by month, week, or day
       groups = this._data.allTickets.reduce((r, ticket) => {
         const dateParsed = dayjs(ticket[2], 'DD.MM.YYYY HH:mm')

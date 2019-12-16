@@ -20,12 +20,10 @@ export class OverallBoxComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.add(
-      this.data.month.subscribe(month => {
-        const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
-        this.total$.next(total.toLocaleString(this.config.config.language))
-      })
-    )
+    this.subs.sink = this.data.month.subscribe(month => {
+      const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
+      this.total$.next(total.toLocaleString(this.config.config.language))
+    })
   }
 
   total$ = new BehaviorSubject<string>('')

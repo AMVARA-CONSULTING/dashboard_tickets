@@ -23,12 +23,10 @@ export class SiltComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subs.add(
-      this.data.month.subscribe(month => {
-        const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
-        this.total.next(humanizeDuration(total * 60000))
-      })
-    )
+    this.subs.sink = this.data.month.subscribe(month => {
+      const total = +this.data.silt.filter(row => row[1] == month.month)[0][2]
+      this.total.next(humanizeDuration(total * 60000))
+    })
   }
 
   total = new BehaviorSubject<string>('')

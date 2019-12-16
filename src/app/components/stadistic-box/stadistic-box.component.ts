@@ -23,9 +23,7 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.add(
-      this.data.month.subscribe(() => this.rollup())
-    )
+    this.subs.sink = this.data.month.subscribe(() => this.rollup())
   }
 
   ngOnDestroy() {

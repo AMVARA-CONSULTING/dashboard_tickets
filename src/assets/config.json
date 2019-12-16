@@ -1,5 +1,5 @@
 {
-  "version": "1.17.0",
+  "version": "1.18.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
@@ -232,6 +232,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.18.0",
+      "text": [
+        "#2164 - Add drill down of Root Cause and optimize Pol code"
+      ]
+    },
     {
       "version": "1.17.0",
       "text": [
