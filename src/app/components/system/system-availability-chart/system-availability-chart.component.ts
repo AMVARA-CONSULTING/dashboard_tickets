@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ToolsService } from '@services/tools.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { ConfigService } from '@services/config.service';
-import dayjs from 'dayjs';
+import { parse, format, getYear, getWeek, setWeek, startOfWeek } from 'date-fns';
+import { de } from 'date-fns/locale';
 
 @Component({
   selector: 'cism-system-availability-chart',
@@ -25,8 +26,10 @@ export class SystemAvailabilityChartComponent implements OnInit {
     switch (this.type) {
       case "daily":
         newData = this.data.map(row => {
+          let date: any = parse(row[1], this._config.config.system.S2.formatDate, new Date())
+          date = format(date, 'dd/MM/yyyy')
           return {
-            name: dayjs(row[1], this._config.config.system.S2.formatDate).format('DD/MM/YYYY'),
+            name: date,
             value: Math.round(row[2] * 100) / 100
           }
         })
@@ -35,18 +38,32 @@ export class SystemAvailabilityChartComponent implements OnInit {
         break
       case "weekly":
       case "monthly":
-        let formatToBeUnique = this.type == 'weekly' ? 'YYYYw' : 'YYYYMM'
-        let formatDate = this.type == 'weekly' ? this._config.config.system.S2.formatDate : 'DD/MM/YYYY'
         // let labels: any = this.type == 'weekly' ? 'weeks' : 'months'
+        let formatDate = this.type == 'weekly' ? this._config.config.system.S2.formatDate : 'dd/MM/yyyy'
         const grouped_data = this.data.reduce((r, a) => {
-          const formattedDate = dayjs(a[1], this._config.config.system.S2.formatDate).format(formatToBeUnique)
-          r[formattedDate] = r[formattedDate] || []
-          r[formattedDate].push(a)
+          let date: any = parse(a[1], this._config.config.system.S2.formatDate, new Date())
+          if (this.type == 'weekly') {
+            date = `${getYear(date)}${getWeek(date)}`
+          } else {
+            date = format(date, 'yyyyMM')
+          }
+          r[date] = r[date] || []
+          r[date].push(a)
           return r
         }, {})
         newData = Object.keys(grouped_data).map(prop => {
+          let date
+          if (this.type == 'weekly') {
+            date = parse(prop.substr(0, 4), 'yyyy', new Date())
+            date = setWeek(date, +prop.substr(4, 2))
+            date = startOfWeek(date)
+            date = format(date, formatDate)
+          } else {
+            date = parse(prop, 'yyyyMM', new Date())
+            date = format(date, formatDate)
+          }
           return {
-            name: this.type == 'weekly' ? dayjs(prop.substr(0, 4), 'YYYY').week(+prop.substr(4, 2)).startOf('week').format(formatDate) : dayjs(prop, formatToBeUnique).format(formatDate),
+            name: date,
             value: this._tools.averageByIndex(grouped_data[prop], 2, true),
             min: this._tools.getMin(grouped_data[prop], 2, true),
             max: this._tools.getMax(grouped_data[prop], 2, true)
@@ -99,14 +116,14 @@ export class SystemAvailabilityChartComponent implements OnInit {
     }
   }
   xAxisFormatting = val => {
-    const parsed = dayjs(val, this._config.config.system.S2.formatDate)
+    let date = parse(val, this._config.config.system.S2.formatDate, new Date())
     switch (this.type) {
       case "daily":
         return val
       case "monthly":
-        return parsed.locale('de').format('MMM YYYY')
+        return format(date, 'MMM yyyy', { locale: de })
       case "weekly":
-        return parsed.locale('de').format('DD/MM/YYYY')
+        return format(date, 'dd/MM/yyyy', { locale: de })
     }
   }
 

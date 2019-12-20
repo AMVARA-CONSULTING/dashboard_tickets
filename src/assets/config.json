@@ -1,5 +1,5 @@
 {
-  "version": "1.18.0",
+  "version": "1.19.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
@@ -28,10 +28,10 @@
       "S5": "Overview of Inc/Prb Management"
     },
     "S1": {
-      "formatDate": "MM/DD/YYYY"
+      "formatDate": "MM/dd/yyyy"
     },
     "S2": {
-      "formatDate": "MM/DD/YYYY"
+      "formatDate": "MM/dd/yyyy"
     },
     "S3": {},
     "S4": {},
@@ -87,6 +87,10 @@
     "service",
     "count",
     "silt"
+  ],
+  "importantColumns": [
+    2,
+    4
   ],
   "columns": {
     "month_id": 0,
@@ -232,6 +236,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.19.0",
+      "text": [
+        "Change dayjs to date-fns for better performance and date mutability, plus remove dead code and packages"
+      ]
+    },
     {
       "version": "1.18.0",
       "text": [

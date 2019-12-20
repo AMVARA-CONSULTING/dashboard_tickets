@@ -10,7 +10,7 @@ import { Config } from '@other/interfaces';
 import { ToolsService } from './tools.service';
 import { Subscriber } from 'rxjs/internal/Subscriber';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import dayjs from 'dayjs';
+import { parse, isAfter } from 'date-fns';
 
 declare const JKL, XML: any
 
@@ -131,14 +131,20 @@ export class ReportsService {
         this.data.overall = data[6]
         if (this.config.config.system.enable) {
           this.data.allTickets = data[7]
+          this.data.allTicketsReduced = data[7].map((ticket: any[]) => {
+            return this.config.config.importantColumns.reduce((r, a) => {
+              r.push(ticket[a])
+              return r
+            }, [])
+          })
           if (this.config.config.excludeDatesFuture) {
             // @ts-ignore
-            this.data.allTickets = this.data.allTickets.filter(row => !dayjs(row[2], 'DD.MM.YYYY HH:mm').isAfter())
+            this.data.allTickets = this.data.allTickets.filter(row => !isAfter(parse(row[2], 'dd.MM.yyyy HH:mm', new Date()), new Date()))
           }
           this.data.system = data[8]
           if (this.config.config.excludeDatesFuture) {
             // @ts-ignore
-            this.data.system = this.data.system.filter(row => !dayjs(row[1], 'MM/DD/YYYY').isAfter())
+            this.data.system = this.data.system.filter(row => !isAfter(parse(row[1], 'MM/dd/yyyy', new Date()), new Date()))
           }
         }
         this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()

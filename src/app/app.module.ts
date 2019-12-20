@@ -59,7 +59,6 @@ import { GroupByPipe } from '@pipes/group-by.pipe';
 import { RuPipe } from '@pipes/ru.pipe';
 import { DateFormatPipe } from '@pipes/date-format.pipe';
 import { DateParsePipe } from '@pipes/date-parse.pipe';
-import { DateLocalePipe } from '@pipes/date-locale.pipe';
 import { DateAgoPipe } from '@pipes/date-ago.pipe';
 import { ReportInfoComponent } from '@components/report-info/report-info.component';
 import { APP_BASE_HREF } from '@angular/common';
@@ -100,7 +99,6 @@ export function createTranslateLoader(http: HttpClient) {
     RuPipe,
     DateFormatPipe,
     DateParsePipe,
-    DateLocalePipe,
     DateAgoPipe,
     LimitTextPipe,
     ReportInfoComponent,

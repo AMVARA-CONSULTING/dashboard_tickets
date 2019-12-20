@@ -49,25 +49,19 @@
 
     <ng-container matColumnDef="create_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language |
-          dateAgo"
-        *matCellDef="let element">{{ element.create_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
-        HH:mm' }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse:'dd.MM.yyyy HH:mm' | dateAgo" *matCellDef="let element">{{ element.create_date | dateParse:'dd.MM.yyyy HH:mm' | dateFormat:'dd.MM.yyyy HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
-      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language |
-              dateAgo"
-        *matCellDef="let element">{{ element.modify_date | dateParse:'DD.MM.YYYY HH:mm' | dateLocale:config.config.language | dateFormat:'DD.MM.YYYY
-        HH:mm' }}</mat-cell>
+      <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse:'dd.MM.yyyy HH:mm' | dateAgo"
+        *matCellDef="let element">{{ element.modify_date | dateParse:'dd.MM.yyyy HH:mm' | dateFormat:'dd.MM.yyyy HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Type</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'type', element.type]" matTooltipPosition="above"
-        matTooltipClass="above" [matTooltip]="element.type" *matCellDef="let element">{{
-        element.type }}</mat-cell>
+        matTooltipClass="above" [matTooltip]="element.type" *matCellDef="let element">{{ element.type }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">

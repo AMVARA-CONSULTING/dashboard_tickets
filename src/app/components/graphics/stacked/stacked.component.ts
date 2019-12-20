@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRe
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { SubSink } from '@services/tools.service';
-import dayjs from 'dayjs';
+import { parse, format } from 'date-fns';
 
 @Component({
   selector: 'cism-stacked',
@@ -26,8 +26,10 @@ export class StackedComponent implements OnInit, OnDestroy {
       const length = barchartData.length
       const series = []
       for (let i = 0; i < length; i++) {
+        let date: any = parse(barchartData[i][1], "yyyy'-'MM'-'dd", new Date())
+        date = format(date, 'd')
         series.push({
-          'name': dayjs(barchartData[i][1], 'YYYY-MM-DD').format('D'),
+          'name': date,
           'series': [
             {
               'name': 'Change',

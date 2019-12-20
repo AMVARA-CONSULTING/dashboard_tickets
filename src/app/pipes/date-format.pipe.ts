@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import dayjs from 'dayjs';
+import { format } from 'date-fns'
 
 @Pipe({
   name: 'dateFormat'
 })
 export class DateFormatPipe implements PipeTransform {
 
-  transform(date: dayjs.Dayjs, format: string): string {
-    return date.format(format)
+  transform(date: Date, formato: string): string {
+    return format(date, formato)
   }
 
 }

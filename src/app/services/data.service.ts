@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Month } from '@other/interfaces';
-import dayjs from 'dayjs';
+import { subMonths, format } from 'date-fns'
 
 @Injectable()
 export class DataService {
@@ -14,7 +14,10 @@ export class DataService {
 
   currentLevel: number
   month: BehaviorSubject<Month>
-  months = [...Array(12).keys()].map(i => dayjs().subtract(i, 'month').format('YYYY[M]MM'))
+  months = [...Array(12).keys()].map(i => {
+    const date = subMonths(new Date(), i)
+    return format(date, "yyyy'M'MM")
+  })
   availableMonths = []
 
   disabledAnimations: boolean = false
@@ -28,6 +31,7 @@ export class DataService {
 
   tickets = []
   allTickets = []
+  allTicketsReduced = []
   initialRows = []
   system = []
 

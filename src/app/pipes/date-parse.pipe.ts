@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import dayjs from 'dayjs';
+import { parse } from 'date-fns'
 
 @Pipe({
   name: 'dateParse'
@@ -8,9 +8,9 @@ export class DateParsePipe implements PipeTransform {
 
   transform(date: string, format: string): any {
     if (date === undefined) {
-      return dayjs()
+      return new Date()
     }
-    return dayjs(date, format)
+    return parse(date, format, new Date())
   }
 
 }

@@ -11,6 +11,7 @@ export interface Config {
   readonly changelog: any[];
   readonly copyright: string;
   readonly columns: any,
+  readonly importantColumns: number[]
   readonly cognosRepository: string,
   readonly scenario: string,
   readonly system: SystemConfig,

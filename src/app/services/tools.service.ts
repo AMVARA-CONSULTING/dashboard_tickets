@@ -176,6 +176,21 @@ export class ToolsService {
     return chunked_arr
   }
 
+  /**
+   * Function very basic to imitate .reduce JS function without all checks garbage code
+   * @param data Array of the date to reduce
+   * @param fn Function to execute in each iteration, MUST return the accumulator
+   * @param accumulator Accumulator, same as default .reduce JS function
+   */
+  primitiveReduce(data: any[], fn: Function, accumulator: any = {}) {
+    const length = data.length
+    let i = 0
+    for (; i < length; i++) {
+      accumulator = fn(accumulator, data[i])
+    }
+    return accumulator
+  }
+
 }
 
 

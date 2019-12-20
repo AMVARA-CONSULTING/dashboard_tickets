@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import dayjs from 'dayjs';
+import { formatDistanceStrict } from 'date-fns'
 
 @Pipe({
   name: 'dateAgo'
 })
 export class DateAgoPipe implements PipeTransform {
 
-  transform(date: dayjs.Dayjs): string {
-    return date.fromNow()
+  transform(date: Date): string {
+    return formatDistanceStrict(date, new Date()) + ' ago'
   }
 
 }

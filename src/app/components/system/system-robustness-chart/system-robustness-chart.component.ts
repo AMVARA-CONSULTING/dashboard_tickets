@@ -5,7 +5,7 @@ import { SystemScrollerComponent } from '@components/system/system-scroller/syst
 import { ConfigService } from '@services/config.service';
 import { ToolsService } from '@services/tools.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import dayjs from 'dayjs';
+import { format, parse, isValid, setWeek, getYear, getWeek, setYear } from 'date-fns';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -26,17 +26,21 @@ export class SystemRobustnessChartComponent implements OnChanges {
     setTimeout(_ => {
       let groups = {}
       let classifiers = {
-        monthly: 'YYYY[M]MM',
-        daily: 'YYYY[M]MM[D]DD',
-        weekly: 'YYYYw'
+        monthly: "yyyy'M'MM",
+        daily: "yyyy'M'MM'D'dd"
       }
       // Get rows classified by month, week, or day
-      groups = this._data.allTickets.reduce((r, ticket) => {
-        const dateParsed = dayjs(ticket[2], 'DD.MM.YYYY HH:mm')
-        if (!dateParsed.isValid()) {
+      groups = this._tools.primitiveReduce(this._data.allTicketsReduced, (r, ticket) => {
+        const dateParsed = parse(ticket[0], 'dd.MM.yyyy HH:mm', new Date())
+        if (!isValid(dateParsed)) {
           return r
         }
-        const date = dateParsed.format(classifiers[this.type])
+        let date
+        if (this.type == 'weekly') {
+          date = `${getYear(dateParsed)}${getWeek(dateParsed)}`
+        } else {
+          date = format(dateParsed, classifiers[this.type])
+        }
         r[date] = r[date] || []
         r[date].push(ticket)
         return r
@@ -45,13 +49,19 @@ export class SystemRobustnessChartComponent implements OnChanges {
       const keys = Object.keys(groups)
       // Apply sorting, normally it's done by the browser, by just to make sure
       keys.sort((a, b) => {
-        const left = this.type == 'weekly' ? dayjs(a.substr(0, 4), 'YYYY').week(+a.substr(4,2)) : dayjs(a, classifiers[this.type])
-        const right = this.type == 'weekly' ? dayjs(b.substr(0, 4), 'YYYY').week(+b.substr(4,2)) : dayjs(b, classifiers[this.type])
+        let left, right
+        if (this.type == 'weekly') {
+          left = setWeek(parse(a.substr(0, 4), 'yyyy', new Date()), +a.substr(4,2))
+          right = setWeek(parse(b.substr(0, 4), 'yyyy', new Date()), +b.substr(4,2))
+        } else {
+          left = parse(a, classifiers[this.type], new Date())
+          right = parse(b, classifiers[this.type], new Date())
+        }
         return left.valueOf() - right.valueOf()
       })
       let chartData = keys.map( key => {
         const group = groups[key]
-        groups[key] = this._tools.classifyByIndex(group, this._config.config.columns.type)
+        groups[key] = this._tools.classifyByIndex(group, 1)
         for (let prop2 in groups[key]) {
           groups[key][prop2] = groups[key][prop2].length
         }
@@ -76,13 +86,19 @@ export class SystemRobustnessChartComponent implements OnChanges {
   data = new BehaviorSubject<any[]>([])
 
   xAxisFormatting = (val: string) => {
+    let date;
     switch (this.type) {
       case "daily":
-        return dayjs(val, 'YYYY[M]MM[D]DD').format('DD/MM/YYYY')
+        date = parse(val, "yyyy'M'MM'D'dd", new Date())
+        return format(date, "dd'/'MM'/'yyyy")
       case "monthly":
-        return dayjs(val, 'YYYY[M]MM').format('MMM YYYY')
+        return format(parse(val, "yyyy'M'MM", new Date()), 'MMM yyyy')
       case "weekly":
-        return dayjs(val.substr(0, 4), 'YYYY').week(+val.substr(4,2)).format('DD/MM/YYYY')
+        const year = +val.substr(0, 4)
+        const week = +val.substr(4, 2)
+        date = setYear(new Date(), year)
+        date = setWeek(date, week)
+        return format(date, "dd'/'MM'/'yyyy")
     }
   }
 
