@@ -19,6 +19,7 @@ import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginato
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { NgxsModule } from '@ngxs/store';
 
 // Internal
 import { AppRoutingModule } from './app-routing.module';
@@ -43,7 +44,6 @@ import { LimitTextPipe } from '@pipes/limit-text.pipe';
 import { SidenavComponent } from '@components/sidenav/sidenav.component';
 
 // Services
-import { ConfigService } from '@services/config.service';
 import { DataService } from '@services/data.service';
 import { ToolsService } from '@services/tools.service';
 import { ReportsService } from '@services/reports.service';
@@ -66,6 +66,9 @@ import { FixFilterPipe } from '@pipes/fix-filter.pipe';
 import { SharedModule } from '@modules/shared.module';
 import { WorkerService } from '@services/worker.service';
 import { XSRFInterceptor } from './interceptors/xsrf.interceptor';
+import { ConfigState } from '@states/config.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -125,6 +128,11 @@ export function createTranslateLoader(http: HttpClient) {
     SharedModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxsModule.forRoot([
+      ConfigState
+    ]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -155,7 +163,6 @@ export function createTranslateLoader(http: HttpClient) {
     LoaderComponent
   ],
   providers: [
-    ConfigService,
     DataService,
     ToolsService,
     TranslateService,
@@ -174,7 +181,7 @@ export function createTranslateLoader(http: HttpClient) {
     {
       provide: APP_INITIALIZER,
       useFactory: (reportsService: ReportsService) => () => reportsService.load(),
-      deps: [ReportsService, DataService, ConfigService, ToolsService],
+      deps: [ReportsService, DataService, ToolsService],
       multi: true,
     },
     {

@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
-import { ConfigService } from '@services/config.service';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { KeyPair } from '@other/interfaces';
+import { KeyPair, Config } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { ToolsService } from '@services/tools.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'cism-system-root-cause',
@@ -16,21 +16,24 @@ import { Router } from '@angular/router';
 export class SystemRootCauseComponent implements OnInit {
 
   constructor(
-    private _config: ConfigService,
     private _data: DataService,
     private _tools: ToolsService,
     private _router: Router,
+    private _store: Store,
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
-    this._holder.titles.next([this._config.config.system.titles.S3])
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
+    this._holder.titles.next([this.config.system.titles.S3])
     this.ie = this._tools.isIE()
   }
+
+  config: Config
 
   groups:any;
   
 
   ngOnInit() {
-    this.groups = this._tools.classifyByIndex(this._data.allTickets, this._config.config.columns.service)
+    this.groups = this._tools.classifyByIndex(this._data.allTickets, this.config.columns.service)
     for (const group in this.groups) {
       this.groups[group] = this.groups[group].length
     }

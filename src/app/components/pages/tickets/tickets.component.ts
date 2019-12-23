@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { ConfigService } from '@services/config.service';
 import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
-import { Ticket, Month } from '@other/interfaces';
+import { Ticket, Month, Config } from '@other/interfaces';
 import { MatSort, Sort } from '@angular/material/sort';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subject } from 'rxjs/internal/Subject';
@@ -14,6 +13,8 @@ import { combineLatest } from 'rxjs/internal/observable/combineLatest';
 import { ReportsService } from '@services/reports.service';
 import { SubSink } from '@services/tools.service';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { UpdateConfig } from '@states/config.state';
 
 @Component({
   selector: 'cism-tickets',
@@ -25,13 +26,15 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   constructor(
     public data: DataService,
-    public config: ConfigService,
     private bottomSheet: MatBottomSheet,
     private ac: ActivatedRoute,
     private router: Router,
     private ref: ChangeDetectorRef,
-    private _reports: ReportsService
-  ) { }
+    private _reports: ReportsService,
+    private _store: Store
+  ) {
+    this.config = this._store.selectSnapshot<Config>(state => state.config)
+  }
 
   subs = new SubSink()
 
@@ -41,8 +44,10 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe()
   }
 
+  config: Config
+
   changeViewClick() {
-    this.displayedColumns_copy = this.config.config.displayedColumns
+    this.displayedColumns_copy = this.config.displayedColumns
     this.changeView.next(!this.changeView.getValue())
   }
 
@@ -61,11 +66,11 @@ export class TicketsComponent implements OnInit, OnDestroy {
   fixedWidth = new BehaviorSubject<boolean>(true)
 
   saveColumns() {
-    let allColumns = this.config.config.displayedColumnsOrder
+    let allColumns = this.config.displayedColumnsOrder
     allColumns = allColumns.filter(column => this.displayedColumns_copy.indexOf(column) > -1)
     localStorage.setItem('displayedColumns', JSON.stringify(allColumns))
-    if (this.config.config.ticketOptions) allColumns.push('options')
-    this.config.config.displayedColumns = allColumns
+    if (this.config.ticketOptions) allColumns.push('options')
+    this._store.dispatch(new UpdateConfig({ displayedColumns: allColumns }))
     this.fixedWidth.next(allColumns.length > 5)
     this.changeView.next(false)
     localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
@@ -82,17 +87,17 @@ export class TicketsComponent implements OnInit, OnDestroy {
 
   rollup(ticketRows, type, filter): void {
     if (type !== null && filter !== null) {
-      if (!this.config.config.columns.hasOwnProperty(type)) {
+      if (!this.config.columns.hasOwnProperty(type)) {
         this.data.loading.next(true)
         this.router.navigate(['/'])
         return
       }
-      ticketRows = ticketRows.filter(row => row[this.config.config.columns[type]] == filter)
+      ticketRows = ticketRows.filter(row => row[this.config.columns[type]] == filter)
     }
     const newTickets = ticketRows.map(row => {
       let newTicket = {}
-      for (let prop in this.config.config.columns) {
-        newTicket[prop] = row[this.config.config.columns[prop]]
+      for (let prop in this.config.columns) {
+        newTicket[prop] = row[this.config.columns[prop]]
       }
       return newTicket
     })
@@ -119,8 +124,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
         if (!Array.isArray(this.data.tickets[monthIndex])) {
           this.subs.add(
             this._reports.getReportData(
-              this.config.config.reports[this.config.config.scenario].months[monthIndex],
-              this.config.config.reports[this.config.config.scenario].monthsSelector,
+              this.config.reports[this.config.scenario].months[monthIndex],
+              this.config.reports[this.config.scenario].monthsSelector,
               'Mobile_Tickets_List.csv'
             ).subscribe(data => {
               this.data.tickets[monthIndex] = data
@@ -132,7 +137,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
         }
       })
     )
-    this.fixedWidth.next(this.config.config.displayedColumns.length > 5)
+    this.fixedWidth.next(this.config.displayedColumns.length > 5)
     this.column_active = localStorage.getItem('column_active') || 'id'
     this.column_direction = localStorage.getItem('column_direction') || 'desc'
     setTimeout(_ => this.ref.markForCheck())
@@ -183,8 +188,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
         if (success.success) {
           const id = success.id
           const tickets = this.tickets.getValue().data
-          const index = tickets.findIndex(row => row[this.config.config.columns.id] == id)
-          tickets[index][this.config.config.columns.status] = 'Solved'
+          const index = tickets.findIndex(row => row[this.config.columns.id] == id)
+          tickets[index][this.config.columns.status] = 'Solved'
           this.newTickets(tickets)
         }
       })
@@ -192,7 +197,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
   }
 
   removeItem(ticket): void {
-    const tickets = this.tickets.getValue().data.filter(ticketB => ticketB[this.config.config.columns.id] != ticket[this.config.config.columns.id])
+    const tickets = this.tickets.getValue().data.filter(ticketB => ticketB[this.config.columns.id] != ticket[this.config.columns.id])
     this.newTickets(tickets)
   }
 
@@ -209,10 +214,13 @@ export class SolveTicket {
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public ticket: any,
     private bottomSheetRef: MatBottomSheetRef<SolveTicket>,
-    public config: ConfigService
+    private _store: Store
   ) {
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
     this.success = new Subject<{ id: number, success: boolean, solveText: string }>()
   }
+
+  config: Config
 
   solveText = new BehaviorSubject<string>('')
 
@@ -223,7 +231,7 @@ export class SolveTicket {
   }
 
   solve(): void {
-    this.success.next({ id: this.ticket[this.config.config.columns.id], success: true, solveText: this.solveText.getValue() })
+    this.success.next({ id: this.ticket[this.config.columns.id], success: true, solveText: this.solveText.getValue() })
     this.success.complete()
     this.bottomSheetRef.dismiss()
   }

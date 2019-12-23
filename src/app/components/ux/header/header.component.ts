@@ -1,7 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Router } from '@angular/router';
-import { ConfigService } from '@services/config.service';
+import { Select } from '@ngxs/store';
+import { ConfigState } from '@states/config.state';
+import { Config } from '@other/interfaces';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'cism-header',
@@ -10,11 +13,12 @@ import { ConfigService } from '@services/config.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  
+  @Select(ConfigState) config$: Observable<Config>
 
   constructor(
     private data: DataService,
     private router: Router,
-    public _config: ConfigService
   ) { }
 
   navigate(url: string): void {

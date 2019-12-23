@@ -1,31 +1,31 @@
 export interface Config {
-  language: string;
-  readonly version: string;
-  readonly delay: number;
-  readonly reports: Scenarios;
-  readonly contacts: any[];
-  readonly appTitle: string;
-  readonly languageCodes: any;
-  readonly heartbeat: number
-  readonly delayRequests: number,
-  readonly changelog: any[];
-  readonly copyright: string;
-  readonly columns: any,
-  readonly importantColumns: number[]
-  readonly cognosRepository: string,
-  readonly scenario: string,
-  readonly system: SystemConfig,
-  readonly excludeDatesFuture: boolean,
-  readonly portalLink: { dev: string, prod: string }
-  readonly displayedColumnsDefault: string[],
-  readonly displayedColumnsOrder: string[],
-  readonly ticketOptions: boolean,
-  readonly fullUrl: string
-  readonly portalFolder: string
-  readonly corpintraMode: boolean
-  displayedColumns: string[],
-  infiniteScroll: boolean;
-  negativeBad: boolean | number;
+  language?: string;
+  readonly version?: string;
+  readonly delay?: number;
+  readonly reports?: Scenarios;
+  readonly contacts?: any[];
+  readonly appTitle?: string;
+  readonly languageCodes?: any;
+  readonly heartbeat?: number
+  readonly delayRequests?: number,
+  readonly changelog?: any[];
+  readonly copyright?: string;
+  readonly columns?: any,
+  readonly importantColumns?: number[]
+  readonly cognosRepository?: string,
+  readonly scenario?: string,
+  readonly system?: SystemConfig,
+  readonly excludeDatesFuture?: boolean,
+  readonly portalLink?: { dev: string, prod: string }
+  readonly displayedColumnsDefault?: string[],
+  readonly displayedColumnsOrder?: string[],
+  readonly ticketOptions?: boolean,
+  readonly fullUrl?: string
+  readonly portalFolder?: string
+  readonly corpintraMode?: boolean
+  displayedColumns?: string[],
+  infiniteScroll?: boolean;
+  negativeBad?: boolean | number;
   [propName: string]: any;
 }
 

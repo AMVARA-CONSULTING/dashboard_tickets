@@ -1,5 +1,4 @@
 import { Component, Input, ChangeDetectionStrategy, OnChanges, ChangeDetectorRef, SimpleChanges } from '@angular/core';
-import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'report-info',
@@ -10,7 +9,6 @@ import { ConfigService } from '@services/config.service';
 export class ReportInfoComponent implements OnChanges {
 
   constructor(
-    public config: ConfigService,
     private ref: ChangeDetectorRef
   ) { }
 

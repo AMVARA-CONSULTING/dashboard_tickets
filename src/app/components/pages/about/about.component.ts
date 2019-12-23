@@ -1,9 +1,11 @@
 import { Component, OnInit, VERSION, ChangeDetectionStrategy } from '@angular/core';
-import { ConfigService } from '@services/config.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataService } from '@services/data.service';
 import { KeyValuePipe } from '@angular/common';
+import { Store } from '@ngxs/store';
+import { Config } from '@other/interfaces';
+import { UpdateConfig } from '@states/config.state';
 
 @Component({
   selector: 'cism-about',
@@ -14,13 +16,16 @@ import { KeyValuePipe } from '@angular/common';
 })
 export class AboutComponent implements OnInit {
 
+  config: Config
+
   constructor(
-    public config: ConfigService,
     private translate: TranslateService,
     private snack: MatSnackBar,
     public data: DataService,
-    private keyValue: KeyValuePipe
+    private keyValue: KeyValuePipe,
+    private _store: Store
   ) {
+    this.config = this._store.selectSnapshot<Config>((state: any) => state.config)
     data.currentLevel = 1
   }
 
@@ -32,7 +37,7 @@ export class AboutComponent implements OnInit {
   version = VERSION.full
 
   ngOnInit() {
-    let a: any[] = this.keyValue.transform(this.config.config.reports[this.config.config.scenario])
+    let a: any[] = this.keyValue.transform(this.config.reports[this.config.scenario])
     a = a.filter(item => item.key !== 'monthsSelector' && item.key !== 'months')
     this.reports = a
   }
@@ -42,11 +47,12 @@ export class AboutComponent implements OnInit {
   setLang(code: string): void {
     localStorage.setItem('lang', code)
     this.translate.use(code)
+    this._store.dispatch(new UpdateConfig({ language: code }))
     this.snack.open('Language changed successfully!', 'OK', { duration: 3000 });
   }
 
-  reloadLang(): void {
-    this.translate.reloadLang(this.config.config.language)
+  reloadLang() {
+    this.translate.reloadLang(this.config.language)
     this.snack.open('Language reloaded successfully!', 'OK', { duration: 3000 });
   }
 

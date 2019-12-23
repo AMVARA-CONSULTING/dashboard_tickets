@@ -1,5 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ConfigService } from '@services/config.service';
+import { Select } from '@ngxs/store';
+import { ConfigState } from '@states/config.state';
+import { Observable } from 'rxjs/internal/Observable';
+import { Config } from '@other/interfaces';
 
 @Component({
   selector: 'cism-footer',
@@ -9,6 +12,6 @@ import { ConfigService } from '@services/config.service';
 })
 export class FooterComponent {
 
-  constructor( public config: ConfigService ) { }
+  @Select(ConfigState) config$: Observable<Config>
 
 }

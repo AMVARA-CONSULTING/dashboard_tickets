@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { ConfigService } from '@services/config.service';
 
 @Component({
   selector: 'cism-month-selector',
@@ -11,8 +10,7 @@ import { ConfigService } from '@services/config.service';
 export class MonthSelectorComponent {
 
   constructor(
-    public data: DataService,
-    public config: ConfigService
+    public data: DataService
   ) { }
 
   handleMonth(month: string) {

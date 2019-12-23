@@ -1,7 +1,7 @@
 <div class="title">{{ title }}</div>
 <div class="stats">
   <div class="stat" [matTooltip]="(go | titlecase)+': '+row.name" matTooltipPosition="before" matTooltipClass="before"
-    (click)="goA(row)" *ngFor="let row of rows" matRipple [matRippleColor]="rippleColor">
+    (click)="goA(row)" *ngFor="let row of rows | async" matRipple [matRippleColor]="rippleColor">
     <div class="stat-name"># of {{
       row.name }}:</div>
     <div class="stat-primary-value">{{ row.count }}</div>

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { DataService } from '@services/data.service';
-import { ConfigService } from '@services/config.service';
 import { map, switchMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
@@ -11,6 +10,8 @@ import { ToolsService } from './tools.service';
 import { Subscriber } from 'rxjs/internal/Subscriber';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { parse, isAfter } from 'date-fns';
+import { Store } from '@ngxs/store';
+import { SetConfig } from '@states/config.state';
 
 declare const JKL, XML: any
 
@@ -20,9 +21,9 @@ export class ReportsService {
   constructor(
     private http: HttpClient,
     private data: DataService,
-    private config: ConfigService,
     private _tools: ToolsService,
-    private _snack: MatSnackBar
+    private _snack: MatSnackBar,
+    private _store: Store
   ) {
     this.corpintra = location.hostname.indexOf('corpintra.net') > -1
     
@@ -39,7 +40,8 @@ export class ReportsService {
   }
 
   getReportOverallData(key) {
-    const keyData = this.config.config.reports[this.config.config.scenario][key]
+    const config = this._store.selectSnapshot<Config>((state: any) => state.config)
+    const keyData = config.reports[config.scenario][key]
     return this.getReportData( keyData.id, keyData.selector, keyData.fallback )
   }
 
@@ -47,23 +49,22 @@ export class ReportsService {
     return new Promise(resolve => {
       this.data.disabledAnimations = this._tools.isIE();
       (document.querySelector('.progress-value') as HTMLElement).style.width = '35%';
-      this.http.get('assets/config.json').subscribe(config => {
+      this.http.get('assets/config.json').subscribe((config: Config) => {
         (document.querySelector('.progress-value') as HTMLElement).style.width = '40%';
-        this.config.config = config as Config;
         (document.querySelector('.progress-value') as HTMLElement).style.width = '45%';
-        this.config.config.language = localStorage.getItem('lang') || this.config.config.language;
+        config.language = localStorage.getItem('lang') || config.language
         if (!!localStorage.getItem('hideClosed')) this.data.hideClosed = localStorage.getItem('hideClosed') === 'yes';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
-        this.config.displayedColumnsDefault = this.config.displayedColumnsDefault
-        this.config.config.system.enable = localStorage.getItem('enableExperimentalFeatures') === 'yes' || false
-        if (this.config.config.system.enable) {
+        config.system.enable = localStorage.getItem('enableExperimentalFeatures') === 'yes' || false
+        if (config.system.enable) {
           this._snack.open('CISM is running with Experimental Features enabled.', 'OK')
         }
-        this.config.config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || this.config.config.displayedColumnsDefault;
-        if (this.config.config.ticketOptions) this.config.config.displayedColumns.push('options');
-        (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = this.config.config.delay + 'ms';
+        config.displayedColumns = JSON.parse(localStorage.getItem('displayedColumns')) || config.displayedColumnsDefault
+        if (config.ticketOptions) config.displayedColumns.push('options');
+        (document.querySelector('.progress-value') as HTMLElement).style.transitionDuration = config.delay + 'ms';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '100%';
-        this._tools.log('Config', this.config)
+        this._tools.log('Config', config)
+        this._store.dispatch(new SetConfig(config))
         this.login().then(_ => resolve())
       });
     });
@@ -71,11 +72,12 @@ export class ReportsService {
 
   login(): Promise<void> {
     return new Promise(resolve => {
-      if (location.hostname.indexOf('corpintra.net') == -1 && !this.config.config.corpintraMode) {
+      const config = this._store.selectSnapshot<Config>((state: any) => state.config)
+      if (location.hostname.indexOf('corpintra.net') == -1 && !config.corpintraMode) {
         this.loadInitialReport().then(_ => resolve())
       } else {
         console.log("Sending XHR to /analytics/bi/v1/notifications")
-        this.http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/notifications`, { observe: 'response', responseType: 'text' })
+        this.http.get(`${config.fullUrl}${config.portalFolder}v1/notifications`, { observe: 'response', responseType: 'text' })
           .subscribe(
             _ => {
               console.log("XSRF Token was valid, load CISM")
@@ -91,7 +93,7 @@ export class ReportsService {
               iframe.style.height = '100%'
               iframe.style.width = '100%'
               iframe.style.border = '0'
-              iframe.src = `${this.config.config.fullUrl}${this.config.config.portalFolder}?pathRef=.public_folders%2FIWM_BI%2FIWM_BI%2FAMVARA_triggerCISM&ui_appbar=false&ui_navbar=false&format=HTML&Download=false`
+              iframe.src = `${config.fullUrl}${config.portalFolder}?pathRef=.public_folders%2FIWM_BI%2FIWM_BI%2FAMVARA_triggerCISM&ui_appbar=false&ui_navbar=false&format=HTML&Download=false`
               document.body.appendChild(iframe)
               // AMVARA_triggerCISM sended login is done
               window.addEventListener('complete', () => {
@@ -107,6 +109,7 @@ export class ReportsService {
 
   loadInitialReport(): Promise<void> {
     return new Promise(resolve => {
+      const config = this._store.selectSnapshot<Config>((state: any) => state.config);
       (document.querySelector('.progress-value') as HTMLElement).style.width = '5%';
       const jobs = [
         this.getReportOverallData('barchart'),
@@ -117,8 +120,8 @@ export class ReportsService {
         this.getReportOverallData('overview_type'),
         this.getReportOverallData('overview_count')
       ]
-      if (this.config.config.system.enable) {
-        jobs.push(this.getReportData(this.config.config.reports[this.config.config.scenario].allMonths, this.config.config.reports[this.config.config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'))
+      if (config.system.enable) {
+        jobs.push(this.getReportData(config.reports[config.scenario].allMonths, config.reports[config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'))
         jobs.push(this.getReportOverallData('system'))
       }
       forkJoin(...jobs).subscribe(data => {
@@ -129,21 +132,19 @@ export class ReportsService {
         this.data.status = data[4]
         this.data.type = data[5]
         this.data.overall = data[6]
-        if (this.config.config.system.enable) {
+        if (config.system.enable) {
           this.data.allTickets = data[7]
           this.data.allTicketsReduced = data[7].map((ticket: any[]) => {
-            return this.config.config.importantColumns.reduce((r, a) => {
+            return config.importantColumns.reduce((r, a) => {
               r.push(ticket[a])
               return r
             }, [])
           })
-          if (this.config.config.excludeDatesFuture) {
-            // @ts-ignore
+          if (config.excludeDatesFuture) {
             this.data.allTickets = this.data.allTickets.filter(row => !isAfter(parse(row[2], 'dd.MM.yyyy HH:mm', new Date()), new Date()))
           }
           this.data.system = data[8]
-          if (this.config.config.excludeDatesFuture) {
-            // @ts-ignore
+          if (config.excludeDatesFuture) {
             this.data.system = this.data.system.filter(row => !isAfter(parse(row[1], 'MM/dd/yyyy', new Date()), new Date()))
           }
         }
@@ -161,18 +162,19 @@ export class ReportsService {
 
   getReportData(ReportID: string, selector: string, fallback: string): Observable<any[]> {
     return new Observable(observer => {
-      if (this.corpintra || this.config.config.corpintraMode) {
-        this.http.get(`${this.config.config.fullUrl}${this.config.config.portalFolder}v1/objects/${ReportID}/versions`).pipe(
-          map((json: any) => `${this.config.config.fullUrl}${json.data[0]._meta.links.outputs.url}`), // Get outputs url
+      const config = this._store.selectSnapshot<Config>((state: any) => state.config)
+      if (this.corpintra || config.corpintraMode) {
+        this.http.get(`${config.fullUrl}${config.portalFolder}v1/objects/${ReportID}/versions`).pipe(
+          map((json: any) => `${config.fullUrl}${json.data[0]._meta.links.outputs.url}`), // Get outputs url
           switchMap((link: string) => this.http.get(link)), // Return the outputs response json
-          map((json: any) => `${this.config.config.fullUrl}${json.data[0]._meta.links.content.url}`), // Get the last saved output url
+          map((json: any) => `${config.fullUrl}${json.data[0]._meta.links.content.url}`), // Get the last saved output url
           switchMap((link: string) => this.http.get(link, { responseType: 'text' })), // Return the content response as HTML
           map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
         ).subscribe((json: any) => {
             observer.next(json)
             observer.complete()
           }, err => {
-            if (this.config.config.system.enable) {
+            if (config.system.enable) {
               this.giveFallback(fallback, observer)
               console.log(`${ReportID} is running in fallback mode`)
             } else {

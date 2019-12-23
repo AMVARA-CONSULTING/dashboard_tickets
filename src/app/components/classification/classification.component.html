@@ -1,6 +1,6 @@
-<div routerLink="/" matRipple [matRippleColor]="rippleColor" class="classification">By {{ type | titlecase }}</div>
+<div routerLink="/" matRipple [matRippleColor]="rippleColor" class="classification">By {{ type | async | titlecase }}</div>
 <div class="groups">
-  <div class="group" (click)="changeTickets(group.name)" [class.selected]="group.name == filter" matRipple
+  <div class="group" (click)="changeTickets(group.name)" [class.selected]="group.name == (filter | async)" matRipple
     [matRippleColor]="rippleColor" *ngFor="let group of groups$ | async">
     <div class="holder"></div>
     <div class="selected"># of {{ group.name | toString | titlecase }}:</div>

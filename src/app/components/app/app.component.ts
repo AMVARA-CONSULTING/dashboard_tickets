@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ConfigService } from '@services/config.service';
 import { RouterOutlet, Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { trigger, transition, query, style, group, animate, keyframes, animateChild } from '@angular/animations';
 import { DataService } from '@services/data.service';
@@ -8,6 +7,10 @@ import { ToolsService } from '@services/tools.service';
 import { interval } from 'rxjs/internal/observable/interval';
 import { HttpClient } from '@angular/common/http';
 import { retry } from 'rxjs/internal/operators/retry';
+import { Store, Select } from '@ngxs/store';
+import { Config } from '@other/interfaces';
+import { ConfigState } from '@states/config.state';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'cism-root',
@@ -54,23 +57,27 @@ import { retry } from 'rxjs/internal/operators/retry';
   ]
 })
 export class AppComponent {
+  
+  @Select(ConfigState) config$: Observable<Config>
+
   constructor(
     private translate: TranslateService,
-    public config: ConfigService,
     public data: DataService,
     private router: Router,
     private tools: ToolsService,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _store: Store
   ) {
+    const config = this._store.selectSnapshot<Config>(store => store.config)
     this.translate.setDefaultLang('en')
-    this.translate.use(localStorage.getItem('lang') || config.config.language)
+    this.translate.use(localStorage.getItem('lang') || config.language)
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) this.data.loading.next(true)
       if (event instanceof NavigationEnd) this.data.loading.next(false)
     })
-    if (this.config.config.heartbeat > 0 && location.hostname.indexOf('corpintra.net') == -1 && !this.config.config.corpintraMode) {
-      interval(this.config.config.heartbeat ).subscribe(_ => {
-        this._http.get(`${this.config.config.portalFolder}v1/notifications`)
+    if (config.heartbeat > 0 && location.hostname.indexOf('corpintra.net') == -1 && !config.corpintraMode) {
+      interval(config.heartbeat ).subscribe(_ => {
+        this._http.get(`${config.portalFolder}v1/notifications`)
         .pipe(
           retry(3)
         )

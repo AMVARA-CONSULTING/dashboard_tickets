@@ -2,7 +2,7 @@
 <cism-sidenav>
   <ul class="nav">
     <li (click)="navigate('/')">Home</li>
-    <li *ngIf="config.config.system.enable" (click)="navigate('/system')">System</li>
+    <li *ngIf="(config$ | async).system.enable" (click)="navigate('/system')">System</li>
     <li (click)="navigate('/about')">About</li>
     <li (click)="navigate('/help')">Help</li>
   </ul>

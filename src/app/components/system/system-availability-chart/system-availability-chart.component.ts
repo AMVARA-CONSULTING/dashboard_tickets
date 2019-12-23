@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Host } from '@angular/core';
-import { SAViewType } from '@other/interfaces';
+import { SAViewType, Config } from '@other/interfaces';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { ToolsService } from '@services/tools.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
-import { ConfigService } from '@services/config.service';
 import { parse, format, getYear, getWeek, setWeek, startOfWeek } from 'date-fns';
 import { de } from 'date-fns/locale';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'cism-system-availability-chart',
@@ -17,16 +17,20 @@ export class SystemAvailabilityChartComponent implements OnInit {
 
   constructor(
     private _tools: ToolsService,
-    private _config: ConfigService,
+    private _store: Store,
     @Host() private _scroller: SystemScrollerComponent 
-  ) { }
+  ) {
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
+  }
+
+  config: Config
 
   ngOnInit() {
     let newData = []
     switch (this.type) {
       case "daily":
         newData = this.data.map(row => {
-          let date: any = parse(row[1], this._config.config.system.S2.formatDate, new Date())
+          let date: any = parse(row[1], this.config.system.S2.formatDate, new Date())
           date = format(date, 'dd/MM/yyyy')
           return {
             name: date,
@@ -39,9 +43,9 @@ export class SystemAvailabilityChartComponent implements OnInit {
       case "weekly":
       case "monthly":
         // let labels: any = this.type == 'weekly' ? 'weeks' : 'months'
-        let formatDate = this.type == 'weekly' ? this._config.config.system.S2.formatDate : 'dd/MM/yyyy'
+        let formatDate = this.type == 'weekly' ? this.config.system.S2.formatDate : 'dd/MM/yyyy'
         const grouped_data = this.data.reduce((r, a) => {
-          let date: any = parse(a[1], this._config.config.system.S2.formatDate, new Date())
+          let date: any = parse(a[1], this.config.system.S2.formatDate, new Date())
           if (this.type == 'weekly') {
             date = `${getYear(date)}${getWeek(date)}`
           } else {
@@ -74,8 +78,8 @@ export class SystemAvailabilityChartComponent implements OnInit {
         break
       default:
     }
-    if (newData.length > this._config.config.system.unitsPast) {
-      newData = newData.slice(Math.max(newData.length - this._config.config.system.unitsPast, 1))
+    if (newData.length > this.config.system.unitsPast) {
+      newData = newData.slice(Math.max(newData.length - this.config.system.unitsPast, 1))
     }
     let minValue = Math.round(this._tools.getMin(this.data, 2))
     if (minValue > 5) minValue -= 5
@@ -116,7 +120,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
     }
   }
   xAxisFormatting = val => {
-    let date = parse(val, this._config.config.system.S2.formatDate, new Date())
+    let date = parse(val, this.config.system.S2.formatDate, new Date())
     switch (this.type) {
       case "daily":
         return val

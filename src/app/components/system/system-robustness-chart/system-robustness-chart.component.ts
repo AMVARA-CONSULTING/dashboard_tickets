@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, Host, ChangeDetectionStrategy } from '@angular/core';
-import { SAViewType } from '@other/interfaces';
+import { SAViewType, Config } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
-import { ConfigService } from '@services/config.service';
 import { ToolsService } from '@services/tools.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { format, parse, isValid, setWeek, getYear, getWeek, setYear } from 'date-fns';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -17,8 +17,8 @@ export class SystemRobustnessChartComponent implements OnChanges {
 
   constructor(
     private _data: DataService,
-    private _config: ConfigService,
     private _tools: ToolsService,
+    private _store: Store,
     @Host() private _scroller: SystemScrollerComponent
   ) { }
 
@@ -71,7 +71,8 @@ export class SystemRobustnessChartComponent implements OnChanges {
         }
       })
       // Take only last 12 units, example: months, weeks, days,...
-      chartData = chartData.slice(Math.max(chartData.length - this._config.config.system.unitsPast, 1))
+      const config = this._store.selectSnapshot<Config>(store => store.config)
+      chartData = chartData.slice(Math.max(chartData.length - config.system.unitsPast, 1))
       this._scroller.bars.next(chartData.length)
       this.data.next(chartData)
     }, 200)

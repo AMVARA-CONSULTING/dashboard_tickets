@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
-import { ToolsService } from '@services/tools.service';
 import { DataService } from '@services/data.service';
-import { ConfigService } from '@services/config.service';
-import { WorkerService } from '@services/worker.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { Subscription } from 'rxjs/internal/Subscription';
+import { Store } from '@ngxs/store';
+import { Config } from '@other/interfaces';
 
 @Component({
   selector: 'cism-system-performance',
@@ -25,11 +24,14 @@ export class SystemPerformanceComponent implements OnInit {
 
   constructor(
     private _data: DataService,
-    private _config: ConfigService,
+    private _store: Store,
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
-    this._holder.titles.next([this._config.config.system.titles.S4])
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
+    this._holder.titles.next([this.config.system.titles.S4])
   }
+
+  config: Config
 
   // This function is executed when this component is destroyed
   ngOnDestroy() {

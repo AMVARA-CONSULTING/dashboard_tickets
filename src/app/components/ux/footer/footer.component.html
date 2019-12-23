@@ -1,5 +1,5 @@
 <div routerLink="help" class="flexed copyright">
-  <div class="daimler">{{ config.config.copyright }} &middot; {{ config.config.appTitle }}</div>
+  <div class="daimler">{{ (config$ | async).copyright }} &middot; {{ (config$ | async).appTitle }}</div>
 </div>
 <div class="flexed info">
   <div class="desktop">CISM Reporting contains confidential information!</div>
@@ -8,5 +8,5 @@
 </div>
 <div routerLink="about" class="flexed version">
   <div class="desktop execution_date">Execution Date: 28.09.2018 - 10:47h</div>
-  <div>v{{ config.config.version }} {{ config.config.language | uppercase }}</div>
+  <div>v{{ (config$ | async).version }} {{ (config$ | async).language | uppercase }}</div>
 </div>

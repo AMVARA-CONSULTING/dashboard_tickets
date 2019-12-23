@@ -23,7 +23,7 @@
   <div (click)="changeViewClick()" class="close">X</div>
   <div class="box-title">Ticket view</div>
   <div class="checkboxes">
-    <div class="column" *ngFor="let group of config.config.columns | keyvalue | fixFilter | groupBy:3">
+    <div class="column" *ngFor="let group of config.columns | keyvalue | fixFilter | groupBy:3">
       <mat-checkbox *ngFor="let prop of group" (change)="checkHandler(prop.key, $event)" [checked]="isChecked(prop.key)"
         [value]="prop.key">{{ prop.key | ru }}</mat-checkbox>
     </div>
@@ -164,7 +164,7 @@
       </mat-cell>
     </ng-container>
 
-    <mat-header-row *matHeaderRowDef="(ticketsLength | async) > 0 && !(changeView | async) ? config.config.displayedColumns : []"></mat-header-row>
-    <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.config.displayedColumns"></mat-row>
+    <mat-header-row *matHeaderRowDef="(ticketsLength | async) > 0 && !(changeView | async) ? config.displayedColumns : []"></mat-header-row>
+    <mat-row matRipple [matRippleColor]="rippleColor" *matRowDef="let row; columns: config.displayedColumns"></mat-row>
   </mat-table>
 </div>

@@ -5,12 +5,12 @@
       iBISS:
     </div>
     <div class="telephones">
-      <a [href]="config.config.portalLink[config.config.scenario]" target="_blank">Link to {{ config.config.appTitle }} Corporate Analytics Platform</a>
+      <a [href]="config.portalLink[config.scenario]" target="_blank">Link to {{ config.appTitle }} Corporate Analytics Platform</a>
     </div>
   </div>
   <div class="contact-info">
     <div class="category">
-      {{ config.config.appTitle }} Support:
+      {{ config.appTitle }} Support:
     </div>
     <div class="telephones">
       <contact *ngFor="let contact of contacts; let i = index;">
@@ -23,7 +23,7 @@
   </div>
 </div>
 <div class="help-box">
-  <help-title>{{ config.config.appTitle }} Functions</help-title>
+  <help-title>{{ config.appTitle }} Functions</help-title>
   <p>
     This application is adapted for any device and visualization. You can navigate through it with different options.
   </p>

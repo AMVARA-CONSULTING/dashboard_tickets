@@ -1,11 +1,11 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { SAPercents, SAViewType } from '@other/interfaces';
+import { SAPercents, SAViewType, Config } from '@other/interfaces';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
-import { ConfigService } from '@services/config.service';
 import { ToolsService } from '@services/tools.service';
 import { format, subDays, subWeeks, getWeek, parse, getMonth, subMonths } from 'date-fns';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'cism-system-availability',
@@ -17,12 +17,15 @@ export class SystemAvailabilityComponent implements OnInit {
 
   constructor(
     private _data: DataService,
-    private _config: ConfigService,
+    private _store: Store,
     private _tools: ToolsService,
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
-    this._holder.titles.next([this._config.config.system.titles.S1])
+    const config = this._store.selectSnapshot<Config>(store => store.config)
+    this._holder.titles.next([this.config.system.titles.S1])
   }
+
+  config: Config
   
   percents = new BehaviorSubject<SAPercents>(null)
 
@@ -36,7 +39,7 @@ export class SystemAvailabilityComponent implements OnInit {
     // Extract today's %
     let today = 0
     try {
-      const date = format(new Date(), this._config.config.system.S1.formatDate)
+      const date = format(new Date(), this.config.system.S1.formatDate)
       today = this._tools.formatPercent(SARows.filter(row => row[1] == date)[0][2])
     } catch (err) {
       console.log('System Availability', 'Processing', 'Percent not found for today')
@@ -46,7 +49,7 @@ export class SystemAvailabilityComponent implements OnInit {
     let yesterday = 0
     try {
       let date: any = subDays(new Date(), 1)
-      date = format(date, this._config.config.system.S1.formatDate)
+      date = format(date, this.config.system.S1.formatDate)
       yesterday = this._tools.formatPercent(SARows.filter(row => row[1] == date)[0][2])
     } catch (err) {
       console.log('System Availability', 'Processing', 'Percent not found for yesterday')
@@ -58,7 +61,7 @@ export class SystemAvailabilityComponent implements OnInit {
       let week: any = subWeeks(new Date(), 1)
       week = getWeek(week)
       const rows = SARows.filter(row => {
-        let date: any = parse(row[1], this._config.config.system.S1.formatDate, new Date())
+        let date: any = parse(row[1], this.config.system.S1.formatDate, new Date())
         return getWeek(date) == week
       })
       const sum = rows.map(r => r[2]).reduce((r, a) => r + a, 0)
@@ -73,7 +76,7 @@ export class SystemAvailabilityComponent implements OnInit {
       const week = getWeek(new Date())
       // @ts-ignore
       const rows = SARows.filter(row => {
-        let date: any = parse(row[1], this._config.config.system.S1.formatDate, new Date())
+        let date: any = parse(row[1], this.config.system.S1.formatDate, new Date())
         date = getWeek(date)
         return date == week
       })
@@ -89,7 +92,7 @@ export class SystemAvailabilityComponent implements OnInit {
       const month = getMonth(subMonths(new Date(), 1))
       // @ts-ignore
       const rows = SARows.filter(row => {
-        let date: any = parse(row[1], this._config.config.system.S1.formatDate, new Date())
+        let date: any = parse(row[1], this.config.system.S1.formatDate, new Date())
         date = getMonth(date)
         return date == month
       })
@@ -105,7 +108,7 @@ export class SystemAvailabilityComponent implements OnInit {
       const month = getMonth(new Date())
       // @ts-ignore
       const rows = SARows.filter(row => {
-        let date: any = parse(row[1], this._config.config.system.S1.formatDate, new Date())
+        let date: any = parse(row[1], this.config.system.S1.formatDate, new Date())
         date = getMonth(date)
         return date == month
       })

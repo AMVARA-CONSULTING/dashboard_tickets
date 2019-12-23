@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, Host } from '@angular/core';
-import { SAViewType } from '@other/interfaces';
+import { SAViewType, Config } from '@other/interfaces';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
-import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'cism-system-robustness',
@@ -13,11 +13,14 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class SystemRobustnessComponent {
 
   constructor(
-    private _config: ConfigService,
-    @Host() private _holder: SystemGraphicHolderComponent
+    @Host() private _holder: SystemGraphicHolderComponent,
+    private _store: Store
   ) {
-    this._holder.titles.next([this._config.config.system.titles.S2])
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
+    this._holder.titles.next([this.config.system.titles.S2])
   }
+
+  config: Config
   
   view = new BehaviorSubject<SAViewType>('monthly')
 

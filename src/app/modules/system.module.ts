@@ -15,6 +15,8 @@ import { SystemTicketColorsComponent } from '@components/system/system-ticket-co
 import { SystemRootCauseComponent } from '@components/system/system-root-cause/system-root-cause.component';
 import { ComboChartComponent, ComboSeriesVerticalComponent } from '@components/system/combo-chart';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { NgxsModule } from '@ngxs/store';
+import { ConfigState } from '@states/config.state';
 
 const systemRoutes: Routes = [
   {
@@ -46,6 +48,9 @@ const systemRoutes: Routes = [
     RouterModule.forChild(systemRoutes),
     SharedModule,
     CommonModule,
+    NgxsModule.forFeature([
+      ConfigState
+    ]),
     GoogleChartsModule.forRoot(),
   ],
   exports: []

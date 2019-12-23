@@ -1,13 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, OnDestroy} from '@angular/core';
 import { ToolsService } from '@services/tools.service';
 import { DataService } from '@services/data.service';
-import { ConfigService } from '@services/config.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { filter } from 'rxjs/internal/operators/filter';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { Config } from '@other/interfaces';
 
 @Component({
   selector: 'cism-overview-management',
@@ -27,11 +28,14 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   constructor(
     private _data: DataService,
     private _tools: ToolsService,
-    private _config: ConfigService,
+    private _store: Store,
     @Host() private _holder: SystemGraphicHolderComponent
   ) {
-    this._holder.titles.next([this._config.config.system.titles.S5])
+    this.config = this._store.selectSnapshot<Config>(store => store.config)
+    this._holder.titles.next([this.config.system.titles.S5])
   }
+
+  config: Config
 
   // This function is executed when this component is destroyed
   ngOnDestroy() {
@@ -43,13 +47,13 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
     // Handle title click change
     this.titleChangeSub = this._holder.click.pipe(
       distinctUntilChanged(),
-      filter(val => val != null && val.titles[0] == this._config.config.system.titles.S5)
+      filter(val => val != null && val.titles[0] == this.config.system.titles.S5)
     ).subscribe(titleChanged => {
       console.log(titleChanged)
       switch(titleChanged.indexClicked){
         case 0: 
           this.changeData();
-          this._holder.titles.next([this._config.config.system.titles.S5])
+          this._holder.titles.next([this.config.system.titles.S5])
           break;
         case 1:
           this.changeData({
@@ -59,7 +63,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
               service: titleChanged.nameClicked
             }
           })
-          this._holder.titles.next([this._config.config.system.titles.S5, titleChanged.nameClicked])
+          this._holder.titles.next([this.config.system.titles.S5, titleChanged.nameClicked])
           break
         default:
       }
@@ -79,17 +83,17 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
           csvdata = csvdata.filter(type => type[8] == event.series)
         }
         if (nextDrill == 2) {
-          csvdata = this._tools.classifyByIndex(csvdata, this._config.config.columns.external)
+          csvdata = this._tools.classifyByIndex(csvdata, this.config.columns.external)
         } else {
-          csvdata = this._tools.classifyByIndex(csvdata, this._config.config.columns.classification)
+          csvdata = this._tools.classifyByIndex(csvdata, this.config.columns.classification)
         }
       } else {
-        csvdata = this._tools.classifyByIndex(csvdata, this._config.config.columns.description)
+        csvdata = this._tools.classifyByIndex(csvdata, this.config.columns.description)
       }
       if (event !== undefined) {
         switch (nextDrill) {
           case 2:
-            this._holder.titles.next([this._config.config.system.titles.S5, event.extra.service])
+            this._holder.titles.next([this.config.system.titles.S5, event.extra.service])
             break
           case 3:
             this._holder.titles.next(this._holder.titles.getValue().concat([event.series]))
