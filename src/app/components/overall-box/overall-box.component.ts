@@ -3,8 +3,10 @@ import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SubSink } from '@services/tools.service';
 import { ConfigState } from '@states/config.state';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest } from 'rxjs/internal/operators/combineLatest';
+import { GlobalState } from '@other/interfaces';
 
 @Component({
   selector: 'cism-overall-box',
@@ -19,13 +21,18 @@ export class OverallBoxComponent implements OnInit, OnDestroy {
   subs = new SubSink()
 
   constructor(
-    private data: DataService
+    private data: DataService,
+    private _store: Store
   ) { }
 
   async ngOnInit() {
     const language = await this.language$.toPromise()
-    this.subs.sink = this.data.month.subscribe(month => {
-      const total = +this.data.overall.filter(row => row[0] == month.month)[0][1]
+    this.subs.sink = this.data.month.pipe(
+      combineLatest(
+        this._store.select((store: GlobalState) => store.tickets.overall)
+      )
+    ).subscribe(([month, overall]) => {
+      const total = +overall.filter(row => row[0] == month.month)[0][1]
       this.total$.next(total.toLocaleString(language))
     })
   }

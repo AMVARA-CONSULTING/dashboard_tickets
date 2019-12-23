@@ -1,11 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, Host } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Host, OnDestroy } from '@angular/core';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { KeyPair, Config } from '@other/interfaces';
 import { DataService } from '@services/data.service';
-import { ToolsService } from '@services/tools.service';
+import { ToolsService, SubSink } from '@services/tools.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { TicketsState, Tickets } from '@states/tickets.state';
 
 @Component({
   selector: 'cism-system-root-cause',
@@ -13,7 +15,11 @@ import { Store } from '@ngxs/store';
   styleUrls: ['./system-root-cause.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SystemRootCauseComponent implements OnInit {
+export class SystemRootCauseComponent implements OnInit, OnDestroy {
+
+  subs = new SubSink()
+
+  ngOnDestroy = () => this.subs.unsubscribe()
 
   constructor(
     private _data: DataService,
@@ -31,22 +37,23 @@ export class SystemRootCauseComponent implements OnInit {
 
   groups:any;
   
-
+  @Select(TicketsState) tickets$: Observable<Tickets>
+  
   ngOnInit() {
-    this.groups = this._tools.classifyByIndex(this._data.allTickets, this.config.columns.service)
-    for (const group in this.groups) {
-      this.groups[group] = this.groups[group].length
-    }
-    const chartData: KeyPair[] = Object.keys(this.groups).map(group => {
-      return {
-        name: group,
-        value: this.groups[group]
-      } as KeyPair
+    this.subs.sink = this.tickets$.subscribe(tickets => {
+      this.groups = this._tools.classifyByIndex(tickets.tickets, this.config.columns.service)
+      for (const group in this.groups) {
+        this.groups[group] = this.groups[group].length
+      }
+      const chartData: KeyPair[] = Object.keys(this.groups).map(group => {
+        return {
+          name: group,
+          value: this.groups[group]
+        } as KeyPair
+      })
+      this.chartData.next(chartData)
+      this.drawChart()
     })
-    this.chartData.next(chartData)
-
-    // gchart
-    this.drawChart();
   }
   // Draws the google-chart data for IE, so it can be redrawn on resize.
   drawChart(){

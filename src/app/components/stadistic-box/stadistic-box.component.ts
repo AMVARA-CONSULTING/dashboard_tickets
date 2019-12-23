@@ -6,6 +6,7 @@ import { Select, Store } from '@ngxs/store';
 import { ConfigState } from '@states/config.state';
 import { Observable } from 'rxjs/internal/Observable';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { combineLatest } from 'rxjs/internal/operators/combineLatest';
 
 @Component({
   selector: 'cism-stadistic-box',
@@ -13,11 +14,13 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
   styleUrls: ['./stadistic-box.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
+export class StadisticBoxComponent implements OnInit, OnDestroy {
 
   @Select(ConfigState.getLanguage) language$: Observable<string>
 
   subs = new SubSink()
+
+  ngOnDestroy = () => this.subs.unsubscribe()
 
   constructor(
     private router: Router,
@@ -26,21 +29,20 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.subs.sink = this.data.month.subscribe(() => this.rollup())
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe()
+    this.subs.sink = this.data.month.pipe(
+      combineLatest(
+        this._store.select(store => store.tickets.priority),
+        this._store.select(store => store.tickets.status),
+        this._store.select(store => store.tickets.type),
+        this._store.select(store => store.tickets.service)
+      )
+    ).subscribe(([month, priority, status, type, service]) => this.rollup(priority, status, type, service))
   }
 
   @Input() title: string = ''
   @Input() go: string = ''
 
   rows = new BehaviorSubject<any[]>([])
-
-  ngOnChanges() {
-    this.rollup()
-  }
 
   rippleColor: string = 'rgba(255,255,255,.06)'
 
@@ -51,21 +53,21 @@ export class StadisticBoxComponent implements OnInit, OnChanges, OnDestroy {
     this.router.navigate(['tickets', this.go, row.name])
   }
 
-  rollup() {
+  rollup(priority, status, type, service) {
     const month = this.data.month.getValue().month
     let stats = []
     switch (this.go) {
       case "priority":
-        stats = this.data.priority
+        stats = priority
         break
       case "status":
-        stats = this.data.status
+        stats = status
         break
       case "type":
-        stats = this.data.type
+        stats = type
         break
       case "service":
-        stats = this.data.service
+        stats = service
         break
     }
     stats = stats.filter(row => row[1] == month)

@@ -1,4 +1,4 @@
-<ngx-charts-bar-vertical-stacked [results]="multi" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
+<ngx-charts-bar-vertical-stacked [results]="multi | async" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis"
   [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" (select)="go($event)"
   [scheme]="colorScheme">
 </ngx-charts-bar-vertical-stacked>

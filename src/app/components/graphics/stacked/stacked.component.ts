@@ -3,6 +3,12 @@ import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { SubSink } from '@services/tools.service';
 import { parse, format } from 'date-fns';
+import { Store, Select } from '@ngxs/store';
+import { TicketsState } from '@states/tickets.state';
+import { Observable } from 'rxjs/internal/Observable';
+import { combineLatest } from 'rxjs/internal/operators/combineLatest';
+import { GlobalState } from '@other/interfaces';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Component({
   selector: 'cism-stacked',
@@ -17,12 +23,18 @@ export class StackedComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private data: DataService,
-    private ref: ChangeDetectorRef
+    private _store: Store
   ) { }
 
+  @Select(TicketsState.StackedChart) chart$: Observable<any[]>
+
   ngOnInit() {
-    this.subs.sink = this.data.month.subscribe(month => {
-      const barchartData = this.data.chart.filter(row => row[2] == month.month)
+    this.subs.sink = this.data.month.pipe(
+      combineLatest(
+        this._store.select((state: GlobalState) => state.tickets.chart)
+      )
+    ).subscribe(([month, chart]) => {
+      const barchartData = chart.filter(row => row[2] == month.month)
       const length = barchartData.length
       const series = []
       for (let i = 0; i < length; i++) {
@@ -50,11 +62,11 @@ export class StackedComponent implements OnInit, OnDestroy {
           ]
         })
       }
-      this.multi = series.reverse()
-      if (!this.ref['destroyed']) this.ref.detectChanges()
+      this.multi.next(series.reverse())
     })
   }
-  multi = []
+
+  multi = new BehaviorSubject<any[]>([])
 
   ngOnDestroy() {
     this.subs.unsubscribe()

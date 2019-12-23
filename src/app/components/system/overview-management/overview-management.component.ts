@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Host, ViewChild, OnDestroy} from '@angular/core';
 import { ToolsService } from '@services/tools.service';
-import { DataService } from '@services/data.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
 import { SystemGraphicHolderComponent } from '@components/system/system-graphic-holder/system-graphic-holder.component';
@@ -9,6 +8,7 @@ import { filter } from 'rxjs/internal/operators/filter';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { Config } from '@other/interfaces';
+import { TicketsState } from '@states/tickets.state';
 
 @Component({
   selector: 'cism-overview-management',
@@ -26,7 +26,6 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   titleChangeSub: Subscription
 
   constructor(
-    private _data: DataService,
     private _tools: ToolsService,
     private _store: Store,
     @Host() private _holder: SystemGraphicHolderComponent
@@ -43,13 +42,13 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
   }
 
   @ViewChild(SystemScrollerComponent, { static: true }) _scroller: SystemScrollerComponent  
+
   ngOnInit() {
     // Handle title click change
     this.titleChangeSub = this._holder.click.pipe(
       distinctUntilChanged(),
       filter(val => val != null && val.titles[0] == this.config.system.titles.S5)
     ).subscribe(titleChanged => {
-      console.log(titleChanged)
       switch(titleChanged.indexClicked){
         case 0: 
           this.changeData();
@@ -76,7 +75,7 @@ export class OverviewManagementComponent implements OnInit, OnDestroy {
     // Only accepts 3 levels
     if (nextDrill >= 1 && nextDrill <= 3) {
       // Check if it's default drill, first drill, or second drill
-      let csvdata = this._data.system.filter(type => type[0] == 'S5')
+      let csvdata = this._store.selectSnapshot(TicketsState.Section5)
       if (event !== undefined) {
         csvdata = csvdata.filter(type => type[7] == event.extra.service)
         if (nextDrill == 3) {

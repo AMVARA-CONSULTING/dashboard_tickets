@@ -2,11 +2,13 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { ClassificationGroup, Config } from '@other/interfaces';
+import { ClassificationGroup, Config, GlobalState } from '@other/interfaces';
 import { SubSink } from '@services/tools.service';
 import { Select, Store } from '@ngxs/store';
 import { ConfigState } from '@states/config.state';
 import { Observable } from 'rxjs/internal/Observable';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { map } from 'rxjs/internal/operators/map';
 
 @Component({
   selector: 'cism-classification',
@@ -42,8 +44,10 @@ export class ClassificationComponent implements OnDestroy {
 
   rollup() {
     const month = this.data.month.getValue().month
-    this.subs.sink = this.type.subscribe(type => {
-      const rows: any[] = this.data[type].filter(row => row[1] === month)
+    this.subs.sink = this.type.pipe(
+      switchMap(type => this._store.select((state: GlobalState) => state.tickets[type])),
+      map(rows => rows.filter(row => row[1] === month))
+    ).subscribe(rows => {
       const total = rows.reduce((r, a) => r + parseInt(a[3], 10), 0)
       const groups: ClassificationGroup[] = []
       const length = rows.length

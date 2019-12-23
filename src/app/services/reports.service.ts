@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { parse, isAfter } from 'date-fns';
 import { Store } from '@ngxs/store';
 import { SetConfig } from '@states/config.state';
+import { UpdateTickets } from '@states/tickets.state';
 
 declare const JKL, XML: any
 
@@ -125,36 +126,44 @@ export class ReportsService {
         jobs.push(this.getReportOverallData('system'))
       }
       forkJoin(...jobs).subscribe(data => {
-        this.data.chart = data[0]
-        this.data.priority = data[1]
-        this.data.service = data[2]
-        this.data.silt = data[3]
-        this.data.status = data[4]
-        this.data.type = data[5]
-        this.data.overall = data[6]
+        let tickets = []
+        let ticketsReduced = []
+        let systemRows = []
         if (config.system.enable) {
-          this.data.allTickets = data[7]
-          this.data.allTicketsReduced = data[7].map((ticket: any[]) => {
+          tickets = data[7]
+          ticketsReduced = tickets.map((ticket: any[]) => {
             return config.importantColumns.reduce((r, a) => {
               r.push(ticket[a])
               return r
             }, [])
           })
           if (config.excludeDatesFuture) {
-            this.data.allTickets = this.data.allTickets.filter(row => !isAfter(parse(row[2], 'dd.MM.yyyy HH:mm', new Date()), new Date()))
+            tickets = tickets.filter(row => !isAfter(parse(row[2], 'dd.MM.yyyy HH:mm', new Date()), new Date()))
           }
-          this.data.system = data[8]
+          systemRows = data[8]
           if (config.excludeDatesFuture) {
-            this.data.system = this.data.system.filter(row => !isAfter(parse(row[1], 'MM/dd/yyyy', new Date()), new Date()))
+            systemRows = systemRows.filter(row => !isAfter(parse(row[1], 'MM/dd/yyyy', new Date()), new Date()))
           }
         }
-        this.data.availableMonths = this.data.overall.map(row => row[0]).reverse()
+        this.data.availableMonths = data[6].map(row => row[0]).reverse()
         const currentMonth = this.data.months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
         const currentMonthIndex = this.data.months.findIndex(month => month == currentMonth)
         this.data.month = new BehaviorSubject<{ month: string, index: number }>({
           month: currentMonth,
           index: currentMonthIndex
         })
+        this._store.dispatch(new UpdateTickets({
+          chart: data[0],
+          priority: data[1],
+          service: data[2],
+          silt: data[3],
+          status: data[4],
+          type: data[5],
+          overall: data[6],
+          tickets: tickets,
+          ticketsReduced: ticketsReduced,
+          system: systemRows
+        }))
         resolve()
       })
     })

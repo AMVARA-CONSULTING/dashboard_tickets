@@ -15,6 +15,7 @@ import { SubSink } from '@services/tools.service';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { Store } from '@ngxs/store';
 import { UpdateConfig } from '@states/config.state';
+import { SetMonthTickets } from '@states/tickets.state';
 
 @Component({
   selector: 'cism-tickets',
@@ -121,19 +122,21 @@ export class TicketsComponent implements OnInit, OnDestroy {
         const filter = params.get('filter')
         this.data.loading.next(true)
         const monthIndex = month.index
-        if (!Array.isArray(this.data.tickets[monthIndex])) {
+        const ticketsBackup = this._store.selectSnapshot(store => store.tickets.ticketsBackup)
+        if (!Array.isArray(ticketsBackup[monthIndex])) {
           this.subs.add(
             this._reports.getReportData(
               this.config.reports[this.config.scenario].months[monthIndex],
               this.config.reports[this.config.scenario].monthsSelector,
               'Mobile_Tickets_List.csv'
             ).subscribe(data => {
-              this.data.tickets[monthIndex] = data
-              this.rollup(this.data.tickets[monthIndex], type, filter)
+              this._store.dispatch(new SetMonthTickets(monthIndex, data))
+              this.rollup(data, type, filter)
             })
           )
         } else {
-          this.rollup(this.data.tickets[monthIndex], type, filter)
+          const tickets = this._store.selectSnapshot(store => store.tickets.ticketsBackup)[monthIndex]
+          this.rollup(tickets, type, filter)
         }
       })
     )

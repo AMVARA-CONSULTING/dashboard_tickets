@@ -1,11 +1,14 @@
-import { Component, Input, OnChanges, Host, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnChanges, Host, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { SAViewType, Config } from '@other/interfaces';
 import { DataService } from '@services/data.service';
 import { SystemScrollerComponent } from '@components/system/system-scroller/system-scroller.component';
-import { ToolsService } from '@services/tools.service';
+import { ToolsService, SubSink } from '@services/tools.service';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { format, parse, isValid, setWeek, getYear, getWeek, setYear } from 'date-fns';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs/internal/Observable';
+import { Tickets, TicketsState } from '@states/tickets.state';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -13,7 +16,11 @@ import { Store } from '@ngxs/store';
   styleUrls: ['./system-robustness-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SystemRobustnessChartComponent implements OnChanges {
+export class SystemRobustnessChartComponent implements OnChanges, OnDestroy {
+
+  subs = new SubSink()
+
+  ngOnDestroy = () => this.subs.unsubscribe()
 
   constructor(
     private _data: DataService,
@@ -22,15 +29,19 @@ export class SystemRobustnessChartComponent implements OnChanges {
     @Host() private _scroller: SystemScrollerComponent
   ) { }
 
+  @Select(TicketsState) tickets$: Observable<Tickets>
+
   ngOnChanges() {
-    setTimeout(_ => {
+    this.subs.sink = this.tickets$.pipe(
+      debounceTime(200)
+    ).subscribe(tickets => {
       let groups = {}
       let classifiers = {
         monthly: "yyyy'M'MM",
         daily: "yyyy'M'MM'D'dd"
       }
       // Get rows classified by month, week, or day
-      groups = this._tools.primitiveReduce(this._data.allTicketsReduced, (r, ticket) => {
+      groups = this._tools.primitiveReduce(tickets.ticketsReduced, (r, ticket) => {
         const dateParsed = parse(ticket[0], 'dd.MM.yyyy HH:mm', new Date())
         if (!isValid(dateParsed)) {
           return r
@@ -75,7 +86,7 @@ export class SystemRobustnessChartComponent implements OnChanges {
       chartData = chartData.slice(Math.max(chartData.length - config.system.unitsPast, 1))
       this._scroller.bars.next(chartData.length)
       this.data.next(chartData)
-    }, 200)
+    })
   }
   
   @Input() type: SAViewType

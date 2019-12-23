@@ -29,22 +29,8 @@ export class DataService {
 
   loadingTickets: boolean = true
 
-  tickets = []
-  allTickets = []
-  allTicketsReduced = []
-  initialRows = []
-  system = []
-
   isMobile: boolean = false
   opened: BehaviorSubject<boolean>
-
-  chart: any[] = []
-  silt: any[] = []
-  priority: any[] = []
-  service: any[] = []
-  status: any[] = []
-  type: any[] = []
-  overall: any[] = []
 
   loading: BehaviorSubject<boolean>
 

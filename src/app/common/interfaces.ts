@@ -1,3 +1,5 @@
+import { Tickets } from '@states/tickets.state';
+
 export interface Config {
   language?: string;
   readonly version?: string;
@@ -38,6 +40,11 @@ export interface SystemConfig {
   readonly S3: SystemS3Config
   readonly S4: SystemS4Config
   readonly S5: SystemS5Config
+}
+
+export interface GlobalState {
+  config: Config,
+  tickets: Tickets
 }
 
 export interface SystemS1Config {

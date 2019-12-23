@@ -17,6 +17,7 @@ import { ComboChartComponent, ComboSeriesVerticalComponent } from '@components/s
 import { GoogleChartsModule } from 'angular-google-charts';
 import { NgxsModule } from '@ngxs/store';
 import { ConfigState } from '@states/config.state';
+import { TicketsState } from '@states/tickets.state';
 
 const systemRoutes: Routes = [
   {
@@ -49,7 +50,8 @@ const systemRoutes: Routes = [
     SharedModule,
     CommonModule,
     NgxsModule.forFeature([
-      ConfigState
+      ConfigState,
+      TicketsState
     ]),
     GoogleChartsModule.forRoot(),
   ],

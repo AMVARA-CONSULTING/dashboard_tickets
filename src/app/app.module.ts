@@ -69,6 +69,7 @@ import { XSRFInterceptor } from './interceptors/xsrf.interceptor';
 import { ConfigState } from '@states/config.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { TicketsState } from '@states/tickets.state';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -129,7 +130,8 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     AppRoutingModule,
     NgxsModule.forRoot([
-      ConfigState
+      ConfigState,
+      TicketsState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
