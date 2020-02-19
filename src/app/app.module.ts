@@ -70,6 +70,7 @@ import { ConfigState } from '@states/config.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { TicketsState } from '@states/tickets.state';
+import { environment } from 'environments/environment';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -132,7 +133,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxsModule.forRoot([
       ConfigState,
       TicketsState
-    ]),
+    ], { developmentMode: !environment.production}),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     TranslateModule.forRoot({

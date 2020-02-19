@@ -62,7 +62,8 @@ export class StackedComponent implements OnInit, OnDestroy {
           ]
         })
       }
-      this.multi.next(series.reverse())
+      series.sort((a, b) => parseInt(a.name, 10) - parseInt(b.name, 10))
+      this.multi.next(series)
     })
   }
 

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { DataService } from '@services/data.service';
-import { map, switchMap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Config } from '@other/interfaces';
@@ -13,6 +12,10 @@ import { parse, isAfter } from 'date-fns';
 import { Store } from '@ngxs/store';
 import { SetConfig } from '@states/config.state';
 import { UpdateTickets } from '@states/tickets.state';
+import { throwError } from 'rxjs/internal/observable/throwError';
+import { map } from 'rxjs/internal/operators/map';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { catchError } from 'rxjs/internal/operators/catchError';
 
 declare const JKL, XML: any
 
@@ -53,7 +56,10 @@ export class ReportsService {
       this.http.get('assets/config.json').subscribe((config: Config) => {
         (document.querySelector('.progress-value') as HTMLElement).style.width = '40%';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '45%';
-        config.language = localStorage.getItem('lang') || config.language
+        config.language = localStorage.getItem('lang') || config.language;
+        if (location.hostname.indexOf('corpintra.net') == -1 && !config.corpintraMode) {
+          config.portalFolder = '/analytics/bi/'
+        }
         if (!!localStorage.getItem('hideClosed')) this.data.hideClosed = localStorage.getItem('hideClosed') === 'yes';
         (document.querySelector('.progress-value') as HTMLElement).style.width = '50%';
         config.system.enable = localStorage.getItem('enableExperimentalFeatures') === 'yes' || false
@@ -97,10 +103,18 @@ export class ReportsService {
               iframe.src = `${config.fullUrl}${config.portalFolder}?pathRef=.public_folders%2FIWM_BI%2FIWM_BI%2FAMVARA_triggerCISM&ui_appbar=false&ui_navbar=false&format=HTML&Download=false`
               document.body.appendChild(iframe)
               // AMVARA_triggerCISM sended login is done
-              window.addEventListener('complete', () => {
+              window.top.document.addEventListener('complete', () => {
                 console.log("Login done, load CISM")
+                const app: HTMLElement = document.querySelector('cism-root')
+                app.style.removeProperty('display')
                 localStorage.setItem('cookies', iframe.contentWindow.document.cookie)
-                this.loadInitialReport().then(_ => resolve())
+                window.top.document.body.querySelector('iframe').remove()
+                // Make initial request to check user permissions
+                this.getReportOverallData('barchart').subscribe(success => {
+                  this.loadInitialReport().then(_ => resolve())
+                }, error => {
+                  alert(error)
+                })
               })
             }
           )
@@ -174,7 +188,13 @@ export class ReportsService {
       const config = this._store.selectSnapshot<Config>((state: any) => state.config)
       if (this.corpintra || config.corpintraMode) {
         this.http.get(`${config.fullUrl}${config.portalFolder}v1/objects/${ReportID}/versions`).pipe(
-          map((json: any) => `${config.fullUrl}${json.data[0]._meta.links.outputs.url}`), // Get outputs url
+          map((json: any) => {
+            if (json.data.length === 0) {
+              alert('Looks like you don\'t have access to CISM')
+              throwError('permission_denied')
+            }
+            return `${config.fullUrl}${json.data[0]._meta.links.outputs.url}`
+          }), // Get outputs url
           switchMap((link: string) => this.http.get(link)), // Return the outputs response json
           map((json: any) => `${config.fullUrl}${json.data[0]._meta.links.content.url}`), // Get the last saved output url
           switchMap((link: string) => this.http.get(link, { responseType: 'text' })), // Return the content response as HTML
@@ -187,7 +207,6 @@ export class ReportsService {
               this.giveFallback(fallback, observer)
               console.log(`${ReportID} is running in fallback mode`)
             } else {
-              observer.error('Couldn\'t fetch json from report.')
               console.log(err)
               observer.complete()
             }

@@ -23,7 +23,7 @@ export interface Config {
   readonly displayedColumnsOrder?: string[],
   readonly ticketOptions?: boolean,
   readonly fullUrl?: string
-  readonly portalFolder?: string
+  portalFolder?: string
   readonly corpintraMode?: boolean
   displayedColumns?: string[],
   infiniteScroll?: boolean;

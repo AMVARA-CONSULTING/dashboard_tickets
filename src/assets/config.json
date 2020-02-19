@@ -1,5 +1,5 @@
 {
-  "version": "1.20.0",
+  "version": "1.21.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
@@ -15,7 +15,7 @@
     "de": "Deutsch"
   },
   "fullUrl": "",
-  "portalFolder": "",
+  "portalFolder": "/analytics/bi/",
   "excludeDatesFuture": true,
   "system": {
     "enable": false,
@@ -236,6 +236,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.21.0",
+      "text": [
+        "#2314 - Check user permissions"
+      ]
+    },
     {
       "version": "1.20.0",
       "text": [

@@ -75,6 +75,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.fixedWidth.next(allColumns.length > 5)
     this.changeView.next(false)
     localStorage.setItem('hideClosed', this.hideClosed ? 'yes' : 'no')
+    this.newTickets(this.ticketsBkp)
     setTimeout(_ => this.ref.detectChanges())
   }
 
@@ -146,7 +147,10 @@ export class TicketsComponent implements OnInit, OnDestroy {
     setTimeout(_ => this.ref.markForCheck())
   }
 
+  ticketsBkp: Ticket[]
+
   newTickets(tickets: Ticket[]) {
+    this.ticketsBkp = tickets
     const source = new MatTableDataSource<Ticket>(tickets)
     source.paginator = this.paginator
     source.sort = this.sort
