@@ -10,13 +10,14 @@
       "prefix": "cism",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "style": "scss"
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -148,5 +149,8 @@
       }
     }
   },
-  "defaultProject": "cism"
+  "defaultProject": "cism",
+  "cli": {
+    "analytics": false
+  }
 }

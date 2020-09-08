@@ -139,14 +139,14 @@ a {
     .portrait_landscape {
         width: 250px;
         height: 140px;
-        background-image: url(assets/img/DIP_ICON_PortLandsView.svg);
+        background-image: url(^assets/img/DIP_ICON_PortLandsView.svg);
         background-size: contain;
         background-repeat: no-repeat;
     }
     .scroll_swipe {
         width: 250px;
         height: 135px;
-        background-image: url(assets/img/DIP_ICON_ScrollSwipeView.svg);
+        background-image: url(^assets/img/DIP_ICON_ScrollSwipeView.svg);
         background-size: contain;
         background-repeat: no-repeat;
     }
@@ -155,12 +155,12 @@ a {
         height: 90px;
     }
     .hand1 {
-        background-image: url(assets/img/DIP_ICON_Hand1.svg);
+        background-image: url(^assets/img/DIP_ICON_Hand1.svg);
     }
     .hand2 {
         margin-left: 80px;
         height: 95px;
-        background-image: url(assets/img/DIP_ICON_Hand2.svg);
+        background-image: url(^assets/img/DIP_ICON_Hand2.svg);
     }
 }
 

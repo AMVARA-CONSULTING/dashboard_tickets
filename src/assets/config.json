@@ -1,12 +1,12 @@
 {
-  "version": "1.21.0",
+  "version": "1.22.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
   "delay": 0,
   "delayRequests": 0,
   "copyright": "DAIMLER",
-  "corpintraMode": false,
+  "corpintraMode": true,
   "heartbeat": 300000,
   "license": "SFASR",
   "ticketOptions": true,
@@ -245,6 +245,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.22.0",
+      "text": [
+        "#2142 - Add Live parameter to reports"
+      ]
+    },
     {
       "version": "1.21.0",
       "text": [

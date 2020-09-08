@@ -30,7 +30,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
     switch (this.type) {
       case "daily":
         newData = this.data.map(row => {
-          let date: any = parse(row[1], this.config.system.S2.formatDate, new Date())
+          let date: any = parse(row[1], 'yyyy-MM-dd', new Date())
           date = format(date, 'dd/MM/yyyy')
           return {
             name: date,
@@ -45,7 +45,7 @@ export class SystemAvailabilityChartComponent implements OnInit {
         // let labels: any = this.type == 'weekly' ? 'weeks' : 'months'
         let formatDate = this.type == 'weekly' ? this.config.system.S2.formatDate : 'dd/MM/yyyy'
         const grouped_data = this.data.reduce((r, a) => {
-          let date: any = parse(a[1], this.config.system.S2.formatDate, new Date())
+          let date: any = parse(a[1], 'yyyy-MM-dd', new Date())
           if (this.type == 'weekly') {
             date = `${getYear(date)}${getWeek(date)}`
           } else {

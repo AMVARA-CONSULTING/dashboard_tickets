@@ -200,8 +200,8 @@ export class ReportsService {
           map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
         )
         if (live) {
-          request = this.http.get(`${config.fullUrl}${config.portalFolder}v1/disp/rds/reportData/report/${ReportID}?v=3&async=OFF&fmt=HTML`, { responseType: 'text' }).pipe(
-            map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
+          request = this.http.get(`${config.fullUrl}${config.portalFolder}v1/disp/rds/reportData/report/${ReportID}?v=3&async=OFF&fmt=CSV`, { responseType: 'text' }).pipe(
+            map((json: any) => this.csvToJson(json)) // Convert CSV to JSON
           )
         }
         request.subscribe((json: any) => {
