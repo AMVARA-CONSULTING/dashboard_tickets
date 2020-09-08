@@ -15,7 +15,6 @@ import { UpdateTickets } from '@states/tickets.state';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { map } from 'rxjs/internal/operators/map';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
-import { catchError } from 'rxjs/internal/operators/catchError';
 
 declare const JKL, XML: any
 
@@ -46,7 +45,7 @@ export class ReportsService {
   getReportOverallData(key) {
     const config = this._store.selectSnapshot<Config>((state: any) => state.config)
     const keyData = config.reports[config.scenario][key]
-    return this.getReportData( keyData.id, keyData.selector, keyData.fallback )
+    return this.getReportData( keyData.id, keyData.selector, keyData.fallback, keyData.live )
   }
 
   load(): Promise<void> {
@@ -136,7 +135,7 @@ export class ReportsService {
         this.getReportOverallData('overview_count')
       ]
       if (config.system.enable) {
-        jobs.push(this.getReportData(config.reports[config.scenario].allMonths, config.reports[config.scenario].monthsSelector, 'Mobile_Tickets_List.csv'))
+        jobs.push(this.getReportData(config.reports[config.scenario].allMonths, config.reports[config.scenario].monthsSelector, 'Mobile_Tickets_List.csv', false))
         jobs.push(this.getReportOverallData('system'))
       }
       forkJoin(...jobs).subscribe(data => {
@@ -183,11 +182,11 @@ export class ReportsService {
     })
   }
 
-  getReportData(ReportID: string, selector: string, fallback: string): Observable<any[]> {
+  getReportData(ReportID: string, selector: string, fallback: string, live: boolean): Observable<any[]> {
     return new Observable(observer => {
       const config = this._store.selectSnapshot<Config>((state: any) => state.config)
       if (this.corpintra || config.corpintraMode) {
-        this.http.get(`${config.fullUrl}${config.portalFolder}v1/objects/${ReportID}/versions`).pipe(
+        let request = this.http.get(`${config.fullUrl}${config.portalFolder}v1/objects/${ReportID}/versions`).pipe(
           map((json: any) => {
             if (json.data.length === 0) {
               alert('Looks like you don\'t have access to CISM')
@@ -199,7 +198,13 @@ export class ReportsService {
           map((json: any) => `${config.fullUrl}${json.data[0]._meta.links.content.url}`), // Get the last saved output url
           switchMap((link: string) => this.http.get(link, { responseType: 'text' })), // Return the content response as HTML
           map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
-        ).subscribe((json: any) => {
+        )
+        if (live) {
+          request = this.http.get(`${config.fullUrl}${config.portalFolder}v1/disp/rds/reportData/report/${ReportID}?v=3&async=OFF&fmt=HTML`, { responseType: 'text' }).pipe(
+            map((json: any) => this.htmlToJson(json, selector)) // Convert HTML to JSON
+          )
+        }
+        request.subscribe((json: any) => {
             observer.next(json)
             observer.complete()
           }, err => {

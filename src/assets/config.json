@@ -127,46 +127,55 @@
       "barchart": {
         "id": "iEB9769FA4B534040B1DF3CBC5BA7BA18",
         "selector": "[lid=Overview_Diagram] tr",
-        "fallback": "Mobile_Tickets_Chart.csv"
+        "fallback": "Mobile_Tickets_Chart.csv",
+        "live": false
       },
       "tickets": {
         "id": "i162AB365F31345B2AAAAA1A9D4D98203",
-        "selector": "[lid=List1] tr"
+        "selector": "[lid=List1] tr",
+        "live": false
       },
       "overview_count": {
         "id": "i046F8C57031B43C2A9F1A546DA61F8F3",
         "selector": "[lid=List1] tr",
-        "fallback": "Mobile_Tickets_Overall.csv"
+        "fallback": "Mobile_Tickets_Overall.csv",
+        "live": false
       },
       "overview_prio": {
         "id": "i0241160C5EAE42B5B42259B09A807211",
         "selector": "[lid=Ticket_Priority] tr",
-        "fallback": "Mobile_Tickets_Priority.csv"
+        "fallback": "Mobile_Tickets_Priority.csv",
+        "live": false
       },
       "overview_type": {
         "id": "i1562591D88004D2FA85D50C879EC4B8A",
         "selector": "[lid=Ticket_Status1] tr",
-        "fallback": "Mobile_Tickets_Type.csv"
+        "fallback": "Mobile_Tickets_Type.csv",
+        "live": false
       },
       "overview_status": {
         "id": "iC3A0747EE4114C1BAABB887046E12778",
         "selector": "[lid=Ticket_Status] tr",
-        "fallback": "Mobile_Tickets_Status.csv"
+        "fallback": "Mobile_Tickets_Status.csv",
+        "live": false
       },
       "overview_service": {
         "id": "i8E57B9312DE24595A61F1038436C6EB6",
         "selector": "[lid=Ticket_Application] tr",
-        "fallback": "Mobile_Tickets_Service.csv"
+        "fallback": "Mobile_Tickets_Service.csv",
+        "live": false
       },
       "overview_silt": {
         "id": "iAD7819B5A436416E8C9B3249014DDA1E",
         "selector": "[lid=List1] tr",
-        "fallback": "Mobile_Tickets_Silt.csv"
+        "fallback": "Mobile_Tickets_Silt.csv",
+        "live": false
       },
       "system": {
-        "id": "null",
-        "selector": "null",
-        "fallback": "System.csv"
+        "id": "iD9AEFB14D07044FA95FB175A6D596E37",
+        "selector": "[lid=List1] tr",
+        "fallback": "System.csv",
+        "live": true
       },
       "monthsSelector": "[lid=List1] tr",
       "allMonths": "null",

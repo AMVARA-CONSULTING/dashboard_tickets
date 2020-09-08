@@ -129,7 +129,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
             this._reports.getReportData(
               this.config.reports[this.config.scenario].months[monthIndex],
               this.config.reports[this.config.scenario].monthsSelector,
-              'Mobile_Tickets_List.csv'
+              'Mobile_Tickets_List.csv',
+              false
             ).subscribe(data => {
               this._store.dispatch(new SetMonthTickets(monthIndex, data))
               this.rollup(data, type, filter)
