@@ -6,7 +6,7 @@
   "delay": 0,
   "delayRequests": 0,
   "copyright": "DAIMLER",
-  "corpintraMode": true,
+  "corpintraMode": false,
   "heartbeat": 300000,
   "license": "SFASR",
   "ticketOptions": true,
