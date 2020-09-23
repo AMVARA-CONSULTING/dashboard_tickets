@@ -1,6 +1,23 @@
-# This file is a template, and might need editing before it works on your project.
-# Full project: https://gitlab.com/pages/plain-html
-pages:
+deploy:
+  only:
+    refs:
+      - master
   stage: deploy
   script:
-  - docker exec cism_front /code/update.sh
+    # Install npm packages
+    - npm install
+    # Compile project with Angular
+    - ng build --prod --aot --crossOrigin=use-credentials
+    # Create destination folder
+    - sudo mkdir -p /home/amvara/projects/cism/dist/
+    # Empty public folder before copying new files
+    - rm -rfv /home/amvara/projects/cism/dist/*
+    # Copy compiled files to public folder
+    - sudo cp -ra ./dist/. /home/amvara/projects/cism/dist/
+    - pwd=$(pwd)
+    # Compress file with gzip
+    - cd /home/amvara/projects/cism/dist/
+    - find . -type f \( -name '*.js' -o -name '*.json' -o -name '*.ttf' -o -name '*.svg' -o -name '*.css' \) -exec sh -c 'gzip < "{}" > "{}.gz"' \;
+    - cd ${pwd}
+    # Update or create Dockers using docker-compose
+    - sudo docker-compose up -d
