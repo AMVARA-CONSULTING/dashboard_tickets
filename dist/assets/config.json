@@ -1,5 +1,5 @@
 {
-  "version": "1.22.0",
+  "version": "1.23.0",
   "language": "en",
   "appTitle": "IWM Reporting",
   "scenario": "dev",
@@ -245,6 +245,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.23.0",
+      "text": [
+        "#2142 - Replace commas for dot notation in data coming from system report"
+      ]
+    },
     {
       "version": "1.22.0",
       "text": [

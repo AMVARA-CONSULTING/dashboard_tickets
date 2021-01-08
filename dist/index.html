@@ -5,13 +5,22 @@
   <title>Reporting@IWM</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="favicon.ico?v2">
   <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
   <meta name="theme-color" content="#111111">
-<link rel="stylesheet" href="styles.583e0bf83e71310dc0dc.css"></head>
+<link rel="stylesheet" href="styles.dac5ed16f266b8241669.css"></head>
 <body>
   <cism-root>
     <style>
+      body {
+        height: 100%;
+        width: 100%;
+        background-color: #111;
+        color: rgba(255, 255, 255, .85);
+        font-family: "CorpoS", "Segoe UI", "Arial", "sans-serif";
+        font-size: 13px;
+      }
+
       @font-face {
         font-family: CorpoS;
         src: url(assets/fonts/c063003t.ttf) format('truetype');
@@ -181,7 +190,11 @@
       </div>
     </div>
   </cism-root>
+  <script>
+  if (location.protocol != 'https:' && location.hostname.indexOf('localhost') == -1 && location.hostname.indexOf('192.168') == -1) {
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+  }
+  </script>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
-<script src="runtime.4e78c79a0a6f81ab99b1.js" defer></script><script src="polyfills-es5.d4f2699aa2849c903d80.js" nomodule defer></script><script src="polyfills.bf8dda8ab99443e8df0d.js" defer></script><script src="scripts.4eb05dd72398d0094d4e.js" defer></script><script src="main.8ad8cfd476bb0e664705.js" defer></script></body>
-
+<script src="runtime.9b2f26f2c3ff44031954.js" defer></script><script src="polyfills-es5.b85eef68d6cd83391fc3.js" nomodule defer></script><script src="polyfills.b6db05e35aceae2120d7.js" defer></script><script src="scripts.4eb05dd72398d0094d4e.js" defer></script><script src="main.db10ae9c512e2501621e.js" defer></script></body>
 </html>

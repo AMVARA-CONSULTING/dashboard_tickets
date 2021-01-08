@@ -157,6 +157,21 @@ export class ReportsService {
           if (config.excludeDatesFuture) {
             systemRows = systemRows.filter(row => !isAfter(parse(row[1], 'MM/dd/yyyy', new Date()), new Date()))
           }
+          // Replace comma separated numbers with dot decimal notation
+          const indexes = [2, 3, 4, 5, 6];
+          systemRows = systemRows.map(row => {
+            const copy = row;
+            if (['S1', 'S4'].includes(copy[0])) {
+              // Iterate each index, which they should be a number
+              indexes.forEach(index => {
+                if (typeof copy[index] !== 'string') {
+                  copy[index] = copy[index].toString();
+                }
+                copy[index] = parseFloat(copy[index].replace(/\,/g, '.'));
+              });
+            }
+            return copy;
+          });
         }
         this.data.availableMonths = data[6].map(row => row[0]).reverse()
         const currentMonth = this.data.months.filter(month => this.data.availableMonths.indexOf(month) > -1)[0]
