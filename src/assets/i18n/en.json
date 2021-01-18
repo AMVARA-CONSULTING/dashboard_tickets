@@ -27,7 +27,7 @@
     "about": {
         "betaFeatures": "Enable experimental features",
         "notBetaFeatures": "Disable experimental features",
-        "config": "Config",
+        "config": "Configuration",
         "sponsor": "Sponsor",
         "credits": "Credits",
         "thanks": "Thank you",

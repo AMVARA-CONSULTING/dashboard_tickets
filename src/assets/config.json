@@ -1,18 +1,20 @@
 {
   "version": "1.24.0",
   "language": "en",
-  "appTitle": "IWM Reporting",
+  "appTitle": "INDITEX",
   "scenario": "dev",
   "delay": 0,
   "delayRequests": 0,
-  "copyright": "DAIMLER",
+  "copyright": "ZARA",
   "corpintraMode": false,
   "heartbeat": 300000,
   "license": "SFASR",
   "ticketOptions": true,
   "languageCodes": {
     "en": "English",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "es": "Español",
+    "cat": "Català"
   },
   "fullUrl": "",
   "portalFolder": "/analytics/bi/",
@@ -112,12 +114,12 @@
   "contacts": {
     "dev": [
       {
-        "name": "Csaba Slemmer",
-        "description": "ITS/M",
-        "email": "Csaba.slemmer@daimler.com",
+        "name": "Nombre Apellido",
+        "description": "Descripcion",
+        "email": "nombre.apellido@inditex.com",
         "telephones": [
-          "+49 711 17 94201",
-          "+49 176 3096 3593"
+          "+34 612 34 56 78",
+          "+34 619 87 65 43"
         ]
       }
     ]

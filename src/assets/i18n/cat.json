@@ -1,0 +1,41 @@
+{
+    "menu": {
+        "order_intake": "Ordres entrants",
+        "production_program": "Programa de producció",
+        "allocation": "Asignació",
+        "plant_stock": "Duració",
+        "about": "Sobre",
+        "help": "Ajuda"
+    },
+    "connected": "Conectat",
+    "not_connected": "Desconectat",
+    "plandate": "Estat del programa",
+    "region": "Regió",
+    "product": "Producte",
+    "regions": "Regions",
+    "products": "Productes",
+    "production_program": {
+        "customer": "Client",
+        "plan": "Pla",
+        "total": "Total",
+        "reserve": "Reserva"
+    },
+    "allocation": {
+        "program": "Programa",
+        "allocation": "Asignació"
+    },
+    "about": {
+        "betaFeatures": "Activar característiques experimentals",
+        "notBetaFeatures": "Activar característiques experimentales",
+        "config": "Configuració",
+        "sponsor": "Sponsor",
+        "credits": "Credits",
+        "thanks": "Gràcies",
+        "software": "Software",
+        "licenses": "Llicències",
+        "technical_information": "Informació tècnica",
+        "changelog": "Informe de canvis",
+        "reloadLanguageFiles": "Recarregar arxius d'idioma",
+        "language": "Idioma"
+    }
+}

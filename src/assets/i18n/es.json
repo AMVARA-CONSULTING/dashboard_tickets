@@ -1,0 +1,41 @@
+{
+    "menu": {
+        "order_intake": "Órdenes entrantes",
+        "production_program": "Programa de producción",
+        "allocation": "Asignación",
+        "plant_stock": "Duración",
+        "about": "Acerca De",
+        "help": "Ayuda"
+    },
+    "connected": "Conectado",
+    "not_connected": "Desconectado",
+    "plandate": "Estado del programa",
+    "region": "Región",
+    "product": "Producto",
+    "regions": "Regiones",
+    "products": "Productos",
+    "production_program": {
+        "customer": "Cliente",
+        "plan": "Plan",
+        "total": "Total",
+        "reserve": "Reserva"
+    },
+    "allocation": {
+        "program": "Programa",
+        "allocation": "Asignación"
+    },
+    "about": {
+        "betaFeatures": "Activar características experimentales",
+        "notBetaFeatures": "Activar características experimentales",
+        "config": "Configuración",
+        "sponsor": "Sponsor",
+        "credits": "Creditos",
+        "thanks": "Gracias",
+        "software": "Software",
+        "licenses": "Licencias",
+        "technical_information": "Información técnica",
+        "changelog": "Informe de cambios",
+        "reloadLanguageFiles": "Recargar archivos de idioma",
+        "language": "Idioma"
+    }
+}
