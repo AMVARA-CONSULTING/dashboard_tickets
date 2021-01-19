@@ -1,6 +1,6 @@
 
 // Main colors
-$bg-color: #151515;
+$bg-color: rgb(0,22,40);
 $semi-white: rgba(white, .85);
 $semi-black-1: lighten($bg-color, 5);
 $semi-black-2: lighten($bg-color, 8);
@@ -8,8 +8,8 @@ $header-box: $semi-black-1;
 $content-box: $semi-black-2;
 
 // Colors
-$blue: #00bcd4;
-$grey: rgba(255,255,255, .6);
+$blue: #ef3340;
+$grey: #d3d3d3;
 $orange: rgb(247,174,21);
 
 // Borders
@@ -24,7 +24,7 @@ $priority-high: #F7931E;
 // Graphics
 $graphic-blue-dark: #039be5;
 $graphic-blue: $blue;
-$graphic-orange: #ffb74d;
+$graphic-orange: #ef3340;
 $graphic-teal: #7e57c2;
 
 // Statuses

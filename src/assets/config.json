@@ -1,11 +1,11 @@
 {
   "version": "1.24.0",
   "language": "en",
-  "appTitle": "INDITEX",
+  "appTitle": "Code Is Poetry",
   "scenario": "dev",
   "delay": 0,
   "delayRequests": 0,
-  "copyright": "ZARA",
+  "copyright": "AMVARA",
   "corpintraMode": false,
   "heartbeat": 300000,
   "license": "SFASR",
@@ -16,6 +16,25 @@
     "es": "Español",
     "cat": "Català"
   },
+  "colorScheme": [
+    {
+      "color": "#4900bd",
+      "name": "Change"
+    },
+    {
+      "color": "#ef3340",
+      "name": "Incident"
+    },
+    {
+      "color": "#d3d3d3",
+      "name": "Request"
+    },
+    {
+      "color": "#f98e1d",
+      "name": "Problem"
+    }
+  ],
+
   "fullUrl": "",
   "portalFolder": "/analytics/bi/",
   "excludeDatesFuture": true,
@@ -116,7 +135,7 @@
       {
         "name": "Nombre Apellido",
         "description": "Descripcion",
-        "email": "nombre.apellido@inditex.com",
+        "email": "nombre.apellido@amvara.de",
         "telephones": [
           "+34 612 34 56 78",
           "+34 619 87 65 43"

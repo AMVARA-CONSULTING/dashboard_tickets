@@ -23,6 +23,7 @@ export interface Config {
   readonly displayedColumnsOrder?: string[],
   readonly ticketOptions?: boolean,
   readonly fullUrl?: string
+  colorScheme: ColorSchemeItem[];
   portalFolder?: string
   readonly corpintraMode?: boolean
   displayedColumns?: string[],
@@ -30,6 +31,12 @@ export interface Config {
   negativeBad?: boolean | number;
   [propName: string]: any;
 }
+
+export interface ColorSchemeItem {
+  color: string;
+  name: string;
+}
+
 
 export interface SystemConfig {
   enable: boolean

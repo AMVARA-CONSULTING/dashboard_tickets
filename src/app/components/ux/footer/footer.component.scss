@@ -8,7 +8,7 @@
   width: 100%;
   left: 0;
   height: 55px;
-  background-color: rgba(black, .9);
+  background-color: darken($bg-color, 3);
   padding: 5px 20px;
   @include mobile {
     height: 30px;
