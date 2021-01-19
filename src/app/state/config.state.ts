@@ -11,7 +11,7 @@ export class UpdateConfig {
     constructor(public updates: any) {}
 }
 
-@State<Config>({
+@State<Partial<Config>>({
   name: 'config',
   defaults: {}
 })
@@ -29,5 +29,10 @@ export class ConfigState {
     @Selector()
     static getLanguage(state: Config) {
         return state.language
+    }
+
+    @Selector()
+    static getColorScheme(state: Config) {
+        return state.colorScheme;
     }
 }

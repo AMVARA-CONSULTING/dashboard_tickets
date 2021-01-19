@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { combineLatest } from 'rxjs/internal/operators/combineLatest';
 import { GlobalState } from '@other/interfaces';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { ConfigState } from '@states/config.state';
 
 @Component({
   selector: 'cism-stacked',
@@ -24,7 +25,11 @@ export class StackedComponent implements OnInit, OnDestroy {
     private router: Router,
     private data: DataService,
     private _store: Store
-  ) { }
+  ) {
+    this.colorScheme = {
+      domain: this._store.selectSnapshot(ConfigState.getColorScheme).map(item => item.color)
+    }
+  }
 
   @Select(TicketsState.StackedChart) chart$: Observable<any[]>
 
@@ -81,9 +86,7 @@ export class StackedComponent implements OnInit, OnDestroy {
   showXAxisLabel = false;
   showYAxisLabel = false;
 
-  colorScheme = {
-    domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
-  }
+  colorScheme;
 
   go(e): void {
     this.data.loading.next(true)
