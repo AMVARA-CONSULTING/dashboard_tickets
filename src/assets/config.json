@@ -18,7 +18,7 @@
   },
   "colorScheme": [
     {
-      "color": "#4900bd",
+      "color": "#039be5",
       "name": "Change"
     },
     {
@@ -27,11 +27,11 @@
     },
     {
       "color": "#d3d3d3",
-      "name": "Request"
+      "name": "Problem"
     },
     {
-      "color": "#f98e1d",
-      "name": "Problem"
+      "color": "#efb810",
+      "name": "Request"
     }
   ],
 
