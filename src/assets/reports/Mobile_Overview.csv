@@ -1,4 +1,4 @@
-﻿Report Target;Ticket Date Create Day Label;Ticket Date Create Month Id;IWM Incident Count;IWM Request Count;IWM Change Count;IWM Problem Count
+﻿Report Target;Ticket Date Create Day Label;Ticket Date Create Month Id;IWM Ventas Online Count;IWM Ventas Tienda Count;IWM Reclamaciones Count;IWM Devoluciones Count
 BARCHART;2020-10-31;2020M10;70;53;8;4
 BARCHART;2020-10-30;2020M10;73;42;0;0
 BARCHART;2020-10-29;2020M10;99;35;4;5
@@ -36,19 +36,19 @@ BYPRIORITY;2020M10;2;324;;;
 BYPRIORITY;2020M10;3;1.402;;;
 BYPRIORITY;2020M10;4;1.126;;;
 Report Target;Ticket Date Create Month Id;IWM Service Label;IWM Ticket Count;;;
-BYSERVICE;2020M10;CESAR;383;;;
-BYSERVICE;2020M10;GO;2.001;;;
-BYSERVICE;2020M10;MBCPOS;122;;;
-BYSERVICE;2020M10;OTHER;356;;;
+BYSERVICE;2020M10;Telefonía;383;;;
+BYSERVICE;2020M10;Electrodomésticos;2.001;;;
+BYSERVICE;2020M10;Multimedia;122;;;
+BYSERVICE;2020M10;Otros;356;;;
 Report Target;Ticket Date Create Month Id;Ticket Status Label;IWM Ticket Count;;;
-BYSTATUS;2020M10;Assigned;191;;;
+BYSTATUS;2020M10;Asignado;191;;;
 BYSTATUS;2020M10;Sleep;121;;;
 BYSTATUS;2020M10;WIP;50;;;
 Report Target;Ticket Date Create Month Id;Ticket Type Label;IWM Ticket Count;;;
-BYTYPE;2020M10;Change;21;;;
-BYTYPE;2020M10;Incident;254;;;
-BYTYPE;2020M10;Problem;11;;;
-BYTYPE;2020M10;Request;76;;;
+BYTYPE;2020M10;Reclamaciones;21;;;
+BYTYPE;2020M10;Ventas Online;254;;;
+BYTYPE;2020M10;Devoluciones;11;;;
+BYTYPE;2020M10;Ventas Tienda;76;;;
 Report Target;Ticket Date Create Month Id;IWM Solution Time SILT Business Minutes;;;;
 SILT;2017M03;;;;;
 SILT;2017M06;89,33;;;;

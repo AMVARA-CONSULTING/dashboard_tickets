@@ -49,19 +49,19 @@ export class StackedComponent implements OnInit, OnDestroy {
           'name': date,
           'series': [
             {
-              'name': 'Change',
+              'name': 'Reclamaciones',
               'value': +barchartData[i][5]
             },
             {
-              'name': 'Incident',
+              'name': 'Ventas Online',
               'value': +barchartData[i][3]
             },
             {
-              'name': 'Problem',
+              'name': 'Devoluciones',
               'value': +barchartData[i][6]
             },
             {
-              'name': 'Request',
+              'name': 'Ventas Tienda',
               'value': +barchartData[i][4]
             }
           ]

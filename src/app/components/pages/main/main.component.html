@@ -14,9 +14,9 @@
   </div>
   <div class="boxes">
     <cism-silt matTooltip="Sales Incident Lifecycle Time" matTooltipPosition="above" matTooltipClass="above" class="desktop"></cism-silt>
-    <cism-stadistic-box go="priority" title="by Priority"></cism-stadistic-box>
-    <cism-stadistic-box go="type" title="by Ticket Type"></cism-stadistic-box>
-    <cism-stadistic-box go="service" title="by Application / Service"></cism-stadistic-box>
-    <cism-stadistic-box go="status" title="by Ticket Status"></cism-stadistic-box>
+    <cism-stadistic-box go="priority" [title]="'by.priority' | translate"></cism-stadistic-box>
+    <cism-stadistic-box go="type" [title]="'by.type' | translate"></cism-stadistic-box>
+    <cism-stadistic-box go="service" [title]="'by.app_service' | translate"></cism-stadistic-box>
+    <cism-stadistic-box go="status" [title]="'by.ticket_status' | translate"></cism-stadistic-box>
   </div>
 </div>

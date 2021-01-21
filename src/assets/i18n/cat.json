@@ -26,7 +26,7 @@
     },
     "about": {
         "betaFeatures": "Activar característiques experimentals",
-        "notBetaFeatures": "Activar característiques experimentales",
+        "notBetaFeatures": "Desactivar característiques experimentals",
         "config": "Configuració",
         "sponsor": "Sponsor",
         "credits": "Credits",
@@ -37,5 +37,18 @@
         "changelog": "Informe de canvis",
         "reloadLanguageFiles": "Recarregar arxius d'idioma",
         "language": "Idioma"
+    },
+    "by":{
+        "priority":"Per Prioritat",
+        "type":"Per Tipus",
+        "app_service":"Per Aplicació / Servei",
+        "ticket_status":"Per Estat del Ticket"
+    },
+    "overall_silt":{
+        "overall_tickets":"Tickets generals",
+        "average_silt":"Mitjana SILT"
+    },
+    "legend":{
+        "ticket": "Tipus de Ticket:"
     }
 }

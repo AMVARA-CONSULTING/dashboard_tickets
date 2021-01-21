@@ -37,5 +37,18 @@
         "changelog": "Changelog",
         "reloadLanguageFiles": "Reload Language Files",
         "language": "Language"
+    },
+    "by":{
+        "priority":"by Priority",
+        "type":"by Ticket Type",
+        "app_service":"by Application / Service",
+        "ticket_status":"by Ticket Status"
+    },
+    "overall_silt":{
+        "overall_tickets":"Overall Tickets",
+        "average_silt":"Average SILT"
+    },
+    "legend":{
+        "ticket": "Ticket Type:"
     }
 }

@@ -26,7 +26,7 @@
     },
     "about": {
         "betaFeatures": "Activar características experimentales",
-        "notBetaFeatures": "Activar características experimentales",
+        "notBetaFeatures": "Desactivar características experimentales",
         "config": "Configuración",
         "sponsor": "Sponsor",
         "credits": "Creditos",
@@ -37,5 +37,18 @@
         "changelog": "Informe de cambios",
         "reloadLanguageFiles": "Recargar archivos de idioma",
         "language": "Idioma"
+    },
+    "by":{
+        "priority":"Por Prioridad",
+        "type":"Por Tipo",
+        "app_service":"Por Aplicación / Servicio",
+        "ticket_status":"Por Estado del Ticket"
+    },
+    "overall_silt":{
+        "overall_tickets":"Tickets Generales",
+        "average_silt":"Promedio SILT"
+    },
+    "legend":{
+        "ticket": "Tipo de Ticket:"
     }
 }
