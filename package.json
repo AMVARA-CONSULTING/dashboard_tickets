@@ -5,7 +5,7 @@
     "test": "launch",
     "start": "launch",
     "serve": "ng serve --aot",
-    "serve-any-host": "ng serve --aot --host 0.0.0.0 --disable-host-check",
+    "serve-any-host": "ng serve --aot --port 5200 --host 0.0.0.0 --disable-host-check",
     "build": "npm start build",
     "build-cognos": "npm start build-cognos"
   },

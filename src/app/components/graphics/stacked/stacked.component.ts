@@ -42,6 +42,7 @@ export class StackedComponent implements OnInit, OnDestroy {
       const barchartData = chart.filter(row => row[2] == month.month)
       const length = barchartData.length
       const series = []
+      const name = this._store.selectSnapshot(ConfigState.getColorScheme).map(item => item.name)
       for (let i = 0; i < length; i++) {
         let date: any = parse(barchartData[i][1], "yyyy'-'MM'-'dd", new Date())
         date = format(date, 'd')
@@ -49,19 +50,19 @@ export class StackedComponent implements OnInit, OnDestroy {
           'name': date,
           'series': [
             {
-              'name': 'Reclamaciones',
+              'name': name[0],
               'value': +barchartData[i][5]
             },
             {
-              'name': 'Ventas Online',
+              'name': name[1],
               'value': +barchartData[i][3]
             },
             {
-              'name': 'Devoluciones',
+              'name': name[2],
               'value': +barchartData[i][6]
             },
             {
-              'name': 'Ventas Tienda',
+              'name': name[3],
               'value': +barchartData[i][4]
             }
           ]
