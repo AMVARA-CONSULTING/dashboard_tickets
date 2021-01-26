@@ -19,19 +19,19 @@
   "colorScheme": [
     {
       "color": "#1e88e5",
-      "name": "Reclamaciones"
+      "name": "Change"
     },  
     {
       "color": "#d32f2f",
-      "name": "Ventas Online"
+      "name": "Incident"
     },
     {
       "color": "#d3d3d3",
-      "name": "Devoluciones"
+      "name": "Request"
     },
     {
       "color": "#efb810",
-      "name": "Ventas Tienda"
+      "name": "Problem"
     }
   ],
 
