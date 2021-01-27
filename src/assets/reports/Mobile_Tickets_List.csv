@@ -1,5 +1,26 @@
 Header;ignore
-2020M12;1;06.06.2020 10:00;28.06.2020 13:02;Change;1;Assigned;Descrpición;External;Clasificación;Component;Servicegroup;OTHER;1
-2020M12;2;06.06.2020 10:00;28.06.2020 13:02;Incident;2;Assigned;Descrpición;External;Clasificación;Component;Servicegroup;OTHER;1
-2020M12;3;06.06.2020 10:00;28.06.2020 13:02;Problem;3;Assigned;Descrpición;External;Clasificación;Component;Servicegroup;OTHER;1
-2020M12;3;06.06.2020 10:00;28.06.2020 13:02;Request;4;Assigned;Descrpición;External;Clasificación;Component;Servicegroup;OTHER;1
+2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Incident;3;Assigned;PC's Maintenance Room 3;AMVARA;Maintenance;Component;IT TEAM;IT;1
+2020M12;02;18.12.2020 10:00;20.12.2020 13:02;Incident;3;Assigned;Mobile Web Visual Error;SAAT;Development;Component;Developers;Developing;1
+2020M12;03;18.12.2020 10:00;20.12.2020 13:02;Incident;1;Assigned;Server 4 Down;AMVARA;Server maintenance;Component;IT TEAM;IT;1
+2020M12;04;18.12.2020 10:00;20.12.2020 13:02;Incident;4;Assigned;Wrong Palette Colors;ICM;Designing;Component;Designers;Designing;1
+2020M12;05;18.12.2020 10:00;20.12.2020 13:02;Incident;4;Assigned;Program Exits Code 3;ICM;Development;Component;Developers;Developing;1
+2020M12;06;18.12.2020 10:00;20.12.2020 13:02;Change;3;Assigned;Change Room 2 PC's;AMVARA;Maintenance;Component;IT TEAM;IT;1
+2020M12;07;18.12.2020 10:00;20.12.2020 13:02;Change;1;Assigned;Change DB Permissions;ICM;Database administration;Component;IT TEAM;IT;1
+2020M12;08;18.12.2020 10:00;20.12.2020 13:02;Change;4;Assigned;Change Program Menu;SAAT;Development;Component;Developers;Developing;1
+2020M12;09;18.12.2020 10:00;20.12.2020 13:02;Problem;4;Assigned;Server 14 issue;AMVARA;Server maintenance;Component;IT TEAM;IT;1
+2020M12;10;18.12.2020 10:00;20.12.2020 13:02;Problem;4;Assigned;DB Users Creation;AMVARA;Database administration;Component;IT TEAM;IT;1
+2020M12;11;18.12.2020 10:00;20.12.2020 13:02;Request;3;Sleep;Design Logo for Client;SAAT;Designing;Component;Designers;Designing;1
+2020M12;12;18.12.2020 10:00;20.12.2020 13:02;Request;4;Assigned;Design Application for Client;ICM;Development;Component;Developers;Developing;1
+2020M12;13;18.12.2020 10:00;21.12.2020 13:02;Incident;4;Assigned;PC's Maintenance Room 2;AMVARA;Maintenance;Component;IT TEAM;IT;1
+2020M12;14;18.12.2020 10:00;21.12.2020 13:02;Change;2;Sleep;Change Web domain;SAAT;Development;Component;Developers;Developing;1
+2020M12;15;18.12.2020 10:00;21.12.2020 13:02;Incident;2;Assigned;Server 4 Domain Error;AMVARA;Server maintenance;Component;IT TEAM;IT;1
+2020M12;16;18.12.2020 10:00;21.12.2020 13:02;Incident;3;Assigned;Wrong Palette Colors;SAAT;Designing;Component;Designers;Designing;1
+2020M12;17;18.12.2020 10:00;21.12.2020 13:02;Request;3;Assigned;Automatised Program;ICM;Development;Component;Developers;Developing;1
+2020M12;18;18.12.2020 10:00;21.12.2020 13:02;Change;4;Sleep;Change Room 4 PC's;AMVARA;Maintenance;Component;IT TEAM;IT;1
+2020M12;19;18.12.2020 10:00;21.12.2020 13:02;Change;2;Assigned;Change DB Permissions;ICM;Database administration;Component;IT TEAM;IT;1
+2020M12;20;18.12.2020 10:00;21.12.2020 13:02;Change;4;Assigned;Change Program Menu;SAAT;Development;Component;Developers;Developing;1
+2020M12;21;18.12.2020 10:00;21.12.2020 13:02;Problem;2;Assigned;Server 11 issue;AMVARA;Server maintenance;Component;IT TEAM;IT;1
+2020M12;22;18.12.2020 10:00;21.12.2020 13:02;Problem;3;Assigned;DB Users Creation;AMVARA;Database administration;Component;IT TEAM;IT;1
+2020M12;23;18.12.2020 10:00;21.12.2020 13:02;Request;4;Sleep;Design Logo for Client;ICM;Designing;Component;Designers;Designing;1
+2020M12;24;18.12.2020 10:00;21.12.2020 13:02;Request;3;Assigned;Design Application for Client;SAAT;Development;Component;Developers;Developing;1
+2020M12;24;18.12.2020 10:00;21.12.2020 13:02;Incident;1;Assigned;Pc 23 Failure;AMVARA;Maintenance;Component;IT TEAM;IT;1
