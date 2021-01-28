@@ -19,21 +19,22 @@
   "colorScheme": [
     {
       "color": "#1e88e5",
-      "name": "Change"
+      "name": "Online"
     },  
     {
       "color": "#d32f2f",
-      "name": "Incident"
+      "name": "Outlet"
     },
     {
       "color": "#d3d3d3",
-      "name": "Request"
+      "name": "Retail"
     },
     {
       "color": "#efb810",
-      "name": "Problem"
+      "name": "Whitebrand"
     }
   ],
+  "show_debug_in_console": true,
 
   "fullUrl": "",
   "portalFolder": "/analytics/bi/",

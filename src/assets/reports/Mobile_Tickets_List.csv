@@ -1,26 +1,126 @@
 Header;ignore
-2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Incident;3;Assigned;PC's Maintenance Room 3;AMVARA;Maintenance;Component;IT TEAM;IT;1
-2020M12;02;18.12.2020 10:00;20.12.2020 13:02;Incident;3;Assigned;Mobile Web Visual Error;SAAT;Development;Component;Developers;Developing;1
-2020M12;03;18.12.2020 10:00;20.12.2020 13:02;Incident;1;Assigned;Server 4 Down;AMVARA;Server maintenance;Component;IT TEAM;IT;1
-2020M12;04;18.12.2020 10:00;20.12.2020 13:02;Incident;4;Assigned;Wrong Palette Colors;ICM;Designing;Component;Designers;Designing;1
-2020M12;05;18.12.2020 10:00;20.12.2020 13:02;Incident;4;Assigned;Program Exits Code 3;ICM;Development;Component;Developers;Developing;1
-2020M12;06;18.12.2020 10:00;20.12.2020 13:02;Change;3;Assigned;Change Room 2 PC's;AMVARA;Maintenance;Component;IT TEAM;IT;1
-2020M12;07;18.12.2020 10:00;20.12.2020 13:02;Change;1;Assigned;Change DB Permissions;ICM;Database administration;Component;IT TEAM;IT;1
-2020M12;08;18.12.2020 10:00;20.12.2020 13:02;Change;4;Assigned;Change Program Menu;SAAT;Development;Component;Developers;Developing;1
-2020M12;09;18.12.2020 10:00;20.12.2020 13:02;Problem;4;Assigned;Server 14 issue;AMVARA;Server maintenance;Component;IT TEAM;IT;1
-2020M12;10;18.12.2020 10:00;20.12.2020 13:02;Problem;4;Assigned;DB Users Creation;AMVARA;Database administration;Component;IT TEAM;IT;1
-2020M12;11;18.12.2020 10:00;20.12.2020 13:02;Request;3;Sleep;Design Logo for Client;SAAT;Designing;Component;Designers;Designing;1
-2020M12;12;18.12.2020 10:00;20.12.2020 13:02;Request;4;Assigned;Design Application for Client;ICM;Development;Component;Developers;Developing;1
-2020M12;13;18.12.2020 10:00;21.12.2020 13:02;Incident;4;Assigned;PC's Maintenance Room 2;AMVARA;Maintenance;Component;IT TEAM;IT;1
-2020M12;14;18.12.2020 10:00;21.12.2020 13:02;Change;2;Sleep;Change Web domain;SAAT;Development;Component;Developers;Developing;1
-2020M12;15;18.12.2020 10:00;21.12.2020 13:02;Incident;2;Assigned;Server 4 Domain Error;AMVARA;Server maintenance;Component;IT TEAM;IT;1
-2020M12;16;18.12.2020 10:00;21.12.2020 13:02;Incident;3;Assigned;Wrong Palette Colors;SAAT;Designing;Component;Designers;Designing;1
-2020M12;17;18.12.2020 10:00;21.12.2020 13:02;Request;3;Assigned;Automatised Program;ICM;Development;Component;Developers;Developing;1
-2020M12;18;18.12.2020 10:00;21.12.2020 13:02;Change;4;Sleep;Change Room 4 PC's;AMVARA;Maintenance;Component;IT TEAM;IT;1
-2020M12;19;18.12.2020 10:00;21.12.2020 13:02;Change;2;Assigned;Change DB Permissions;ICM;Database administration;Component;IT TEAM;IT;1
-2020M12;20;18.12.2020 10:00;21.12.2020 13:02;Change;4;Assigned;Change Program Menu;SAAT;Development;Component;Developers;Developing;1
-2020M12;21;18.12.2020 10:00;21.12.2020 13:02;Problem;2;Assigned;Server 11 issue;AMVARA;Server maintenance;Component;IT TEAM;IT;1
-2020M12;22;18.12.2020 10:00;21.12.2020 13:02;Problem;3;Assigned;DB Users Creation;AMVARA;Database administration;Component;IT TEAM;IT;1
-2020M12;23;18.12.2020 10:00;21.12.2020 13:02;Request;4;Sleep;Design Logo for Client;ICM;Designing;Component;Designers;Designing;1
-2020M12;24;18.12.2020 10:00;21.12.2020 13:02;Request;3;Assigned;Design Application for Client;SAAT;Development;Component;Developers;Developing;1
-2020M12;24;18.12.2020 10:00;21.12.2020 13:02;Incident;1;Assigned;Pc 23 Failure;AMVARA;Maintenance;Component;IT TEAM;IT;1
+2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;02;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Kids;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;03;18.12.2020 10:00;20.12.2020 13:02;Outlet;XL;Man;Black Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;04;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Woman;Red Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;05;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Man;White Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;06;18.12.2020 10:00;20.12.2020 13:02;Online;M;Kids;Sport Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;07;18.12.2020 10:00;20.12.2020 13:02;Online;XL;Man;Sport Suit;Madrid;Suit;C. Madrid;Sports;Sports;1
+2020M12;08;18.12.2020 10:00;20.12.2020 13:02;Online;S;Woman;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;09;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Man;Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;10;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Woman;Black Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;11;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;12;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;S;Kids;Kid Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;13;18.12.2020 10:00;21.12.2020 13:02;Outlet;S;Woman;Green Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;14;18.12.2020 10:00;21.12.2020 13:02;Online;L;Man;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;15;18.12.2020 10:00;21.12.2020 13:02;Outlet;L;Kids;Kid Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;16;18.12.2020 10:00;21.12.2020 13:02;Outlet;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;17;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;18;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;Red Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;19;18.12.2020 10:00;21.12.2020 13:02;Online;L;Kids;Kid white Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;20;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;White Jean;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;21;18.12.2020 10:00;21.12.2020 13:02;Retail;L;Woman;Red Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;22;18.12.2020 10:00;21.12.2020 13:02;Retail;M;Kids;Kids Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;23;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;S;Man;Sleepwear;Madrid;Suit;C. Madrid;Indoor;Indoor;1
+2020M12;24;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;25;18.12.2020 10:00;21.12.2020 13:02;Outlet;XL;Kids;Kids black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;26;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;27;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Kids;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;28;18.12.2020 10:00;20.12.2020 13:02;Outlet;XL;Man;Black Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;29;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Woman;Red Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;30;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Man;White Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;31;18.12.2020 10:00;20.12.2020 13:02;Online;M;Kids;Sport Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;32;18.12.2020 10:00;20.12.2020 13:02;Online;XL;Man;Sport Suit;Madrid;Suit;C. Madrid;Sports;Sports;1
+2020M12;33;18.12.2020 10:00;20.12.2020 13:02;Online;S;Woman;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;34;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Man;Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;35;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Woman;Black Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;36;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;37;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;S;Kids;Kid Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;38;18.12.2020 10:00;21.12.2020 13:02;Outlet;S;Woman;Green Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;39;18.12.2020 10:00;21.12.2020 13:02;Online;L;Man;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;40;18.12.2020 10:00;21.12.2020 13:02;Outlet;L;Kids;Kid Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;41;18.12.2020 10:00;21.12.2020 13:02;Outlet;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;42;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;43;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;Red Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;44;18.12.2020 10:00;21.12.2020 13:02;Online;L;Kids;Kid white Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;45;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;White Jean;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;46;18.12.2020 10:00;21.12.2020 13:02;Retail;L;Woman;Red Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;47;18.12.2020 10:00;21.12.2020 13:02;Retail;M;Kids;Kids Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;48;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;S;Man;Sleepwear;Madrid;Suit;C. Madrid;Indoor;Indoor;1
+2020M12;49;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;50;18.12.2020 10:00;21.12.2020 13:02;Outlet;XL;Kids;Kids black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;51;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;52;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Kids;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;53;18.12.2020 10:00;20.12.2020 13:02;Outlet;XL;Man;Black Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;54;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Woman;Red Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;55;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Man;White Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;56;18.12.2020 10:00;20.12.2020 13:02;Online;M;Kids;Sport Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;57;18.12.2020 10:00;20.12.2020 13:02;Online;XL;Man;Sport Suit;Madrid;Suit;C. Madrid;Sports;Sports;1
+2020M12;58;18.12.2020 10:00;20.12.2020 13:02;Online;S;Woman;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;59;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Man;Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;60;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Woman;Black Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;61;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;62;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;S;Kids;Kid Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;63;18.12.2020 10:00;21.12.2020 13:02;Outlet;S;Woman;Green Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;64;18.12.2020 10:00;21.12.2020 13:02;Online;L;Man;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;65;18.12.2020 10:00;21.12.2020 13:02;Outlet;L;Kids;Kid Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;66;18.12.2020 10:00;21.12.2020 13:02;Outlet;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;67;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;68;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;Red Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;69;18.12.2020 10:00;21.12.2020 13:02;Online;L;Kids;Kid white Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;70;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;White Jean;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;71;18.12.2020 10:00;21.12.2020 13:02;Retail;L;Woman;Red Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;72;18.12.2020 10:00;21.12.2020 13:02;Retail;M;Kids;Kids Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;73;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;S;Man;Sleepwear;Madrid;Suit;C. Madrid;Indoor;Indoor;1
+2020M12;74;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;75;18.12.2020 10:00;21.12.2020 13:02;Outlet;XL;Kids;Kids black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;76;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;77;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Kids;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;78;18.12.2020 10:00;20.12.2020 13:02;Outlet;XL;Man;Black Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;79;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Woman;Red Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;80;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Man;White Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;81;18.12.2020 10:00;20.12.2020 13:02;Online;M;Kids;Sport Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;82;18.12.2020 10:00;20.12.2020 13:02;Online;XL;Man;Sport Suit;Madrid;Suit;C. Madrid;Sports;Sports;1
+2020M12;83;18.12.2020 10:00;20.12.2020 13:02;Online;S;Woman;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;84;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Man;Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;85;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Woman;Black Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;86;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;87;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;S;Kids;Kid Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;89;18.12.2020 10:00;21.12.2020 13:02;Outlet;S;Woman;Green Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;90;18.12.2020 10:00;21.12.2020 13:02;Online;L;Man;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;91;18.12.2020 10:00;21.12.2020 13:02;Outlet;L;Kids;Kid Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;92;18.12.2020 10:00;21.12.2020 13:02;Outlet;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;93;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;94;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;Red Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;95;18.12.2020 10:00;21.12.2020 13:02;Online;L;Kids;Kid white Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;96;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;White Jean;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;97;18.12.2020 10:00;21.12.2020 13:02;Retail;L;Woman;Red Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;98;18.12.2020 10:00;21.12.2020 13:02;Retail;M;Kids;Kids Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;99;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;S;Man;Sleepwear;Madrid;Suit;C. Madrid;Indoor;Indoor;1
+2020M12;100;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;101;18.12.2020 10:00;21.12.2020 13:02;Outlet;XL;Kids;Kids black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;102;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;103;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Kids;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;104;18.12.2020 10:00;20.12.2020 13:02;Outlet;XL;Man;Black Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;105;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Woman;Red Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;106;18.12.2020 10:00;20.12.2020 13:02;Outlet;S;Man;White Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;107;18.12.2020 10:00;20.12.2020 13:02;Online;M;Kids;Sport Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;108;18.12.2020 10:00;20.12.2020 13:02;Online;XL;Man;Sport Suit;Madrid;Suit;C. Madrid;Sports;Sports;1
+2020M12;109;18.12.2020 10:00;20.12.2020 13:02;Online;S;Woman;White Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;110;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Man;Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;111;18.12.2020 10:00;20.12.2020 13:02;Retail;S;Woman;Black Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;112;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;113;18.12.2020 10:00;20.12.2020 13:02;Whitebrand;S;Kids;Kid Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;114;18.12.2020 10:00;21.12.2020 13:02;Outlet;S;Woman;Green Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;115;18.12.2020 10:00;21.12.2020 13:02;Online;L;Man;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;116;18.12.2020 10:00;21.12.2020 13:02;Outlet;L;Kids;Kid Red Suit;Barcelona;Suit;Catalunya;Sports;Sports;1
+2020M12;117;18.12.2020 10:00;21.12.2020 13:02;Outlet;M;Man;Tracksuit;Zaragoza;Dress;Aragón;Indoor;Indoor;1
+2020M12;118;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Madrid;Jeans;C. Madrid;Outdoor;Outdoor;1
+2020M12;119;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;Red Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+2020M12;120;18.12.2020 10:00;21.12.2020 13:02;Online;L;Kids;Kid white Dress;Madrid;Dress;C. Madrid;Party;Party;1
+2020M12;121;18.12.2020 10:00;21.12.2020 13:02;Online;S;Man;White Jean;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;122;18.12.2020 10:00;21.12.2020 13:02;Retail;L;Woman;Red Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;123;18.12.2020 10:00;21.12.2020 13:02;Retail;M;Kids;Kids Dress;Barcelona;Dress;Catalunya;Party;Party;1
+2020M12;124;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;S;Man;Sleepwear;Madrid;Suit;C. Madrid;Indoor;Indoor;1
+2020M12;125;18.12.2020 10:00;21.12.2020 13:02;Whitebrand;M;Woman;Black Jeans;Zaragoza;Jeans;Aragón;Outdoor;Outdoor;1
+2020M12;126;18.12.2020 10:00;21.12.2020 13:02;Outlet;XL;Kids;Kids black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1

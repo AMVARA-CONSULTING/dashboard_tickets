@@ -124,7 +124,9 @@ export class TicketsComponent implements OnInit, OnDestroy {
         this.data.loading.next(true)
         const monthIndex = month.index
         const ticketsBackup = this._store.selectSnapshot(store => store.tickets.ticketsBackup)
+        if (typeof this.config.show_debug_in_console !== 'undefined' && this.config.show_debug_in_console ) console.dir("AMVARA DECIDING ON IF/ELSE");
         if (!Array.isArray(ticketsBackup[monthIndex])) {
+          if (typeof this.config.show_debug_in_console !== 'undefined' && this.config.show_debug_in_console ) console.dir("AMVARA IF");
           this.subs.add(
             this._reports.getReportData(
               this.config.reports[this.config.scenario].months[monthIndex],
@@ -137,14 +139,17 @@ export class TicketsComponent implements OnInit, OnDestroy {
             })
           )
         } else {
+          if (typeof this.config.show_debug_in_console !== 'undefined' && this.config.show_debug_in_console ) console.log("AMVARA ELSE");
           const tickets = this._store.selectSnapshot(store => store.tickets.ticketsBackup)[monthIndex]
           this.rollup(tickets, type, filter)
         }
+        if (typeof this.config.show_debug_in_console !== 'undefined' && this.config.show_debug_in_console ) console.log("AMVARA ticketsBackup: ", ticketsBackup);
       })
     )
     this.fixedWidth.next(this.config.displayedColumns.length > 5)
     this.column_active = localStorage.getItem('column_active') || 'id'
     this.column_direction = localStorage.getItem('column_direction') || 'desc'
+    if (typeof this.config.show_debug_in_console !== 'undefined' && this.config.show_debug_in_console ) console.log("AMVARA tickets: ", this.tickets );
     setTimeout(_ => this.ref.markForCheck())
   }
 

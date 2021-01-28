@@ -42,30 +42,30 @@
     [matSortDirection]="column_direction" [dataSource]="tickets | async" [trackBy]="getID">
 
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>TicketID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.ticketid'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.id" *matCellDef="let element">{{
         element.id }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="create_date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Create Date</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.create_date'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.create_date | dateParse | dateAgo" *matCellDef="let element">{{ element.create_date | dateParse | dateFormat:'dd.MM.yyyy HH:mm' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="modify_date">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Modify Date</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.modify_date'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.modify_date | dateParse | dateAgo"
-        *matCellDef="let element">{{ element.modify_date | dateParse | dateFormat:'dd.MM.yyyy HH:mm' }}</mat-cell>
+        *matCellDef="let element">{{ element.modify_date }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Type</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.ticket_type'| translate }}</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'type', element.type]" matTooltipPosition="above"
         matTooltipClass="above" [matTooltip]="element.type" *matCellDef="let element">{{ element.type }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="priority">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Priority</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.priority'| translate }}</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'priority', element.priority]" matTooltipPosition="above"
         matTooltipClass="above" [matTooltip]="element.priority" *matCellDef="let element">
         <div class="priority-circle" [ngClass]="'prio-'+element.priority"></div><span>{{
@@ -74,65 +74,65 @@
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.status'| translate }}</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'status', element.status]" matTooltipPosition="above"
         matTooltipClass="above" [matTooltip]="element.status" *matCellDef="let element">{{
         element.status }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Short Description</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.description'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.description" [matTooltip]="element.subject"
         matTooltipPosition="above" matTooltipClass="above" *matCellDef="let element">{{
         element.description | limitText:30 }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="external">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>External</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.external'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.external" *matCellDef="let element">{{
         element.external }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="classification">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Classification</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.classification'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.classification" *matCellDef="let element">{{
         element.classification }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="component">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Component</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.component'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.component" *matCellDef="let element">{{
         element.component }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="service_group">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Assigned to Servicegroup</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.servicegroup'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.service_group" *matCellDef="let element">{{
         element.service_group }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="month_id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>MonthID</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.MonthID'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.month_id" *matCellDef="let element">{{
         element.month_id }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="service">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Service Label</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.service_label'| translate }}</mat-header-cell>
       <mat-cell class="pointer" [routerLink]="['/tickets', 'service', element.service]" matTooltipPosition="above"
         matTooltipClass="above" [matTooltip]="element.service" *matCellDef="let element">{{
         element.service }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="count">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Count</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'cell_header.ticket_count'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.count" *matCellDef="let element">{{
         element.count }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="silt">
       <mat-header-cell matTooltip="Sales Incident Lifecycle Time" matTooltipPosition="above" matTooltipClass="above"
-        *matHeaderCellDef mat-sort-header>SILT</mat-header-cell>
+        *matHeaderCellDef mat-sort-header>{{ 'cell_header.silt'| translate }}</mat-header-cell>
       <mat-cell matTooltipPosition="above" matTooltipClass="above" [matTooltip]="element.silt" *matCellDef="let element">{{
         element.silt }}</mat-cell>
     </ng-container>
