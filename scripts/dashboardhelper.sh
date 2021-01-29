@@ -29,7 +29,8 @@ array=($reportnames_wo_CRLF)
 for key in "${array[@]}"
 do
 	# read for each reportname the fallback from configfile
-	jq -r '.reports.dev.'$key'.fallback' $CONFIGJSONGFILE
+	echo "* Reading: ${key} "
+	RESULT=$(jq -r -c '.reports.dev.'$key'.fallback' $CONFIGJSONGFILE 2> /dev/null) && echo "[OK] key $key found - value is: ${RESULT}" || echo "[NOK] ${key} not found"
 done
 
 
