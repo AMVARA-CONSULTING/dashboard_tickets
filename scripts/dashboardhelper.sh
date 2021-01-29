@@ -10,8 +10,23 @@
 #                                   VARIABLES                                  #
 # ---------------------------------------------------------------------------- #
 VERSION=$(echo "2021.28.01")
-
+COLOR_YELLOW="\e[93m*"
+COLOR_RED="\e[91m*"
+COLOR_NORMAL="*\e[0m"
 SEARCH=""
+
+# ---------------------------------------------------------------------------- #
+#                                   CSV FILES                                  #
+# ---------------------------------------------------------------------------- #
+# read report names from config.json > reports > dev
+CONFIGJSONGFILE="../src/assets/config.json"
+reportnames=$(jq '.reports.dev | to_entries[] | select(.key).key' $CONFIGJSONGFILE)
+reportnames_wo_CRLF=$( echo ${reportnames} | tr "\n" " " )
+echo "Reportnames: ${reportnames_wo_CRLF}"
+
+# read for each reportname the fallback from configfile
+
+
 # ---------------------------------------------------------------------------- #
 #                                  Help Output                                 #
 # ---------------------------------------------------------------------------- #
@@ -19,18 +34,11 @@ function HELP() {
     echo -ne "Usage of: ${0} [arguments]
 
 Arguments:
-	-l  | --list 	   This option will list the actual iptables rules
-	-a  | --add 	   Add a rule in the iptables \e[93m(Must specify chain, target, protocol and portnumber)\e[0m
-	-rm | --remove 	   Remove a rule from the iptables \e[93m(Must specify chain, target, protocol and portnumber) cd\e[0m
-	-c  | --chain	   <chain> This option is for specifying the chain
-	-t  | --target	   <target> This option is for specifying the target
-	-p  | --protocol   <protocol> This option is for specifying the protocol (tcp/udp)
-	-pn | --portnumber <port number> This option is for specifying the port number   	   
-	-b  | --backup     That option will backup iptables to a txt file
-	-rs | --restore    That option will restore iptables from a txt file
+	-d  | --debug	   This option will enable debuging with set -x
+
 	-v  | --version    Consult version
-\e[93m*  Note: When adding or removing, --add (-a) or --remove (-rm) must be the last one, if not, the rule wont be added. *\e[0m
-\e[91m*  Note: If any of the options are note set it will prompt you an interactive menu. *\e[0m"
+${COLOR_YELLOW}  Note: When adding or removing, --add (-a) or --remove (-rm) must be the last one, if not, the rule wont be added. ${COLOR_NORMAL}
+${COLOR_RED}  Note: If any of the options are note set it will prompt you an interactive menu. ${COLOR_NORMAL}"
 }
 
 
@@ -43,3 +51,23 @@ function putTotalvalusInCSV() {
 
 
 # Check CLI Arguments
+if [ $# -gt 0 ]; then
+	while [ "$1" != "" ]; do
+		case $1 in
+			-d | --debug )
+						shift
+						set -x && echo "[OK] enabled set -x" || echo "[FAILED] to enbale set -x"
+						;;
+
+			-h | --help )
+						help
+						exit 0
+						;;
+			* )
+						echo "Unknown parameter $1, please check help"
+						help
+						exit 1
+		esac
+		shift
+	done
+fi
