@@ -3,6 +3,8 @@
 # ---------------------------------------------------------------------------- #
 #                                   Changelog                                  # 
 # ---------------------------------------------------------------------------- #
+# 2021-01-29 - Raúl
+# - Script can read CSV Filenames from config.json
 # 2021-01-28 - Raúl:
 # - Script Creation
 
@@ -13,18 +15,23 @@ VERSION=$(echo "2021.28.01")
 COLOR_YELLOW="\e[93m*"
 COLOR_RED="\e[91m*"
 COLOR_NORMAL="*\e[0m"
-SEARCH=""
 
 # ---------------------------------------------------------------------------- #
 #                                   CSV FILES                                  #
+#				read report names from config.json > reports > dev			   #
 # ---------------------------------------------------------------------------- #
-# read report names from config.json > reports > dev
+
 CONFIGJSONGFILE="../src/assets/config.json"
 reportnames=$(jq '.reports.dev | to_entries[] | select(.key).key' $CONFIGJSONGFILE)
-reportnames_wo_CRLF=$( echo ${reportnames} | tr "\n" " " )
-echo "Reportnames: ${reportnames_wo_CRLF}"
+reportnames_wo_CRLF=$( echo ${reportnames} | tr "\n" " ")
+array=($reportnames_wo_CRLF)
 
-# read for each reportname the fallback from configfile
+for key in "${array[@]}"
+do
+	# read for each reportname the fallback from configfile
+	jq -r '.reports.dev.'$key'.fallback' $CONFIGJSONGFILE
+done
+
 
 
 # ---------------------------------------------------------------------------- #
@@ -37,17 +44,18 @@ Arguments:
 	-d  | --debug	   This option will enable debuging with set -x
 
 	-v  | --version    Consult version
-${COLOR_YELLOW}  Note: When adding or removing, --add (-a) or --remove (-rm) must be the last one, if not, the rule wont be added. ${COLOR_NORMAL}
-${COLOR_RED}  Note: If any of the options are note set it will prompt you an interactive menu. ${COLOR_NORMAL}"
+${COLOR_YELLOW} Note: When adding or removing, --add (-a) or --remove (-rm) must be the last one, if not, the rule wont be added. ${COLOR_NORMAL}
+${COLOR_RED} Note: If any of the options are note set it will prompt you an interactive menu. ${COLOR_NORMAL}
+"
 }
 
 
 # 
-# putTotalvalusInCSV reads CSV file x, counts distinct values in column and writes totals in CSV holding the totals
+# putTotalvaluesInCSV reads CSV file x, counts distinct values in column and writes totals in CSV holding the totals
 #
-function putTotalvalusInCSV() {
-
-}
+#function putTotalvaluesInCSV() {
+#
+#}
 
 
 # Check CLI Arguments
@@ -60,12 +68,12 @@ if [ $# -gt 0 ]; then
 						;;
 
 			-h | --help )
-						help
+						HELP
 						exit 0
 						;;
 			* )
-						echo "Unknown parameter $1, please check help"
-						help
+						echo -e "${COLOR_RED} Unknown parameter $1, please check Help: ${COLOR_NORMAL}"
+						HELP
 						exit 1
 		esac
 		shift
