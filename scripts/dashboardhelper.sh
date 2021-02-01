@@ -169,15 +169,6 @@ function compareFilesNameArrays() {
 
 	# First do the documentation of what todo on each file
 	# Onces we understand what we have todo ... then we decide on howto
-
-	# Mobile_Overview.csv
-	# Fill the Four overview boxes
-	# BYPRIORITY -> add total values with Month and Items description in Column 2+3+4
-	# BYPRIORITY;2020M12;XL;3;;;
-	# BYSERVICE -> same as before
-	# BYSERVICE;2020M12;Outdoor;8;;;
-	# BYSTATUS -> same as before
-	# BYTYPE -> same as before
 	
 	# Mobile_Tickets_Chart.csv
 	# Fill data in bar charts for each day of each month with the total of the Ticket Type 
@@ -196,6 +187,7 @@ function compareFilesNameArrays() {
 
 	# Mobile_Tickets_Priority.csv
 	# Fills for priority (Clothes size) with the total of each one for each month
+	# ToDo: Read Mobile_Tickets_List.csv and extract totals per month + Ticket Priority
 	# BYPRIORY;Month iD;Priority number (Clothes Size);Total
 	# Example:
 	# BYPRIORY;2020M12;S;50
@@ -225,6 +217,7 @@ function compareFilesNameArrays() {
 	# BYTYPE;2020M12;Whitebrand;25
 
 	# System.csv
+	# Experimental Features Graphics
 	# ¿¿??
 
 #}
@@ -238,7 +231,7 @@ function HELP() {
 
 Arguments:
 	-c  | --compare		Combines -rd + -r and compares the resulting arrays
-	-rd | --readdir     Reads the directory where the reports are stored
+	-rd | --readdir		Reads the directory where the reports are stored
 	-r  | --readfiles	Reads the data files names
 	-d  | --debug	   	This option will enable debuging with set -x
 	-v  | --version    	Consult version
