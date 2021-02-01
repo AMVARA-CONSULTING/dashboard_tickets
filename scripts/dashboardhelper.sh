@@ -162,7 +162,41 @@ function compareFilesNameArrays() {
 }
 
 
-#function modifyDataFiles() {
+function modifyDataFiles() {
+
+	# -------------------------
+	# Mobile_Tickets_List.csv
+	# -------------------------
+	# Read Tickets details from Mobile_Tickets_List and calc totals for 
+	#  Ticket Type;Ticket Priority;Ticket Status per Month
+	#
+	# Let User Fill or replace information in columns
+	# (1) Month iD; (2) Ticket iD; (3) Creation Date H.M; (4) Modify Date H.M; (5) Ticket Type; (6) Ticket Priority; (7) Ticket Status;Description;External;classification;Component;Assigned to servicegroup;By app/service;1
+	# Example: 
+	# 2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
+	#
+	#  This archive is used by /var/www/cism/src/app/components/pages/tickets/tickets.component.ts
+	#
+	# Todo: Fix header ignore + remove line output and only print summary
+	# 
+	FILE="$REPORTDIRECTORY/Mobile_Tickets_List.csv"
+	amvara_log "[IN ] Reading file $FILE"
+	awk 'FS=";"
+		{
+			total_per_tickettype[$1";"$5]+=1;
+			total_per_ticketprio[$1";"$6]+=1;
+			total_per_ticketstatus[$1";"$7]+=1;
+		} 
+		END {
+			print "------------------ totals per ticket type "
+			for(k in total_per_tickettype) print "BYTYPE;" k ";" total_per_tickettype[k] ";"
+			print "------------------ totals per ticket prio "
+			for(k in total_per_ticketprio) print "BYPRIORY;" k ";" total_per_ticketprio[k]";"
+			print "------------------ totals per ticket status "
+			for(k in total_per_ticketstatus) print "BYSTATUS;" k ";" total_per_ticketstatus[k] ";"
+		}' $FILE
+
+	#--------------------------------  notes  -----------------------------------
 	# nice
 	# https://stackoverflow.com/questions/37169871/awk-replacing-distinct-values-with-averages-for-duplicate-entries
 	# $ awk '{f2[$1]+=$2; f3[$1]+=$3; f4[$1]+=$4; c[$1]++; r[$1]=NR} END{for(k in c) print r[k] "\t" k, f2[k]/c[k], f3[k]/c[k], f4[k]/c[k]}' file | sort -n | cut -f2
@@ -220,7 +254,7 @@ function compareFilesNameArrays() {
 	# Experimental Features Graphics
 	# ¿¿??
 
-#}
+}
 
 
 # ---------------------------------------------------------------------------- #
@@ -231,12 +265,22 @@ function HELP() {
 
 Arguments:
 	-c  | --compare		Combines -rd + -r and compares the resulting arrays
+	-m  | --modify		Calculates totals in csv archives
 	-rd | --readdir		Reads the directory where the reports are stored
 	-r  | --readfiles	Reads the data files names
 	-d  | --debug	   	This option will enable debuging with set -x
 	-v  | --version    	Consult version
 
 "
+}
+
+#
+# function to bundle basic steps to prepare Variables in memory
+#
+function basicPreparVariables() {
+	readFilesFromJson
+	readFilesInAssetsDir
+	compareFilesNameArrays
 }
 
 # ---------------------------------------------------------------------------- #
@@ -248,9 +292,7 @@ if [ $# -gt 0 ]; then
 			-c | --compare )
 						shift
 						amvara_log "${COLOR_YELLOW} Finding report data files form config.json ${COLOR_NORMAL}"
-						readFilesFromJson
-						readFilesInAssetsDir
-						compareFilesNameArrays
+						basicPreparVariables
 						amvara_log "${COLOR_YELLOW} done ${COLOR_NORMAL}"
 						;;
 			-d | --debug )
@@ -259,9 +301,7 @@ if [ $# -gt 0 ]; then
 						;;
 			-m | --modifyfiles )
 						shift
-						readFilesFromJson
-						readFilesInAssetsDir
-						compareFilesNameArrays						
+						basicPreparVariables						
 						amvara_log "* Create Backup of CSV files in Directory BACKUP_${TIMESTAMP}.tgz"
 						amvara_log "* Loop over files to be used"
 						modifyDataFiles
