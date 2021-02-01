@@ -3,6 +3,7 @@
 # ---------------------------------------------------------------------------- #
 #                                   Changelog                                  # 
 # ---------------------------------------------------------------------------- #
+# 2021-02-01 - Raúl Documented what to do on each file
 # 2021-01-29 - RRO version parameter, empty parameter shows help
 # 2021-01-29 - Raúl
 # - Script can read CSV Filenames from config.json
@@ -12,7 +13,7 @@
 # ---------------------------------------------------------------------------- #
 #                                   VARIABLES                                  #
 # ---------------------------------------------------------------------------- #
-VERSION=$(echo "2021.28.01")
+VERSION=$(echo "2021.29.01")
 COLOR_YELLOW="\e[93m*"
 COLOR_RED="\e[91m*"
 COLOR_NORMAL="*\e[0m"
@@ -161,7 +162,7 @@ function compareFilesNameArrays() {
 }
 
 
-function modifyDataFiles() {
+#function modifyDataFiles() {
 	# nice
 	# https://stackoverflow.com/questions/37169871/awk-replacing-distinct-values-with-averages-for-duplicate-entries
 	# $ awk '{f2[$1]+=$2; f3[$1]+=$3; f4[$1]+=$4; c[$1]++; r[$1]=NR} END{for(k in c) print r[k] "\t" k, f2[k]/c[k], f3[k]/c[k], f4[k]/c[k]}' file | sort -n | cut -f2
@@ -179,16 +180,54 @@ function modifyDataFiles() {
 	# BYTYPE -> same as before
 	
 	# Mobile_Tickets_Chart.csv
+	# Fill data in bar charts for each day of each month with the total of the Ticket Type 
+	# BARCHART;Day Of Month;Month iD;Total 1;Total 2;Total 3;Total 4
+	# Example:
+	# BARCHART;2020-12-21;2020M12;20;20;10;15
+	
 	# Mobile_Tickets_List.csv
-	# Mobile_Tickets_Overall.csv
-	# Mobile_Tickets_Priority.csv
-	# Mobile_Tickets_Service.csv
-	# Mobile_Tickets_Silt.csv
-	# Mobile_Tickets_Status.csv
-	# Mobile_Tickets_Type.csv
-	# System.csv
+	# Let User Fill or replace information in columns
+	# Month iD;Ticket iD;Creation Date H.M;Modify Date H.M;Ticket Type;Ticket Priority;Ticket Status;Description;External;classification;Component;Assigned to servicegroup;By app/service;1
+	# Example: 
+	# 2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
 
-}
+	# Mobile_Tickets_Overall.csv
+	# ¿¿??
+
+	# Mobile_Tickets_Priority.csv
+	# Fills for priority (Clothes size) with the total of each one for each month
+	# BYPRIORY;Month iD;Priority number (Clothes Size);Total
+	# Example:
+	# BYPRIORY;2020M12;S;50
+
+	# Mobile_Tickets_Service.csv
+	# Fills for each type of service, the total of each month
+	# BYSERVICE;Month ID;Service Name (Type of clothes);Total
+	# Example:
+	# BYSERVICE;2020M12;Party;25
+	
+	# Mobile_Tickets_Silt.csv
+	# Fills for each month with the Time SILT Business Minutes
+	# SILT;Month iD;Silt Minutes
+	# Example:
+	# SILT;2020M12;1680
+
+	# Mobile_Tickets_Status.csv
+	# Fills for status (Clothes Collection) with the total of each one for each month
+	# BYSTATUS;Month iD;status type (Clothes Collection);Total
+	# Example:
+	# BYSTATUS;2020M12;Kids;35
+	
+	# Mobile_Tickets_Type.csv
+	# Fills for type (Sales Channel) with the total of each one for each month
+	# BYTYPE;Month ID;Ticket Type (Sales Channel);total
+	# Example:
+	# BYTYPE;2020M12;Whitebrand;25
+
+	# System.csv
+	# ¿¿??
+
+#}
 
 
 # ---------------------------------------------------------------------------- #
@@ -233,6 +272,7 @@ if [ $# -gt 0 ]; then
 						amvara_log "* Create Backup of CSV files in Directory BACKUP_${TIMESTAMP}.tgz"
 						amvara_log "* Loop over files to be used"
 						modifyDataFiles
+						;;
 			-r | --readfiles ) 
 						shift
 						amvara_log "${COLOR_YELLOW} Finding report data files form config.json ${COLOR_NORMAL}"
