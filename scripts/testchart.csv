@@ -1,0 +1,9 @@
+Report Target;Ticket Date Create Day Label;Ticket Date Create Month Id;Outlet Count;Whitebrand Count;Online Count;Retail Count
+BARCHART;20-12-2020;2020M12;Retail;10;
+BARCHART;20-12-2020;2020M12;Whitebrand;10;
+BARCHART;21-12-2020;2020M12;Online;20;
+BARCHART;21-12-2020;2020M12;Outlet;20;
+BARCHART;20-12-2020;2020M12;Online;15;
+BARCHART;20-12-2020;2020M12;Outlet;25;
+BARCHART;21-12-2020;2020M12;Retail;10;
+BARCHART;21-12-2020;2020M12;Whitebrand;15;

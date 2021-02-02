@@ -3,6 +3,11 @@
 # ---------------------------------------------------------------------------- #
 #                                   Changelog                                  # 
 # ---------------------------------------------------------------------------- #
+# 2021-02-02 - Raúl
+# - AWK Skips header
+# - AWK puts output in files
+# - AWK counts type for each chart day but not in the same format of Mobile_Tickets_Chart.csv
+# - Added Backup Function
 # 2021-02-01 - Raúl Documented what to do on each file
 # 2021-01-29 - RRO version parameter, empty parameter shows help
 # 2021-01-29 - Raúl
@@ -13,10 +18,11 @@
 # ---------------------------------------------------------------------------- #
 #                                   VARIABLES                                  #
 # ---------------------------------------------------------------------------- #
-VERSION=$(echo "2021.29.01")
-COLOR_YELLOW="\e[93m*"
-COLOR_RED="\e[91m*"
-COLOR_NORMAL="*\e[0m"
+VERSION=$(echo "2021.02.02")
+COLOR_GREEN="\e[92m"
+COLOR_YELLOW="\e[93m"
+COLOR_RED="\e[91m"
+COLOR_NORMAL="\e[0m"
 TIMESTAMP=`date +"%Y%m%d_%H%M%S"`
 
 # ---------------------------------------------------------------------------- #
@@ -41,9 +47,33 @@ REPORTNAMES=()
 # Array with filesnames of reports in CONFIGJSONGFILE
 RESULT_WITH_REPORTFILES=()
 
-#
-# Nicer log output .. uses $0 as parameter
-#
+# CSV have header? FNR=1 means skip header
+FNR=1
+
+# VERBOSE output of awk scripts ? Default ... output awk to /dev/null, use -vv to override
+VERBOSE="1>/dev/null"
+
+# ---------------------------------------------------------------------------- #
+#                                  Help Output                                 #
+# ---------------------------------------------------------------------------- #
+function HELP() {
+    echo -ne "Usage of: ${0} [arguments]
+
+Arguments:
+	-c  | --compare		Combines -rd + -r and compares the resulting arrays
+	-m  | --modify		Calculates totals in csv archives
+	-rd | --readdir		Reads the directory where the reports are stored
+	-r  | --readfiles	Reads the data files names
+	-d  | --debug	   	This option will enable debuging with set -x
+	-v  | --version    	Consult version
+	-nh | --noheader    CSV files have no header line, default=have header line and skip it 
+
+"
+}
+
+# ---------------------------------------- #
+# Nicer log output .. uses $0 as parameter #
+# ---------------------------------------- #
 function amvara_log() {
 	t=`date +"%Y%m%d_%H%M%S"`
 	echo -e "${t} $@"
@@ -76,17 +106,17 @@ function readFilesFromJson() {
 	RESULT_WITH_REPORTFILES=()
 
 	# read the config file
-	amvara_log "[   ] selecting .report.dev.keys from $CONFIGJSONGFILE"
+	amvara_log "[INF] selecting .report.dev.keys from $CONFIGJSONGFILE"
 	reportnames=$(jq '.reports.dev | to_entries[] | select(.key).key' $CONFIGJSONGFILE)
-	amvara_log "[   ] splitting results"
+	amvara_log "[INF] splitting results"
 	reportnames_wo_CRLF=$( echo ${reportnames} | tr "\n" " ")
-	amvara_log "[   ] Split: ${reportnames_wo_CRLF} " 
+	amvara_log "[INF] Split: ${reportnames_wo_CRLF} " 
 
-	amvara_log "[   ] Converting into array"
+	amvara_log "[INF] Converting into array"
 	arrayWithReportNames=($reportnames_wo_CRLF)
 	
 	# loop over names from config.json
-	amvara_log "[   ] Loop over array  ${#arrayWithReportNames[@]} items"
+	amvara_log "[INF] Loop over array  ${#arrayWithReportNames[@]} items"
 	for key in "${arrayWithReportNames[@]}"
 	do
 		# Add +1 to counter
@@ -117,8 +147,8 @@ function readFilesFromJson() {
 		fi
 
 	done
-	amvara_log "[   ] finished reading"
-	amvara_log "[   ] Found a total of $CNT reports in config. $CNT_FOUND have data input configured, $CNT_NOTFOUND have no data input configured. "
+	amvara_log "[INF] finished reading"
+	amvara_log "[INF] Found a total of $CNT reports in config. $CNT_FOUND have data input configured, $CNT_NOTFOUND have no data input configured. "
 	for value in "${RESULT_WITH_REPORTFILES[@]}"
 	do
 		amvara_log "[...] $value"
@@ -180,21 +210,51 @@ function modifyDataFiles() {
 	# Todo: Fix header ignore + remove line output and only print summary
 	# 
 	FILE="$REPORTDIRECTORY/Mobile_Tickets_List.csv"
+	FILE_TYPE="testtype.csv"
+	FILE_PRIO="testprio.csv"
+	FILE_STATUS="teststatus.csv"
+	FILE_CHART="testchart.csv"
+
+
 	amvara_log "[IN ] Reading file $FILE"
-	awk 'FS=";"
+	awk 'FS=";" 
+		 FNR == "'${FNR}'" {next}
 		{
+			{gsub(/\./,"-",$3)} # Changes . with a -
+			{sub(/ .+/, "", $3)} # Removes Everything after first space in create day col
+			
 			total_per_tickettype[$1";"$5]+=1;
 			total_per_ticketprio[$1";"$6]+=1;
-			total_per_ticketstatus[$1";"$7]+=1;
+			total_per_ticketstatus[$1";"$7]+=1; 
+			total_per_chartday[$3";"$1";"$5]+=1; # [\d\.]+\.[\d]{4} filtra por dd.mm.yyyy
 		} 
 		END {
-			print "------------------ totals per ticket type "
-			for(k in total_per_tickettype) print "BYTYPE;" k ";" total_per_tickettype[k] ";"
-			print "------------------ totals per ticket prio "
-			for(k in total_per_ticketprio) print "BYPRIORY;" k ";" total_per_ticketprio[k]";"
-			print "------------------ totals per ticket status "
-			for(k in total_per_ticketstatus) print "BYSTATUS;" k ";" total_per_ticketstatus[k] ";"
-		}' $FILE
+			# FOR TYPE
+				print "Report Target;Ticket Date Create Month Id;Ticket Type Label;IWM Ticket Count" > "'$FILE_TYPE'"			#Prints header in the file
+				for(k in total_per_tickettype) print "BYTYPE;" k ";" total_per_tickettype[k] ";" > "'$FILE_TYPE'"				#Prints totals into csv
+			# FOR PRIORITY
+				print "Report Target;Ticket Date Create Month Id;Ticket Priory Label;IWM Ticket Count" > "'$FILE_PRIO'"			#Prints header in the file
+				for(k in total_per_ticketprio) print "BYPRIORY;" k ";" total_per_ticketprio[k]";" > "'$FILE_PRIO'"				#Prints totals into csv
+			# FOR STATUS
+				print "Report Target;Ticket Date Create Month Id;Ticket Status Label;IWM Ticket Count" > "'$FILE_STATUS'"		#Prints header in the file
+				for(k in total_per_ticketstatus) print "BYSTATUS;" k ";" total_per_ticketstatus[k] ";" > "'$FILE_STATUS'"		#Prints totals into csv
+			# FOR DAY CHART
+				print "Report Target;Ticket Date Create Day Label;Ticket Date Create Month Id;Outlet Count;Whitebrand Count;Online Count;Retail Count" > "'$FILE_CHART'"		#Prints header in the file
+				for(k in total_per_chartday) print "BARCHART;" k ";"  total_per_chartday[k] ";" > "'$FILE_CHART'"				#Prints totals into csv
+		}' "$FILE"  && exitstatus=0 || exitstatus=1
+		if [ "${exitstatus}" == "0" ]; then
+			amvara_log "---------------- Totals per Ticket Type "
+			cat $FILE_TYPE
+			amvara_log "---------------- Totals per Ticket Priority "
+			cat $FILE_PRIO
+			amvara_log "---------------- Totals per Ticket Status "
+			cat $FILE_STATUS
+			amvara_log "---------------- totals per Chart Day "
+			cat $FILE_CHART
+		else
+			amvara_log "$COLOR_RED Error parsing $FILE ... further exucution not useful, will exit with resultcode 1 $COLOR_NORMAL"
+			exit 1
+		fi
 
 	#--------------------------------  notes  -----------------------------------
 	# nice
@@ -211,8 +271,7 @@ function modifyDataFiles() {
 	# BARCHART;2020-12-21;2020M12;20;20;10;15
 	
 	# Mobile_Tickets_List.csv
-	# Let User Fill or replace information in columns
-	# Month iD;Ticket iD;Creation Date H.M;Modify Date H.M;Ticket Type;Ticket Priority;Ticket Status;Description;External;classification;Component;Assigned to servicegroup;By app/service;1
+	# (1)Month iD;(2)Ticket iD;(3)Creation Date H.M;(4)Modify Date H.M;(5)Ticket Type;(6)Ticket Priority;(7)Ticket Status;(8)Description;(9)External;(10)classification;(11)Component;(12)Assigned to servicegroup;(13)By app/service;1
 	# Example: 
 	# 2020M12;01;18.12.2020 10:00;20.12.2020 13:02;Outlet;M;Man;Black Hoodie;Barcelona;Hoodie;Catalunya;Sports;Sports;1
 
@@ -256,28 +315,25 @@ function modifyDataFiles() {
 
 }
 
+#
+# function to backup csv files in reports/backup directory 
+#
+function BackUp(){
+	if [ ! -d ${REPORTDIRECTORY}/backup ]; then #Check if backup directory exists, if not, it will create the directory
+	mkdir $REPORTDIRECTORY/backup
+	amvara_log "${COLOR_GREEN}[INF] Backup Directory Created${COLOR_NORMAL}"
+	else
+	amvara_log "[INF] Backup Directory Already exists"
+	fi
 
-# ---------------------------------------------------------------------------- #
-#                                  Help Output                                 #
-# ---------------------------------------------------------------------------- #
-function HELP() {
-    echo -ne "Usage of: ${0} [arguments]
-
-Arguments:
-	-c  | --compare		Combines -rd + -r and compares the resulting arrays
-	-m  | --modify		Calculates totals in csv archives
-	-rd | --readdir		Reads the directory where the reports are stored
-	-r  | --readfiles	Reads the data files names
-	-d  | --debug	   	This option will enable debuging with set -x
-	-v  | --version    	Consult version
-
-"
+	tar -czf $REPORTDIRECTORY/backup/BACKUP_${TIMESTAMP}.tgz $REPORTDIRECTORY/*.csv && amvara_log "${COLOR_GREEN}[OK ] Backup Done${COLOR_NORMAL}" || amvara_log "${COLOR_RED}[NOK] Backup not done${COLOR_NORMAL}" #Compress CSV in tar in backup directory
 }
 
 #
 # function to bundle basic steps to prepare Variables in memory
 #
 function basicPreparVariables() {
+	#BackUp Uncomment for doing backups of CSV files
 	readFilesFromJson
 	readFilesInAssetsDir
 	compareFilesNameArrays
@@ -306,6 +362,11 @@ if [ $# -gt 0 ]; then
 						amvara_log "* Loop over files to be used"
 						modifyDataFiles
 						;;
+			-nh | --noheader )
+						shift
+						FNR=0
+						amvara_log "${COLOR_YELLOW} Found noheader directive in arguments, will no skip first line of CSV files ${COLOR_NORMAL}"
+						;;
 			-r | --readfiles ) 
 						shift
 						amvara_log "${COLOR_YELLOW} Finding report data files form config.json ${COLOR_NORMAL}"
@@ -323,6 +384,12 @@ if [ $# -gt 0 ]; then
 						shift
 						amvara_log VERSION: $VERSION
 						exit 0
+						;;
+			-vv | --verbose )
+						# FIXME
+						shift
+						amvara_log "${COLOR_YELLOW} setting verbose logging ${COLOR_NORMAL}"
+						VERBOSE=""
 						;;		
 			-h | --help )
 						HELP

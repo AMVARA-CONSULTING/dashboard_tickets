@@ -9,6 +9,7 @@ import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs/internal/Observable';
 import { Tickets, TicketsState } from '@states/tickets.state';
 import { debounceTime } from 'rxjs/operators';
+import { ConfigState } from '@states/config.state';
 
 @Component({
   selector: 'cism-system-robustness-chart',
@@ -27,7 +28,11 @@ export class SystemRobustnessChartComponent implements OnChanges, OnDestroy {
     private _tools: ToolsService,
     private _store: Store,
     @Host() private _scroller: SystemScrollerComponent
-  ) { }
+  ) { 
+    this.colorScheme = {
+      domain: this._store.selectSnapshot(ConfigState.getColorScheme).map(item => item.color)
+    }
+  }
 
   @Select(TicketsState) tickets$: Observable<Tickets>
 
@@ -91,9 +96,7 @@ export class SystemRobustnessChartComponent implements OnChanges, OnDestroy {
   
   @Input() type: SAViewType
 
-  colorScheme = {
-    domain: ['#00bcd4', '#ffb74d', '#7e57c2', '#039be5']
-  }
+  colorScheme ;
 
   data = new BehaviorSubject<any[]>([])
 
