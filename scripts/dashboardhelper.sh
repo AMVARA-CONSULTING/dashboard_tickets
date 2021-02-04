@@ -230,34 +230,61 @@ function modifyDataFiles() {
 			total_per_ticketprio[$1";"$6]+=1;
 			total_per_ticketstatus[$1";"$7]+=1; 
 			total_per_chartday[$3";"$1";"$5]+=1; # [\d\.]+\.[\d]{4} filtra por dd.mm.yyyy
+			key_catagoy_chart[$5]=1; # contains Retail, Whitebrand, Online, outlet, ....
+			
+			#{count[$5]++}
+			#total_per_chartday[$3";"$1";"count[$5]++]; # [\d\.]+\.[\d]{4} filtra por dd.mm.yyyy
+		
 		} 
 		END {
 			# FOR TYPE
 				print "Report Target;Ticket Date Create Month Id;Ticket Type Label;IWM Ticket Count" > "'$FILE_TYPE'"			#Prints header in the file
 				for(k in total_per_tickettype) print "BYTYPE;" k ";" total_per_tickettype[k] ";" > "'$FILE_TYPE'"				#Prints totals into csv
+			
 			# FOR PRIORITY
 				print "Report Target;Ticket Date Create Month Id;Ticket Priory Label;IWM Ticket Count" > "'$FILE_PRIO'"			#Prints header in the file
 				for(k in total_per_ticketprio) print "BYPRIORY;" k ";" total_per_ticketprio[k]";" > "'$FILE_PRIO'"				#Prints totals into csv
+			
 			# FOR STATUS
 				print "Report Target;Ticket Date Create Month Id;Ticket Status Label;IWM Ticket Count" > "'$FILE_STATUS'"		#Prints header in the file
 				for(k in total_per_ticketstatus) print "BYSTATUS;" k ";" total_per_ticketstatus[k] ";" > "'$FILE_STATUS'"		#Prints totals into csv
+			
 			# FOR DAY CHART
+				print "---------------------"
 				print "Report Target;Ticket Date Create Day Label;Ticket Date Create Month Id;Outlet Count;Whitebrand Count;Online Count;Retail Count" > "'$FILE_CHART'"		#Prints header in the file
-				for(k in total_per_chartday) print "BARCHART;" k ";"  total_per_chartday[k] ";" > "'$FILE_CHART'"	#Format must be BARCHART;DATE;Month ID;Outlet Count;Whitebrand Count;Online Count;Retail Count			#Prints totals into csv
-		}' $FILE 1> /dev/null && exitstatus=0 || exitstatus=1
-		if [ "${exitstatus}" == "0" ]; then
-			amvara_log "$COLOR_CYAN---------------- Totals per Ticket Type$COLOR_NORMAL "
-			cat $FILE_TYPE
-			amvara_log "$COLOR_CYAN---------------- Totals per Ticket Priority$COLOR_NORMAL "
-			cat $FILE_PRIO
-			amvara_log "$COLOR_CYAN---------------- Totals per Ticket Status$COLOR_NORMAL "
-			cat $FILE_STATUS
-			amvara_log "$COLOR_CYAN---------------- totals per Chart Day$COLOR_NORMAL "
-			cat $FILE_CHART
-		else
-			amvara_log "$COLOR_RED Error parsing $FILE ... further exucution not useful, will exit with resultcode 1 $COLOR_NORMAL"
-			exit 1
-		fi
+				n=asorti(total_per_chartday, a_sorted)
+				#for(k in total_per_chartday) print k ";" total_per_chartday[k]
+				for(k in a_sorted){
+					count+=1
+					split(a_sorted[k]";"total_per_chartday[a_sorted[k]],CHARTS,";");
+					y[CHARTS[3]]=CHARTS[4]		# y[$4]=$5 Gets Modify date and ticket type from csv not from split
+					z[count]=CHARTS[1]			# z[count]=$1 Gets Month ID from CSV not the first from split
+						if (count==4){
+							count=0 
+							for (o in y) print "oooo " o " " y[o]
+							# FIXME Order of y has to be different
+							print CHARTS[1] ";" CHARTS[2] ";" CHARTS[3] ";" y[1] ";" y[2] ";" y[3] ";" y[4]
+						}
+				}
+				#for(k in total_per_chartday) print "BARCHART;" k ";" total_per_chartday[k] > "'$FILE_CHART'"	#Format must be BARCHART;DATE;Month ID;Outlet Count;Whitebrand Count;Online Count;Retail Count							#Prints totals into csv
+				#for(k in total_per_chartday) print "BARCHART;" k ";" count["Outlet"] ";" count["Whitebrand"] ";" count["Online"] ";" count["Retail"] > "'$FILE_CHART'"	#Format must be BARCHART;DATE;Month ID;Outlet Count;Whitebrand Count;Online Count;Retail Count							#Prints totals into csv
+		
+		
+		
+		}' $FILE && exitstatus=0 || exitstatus=1
+		#if [ "${exitstatus}" == "0" ]; then
+		#	amvara_log "$COLOR_CYAN---------------- Totals Per Ticket Type$COLOR_NORMAL "
+		#	cat $FILE_TYPE
+		#	amvara_log "$COLOR_CYAN---------------- Totals Per Ticket Priority$COLOR_NORMAL "
+		#	cat $FILE_PRIO
+		#	amvara_log "$COLOR_CYAN---------------- Totals Per Ticket Status$COLOR_NORMAL "
+		#	cat $FILE_STATUS
+		#	amvara_log "$COLOR_CYAN---------------- Totals Per Chart Day$COLOR_NORMAL "
+		#	cat $FILE_CHART
+		#else
+		#	amvara_log "$COLOR_RED Error parsing $FILE ... further exucution not useful, will exit with resultcode 1 $COLOR_NORMAL"
+		#	exit 1
+		#fi
 
 	#--------------------------------  notes  -----------------------------------
 	# nice
