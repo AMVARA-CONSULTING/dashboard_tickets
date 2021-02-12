@@ -15,12 +15,16 @@
 
 
 \begin{document} %% Starts Document
-\maketitle %% Prints title and author 
+\maketitle %% Prints title and author
+
 \begin{centering} %% Displays an image and webpage url centered
 	\includegraphics{amvara} \par
 	\url{https://www.amvara.de} \par
 \end{centering}
+
 \newpage %% Page break
+\tableofcontents %% Display's Table of contents
+\newpage
 
 \section{Data Formats} %% First Section
 Data can be ordered by
@@ -30,7 +34,7 @@ Data can be ordered by
 	\item By Application/Service
 	\item By Status
 \end{itemize}
-In the main page we can see a graphic with columns sorted by ticket type
+In the main page, it's shown a graphic with columns sorted by ticket type.
 Here are two examples:
 \begin{center} %% Prints images centered
 \includegraphics[
@@ -58,10 +62,10 @@ In the right part of the main page (If you are in desktop version) or in the bot
 	  keepaspectratio,
 	]{table2}
 	\end{center}
-We can see the total the total of each month and the percentage of each one
+We can see the total the total of each month and the percentage of each one.
 \newpage %% Page break
 \section{Prepare Skinning} %% Second Section
-Below, there is an image with a screenshot of the dashboard
+Below, there is an image with a screenshot of the dashboard.
 \begin{center} %% Image Centered
 \includegraphics[
   width=400px,
@@ -72,5 +76,8 @@ Below, there is an image with a screenshot of the dashboard
 \section{Introducing Data} %% Section three \_ \_ of filename.csv needed to print _
 The data insertion or edition is done by editing the file Mobile\_List\_Chart.csv (Located in .src/assets/reports/), it's mandatory to use the same name in the ticket type column 
 inside the csv and in the colorscheme inside config.json (Located in .src/assets/). If not, when clicking in the bar chart data will not be displayed correctly.\par
-
+\subsection{dashboardhelper.sh}
+Every time Mobile\_List\_Chart.csv is modified, It's important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other files (located in .src/assets/reports/)
+such as Mobile\_Tickets\_Priority.csv or Mobile\_Tickets\_Service.csv, among others. it's very simple to run the script, just open a terminal in ./scripts folder and run ./dashboardhelper.sh -m.
+For futher information run ./dashboardhelper -h or ./dashboardhelper --help
 \end{document} %% End of document
