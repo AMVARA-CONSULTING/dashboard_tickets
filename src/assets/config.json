@@ -134,9 +134,9 @@
   "contacts": {
     "dev": [
       {
-        "name": "Nombre Apellido",
-        "description": "Descripcion",
-        "email": "nombre.apellido@amvara.de",
+        "name": "Name Surname",
+        "description": "Description",
+        "email": "name.surname@amvara.de",
         "telephones": [
           "+34 612 34 56 78",
           "+34 619 87 65 43"
