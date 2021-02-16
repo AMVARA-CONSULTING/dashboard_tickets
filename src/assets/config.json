@@ -67,6 +67,7 @@
     "dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
     "prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
   },
+  "apiType":{},
   "displayedColumnsDefault": [
     "id",
     "create_date",

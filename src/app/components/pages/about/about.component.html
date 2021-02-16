@@ -50,7 +50,7 @@
     </mat-expansion-panel-header>
     <div class="software">
       <ul>
-        <li>IBM Cognos Analytics 11: <a [href]="config.portalLink[config.scenario]" target="_blank">Consumer License</a></li>
+        <li *ngIf="config.apiType === 'cognos'">IBM Cognos Analytics 11: <a [href]="config.portalLink[config.scenario]" target="_blank">Consumer License</a></li>
         <li>Angular: <a href="https://github.com/angular/angular/blob/master/LICENSE" target="_blank">MIT License</a></li>
         <li>ngx-translate: <a href="https://github.com/ngx-translate/core/blob/master/LICENSE" target="_blank">MIT
             License</a></li>

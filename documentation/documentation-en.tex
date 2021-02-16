@@ -12,6 +12,7 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \graphicspath{ {.images/} }
+\setlength{\parskip}{4px}
 
 \begin{document} %% Starts Document
 \maketitle %% Prints title and author
@@ -30,18 +31,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction} %% First Section
-This dashboard loads data from server via XHR requests and (depending on server speed) is able to visualize data in under 1 second. This documentation describes how to modify the data to fit your needs and hwoto change the skinning to meet your styleguide.
+This dashboard loads data from server via XHR requests and (depending on server speed) is able to visualize data in under 1 second. This documentation describes how to modify the data to fit your needs and howto change the skinning to meet your styleguide.
 
 \subsection{Dashboard's Main Page}
 \noindent
-The main page is divided in two parts. First we've got the graphic, it's sorted by ticket type. Next, in the right part (If we are on desktop) or in the bottom part (If we are on mobile) there are 4 tables with monthly information for each data type. It shows the total of each type of data and the percentage\par
+The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop) or in the bottom part (If we are on mobile) there are 4 tables with monthly information for each data type. It shows the total of each type of data and the percentage\par
 \begin{center}
 \includegraphics[
   width=440px,
   keepaspectratio,
 ]{principal}
 \end{center}
-
 Data can be ordered by:
 \begin{itemize} %% Unordered List with dots
 	\item By Priority [1,2,3,4] Being 1 the most critical and 4 the less critical
@@ -117,7 +117,7 @@ Mid and right footer text, are edited in .src/app/components/ux/footer/footer.co
 		keepaspectratio,
 	  ]{footer-info}
 \end{center}
-Inside div class flexed, is located the middle text, the text shown will depend if it's accesed from a desktop or a mobile. Then we have the flexed version, that display the execution date and the version of the dashboard.\par
+Inside div class flexed, is located the middle text, the text shown will depend if it is accesed from a desktop or a mobile. Then we have the flexed version, that display the execution date and the version of the dashboard.\par
 \newpage
 \subsection{Colors}
 Dasboard's colors, are edited in ./src/app/common/\_colors.scss.\par
@@ -137,7 +137,7 @@ The color variables to edit in order to change dashboard colors are:\par
 \end{itemize}
 
 \subsection{Chart Legend and colors}
-In order to change chart legend and colors, the file config.json must be edited. It's located in ./src/assets/config.json\par
+In order to change chart legend and colors, the file config.json must be edited. it is located in ./src/assets/config.json\par
 \begin{center} %% Image Centered
 	\includegraphics[
 	height=250px,
@@ -151,13 +151,10 @@ Colors are changed in "color" and legend names are changed in "name"\par
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Introducing Data} %% Section three \_ \_ of filename.csv needed to print _
-The data insertion or edition is done by editing the file Mobile\_List\_Chart.csv (Located in .src/assets/reports/), it's mandatory to use the same name in the ticket type column 
-inside the csv and in the colorscheme inside config.json (Located in .src/assets/). If not, when clicking in the bar chart, data will not be displayed correctly.\par
+The data insertion or edition is done by editing the file Mobile\_List\_Chart.csv (Located in .src/assets/reports/), it is mandatory to use the same name in the ticket type column  inside the csv and in the colorscheme inside config.json (Located in .src/assets/). If not, when clicking in the bar chart, data will not be displayed correctly.\par
 
 \subsection{dashboardhelper.sh}
-Every time Mobile\_List\_Chart.csv is modified, It's important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other CSV files
-such as Mobile\_Tickets\_Priority.csv or Mobile\_Tickets\_Service.csv, among others. it's very simple to run the script, just open a terminal in ./scripts folder and run ./dashboardhelper.sh -m.
-For futher information, run ./dashboardhelper -h or ./dashboardhelper --help\par
+Every time Mobile\_List\_Chart.csv is modified, it is important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other CSV files such as Mobile\_Tickets\_Priority.csv or Mobile\_Tickets\_Service.csv, among others. it is very simple to run the script, just open a terminal in ./scripts folder and run ./dashboardhelper.sh -m. For futher information, run ./dashboardhelper -h or ./dashboardhelper --help\par
 
 \subsection{Table Column Names}
 In order to change column names to your needs, edit "cell\_header" in the language files inside src/assets/i18n.\par
@@ -168,4 +165,13 @@ In order to change column names to your needs, edit "cell\_header" in the langua
 	]{columns}
 \end{center}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%				   		Configuring XHR						   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Configuring XHR}
+In order to configure XHR, you have to edit "fullUrl" and "portalFolder" inside the config.json. In \textbf{fullUrl} you have to specify the protocol and domain, for example: \\\textbf{"https://www.yourdomain.com"}. in \textbf{portalFolder} you have to specify the route to the main page, for example: \textbf{"/your/route"}, this URL's will be concatenated so the final url wil be \textbf{"https://www.yourdomain.com/your/route"}.\par
+\noindent
+\textbf{Note:} portalFolder can be empty if main page is located in "/".\par
+\noindent
+\textbf{Note:} It is important to be careful with "/" in fullUrl and portalFolder, for example, if fullUrl is \textbf{"https://www.yourdomain.com/"} and portalFolder is \textbf{"/your/route"} your final URL will be \textbf{"https://www.yourdomain.com//your/route"}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.	\par
 \end{document} %% End of document
