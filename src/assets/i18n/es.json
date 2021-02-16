@@ -39,16 +39,33 @@
         "language": "Idioma"
     },
     "by":{
-        "priority":"Por Prioridad",
-        "type":"Por Tipo",
-        "app_service":"Por Aplicación / Servicio",
-        "ticket_status":"Por Estado del Ticket"
+        "priority":"Por Talla",
+        "type":"Por Canal de Venta",
+        "app_service":"Por Tipo de Ropa",
+        "ticket_status":"Por Colección"
     },
     "overall_silt":{
-        "overall_tickets":"Tickets Generales",
+        "overall_tickets":"Ventas Generales",
         "average_silt":"Promedio SILT"
     },
     "legend":{
-        "ticket": "Tipo de Ticket:"
+        "ticket": "Canal de venta:"
+    },
+    "cell_header":{
+        "ticketid":"SalesID",
+        "create_date":"Fecha de Creación",
+        "modify_date":"Fecha de Modificación",
+        "ticket_type":"Canal de ventas",
+        "priority":"Talla",
+        "status":"Colección",
+        "description":"Descripción",
+        "external":"Ciudad",
+        "classification":"Clasificación",
+        "component":"Comunidad",
+        "servicegroup":"Tipo de Ropa",
+        "MonthID":"MonthID",
+        "service_label":"Service Label",
+        "ticket_count":"Ticket Count",
+        "silt":"SILT"
     }
 }

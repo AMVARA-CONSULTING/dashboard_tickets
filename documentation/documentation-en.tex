@@ -13,7 +13,6 @@
 \usepackage{fancyhdr}
 \graphicspath{ {.images/} }
 
-
 \begin{document} %% Starts Document
 \maketitle %% Prints title and author
 
@@ -31,49 +30,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Data Formats} %% First Section
-Data can be ordered by
+Data can be ordered by:
 \begin{itemize} %% Unordered List with dots
 	\item By Priority [1,2,3,4] Being 1 the most critical and 4 the less critical
 	\item By Ticket Type
 	\item By Application/Service
 	\item By Status
 \end{itemize}
-\textbf{Note:} All of these can be changed, for example. Instead of Ticket Type, Sales Channel, instead of By priority, by Clothes Size, etc. Everything can be modified according to your needs\par
-\noindent %% No indent first paragraph
-In the main page, it's shown a graphic with columns sorted by ticket type. Here is an example: \par 
+\textbf{Note:} All of these can be changed, for example. Instead of Ticket Type, Sales Channel, instead of By priority, by Clothes Size, etc. Everything can be modified according to your needs.\par
+
+\subsection{Dashboard's Main Page}
+\noindent
+The main page is divided in two parts. First we've got the graphic, it's sorted by ticket type. Next, in the right part (If we are on desktop) or in the bottom part (If we are on mobile) there are 4 tables with monthly information for each data type. It shows the total of each type of data and the percentage\par
 \begin{center}
-\includegraphics[
-  width=400px,
-  keepaspectratio,
-]{charts}
-\end{center}
-\newpage %% Page break
-\noindent %% No indent first paragraph
-In the right part of the main page (If you are in desktop version) or in the bottom part (If you are in mobile version). There are 4 summary tables with monthly information:\par
-\begin{center} %% Images centered
-	\includegraphics[
-	  height=300px,
-	  keepaspectratio,
-	]{table}
-\end{center}
-We can see the total the total of each month and the percentage of each one.\par
-\newpage %% Page break
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%					Prepare Skinning Section				   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Prepare Skinning} %% Second Section
-Below, there is an image with a screenshot of the dashboard.\par
-\begin{center} %% Image Centered
 \includegraphics[
   width=440px,
   keepaspectratio,
 ]{principal}
 \end{center}
+\newpage %% Page break
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%					Prepare Skinning Section				   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Prepare Skinning} %% Second Section
+In this section, we will see how to change the titles, colors and many other things of the dashboard.
 
 \subsection{Header}
-Header, is edited in .src/app/components/ux/header/header.component.html, in order to change the title we will edit bot span:\par
+Header, is edited in .src/app/components/ux/header/header.component.html, in order to change the title we will edit both span:\par
 \begin{center} %% Image Centered
 \includegraphics[
   width=300px,
@@ -91,21 +76,22 @@ Window title is edited in ./src/index.html, in the title element.\par
 	\end{center}
 
 \subsection{Loading Screen}
-Loading screen title is edited on index.html too, for changing the title, edit the content of div class name \par
+Loading screen title is edited on index.html too, In order to changing the title, edit the content of div class name.\par
 \begin{center} %% Image Centered
 \includegraphics[
 	width=300px,
 	keepaspectratio,
   ]{loader}
   \end{center}
-In order to change the progress bar color, we will edit .progress .progress-value\par
+In order to change the progress bar color, we will edit .progress .progress-value inside index.html styles.\par
 \begin{center} %% Image Centered
 \includegraphics[
 	width=200px,
 	keepaspectratio,
   ]{loader-css}
   \end{center}
-\subsection{General Information}
+\newpage
+  \subsection{General Information}
 General information is edited in ./src/assets/config.json. We will have to edit the contact part:\par
 \begin{center} %% Image Centered
 	\includegraphics[
@@ -122,7 +108,7 @@ Left footer text, is composed by copyright and appTitle, located in the config.j
 		keepaspectratio,
 	  ]{appTitle}
 \end{center}
-Mid and right footer text, is edited in .src/app/components/ux/footer/footer.component.html:\par
+Mid and right footer text, are edited in .src/app/components/ux/footer/footer.component.html:\par
 \begin{center} %% Image Centered
 	\includegraphics[
 		width=400px,
@@ -132,7 +118,7 @@ Mid and right footer text, is edited in .src/app/components/ux/footer/footer.com
 Inside div class flexed, is located the middle text, the text shown will depend if it's accesed from a desktop or a mobile. Then we have the flexed version, that display the execution date and the version of the dashboard.\par
 \newpage
 \subsection{Colors}
-Dasboard's colors, are edited in ./src/app/common/\_colors.scss must be edited.   \par
+Dasboard's colors, are edited in ./src/app/common/\_colors.scss.\par
 \begin{center} %% Image Centered
 	\includegraphics[
 	height=150px,
@@ -143,7 +129,7 @@ The color variables to edit in order to change dashboard colors are:\par
 \begin{itemize} %% Unordered List with dots
 	\item \$bg-color: Dashboard's background color.
 	\item \$semi-white: Dashboard's text color.
-	\item \$blue: Dashboard's colors for title and total numbers .
+	\item \$blue: Dashboard's colors for title and total numbers.
 	\item \$grey: General information telephone color.
 	\item \$orange: Will change percentage text color and general information link.
 \end{itemize}
@@ -156,18 +142,28 @@ In order to change chart legend and colors, the file config.json must be edited.
 	keepaspectratio,
 	]{colorscheme}
 \end{center}
-Colors are changed in "color" and legend names are changed in "name"  \par
+Colors are changed in "color" and legend names are changed in "name"\par
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				   Introducing Data Section					   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\newpage
 \section{Introducing Data} %% Section three \_ \_ of filename.csv needed to print _
 The data insertion or edition is done by editing the file Mobile\_List\_Chart.csv (Located in .src/assets/reports/), it's mandatory to use the same name in the ticket type column 
 inside the csv and in the colorscheme inside config.json (Located in .src/assets/). If not, when clicking in the bar chart, data will not be displayed correctly.\par
+
 \subsection{dashboardhelper.sh}
-Every time Mobile\_List\_Chart.csv is modified, It's important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other files (located in .src/assets/reports/)
+Every time Mobile\_List\_Chart.csv is modified, It's important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other CSV files
 such as Mobile\_Tickets\_Priority.csv or Mobile\_Tickets\_Service.csv, among others. it's very simple to run the script, just open a terminal in ./scripts folder and run ./dashboardhelper.sh -m.
-For futher information run ./dashboardhelper -h or ./dashboardhelper --help\par
+For futher information, run ./dashboardhelper -h or ./dashboardhelper --help\par
+
+\subsection{Table Column Names}
+In order to change column names to your needs, edit "cell\_header" in the language files inside src/assets/i18n.\par
+\begin{center} %% Image Centered
+	\includegraphics[
+	height=220px,
+	keepaspectratio,
+	]{columns}
+\end{center}
 
 \end{document} %% End of document
