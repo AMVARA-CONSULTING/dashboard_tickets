@@ -1,11 +1,16 @@
 <div class="help-box">
   <help-title>General Information</help-title>
   <div class="contact-info">
-    <div class="category" *ngIf="config.apiType === 'cognos'">
+    <div class="category">
       iBISS:
     </div>
     <div class="telephones">
-      <a [href]="config.portalLink[config.scenario]" *ngIf="config.apiType === 'cognos'" target="_blank">Link to {{ config.copyright }} Corporate Analytics Platform</a>
+      <ng-container *ngIf="config.apiType === 'cognos'; else normalType">
+        <a [href]="config.portalLink[config.scenario]" target="_blank">Link to {{ config.appTitle }} Corporate Analytics Platform</a>
+      </ng-container>
+      <ng-template #normalType>
+        <a [href]="config.portalFolder" target="_blank">Link to {{ config.appTitle }}</a>
+      </ng-template>
     </div>
   </div>
   <div class="contact-info">

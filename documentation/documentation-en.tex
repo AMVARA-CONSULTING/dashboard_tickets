@@ -1,4 +1,4 @@
-\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\times}{\sffamily}
 
 \title{AMVARA DASHBOARD}
 \author{
@@ -6,15 +6,19 @@
 }
 \date{\today} %% Adds today date
 
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage[legalpaper, margin=3cm]{geometry}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\usepackage{fancyhdr}
 \graphicspath{ {.images/} }
-\setlength{\parskip}{4px}
+\setlength{\parindent}{0pt}
 
-\begin{document} %% Starts Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%					  	 BEGIN DOCUMENT	 					   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document} 
 \maketitle %% Prints title and author
 
 \begin{centering} %% Displays an image and webpage url centered
@@ -26,16 +30,14 @@
 \tableofcontents %% Display's Table of contents
 \newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%					  Data Formats Section 					   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Introduction} %% First Section
-This dashboard loads data from server via XHR requests and (depending on server speed) is able to visualize data in under 1 second. This documentation describes how to modify the data to fit your needs and howto change the skinning to meet your styleguide.
+This dashboard loads data from server via XHR requests and (depending on server speed) is able to visualize data in under 1 second. This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your styleguide.
 
 \subsection{Dashboard's Main Page}
-\noindent
-The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop) or in the bottom part (If we are on mobile) there are 4 tables with monthly information for each data type. It shows the total of each type of data and the percentage\par
+
+The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop), or, in the bottom part (If we are on mobile), there are 4 tables with monthly information for each data type. It shows totals and percentages\par
 \begin{center}
 \includegraphics[
   width=440px,
@@ -57,19 +59,20 @@ Data can be ordered by:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Prepare Skinning} %% Second Section
-In this section, we will see how to change the titles, colors and many other things of the dashboard.
+In this section, we will see how to change the dashboard skinning to meet your styleguide.
 
 \subsection{Header}
-Header, is edited in .src/app/components/ux/header/header.component.html, in order to change the title we will edit both span:\par
+Header title, is edited in .src/app/components/ux/header/header.component.html.The original title is ``AMVARA Code Is Poetry'', in order to change the title we will edit both span:\par
 \begin{center} %% Image Centered
 \includegraphics[
   width=300px,
   keepaspectratio,
 ]{header}
 \end{center}
+First span is shown in white color, the second one, in red. (How to change colors is explained later).
 
 \subsection{Window Title}
-Window title is edited in ./src/index.html, in the title element.\par
+Window title is edited on ./src/index.html. In order to edit it, simply change ``AMVARA DASHBOARD'' inside the title tag, with, ``YOUR DASHBOARD TITLE''.\par
 \begin{center} %% Image Centered
 	\includegraphics[
 	width=300px,
@@ -78,22 +81,48 @@ Window title is edited in ./src/index.html, in the title element.\par
 	\end{center}
 
 \subsection{Loading Screen}
-Loading screen title is edited on index.html too, In order to changing the title, edit the content of div class name.\par
+Loading screen is edited on ./src/index.html
+\subsubsection{Loading Screen Title}
+In order to change the title, div class name must be edited. The part inside ``b'' tag will be displayed with the color specified in ``blue'' class.\par
 \begin{center} %% Image Centered
 \includegraphics[
 	width=300px,
 	keepaspectratio,
   ]{loader}
   \end{center}
-In order to change the progress bar color, we will edit .progress .progress-value inside index.html styles.\par
+\subsubsection{Loading Screen CSS}
+In order to change the ``blue'' class color, simply, find inside index.html style the blue selector and change the color to your needs:
+\begin{center} %% Image Centered
+	\includegraphics[
+		width=90px,
+		keepaspectratio,
+	  ]{blue}
+	  \end{center}
+\pagebreak
+In order to change the progress bar color, you have to edit ``.progress .progress-value'' inside index.html styles. If you want the bar to have a different background, change background-color inside .progress. If the color in .progress is the same as the background color of the dashboard, the bar will not have a visible background\par
 \begin{center} %% Image Centered
 \includegraphics[
-	width=200px,
+	height=200px,
 	keepaspectratio,
   ]{loader-css}
   \end{center}
+If you want to change the background color, edit the background-color property in the body style selector.\par
+\begin{center} %% Image Centered
+	\includegraphics[
+		width=200px,
+		keepaspectratio,
+	  ]{loaderbg}
+	  \end{center}
+For changing the color of the first part of the title, edit the color property in the name class style selector.
+\begin{center} %% Image Centered
+	\includegraphics[
+		height=200px,
+		keepaspectratio,
+	  ]{loadercolor}
+	  \end{center}
 \newpage
-  \subsection{General Information}
+
+\subsection{General Information}
 General information is edited in ./src/assets/config.json. We will have to edit the contact part:\par
 \begin{center} %% Image Centered
 	\includegraphics[
@@ -102,6 +131,9 @@ General information is edited in ./src/assets/config.json. We will have to edit 
 	  ]{contact}
 \end{center}
 
+\textbf{NOTE:} Description can have more than one line.\par
+\smallskip
+\textbf{NOTE:} If more telephones are needed, just add a comma behind the last one and add another number.\par
 \subsection{Footer}
 Left footer text, is composed by copyright and appTitle, located in the config.json.\par
 \begin{center} %% Image Centered
@@ -144,7 +176,7 @@ In order to change chart legend and colors, the file config.json must be edited.
 	keepaspectratio,
 	]{colorscheme}
 \end{center}
-Colors are changed in "color" and legend names are changed in "name"\par
+Colors are changed in ``color'' and legend names are changed in ``name''\par
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				   Introducing Data Section					   %
@@ -157,7 +189,7 @@ The data insertion or edition is done by editing the file Mobile\_List\_Chart.cs
 Every time Mobile\_List\_Chart.csv is modified, it is important to execute dashboardhelper.sh (Located in .scripts/), this script will read the csv and will complete the other CSV files such as Mobile\_Tickets\_Priority.csv or Mobile\_Tickets\_Service.csv, among others. it is very simple to run the script, just open a terminal in ./scripts folder and run ./dashboardhelper.sh -m. For futher information, run ./dashboardhelper -h or ./dashboardhelper --help\par
 
 \subsection{Table Column Names}
-In order to change column names to your needs, edit "cell\_header" in the language files inside src/assets/i18n.\par
+In order to change column names to your needs, edit ``cell\_header'' in the language files inside src/assets/i18n.\par
 \begin{center} %% Image Centered
 	\includegraphics[
 	height=220px,
@@ -166,12 +198,17 @@ In order to change column names to your needs, edit "cell\_header" in the langua
 \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%				   		Configuring XHR						   %
+%				    Configure XHR Section					   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Configuring XHR}
-In order to configure XHR, you have to edit "fullUrl" and "portalFolder" inside the config.json. In \textbf{fullUrl} you have to specify the protocol and domain, for example: \\\textbf{"https://www.yourdomain.com"}. in \textbf{portalFolder} you have to specify the route to the main page, for example: \textbf{"/your/route"}, this URL's will be concatenated so the final url wil be \textbf{"https://www.yourdomain.com/your/route"}.\par
-\noindent
-\textbf{Note:} portalFolder can be empty if main page is located in "/".\par
-\noindent
-\textbf{Note:} It is important to be careful with "/" in fullUrl and portalFolder, for example, if fullUrl is \textbf{"https://www.yourdomain.com/"} and portalFolder is \textbf{"/your/route"} your final URL will be \textbf{"https://www.yourdomain.com//your/route"}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.	\par
+\section{Configure XHR}
+In order to configure XHR, ``fullUrl'' and ``portalFolder'' must be edited inside config.json. In \textbf{fullUrl} you have to specify the protocol and domain, for example:\\\textbf{``https://www.yourdomain.com''}. In \textbf{portalFolder} you have to specify the route to the main page, for example: \textbf{``/your/route''}, this URL's will be concatenated so the final url wil be \textbf{``https://www.yourdomain.com/your/route''}.\par
+\bigskip
+
+\textbf{Note:} portalFolder can be empty if main page is located in \textbf{``/''}.\par
+\smallskip
+
+\textbf{Note:} It is important to be careful with ``/'' in fullUrl and portalFolder, for example, if fullUrl is \textbf{``https://www.yourdomain.com/''} and portalFolder is \textbf{``/your/route''} your final URL will be \textbf{``https://www.yourdomain.com//your/route''}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.	\par
+
+\subsection{Configure IBM Cognos}
+
 \end{document} %% End of document

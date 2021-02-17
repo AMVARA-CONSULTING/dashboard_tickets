@@ -1,7 +1,7 @@
 {
   "version": "1.24.0",
   "language": "en",
-  "appTitle": "Code Is Poetry",
+  "appTitle": "AMVARA Dashboard",
   "scenario": "dev",
   "delay": 0,
   "delayRequests": 0,
@@ -67,7 +67,7 @@
     "dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
     "prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
   },
-  "apiType":{},
+  "apiType": "",
   "displayedColumnsDefault": [
     "id",
     "create_date",
