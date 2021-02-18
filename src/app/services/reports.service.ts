@@ -83,7 +83,7 @@ export class ReportsService {
         this.loadInitialReport().then(_ => resolve())
       } else {
         console.log("Sending XHR to /analytics/bi/v1/notifications")
-        this.http.get(`${config.fullUrl}${config.portalFolder}v1/notifications`, { observe: 'response', responseType: 'text' })
+        this.http.get(`${config.fullUrl}${config.portalFolder}${config.protectedUrl}`, { observe: 'response', responseType: 'text' })
           .subscribe(
             _ => {
               console.log("XSRF Token was valid, load CISM")

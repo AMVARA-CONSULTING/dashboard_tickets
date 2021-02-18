@@ -38,6 +38,7 @@
 
   "fullUrl": "",
   "portalFolder": "/analytics/bi/",
+  "protectedUrl":"v1/notifications",
   "excludeDatesFuture": true,
   "system": {
     "enable": false,

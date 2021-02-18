@@ -77,7 +77,7 @@ export class AppComponent {
     })
     if (config.heartbeat > 0 && location.hostname.indexOf('corpintra.net') == -1 && !config.corpintraMode) {
       interval(config.heartbeat ).subscribe(_ => {
-        this._http.get(`${config.fullUrl}${config.portalFolder}v1/notifications`)
+        this._http.get(`${config.fullUrl}${config.portalFolder}${config.protectedUrl}`)
         .pipe(
           retry(3)
         )
