@@ -1,8 +1,8 @@
 \title{AMVARA DASHBOARD}
 \author{
-	AMVARA CONSULTING S.L.\\
+	AMVARA CONSULTING S.L.
 }
-\date{\today} %% Adds today date
+\date{} % Quits date under AMVARA CONSULTING (IF EMPTY WILL SHOW TODAY DATE)
 
 \documentclass[11pt]{article}
 \usepackage[legalpaper, margin=3cm]{geometry}
@@ -52,6 +52,9 @@
 	\includegraphics{amvara} \par
 	\bigskip
 	\url{https://www.amvara.de/} \par
+	\bigskip
+	\bigskip
+	\date{\today}\par %% Adds today date
 \end{centering}
 
 \newpage %% Page break
@@ -258,7 +261,7 @@ If \textbf{you are not using IBM Cognos}, change ``protectedUrl'' to ``'' :
 
 \subsection{Configure IBM Cognos as datasource} 
 
-\color{redlink}\href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}} \color{black}is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{redlink}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API}} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help how to accomplish this, please contact.
+\color{redlink}\href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}} \color{black}is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{redlink}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API}} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help how to accomplish this, please contact us.
 \bigskip
 
 Configuring IBM Cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
