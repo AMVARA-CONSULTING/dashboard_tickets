@@ -1,8 +1,6 @@
-\renewcommand{\familydefault}{\sfdefault}
-
 \title{AMVARA DASHBOARD}
 \author{
-        Amvara Consulting S.L.\\
+	AMVARA CONSULTING S.L.\\
 }
 \date{\today} %% Adds today date
 
@@ -11,8 +9,36 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage[sfdefault]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+
+%%% HEADER AND FOOTER %%%
+
+\usepackage{fancyhdr}
+
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{AMVARA dashboard}
+%\fancyhead[C]{\date{\today}}
+\fancyhead[R]{\includegraphics[height=22px]{amvara}}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[L]{AMVARA CONSULTING S.L.}
+\fancyfoot[C]{\thepage}
+%\fancyfoot[R]{\date{\today}}
+
+\fancyfoot[R]{ \{\color{red}CODE\color{black}\} is POETRY }
+\renewcommand{\footrulewidth}{0.4pt}
+
+
 \graphicspath{ {.images/} }
 \setlength{\parindent}{0pt}
+\definecolor{black}{HTML}{001628}
+\color{black}
+
+\definecolor{red}{HTML}{ef3340}
+\definecolor{redlink}{HTML}{d32f2f}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %					  	 BEGIN DOCUMENT	 					   %
@@ -21,14 +47,17 @@
 
 \begin{document} 
 \maketitle %% Prints title and author
+\thispagestyle{empty}
 
 \begin{centering} %% Displays an image and webpage url centered
 	\includegraphics{amvara} \par
+	\bigskip
 	\url{https://www.amvara.de} \par
 \end{centering}
 
 \newpage %% Page break
 \tableofcontents %% Display's Table of contents
+\thispagestyle{empty}
 \newpage
 
 
@@ -38,7 +67,7 @@ This dashboard loads data from server via XHR requests and (depending on server 
 
 \subsection{Dashboard's Main Page}
 
-The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop), or, in the bottom part (If we are on mobile), there are 4 tables with monthly information for each data type. It shows totals and percentages\par
+The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop), or, in the bottom part (If we are on mobile), there are 4 tables with monthly information for each data type. It shows totals and percentages.\par
 \begin{center}
 \includegraphics[
   width=440px,
@@ -82,7 +111,7 @@ Window title is edited on ./src/index.html. In order to edit it, simply change `
 	\end{center}
 
 \subsection{Loading Screen}
-Loading screen is edited on ./src/index.html
+Loading screen is edited on ./src/index.html.
 \subsubsection{Loading Screen Title}
 In order to change the title, div class name must be edited. The part inside ``b'' tag will be displayed with the color specified in ``blue'' class.\par
 \begin{center} %% Image Centered
@@ -100,7 +129,7 @@ In order to change the ``blue'' class color, simply, find inside index.html styl
 	  ]{blue}
 	  \end{center}
 \pagebreak
-In order to change the progress bar color, you have to edit ``.progress .progress-value'' inside index.html styles. If you want the bar to have a different background, change background-color inside .progress. If the color in .progress is the same as the background color of the dashboard, the bar will not have a visible background\par
+In order to change the progress bar color, you have to edit ``.progress .progress-value'' inside index.html styles. If you want the bar to have a different background, change background-color inside .progress. If the color in .progress is the same as the background color of the dashboard, the bar will not have a visible background.\par
 \begin{center} %% Image Centered
 \includegraphics[
 	height=200px,
@@ -170,14 +199,14 @@ The color variables to edit in order to change dashboard colors are:\par
 \end{itemize}
 
 \subsection{Chart Legend and colors}
-In order to change chart legend and colors, the file config.json must be edited. it is located in ./src/assets/config.json\par
+In order to change chart legend and colors, the file config.json must be edited. it is located in ./src/assets/config.json.\par
 \begin{center} %% Image Centered
 	\includegraphics[
 	height=250px,
 	keepaspectratio,
 	]{colorscheme}
 \end{center}
-Colors are changed in ``color'' and legend names are changed in ``name''\par
+Colors are changed in ``color'' and legend names are changed in ``name''.\par
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				   Introducing Data Section					   %
@@ -225,8 +254,16 @@ If \textbf{you are not using IBM Cognos}, change ``protectedUrl'' to ``'' :
 \textbf{Note:} portalFolder can be empty if main page is located in \textbf{web root}.\par
 \smallskip
 \textbf{Note:} It is important to be careful with ``/'' in fullUrl and portalFolder, for example, if fullUrl is \textbf{``https://www.yourdomain.com/''} and portalFolder is \textbf{``/your/route''} your final URL will be \textbf{``https://www.yourdomain.com//your/route''}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.\par
-\subsection{Configure IBM Cognos}
-Configuring IBM cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
+
+%%%%%%%%%%%%%%%%%%%
+
+\subsection{Configure IBM Cognos as datasource} 
+
+\color{redlink}\href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}} \color{black}is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{redlink}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API}} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help how to accomplish this, please contact.
+\bigskip
+
+Configuring IBM Cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
+
 
 \begin{center} %% Image Centered
 	\includegraphics[
@@ -239,6 +276,6 @@ Also, in config.json edit ``apiType'' value and set it to ``cognos'', by default
 
 
 \section{Support}
-Please do not hesitate to contact us on \color{blue}\href{https://discord.gg/VeMbxJWxsg}{\textbf{Discord}} \color{black}in case of questions  or by email: \textbf{tec\_dev@amvara.de}
+Please do not hesitate to contact us on \color{redlink}\href{https://discord.gg/VeMbxJWxsg}{\textbf{Discord}} \color{black}in case of questions  or by email.
 
 \end{document} %% End of document
