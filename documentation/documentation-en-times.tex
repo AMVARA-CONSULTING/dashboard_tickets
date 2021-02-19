@@ -1,4 +1,14 @@
-\renewcommand{\times}{\sfdefault}
+\documentclass{article}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[sfdefault]{roboto}
+%\renewcommand{\roboto}{\sfdefault}
+\usepackage{fontspec}
+\setmainfont[BoldFont={Roboto-Bold.ttf},
+ItalicFont={Roboto-LightItalic.ttf},
+BoldItalicFont={Roboto-BoldItalic.ttf}
+]{Roboto-Light.ttf}
+%\setmainfont{roboto}
 
 \title{AMVARA DASHBOARD}
 \author{
@@ -13,7 +23,8 @@
 \usepackage{xcolor}
 \graphicspath{ {.images/} }
 \setlength{\parindent}{0pt}
-
+\definecolor{black}{HTML}{001628}
+\color{black}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %					  	 BEGIN DOCUMENT	 					   %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -225,8 +236,13 @@ If \textbf{you are not using IBM Cognos}, change ``protectedUrl'' to ``'' :
 \textbf{Note:} portalFolder can be empty if main page is located in \textbf{web root}.\par
 \smallskip
 \textbf{Note:} It is important to be careful with ``/'' in fullUrl and portalFolder, for example, if fullUrl is \textbf{``https://www.yourdomain.com/''} and portalFolder is \textbf{``/your/route''} your final URL will be \textbf{``https://www.yourdomain.com//your/route''}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.\par
-\subsection{Configure IBM Cognos}
-Configuring IBM cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
+\subsection{Configure IBM Cognos as datasource} 
+
+\href{https://www.ibm.com/products/cognos-analytics}{IBM Cognos (aka IBM Analytics)} is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{blue}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API }} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help how to accomplish this, please contact.
+\bigskip
+
+Configuring IBM Cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
+
 
 \begin{center} %% Image Centered
 	\includegraphics[
