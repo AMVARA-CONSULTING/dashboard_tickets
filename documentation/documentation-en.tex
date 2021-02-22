@@ -1,11 +1,9 @@
-\title{AMVARA DASHBOARD}
-\author{
-	AMVARA CONSULTING S.L.
-}
+\title{AMVARA DASHBOARD "tickets"}
 \date{} % Quits date under AMVARA CONSULTING (IF EMPTY WILL SHOW TODAY DATE)
 
 \documentclass[11pt]{article}
-\usepackage[legalpaper, margin=3cm]{geometry}
+\usepackage[a4paper, total={6in, 8in}, margin=3cm]{geometry}
+%\usepackage[legalpaper, margin=3cm]{geometry}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -21,11 +19,11 @@
 \pagestyle{fancy}
 \fancyhf{}
 %%%% HEADER %%%%
-\fancyhead[L]{AMVARA dashboard}
+\fancyhead[L]{AMVARA dashboard "tickets"}
 \fancyhead[R]{\includegraphics[height=22px]{amvara}}
 \renewcommand{\headrulewidth}{0.4pt} % Añade la línea
 %%%% FOOTER %%%%
-\fancyfoot[L]{AMVARA CONSULTING S.L.}
+\fancyfoot[L]{AMVARA CONSULTING}
 \fancyfoot[C]{\thepage}
 \fancyfoot[R]{ \{\color{red}CODE\color{black}\} is POETRY }
 \renewcommand{\footrulewidth}{0.4pt} % Añade la línea
@@ -49,6 +47,29 @@
 \thispagestyle{empty}
 
 \begin{centering} %% Displays an image and webpage url centered
+	Extremly fast visualization on any device.
+	\bigskip
+	\par
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip	
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
+	\bigskip
 	\includegraphics{amvara} \par
 	\bigskip
 	\url{https://www.amvara.de/} \par
@@ -65,7 +86,7 @@
 
 
 \section{Introduction} %% First Section
-This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second.
+This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second. We really focused on the speed of visualization. This is why users enjoy using our dashboards at work to review company KPIs day by day. The usage of the dashboard is self explaining - so enduser training is not needed to understand the navigation path. 
 \bigskip
 
 This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your styleguide.
@@ -82,6 +103,9 @@ The dashboard is able to read saved report output from IBM Analytics (aka IBM Co
 \subsection{Dashboard's Main Page}
 
 The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop), or, in the bottom part (If we are on mobile), there are 4 tables with monthly information for each data type. It shows totals and percentages.\par
+\bigskip
+Experimental features can be enabled in the help section of the menu.
+
 \begin{center}
 \includegraphics[
   width=440px,
@@ -95,14 +119,18 @@ Data can be ordered by:
 	\item By Application/Service
 	\item By Status
 \end{itemize}
-\textbf{Note:} All of these can be changed, for example. Instead of Ticket Type, Sales Channel, instead of By priority, by Clothes Size, etc. Everything can be modified according to your needs.\par
+\textbf{Note:} All of these can be changed, for example. Instead of Ticket Type, Sales Channel, instead of By priority, by Clothes Size, etc. Everything can be modified according to your needs and the data you want to visualize.\par
 
 \subsection{Deployment and Compiling}
 
-The src-folder contains the project files that must be compiled. The compiled files reside in dist-folder.
-We provide a docker-compose.yml file for you to start everything needed inside a container.
+The \verb|src|-folder contains the project files that must be compiled. The compiled files reside in \verb|dist|-folder. See \verb|README.md| for details on how to compile the project. 
+\bigskip
+
+We provide a \verb|docker-compose.yml| file for you, to start everything needed inside a container.
+\bigskip
 
 If you have a webserver up and running, you could also just copy the files from "dist" directory to a directory on your webserver.
+\bigskip
 
 \newpage %% Page break
 
@@ -275,7 +303,7 @@ If \textbf{you are not using IBM Cognos}, change ``protectedUrl'' to ``'' :
 \smallskip
 \textbf{Note:} portalFolder can be empty if main page is located in \textbf{web root}.\par
 \smallskip
-\textbf{Note:} It is important to be careful with ``/'' in fullUrl and portalFolder, for example, if fullUrl is \textbf{``https://www.yourdomain.com/''} and portalFolder is \textbf{``/your/route''} your final URL will be \textbf{``https://www.yourdomain.com//your/route''}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.\par
+\textbf{Note:} It is important to be careful with ``/'' in fullUrl and portalFolder, for example, if fullUrl is \textbf{``https://www.yourdomain.com/''} and portalFolder is \textbf{``/your/route''} your final URL will be \textbf{``https://www.yourdomain.com/your/route''}. So you can specify it at the end of fullUrl or at the start of portalFolder, but not in both of them.\par
 
 %%%%%%%%%%%%%%%%%%%
 
@@ -299,5 +327,8 @@ Also, in config.json edit ``apiType'' value and set it to ``cognos'', by default
 
 \section{Support}
 Please do not hesitate to contact us on \color{redlink}\href{https://discord.gg/VeMbxJWxsg}{\textbf{Discord}} \color{black}in case of questions or by email: \\tec\_dev@amvara.de
+\bigskip
+
+We would love to hear from you.
 
 \end{document} %% End of document
