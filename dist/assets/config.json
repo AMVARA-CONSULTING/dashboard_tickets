@@ -1,21 +1,44 @@
 {
-  "version": "1.23.0",
+  "version": "1.24.0",
   "language": "en",
-  "appTitle": "IWM Reporting",
+  "appTitle": "AMVARA Dashboard",
   "scenario": "dev",
   "delay": 0,
   "delayRequests": 0,
-  "copyright": "DAIMLER",
+  "copyright": "AMVARA",
   "corpintraMode": false,
   "heartbeat": 300000,
   "license": "SFASR",
   "ticketOptions": true,
   "languageCodes": {
     "en": "English",
-    "de": "Deutsch"
+    "de": "Deutsch",
+    "es": "Español",
+    "cat": "Català"
   },
+  "colorScheme": [
+    {
+      "color": "#1e88e5",
+      "name": "Online"
+    },  
+    {
+      "color": "#d32f2f",
+      "name": "Outlet"
+    },
+    {
+      "color": "#d3d3d3",
+      "name": "Retail"
+    },
+    {
+      "color": "#efb810",
+      "name": "Whitebrand"
+    }
+  ],
+  "show_debug_in_console": true,
+
   "fullUrl": "",
   "portalFolder": "/analytics/bi/",
+  "protectedUrl":"v1/notifications",
   "excludeDatesFuture": true,
   "system": {
     "enable": false,
@@ -45,6 +68,7 @@
     "dev": "/ibmcognos/cgi-bin/cognosisapi.dll",
     "prod": "/ibmcognos/cgi-bin/cognosisapi.dll"
   },
+  "apiType": "",
   "displayedColumnsDefault": [
     "id",
     "create_date",
@@ -112,12 +136,12 @@
   "contacts": {
     "dev": [
       {
-        "name": "Csaba Slemmer",
-        "description": "ITS/M",
-        "email": "Csaba.slemmer@daimler.com",
+        "name": "Name Surname",
+        "description": "Description",
+        "email": "name.surname@amvara.de",
         "telephones": [
-          "+49 711 17 94201",
-          "+49 176 3096 3593"
+          "+34 612 34 56 78",
+          "+34 619 87 65 43"
         ]
       }
     ]
@@ -245,6 +269,12 @@
     }
   },
   "changelog": [
+    {
+      "version": "1.24.0",
+      "text": [
+        "#2781 - Fix CISM mocked reports with updated dates"
+      ]
+    },
     {
       "version": "1.23.0",
       "text": [

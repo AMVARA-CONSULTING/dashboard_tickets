@@ -1,0 +1,71 @@
+{
+    "menu": {
+        "order_intake": "Órdenes entrantes",
+        "production_program": "Programa de producción",
+        "allocation": "Asignación",
+        "plant_stock": "Duración",
+        "about": "Acerca De",
+        "help": "Ayuda"
+    },
+    "connected": "Conectado",
+    "not_connected": "Desconectado",
+    "plandate": "Estado del programa",
+    "region": "Región",
+    "product": "Producto",
+    "regions": "Regiones",
+    "products": "Productos",
+    "production_program": {
+        "customer": "Cliente",
+        "plan": "Plan",
+        "total": "Total",
+        "reserve": "Reserva"
+    },
+    "allocation": {
+        "program": "Programa",
+        "allocation": "Asignación"
+    },
+    "about": {
+        "betaFeatures": "Activar características experimentales",
+        "notBetaFeatures": "Desactivar características experimentales",
+        "config": "Configuración",
+        "sponsor": "Sponsor",
+        "credits": "Creditos",
+        "thanks": "Gracias",
+        "software": "Software",
+        "licenses": "Licencias",
+        "technical_information": "Información técnica",
+        "changelog": "Informe de cambios",
+        "reloadLanguageFiles": "Recargar archivos de idioma",
+        "language": "Idioma"
+    },
+    "by":{
+        "priority":"Por Talla",
+        "type":"Por Canal de Venta",
+        "app_service":"Por Tipo de Ropa",
+        "ticket_status":"Por Colección"
+    },
+    "overall_silt":{
+        "overall_tickets":"Ventas Generales",
+        "average_silt":"Promedio SILT"
+    },
+    "legend":{
+        "ticket": "Canal de venta:"
+    },
+    "cell_header":{
+        "ticketid":"SalesID",
+        "create_date":"Fecha de Creación",
+        "modify_date":"Fecha de Modificación",
+        "ticket_type":"Canal de ventas",
+        "priority":"Talla",
+        "status":"Colección",
+        "description":"Descripción",
+        "external":"Ciudad",
+        "classification":"Clasificación",
+        "component":"Comunidad",
+        "servicegroup":"Tipo de Ropa",
+        "MonthID":"MonthID",
+        "service_label":"Service Label",
+        "ticket_count":"Ticket Count",
+        "silt":"SILT"
+    }
+}

@@ -35,5 +35,18 @@
         "licenses": "Lizenzhinweise",
         "technical_information": "Technische Informationen",
         "changelog": "Changelog"
+    },
+    "by":{
+        "priority":"by Priority",
+        "type":"by Ticket Type",
+        "app_service":"by Application / Service",
+        "ticket_status":"by Ticket Status"
+    },
+    "overall_silt":{
+        "overall_tickets":"Overall Tickets",
+        "average_silt":"Average SILT"
+    },
+    "legend":{
+        "ticket": "Ticket Type:"
     }
 }

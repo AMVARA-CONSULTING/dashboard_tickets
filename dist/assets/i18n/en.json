@@ -27,7 +27,7 @@
     "about": {
         "betaFeatures": "Enable experimental features",
         "notBetaFeatures": "Disable experimental features",
-        "config": "Config",
+        "config": "Configuration",
         "sponsor": "Sponsor",
         "credits": "Credits",
         "thanks": "Thank you",
@@ -37,5 +37,35 @@
         "changelog": "Changelog",
         "reloadLanguageFiles": "Reload Language Files",
         "language": "Language"
+    },
+    "by":{
+        "priority":"by Clothes Size",
+        "type":"by Sales Channel",
+        "app_service":"by Type of Clothes",
+        "ticket_status":"by Clothes Collection"
+    },
+    "overall_silt":{
+        "overall_tickets":"Overall Sales",
+        "average_silt":"Average SILT"
+    },
+    "legend":{
+        "ticket": "Sales Channel:"
+    },
+    "cell_header":{
+        "ticketid":"SalesID",
+        "create_date":"Create Date",
+        "modify_date":"Modify Date",
+        "ticket_type":"Sales Channel",
+        "priority":"Size",
+        "status":"Collection",
+        "description":"Description",
+        "external":"City",
+        "classification":"Classification",
+        "component":"Community",
+        "servicegroup":"Clothes Type",
+        "MonthID":"MonthID",
+        "service_label":"Service Label",
+        "ticket_count":"Ticket Count",
+        "silt":"SILT"
     }
 }

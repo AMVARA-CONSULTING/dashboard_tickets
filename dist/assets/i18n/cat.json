@@ -1,0 +1,54 @@
+{
+    "menu": {
+        "order_intake": "Ordres entrants",
+        "production_program": "Programa de producció",
+        "allocation": "Asignació",
+        "plant_stock": "Duració",
+        "about": "Sobre",
+        "help": "Ajuda"
+    },
+    "connected": "Conectat",
+    "not_connected": "Desconectat",
+    "plandate": "Estat del programa",
+    "region": "Regió",
+    "product": "Producte",
+    "regions": "Regions",
+    "products": "Productes",
+    "production_program": {
+        "customer": "Client",
+        "plan": "Pla",
+        "total": "Total",
+        "reserve": "Reserva"
+    },
+    "allocation": {
+        "program": "Programa",
+        "allocation": "Asignació"
+    },
+    "about": {
+        "betaFeatures": "Activar característiques experimentals",
+        "notBetaFeatures": "Desactivar característiques experimentals",
+        "config": "Configuració",
+        "sponsor": "Sponsor",
+        "credits": "Credits",
+        "thanks": "Gràcies",
+        "software": "Software",
+        "licenses": "Llicències",
+        "technical_information": "Informació tècnica",
+        "changelog": "Informe de canvis",
+        "reloadLanguageFiles": "Recarregar arxius d'idioma",
+        "language": "Idioma"
+    },
+    "by":{
+        "priority":"Per Prioritat",
+        "type":"Per Tipus",
+        "app_service":"Per Aplicació / Servei",
+        "ticket_status":"Per Estat del Ticket"
+    },
+    "overall_silt":{
+        "overall_tickets":"Tickets generals",
+        "average_silt":"Mitjana SILT"
+    },
+    "legend":{
+        "ticket": "Tipus de Ticket:"
+    }
+}
