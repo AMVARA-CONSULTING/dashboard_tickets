@@ -65,7 +65,19 @@
 
 
 \section{Introduction} %% First Section
-This dashboard loads data from server via XHR requests and (depending on server speed) is able to visualize data in under 1 second. This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your styleguide.
+This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second.
+\bigskip
+
+This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your styleguide.
+\bigskip
+
+The dashboard uses Angular. Makeing changes to files inside the src directory requires to compile the project and update the dist directory. See README.md file for details.
+\bigskip
+
+The dashboard has a config-file where we specify the data endpoints to fetch data from. If fetching data from theses endpoints fails, it falls back to search files in the assests/reports directory. 
+\bigskip
+
+The dashboard is able to read saved report output from IBM Analytics (aka IBM Cognos). Which comes in handy as this dashboard uses the IBM Cognos REST API to just fetch the data and avoids to load the IBM Cognos Portal files reducing overhead to a minimum by focusing on speed and performance to visualize the raw data. Fetching data from REST APIs is of course not limited to IBM Cognos. We would be happy to know from which services or servers you load the dashboard data. See support chapter on how to contact us.
 
 \subsection{Dashboard's Main Page}
 
@@ -84,6 +96,14 @@ Data can be ordered by:
 	\item By Status
 \end{itemize}
 \textbf{Note:} All of these can be changed, for example. Instead of Ticket Type, Sales Channel, instead of By priority, by Clothes Size, etc. Everything can be modified according to your needs.\par
+
+\subsection{Deployment and Compiling}
+
+The src-folder contains the project files that must be compiled. The compiled files reside in dist-folder.
+We provide a docker-compose.yml file for you to start everything needed inside a container.
+
+If you have a webserver up and running, you could also just copy the files from "dist" directory to a directory on your webserver.
+
 \newpage %% Page break
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
