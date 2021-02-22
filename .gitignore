@@ -35,6 +35,7 @@ yarn-error.log
 testem.log
 /typings
 *en.aux
+*.log
 *en.log
 *en.out
 *en.toc
