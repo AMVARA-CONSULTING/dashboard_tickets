@@ -1,4 +1,4 @@
-# DASHBOARD tickets (aka Cism)
+# DASHBOARD tickets (aka Cism from BMC)
 
 Hightlights:
 * Extremly fast visualization  First contentfull paint (FCP) < 0.2s; Time to interactive (TTI) < 1s
