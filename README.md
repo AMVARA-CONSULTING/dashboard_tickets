@@ -8,7 +8,11 @@ Hightlights:
 * Selfexplaining, no enduser training 
 * Easy skinning
 
-Please see the [PDF file in documentation folder](documentation/documentation-en.pdf) for details 
+Documentation:
+* Please see the [PDF file in documentation folder](documentation/documentation-en.pdf) for details 
+
+Demo:
+* [Live view of dashboard](https://amvara-consulting.github.io/dashboard_tickets.github.io/#/)
 
 ## More Details
 
@@ -20,7 +24,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 on how to adapt the dashboard data and skinning to your needs.
 
-[Live view of dashboard](https://amvara-consulting.github.io/dashboard_tickets.github.io/#/)
 
 ## Installing
 
