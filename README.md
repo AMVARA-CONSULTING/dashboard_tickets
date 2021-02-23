@@ -1,12 +1,24 @@
 # DASHBOARD tickets (aka Cism)
 
+Hightlights:
+* Extremly fast visualization  First contentfull paint (FCP) < 0.2s; Time to interactive (TTI) < 1s
+* Any device: works on any phone, tablett and desktop.
+* No installation, no download, no app-store
+* Fetches CSV data from any REST API 
+* Selfexplaining, no enduser training 
+* Easy skinning
+
+Please see the [PDF file in documentation folder](documentation/documentation-en.pdf) for details 
+
+## More Details
+
 This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second. We really focused on the speed of visualization. This is why users enjoy using our dashboards at work to review company KPIs day by day. The usage of the dashboard is self explaining - so enduser training is not needed to understand the navigation path.
 
 The dashboard is able to read saved report output from [IBM Cognos (aka IBM Analytics)](https://www.ibm.com/products/cognos-analytics). Which comes in handy as this dashboard uses the IBM Cognos REST API to just fetch the data and avoids to load the IBM Cognos Portal files reducing overhead to a minimum by focusing on speed and performance to visualize the raw data. Fetching data from [REST APIs](https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json) is of course not limited to IBM Cognos. We would be happy to know from which services or servers you load the dashboard data
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.5.
 
-Please see the [PDF file in documentation folder](documentation/documentation-en.pdf) for details on how to adapt the dashboard data and skinning to your needs.
+on how to adapt the dashboard data and skinning to your needs.
 
 [Live view of dashboard](https://amvara-consulting.github.io/dashboard_tickets.github.io/#/)
 
