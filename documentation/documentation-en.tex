@@ -47,7 +47,7 @@
 \thispagestyle{empty}
 
 \begin{centering} %% Displays an image and webpage url centered
-	Extremly fast visualization on any device.
+	Extremely fast visualization on any device.
 	\bigskip
 	\par
 	\bigskip
@@ -88,23 +88,21 @@
 
 
 \section{Introduction} %% First Section
-This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second. We really focused on the speed of visualization. This is why users enjoy using our dashboards at work to review company KPIs day by day. The usage of the dashboard is self explaining - so enduser training is not needed to understand the navigation path. 
+This dashboard loads data from a server via XHR requests and is able to visualize data in under 1 second. We really focused on the speed of visualization. This is why users enjoy using our dashboards at work to review company KPIs day by day. The usage of the dashboard is self explaining - so end user training is not needed to understand the navigation path. 
 \bigskip
 
-This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your styleguide.
+This documentation describes how to modify the data to fit your needs and how to change the skinning to meet your style guide.
 \bigskip
 
-The dashboard uses Angular. Makeing changes to files inside the src directory requires to compile the project and update the dist directory. See README.md file for details.
+The dashboard uses Angular. Making changes to files inside the src directory requires to compile the project and update the dist directory. See README.md file for details.
 \bigskip
 
-The dashboard has a config-file where we specify the data endpoints to fetch data from. If fetching data from theses endpoints fails, it falls back to search files in the assests/reports directory. 
+The dashboard has a config-file where we specify the data endpoints to fetch data from. If fetching data from these endpoints fails, it falls back to search files in the assets/reports directory. 
 \bigskip
 
-The dashboard is able to read saved report output from \href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}}. Which comes in handy as this dashboard uses the IBM Cognos REST API to just fetch the data and avoids to load the IBM Cognos Portal files reducing overhead to a minimum by focusing on speed and performance to visualize the raw data. Fetching data from \href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST APIs}} is of course not limited to IBM Cognos. We would be happy to know from which services or servers you load the dashboard data. See support chapter on how to contact us.
+The dashboard is able to read saved report output from \href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}}. Which comes in handy as this dashboard uses the IBM Cognos REST API to just fetch the data and avoids loading the IBM Cognos Portal files reducing overhead to a minimum by focusing on speed and performance to visualize the raw data. Fetching data from \href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST APIs}} is of course, not limited to IBM Cognos. We would be happy to know from which services or servers you load the dashboard data. See support chapter on how to contact us.
 
-\subsection{Dashboard's Main Page}
-
-The main page is divided in two parts. First we have the graphic, it is sorted by ticket type. Next, in the right part (If we are on desktop), or, in the bottom part (If we are on mobile), there are 4 tables with monthly information for each data type. It shows totals and percentages.\par
+\subsection{Dashboard's Main Page}The main page is divided in two parts. First we have the graphics, it is sorted by ticket type. Next, in the right side (If we are on desktop), or at the bottom (If we are on mobile), there are 4 chart tables with monthly information for each data type. It shows totals and percentages.\par
 \bigskip
 Experimental features can be enabled in the help section of the menu.
 
@@ -141,7 +139,7 @@ If you have a webserver up and running, you could also just copy the files from 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section{Prepare Skinning} %% Second Section
-In this section, we will see how to change the dashboard skinning to meet your styleguide.
+In this section, we will see how to change the dashboard skinning to meet your style guide.
 
 \subsection{Header}
 Header title, is edited in .src/app/components/ux/header/header.component.html.The original title is ``AMVARA Code Is Poetry'', in order to change the title we will edit both span:\par
@@ -231,7 +229,7 @@ Mid and right footer text, are edited in .src/app/components/ux/footer/footer.co
 		keepaspectratio,
 	  ]{footer-info}
 \end{center}
-Inside div class flexed, is located the middle text, the text shown will depend if it is accesed from a desktop or a mobile. Then we have the flexed version, that display the execution date and the version of the dashboard.\par
+Inside div class flexed, is located the middle text, the text shown will depend if it is accesed from a desktop or a mobile. Then we have the flexed version, that displays the execution date and the version of the dashboard.\par
 \newpage
 \subsection{Colors}
 Dasboard's colors, are edited in ./src/app/common/\_colors.scss.\par
@@ -311,7 +309,7 @@ If \textbf{you are not using IBM Cognos}, change ``protectedUrl'' to ``'' :
 
 \subsection{Configure IBM Cognos as datasource} 
 
-\color{redlink}\href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}} \color{black}is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{redlink}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API}} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help how to accomplish this, please contact us.
+\color{redlink}\href{https://www.ibm.com/products/cognos-analytics}{\textbf{IBM Cognos (aka IBM Analytics)}} \color{black}is a BI solution that can do it all: clean, connect, aggregate and visualize with enterprise security. What many developers like us appreciate a lot is the powerful \color{redlink}\href{https://www.ibm.com/support/knowledgecenter/SSEP7J_11.1.0/com.ibm.swg.ba.cognos.ca_api.doc/swagger_ca.json}{\textbf{REST API}} \color{black} exposed by swagger. This dashboard perfectly runs with IBM Cognos. It comes with integrated security prompts and can fetch data directly from saved report outputs. This dashboard is not capable of fetching data reports run interactively. If you are interested in doing so and need help on how to accomplish this, please contact us.
 \bigskip
 
 Configuring IBM Cognos is just as easy as configuring XHR, the only thing to do is specify the ``fullUrl'', the ``portalFolder'' and ``protectedUrl'' in config.json. ``protectedUrl'' is used by IBM Cognos to check if the user has access and is used to maintain the connection too. By default is ``v1/notifications'', but in case of doubt leave it empty.\par
