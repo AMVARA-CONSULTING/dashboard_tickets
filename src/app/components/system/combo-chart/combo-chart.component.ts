@@ -15,7 +15,9 @@ import {
     LineSeriesComponent,
     calculateViewDimensions,
     ViewDimensions,
-    ColorHelper
+    ColorHelper,
+    ScaleType,
+    LegendPosition
   } from '@swimlane/ngx-charts';
   import * as shape from 'd3-shape';
   import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
@@ -142,7 +144,7 @@ import {
     @Input() curve: any = shape.curveMonotoneX
     @Input() legend = false;
     @Input() legendTitle: string = 'Legend';
-    @Input() legendPosition: string = 'right';
+    @Input() legendPosition: LegendPosition = LegendPosition.Right
     @Input() xAxis;
     @Input() yAxis;
     @Input() showXAxisLabel;
@@ -155,7 +157,7 @@ import {
     @Input() gradient: boolean;
     @Input() showGridLines: boolean = true;
     @Input() activeEntries: any[] = [];
-    @Input() schemeType: string;
+    @Input() schemeType: ScaleType;
     @Input() xAxisTickFormatting: any;
     @Input() yAxisTickFormatting: any;
     @Input() yRightAxisTickFormatting: any;
