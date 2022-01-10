@@ -16,6 +16,13 @@ export class DataService {
   month: BehaviorSubject<Month>
   months = [...Array(12).keys()].map(i => {
     const date = subMonths(new Date(), i)
+
+    /*Files at assets/reports doesnt contain any data in range of year 2021 or 2022, so application doesnt show anything
+      We manually set date back to year 2020, in order to make demo presentable
+      NOTE! --- IN PRODUCTION THIS WILL PROVIDE WRONG INFORMATION, AS DATE IS FIXED AND WILL ALWAYS SHOW THE SAME INFO
+      THIS IS DEMO ONLY, DELETE IN PRODUCTION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    date.setFullYear(2020);
+
     return format(date, "yyyy'M'MM")
   })
   availableMonths = []
