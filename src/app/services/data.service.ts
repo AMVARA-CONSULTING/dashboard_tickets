@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Month } from '@other/interfaces';
 import { subMonths, format } from 'date-fns'
+import { isDevMode } from '@angular/core';
 
 @Injectable()
 export class DataService {
@@ -21,8 +22,9 @@ export class DataService {
       We manually set date back to year 2020, in order to make demo presentable
       NOTE! --- IN PRODUCTION THIS WILL PROVIDE WRONG INFORMATION, AS DATE IS FIXED AND WILL ALWAYS SHOW THE SAME INFO
       THIS IS DEMO ONLY, DELETE IN PRODUCTION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-    date.setFullYear(2020);
-
+    if (isDevMode()) {
+      date.setFullYear(2020);
+    }
     return format(date, "yyyy'M'MM")
   })
   availableMonths = []
