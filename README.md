@@ -8,7 +8,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Please see the [PDF file in documentation folder](documentation/documentation-en.pdf) for details on how to adapt the dashboard data and skinning to your needs.
 
-You can check the live demo [here](https://amvara-consulting.github.io/dashboard_tickets.github.io/#/)
+Check the [live demo](https://amvara-consulting.github.io/dashboard_tickets.github.io/#/)
 
 ## Installing
 
